@@ -1,0 +1,235 @@
+grammar org.xtext.ModuleDsl with org.eclipse.xtext.common.Terminals
+
+generate moduleDsl "http://www.xtext.org/ModuleDsl"
+
+import "http://www.eclipse.org/emf/2002/Ecore" as ecore
+
+LANGUAGE:
+	(modules += MODULE_DECL)+
+;
+
+/*
+ * Constraints: Module name must be unique, 
+ * If two "datasel" criteria are chosen, they must be distinct
+ */
+MODULE_DECL: 
+	'module' {MODULE_DECL} name = IDENT '{'
+			
+		(critdecl=CRITERION_DECL)	
+		(dataseldecl=DATASEL_DECL)	
+		(declaration += VAR_CST)* 
+		(instr+=INSTRUCTION)*
+		
+	'}'
+;
+
+CRITERION_DECL:
+	'@' 'criterion' ':' {CRITERION_DECL} (crit=CRITERION) end=END
+;
+
+DATASEL_DECL:
+	'@' 'datasel' ':' {DATASEL_DECL} (data1=DATASEL) (','data2=DATASEL)? end=END
+;
+
+END:
+	end=';'
+;
+
+/*
+ * Strategies to be used
+ */
+
+CRITERION:
+	crit= ('mcdc' | 'dc' | 'cc')
+;
+
+/*
+ * Data selection policy
+ */
+ 
+ DATASEL:
+	sel = ('rand' | 'eqv' | 'bv')
+;
+
+
+/*
+ * variables macros and instructions declaration
+ */
+ 
+VAR_CST:
+	(VAR | CST)
+;
+
+/**
+ * Variables declaration
+ * Constraints: bool variable has no range
+ * enum variable must enable a set of values
+ * enum and string variables supports Set Range only
+ */
+
+VAR:
+	{VAR} flow=Flow name=IDENT ':' type=TYPE (range=RANGE)? end=END
+;
+
+Flow:
+	flow=('in' | 'out' | 'inout' | 'tmp') 
+;
+
+/*
+ * Constant Values declaration
+ */
+
+CST:
+	{CST} flow='cst' name=IDENT '==' type=TYPE '(' value=Literal ')' end=END
+;
+
+TYPE:
+	type= ('int' | 'real' | 'bool' | 'enum' | 'bit' | 'hex' | 'str')
+;
+
+RANGE:
+	INTERVAL | LSET
+;
+
+INTERVAL:
+	lsqbr=(']' | '[')  min=Literal '..' max=Literal  rsqbr=(']' | '[')
+;
+
+LSET:
+	'{' (value+=Literal) (',' value+=Literal)* '}'
+;
+
+Literal:
+	{intLITERAL}  value=INTEGER      |
+	{realLITERAL} value=DECIMAL 	 |
+	{boolLITERAL} value=BOOLEAN 	 |
+	{strLITERAL}  value=STRING 	   	 |
+	{enumLITERAL} value=ENUM_ELEMENT |
+	{bitLITERAL}  value=BIT          |
+	{hexLITERAL}  value=HEX          |
+	{identLITERAL} value =IDENT		 |
+	{unknowLITERAL}  value='?'
+;
+
+
+/*
+ * Instructions declaration
+ */
+ 
+INSTRUCTION:
+	IF_INSTR | LOOP_INSTR | ASSIGN_INSTR | ERROR_INSTR | NULL_INSTR
+;
+
+IF_INSTR:
+	'(' condInstr=EXPRESSION ')' '=>' '{' ifst=INSTRUCTION '}'
+	 (=> 'else' '=>'? '{' elst= INSTRUCTION '}')
+;
+
+LOOP_INSTR:
+	val=INT 'tata' 
+;
+
+ERROR_INSTR:
+	'error'{ERROR_ASSIGN} end=END
+;
+
+NULL_INSTR:
+	'null'{NULL_ASSIGN} end=END
+;
+
+ASSIGN_INSTR:
+	( sa+=SINGLE_ASSIGN) (','sa+=SINGLE_ASSIGN)* end=END
+; 
+
+/*
+ * Constraint: An enum var should not be used in "var_cst" 
+ * Constraint: the left side variable of a SINGLE_ASSIGN should be either an "out" or "temp" or "inout" variables
+ * Constraint: the right side variables or values of a SINGLE_ASSIGN should be either an "in" or "temp" variables
+ * Remarks:  Alternative 1 and 3 may be in conflict, In that case the alt. 1 is chosen
+ * Alternative 2 and 3 may be in conflict, In that case the alt. 2 is chosen
+ */ 
+ 
+SINGLE_ASSIGN:
+	  var=[VAR_CST|IDENT] '=' exp=EXPRESSION
+;
+
+/*
+ * Expression grammar 
+ */ 
+ 
+EXPRESSION:
+	 OR
+;
+
+OR returns EXPRESSION:
+	 AND ( {OR.left=current} 'or' right=AND )*
+;
+
+AND returns EXPRESSION:
+	 EQUAL_DIFF ( {AND.left=current} 'and' right=EQUAL_DIFF)*
+;
+
+EQUAL_DIFF returns EXPRESSION:
+	COMPARISON ( {EQUAL_DIFF.left=current} op=('==' | '!=') right=COMPARISON)* 
+;
+
+COMPARISON returns EXPRESSION:
+	ADD_SUB ({COMPARISON.left=current} op=('<' | '<=' | '>' | '>=') right=ADD_SUB )*
+;
+
+ADD_SUB returns EXPRESSION:
+	MULT_DIV (({Plus.left=current} '+' | {Sub.left=current} '-') right=MULT_DIV)*
+;
+
+MULT_DIV returns EXPRESSION:
+	strREDUCTION (({Multi.left=current} '*' | {Div.left=current} '/') right=strREDUCTION)*
+;
+
+strREDUCTION returns EXPRESSION:
+	PrimaryExpression ({strREDUCTION.left=current} op= ('.CharAt') '(' pos=PrimaryExpression ')')*
+;
+
+PrimaryExpression returns EXPRESSION:
+	'(' EXPRESSION ')' | {NOT} 'not' exp=PrimaryExpression | Atomic
+;
+
+Atomic returns EXPRESSION:
+	 {intConstant}  value=INTEGER      | 
+	 {realConstant} value=DECIMAL      | 
+	 {strConstant}  value=STRING   	   | 
+	 {enumConstant} value=ENUM_ELEMENT |
+	 {boolConstant} value=BOOLEAN	   | 
+	 {VarExpRef}  vref=[VAR_CST|IDENT] 
+;
+
+DECIMAL returns ecore::EDouble :
+	('-')? INT ('.' INT)
+;
+
+INTEGER returns ecore::EInt: 
+	('-')? INT
+;
+
+/*
+ * terminals declaration
+ */
+ 
+terminal ENUM_ELEMENT returns ecore::EString:
+	'_'IDENT
+;
+
+terminal BOOLEAN returns ecore::EBoolean:
+	'true' | 'false'
+;
+
+terminal HEX returns ecore::EString:
+	'0x' ('0'.. '9' | 'A' .. 'F')+
+;
+
+terminal IDENT returns ecore::EString:
+	('a'..'z'|'A'..'Z') ('a'..'z'|'A'..'Z'|'_'|'0'..'9')*
+;
+
+terminal BIT returns ecore::EString:
+	'$'('0' | '1')+ 
+;
