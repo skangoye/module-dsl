@@ -126,7 +126,7 @@ IF_INSTR:
 ;
 
 LOOP_INSTR:
-	val=INT 'tata' 
+	'loop' '(' val=INT')'
 ;
 
 ERROR_INSTR:
