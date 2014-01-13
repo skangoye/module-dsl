@@ -3,13 +3,15 @@
  */
  
 package org.xtext.validation
+
+import org.xtext.types.*
 import org.eclipse.xtext.validation.Check
 import org.xtext.moduleDsl.*
 import java.lang.*
 import static extension org.eclipse.emf.ecore.util.EcoreUtil.*
 import static extension org.eclipse.xtext.EcoreUtil2.*
-
-//import org.eclipse.xtext.validation.Check
+import com.google.inject.Inject
+import org.eclipse.emf.ecore.EReference
 
 /**
  * Custom validation rules. 
@@ -17,7 +19,7 @@ import static extension org.eclipse.xtext.EcoreUtil2.*
  * see http://www.eclipse.org/Xtext/documentation.html#validation
  */
 class ModuleDslValidator extends AbstractModuleDslValidator {
-
+	
 public static val INVALID_NAME = 'invalidName'  
 public static val INVALID_INPUT = 'invalidInput'  
 	
@@ -461,6 +463,79 @@ public static val INVALID_INPUT = 'invalidInput'
 				}
 			}
 		}
+	 }
+	 
+	 @Inject extension ExpressionsTypeProvider
+	 
+	 
+	 def private String getNonNullType(EXPRESSION exp, EReference ref){
+	 	var type = exp?.typeFor
+	 	if(type == null){
+	 		error("null type", ref)
+	 	}
+	 	return type
+	 }
+	 
+	 def private checkExpectedBoolean(EXPRESSION exp, EReference ref){
+	 	checkExpectedType(exp, ExpressionsTypeProvider::boolType,ref)
+	 }
+	 
+	 def private checkExpectedInt(EXPRESSION exp, EReference ref){
+	 	checkExpectedType(exp, ExpressionsTypeProvider::intType,ref)
+	 }
+	 
+	 def private checkExpectedReal(EXPRESSION exp, EReference ref){
+	 	checkExpectedType(exp, ExpressionsTypeProvider::realType,ref)
+	 }
+	 
+	 def private checkExpectedStr(EXPRESSION exp, EReference ref){
+	 	checkExpectedType(exp, ExpressionsTypeProvider::strType,ref)
+	 }
+	 
+	 def private checkExpectedHex(EXPRESSION exp, EReference ref){
+	 	checkExpectedType(exp, ExpressionsTypeProvider::hexType,ref)
+	 }
+	 
+	 def private checkExpectedBit(EXPRESSION exp, EReference ref){
+	 	checkExpectedType(exp, ExpressionsTypeProvider::bitType,ref)
+	 }
+	 
+	 def private checkExpectedType(EXPRESSION exp, String expectedType,EReference ref){
+	 	val actualType = getNonNullType(exp,ref)
+	 	if(actualType != expectedType){
+	 		error("expected " + expectedType + " type, but was "+ actualType, ref)
+	 	}
+	 }
+	 
+	 @Check
+	 def checkType(NOT not){
+	 	checkExpectedBoolean(not.exp, ModuleDslPackage.Literals.NOT__EXP)
+	 }
+	 
+	 @Check
+	 def checkType(AND and){
+	 	checkExpectedBoolean(and.left, ModuleDslPackage.Literals.AND__LEFT)
+	 	checkExpectedBoolean(and.right, ModuleDslPackage.Literals.AND__RIGHT)
+	 }
+	 
+	 @Check
+	 def checkType(OR or){
+	 	checkExpectedBoolean(or.left, ModuleDslPackage.Literals.OR__LEFT)
+	 	checkExpectedBoolean(or.right, ModuleDslPackage.Literals.OR__RIGHT)
+	 }
+	 
+	 
+	 def private checkExpectedSame(String leftType, String rightType){
+	 	if(leftType != null && rightType!= null && leftType != rightType){
+	 		//error("expected the same type, but was " + leftType+ ", " + rightType, )
+	 	}
+	 }
+	 
+	 @Check
+	 def checkType(MULT mult){
+	 	//val type = getNonNullType(mult, ref)
+	 	//checkExpectedBoolean(or.left, ModuleDslPackage.Literals.OR__LEFT)
+	 	//checkExpectedBoolean(or.right, ModuleDslPackage.Literals.OR__RIGHT)
 	 }
 	 
 	 

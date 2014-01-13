@@ -178,11 +178,11 @@ COMPARISON returns EXPRESSION:
 ;
 
 ADD_SUB returns EXPRESSION:
-	MULT_DIV (({Plus.left=current} '+' | {Sub.left=current} '-') right=MULT_DIV)*
+	MULT_DIV (({ADD.left=current} '+' | {SUB.left=current} '-') right=MULT_DIV)*
 ;
 
 MULT_DIV returns EXPRESSION:
-	PrimaryExpression (({Multi.left=current} '*' | {Div.left=current} '/') right=PrimaryExpression)*
+	PrimaryExpression (({MULT.left=current} '*' | {DIV.left=current} '/') right=PrimaryExpression)*
 ;
 
 PrimaryExpression returns EXPRESSION:
@@ -194,7 +194,9 @@ Atomic returns EXPRESSION:
 	 {realConstant} value=DECIMAL      | 
 	 {strConstant}  value=STRING   	   | 
 	 {enumConstant} value=ENUM_ELEMENT |
-	 {boolConstant} value=BOOLEAN	   | 
+	 {boolConstant} value=BOOLEAN 	   |
+	 {bitConstant}	value=BIT   	   | 
+	 {hexConstant}	value=HEX		   |
 	 {VarExpRef}  vref=[VAR_CST|IDENT] 
 ;
 
