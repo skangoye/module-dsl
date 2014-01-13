@@ -121,7 +121,7 @@ INSTRUCTION:
 ;
 
 IF_INSTR:
-	'(' condInstr=EXPRESSION ')' '=>' '{' ifst=INSTRUCTION '}'
+	'(' ifcond=EXPRESSION ')' '=>' '{' ifst=INSTRUCTION '}'
 	 (=> 'else' '=>'? '{' elst= INSTRUCTION '}')
 ;
 
@@ -182,11 +182,7 @@ ADD_SUB returns EXPRESSION:
 ;
 
 MULT_DIV returns EXPRESSION:
-	strREDUCTION (({Multi.left=current} '*' | {Div.left=current} '/') right=strREDUCTION)*
-;
-
-strREDUCTION returns EXPRESSION:
-	PrimaryExpression ({strREDUCTION.left=current} op= ('.CharAt') '(' pos=PrimaryExpression ')')*
+	PrimaryExpression (({Multi.left=current} '*' | {Div.left=current} '/') right=PrimaryExpression)*
 ;
 
 PrimaryExpression returns EXPRESSION:
