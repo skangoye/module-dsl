@@ -480,6 +480,12 @@ public static val INVALID_INPUT = 'invalidInput'
 	 	checkExpectedType(exp, ExpressionsTypeProvider::boolType,ref)
 	 }
 	 
+	 def private checkNotBoolean(String type, EReference ref){
+	 	if (type == ExpressionsTypeProvider::boolType){
+	 		error("cannot be boolean", ref)
+	 	}
+	 }
+	 
 	 def private checkExpectedInt(EXPRESSION exp, EReference ref){
 	 	checkExpectedType(exp, ExpressionsTypeProvider::intType,ref)
 	 }
@@ -492,18 +498,54 @@ public static val INVALID_INPUT = 'invalidInput'
 	 	checkExpectedType(exp, ExpressionsTypeProvider::strType,ref)
 	 }
 	 
+	 def private checkNotString(String type, EReference ref){
+	 	if (type == ExpressionsTypeProvider::strType){
+	 		error("cannot be string", ref)
+	 	}
+	 }
+	 
 	 def private checkExpectedHex(EXPRESSION exp, EReference ref){
 	 	checkExpectedType(exp, ExpressionsTypeProvider::hexType,ref)
+	 }
+	 
+	 def private checkNotHex(String type, EReference ref){
+	 	if (type == ExpressionsTypeProvider::hexType){
+	 		error("cannot be hexadecimal", ref)
+	 	}
 	 }
 	 
 	 def private checkExpectedBit(EXPRESSION exp, EReference ref){
 	 	checkExpectedType(exp, ExpressionsTypeProvider::bitType,ref)
 	 }
 	 
+	 def private checkNotBit(String type, EReference ref){
+	 	if (type == ExpressionsTypeProvider::bitType){
+	 		error("cannot be bit", ref)
+	 	}
+	 }
+	 
+	 def private checkNotEnum(String type, EReference ref){
+	 	if (type == ExpressionsTypeProvider::boolType){
+	 		error("cannot be enumeration", ref)
+	 	}
+	 }
+	 
+	 def private checkNotIntandNotReal(String type, EReference ref){
+	 	if (type != ExpressionsTypeProvider::intType && type != ExpressionsTypeProvider::realType ){
+	 		error("expected intType or realType, but was "+ type, ref)
+	 	}
+	 }
+	 
 	 def private checkExpectedType(EXPRESSION exp, String expectedType,EReference ref){
 	 	val actualType = getNonNullType(exp,ref)
 	 	if(actualType != expectedType){
 	 		error("expected " + expectedType + " type, but was "+ actualType, ref)
+	 	}
+	 }
+	 
+	 def private checkExpectedSame(String leftType, String rightType){
+	 	if(leftType != null && rightType!= null && leftType != rightType){
+	 		error("expected the same type, but was " + leftType+ ", " + rightType, null)
 	 	}
 	 }
 	 
@@ -524,18 +566,77 @@ public static val INVALID_INPUT = 'invalidInput'
 	 	checkExpectedBoolean(or.right, ModuleDslPackage.Literals.OR__RIGHT)
 	 }
 	 
-	 
-	 def private checkExpectedSame(String leftType, String rightType){
-	 	if(leftType != null && rightType!= null && leftType != rightType){
-	 		//error("expected the same type, but was " + leftType+ ", " + rightType, )
-	 	}
+	 @Check
+	 def checkType(MULT mult){
+	 	val leftType = getNonNullType(mult.left, ModuleDslPackage.Literals.MULT__LEFT)
+	 	val rightType = getNonNullType(mult.right, ModuleDslPackage.Literals.MULT__RIGHT)
+	 	
+	 	checkNotIntandNotReal(leftType, ModuleDslPackage.Literals.MULT__LEFT)
+	 	checkNotIntandNotReal(rightType, ModuleDslPackage.Literals.MULT__RIGHT)
 	 }
 	 
 	 @Check
-	 def checkType(MULT mult){
-	 	//val type = getNonNullType(mult, ref)
-	 	//checkExpectedBoolean(or.left, ModuleDslPackage.Literals.OR__LEFT)
-	 	//checkExpectedBoolean(or.right, ModuleDslPackage.Literals.OR__RIGHT)
+	 def checkType(DIV div){
+	 	val leftType = getNonNullType(div.left, ModuleDslPackage.Literals.DIV__LEFT)
+	 	val rightType = getNonNullType(div.right, ModuleDslPackage.Literals.DIV__RIGHT)
+	 	
+	 	checkNotIntandNotReal(leftType, ModuleDslPackage.Literals.DIV__LEFT)
+	 	checkNotIntandNotReal(rightType, ModuleDslPackage.Literals.DIV__RIGHT)
+	 }
+	 
+	 @Check
+	 def checkType(SUB sub){
+	 	val leftType = getNonNullType(sub.left, ModuleDslPackage.Literals.SUB__LEFT)
+	 	val rightType = getNonNullType(sub.right, ModuleDslPackage.Literals.SUB__RIGHT)
+	 	
+ 		checkNotIntandNotReal(leftType, ModuleDslPackage.Literals.SUB__LEFT)
+	 	checkNotIntandNotReal(rightType, ModuleDslPackage.Literals.SUB__RIGHT)
+	 }
+	 
+	 @Check
+	 def checkType(COMPARISON comp){
+	 	val leftType = getNonNullType(comp.left, ModuleDslPackage.Literals.COMPARISON__LEFT)
+	 	val rightType = getNonNullType(comp.right, ModuleDslPackage.Literals.COMPARISON__RIGHT)
+	 	
+	 	checkExpectedSame(leftType, rightType)
+	 	
+	 	checkNotBoolean(leftType, ModuleDslPackage.Literals.COMPARISON__LEFT)
+	 	checkNotBoolean(rightType, ModuleDslPackage.Literals.COMPARISON__RIGHT)
+	 	
+	 	checkNotString(leftType, ModuleDslPackage.Literals.COMPARISON__LEFT)
+	 	checkNotString(rightType, ModuleDslPackage.Literals.COMPARISON__RIGHT)
+	 	
+	 	checkNotEnum(leftType, ModuleDslPackage.Literals.COMPARISON__LEFT)
+	 	checkNotEnum(rightType, ModuleDslPackage.Literals.COMPARISON__RIGHT)
+	 }
+	 
+	 @Check
+	 def checkType(EQUAL_DIFF eqdif){
+	 	val leftType = getNonNullType(eqdif.left, ModuleDslPackage.Literals.EQUAL_DIFF__LEFT)
+	 	val rightType = getNonNullType(eqdif.right, ModuleDslPackage.Literals.EQUAL_DIFF__RIGHT)
+	 	
+	 	checkExpectedSame(leftType, rightType)
+	 }
+	 
+	 @Check
+	 def checkType(ADD add){
+	 	val leftType = getNonNullType(add.left, ModuleDslPackage.Literals.EQUAL_DIFF__LEFT)
+	 	val rightType = getNonNullType(add.right, ModuleDslPackage.Literals.EQUAL_DIFF__RIGHT)
+	 	
+	 	if ( (leftType == ExpressionsTypeProvider::intType || leftType == ExpressionsTypeProvider::realType)
+	 		&& (rightType == ExpressionsTypeProvider::intType || rightType == ExpressionsTypeProvider::realType) ) {
+	 		return
+	 	}
+	 	else {
+	 		checkNotBoolean(leftType, ModuleDslPackage.Literals.ADD__LEFT)
+	 		checkNotBoolean(rightType, ModuleDslPackage.Literals.ADD__RIGHT)
+	 		
+	 		checkNotEnum(leftType, ModuleDslPackage.Literals.ADD__LEFT)
+	 		checkNotEnum(rightType, ModuleDslPackage.Literals.ADD__RIGHT)
+	 		
+	 		checkExpectedSame(leftType, rightType)
+	 	}
+	 	
 	 }
 	 
 	 

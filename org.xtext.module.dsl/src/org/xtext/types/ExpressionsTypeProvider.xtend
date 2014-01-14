@@ -40,7 +40,7 @@ class ExpressionsTypeProvider {
 			return intType
 		}
 		else{
-			if (leftType == realType && rightType == realType){
+			if (leftType == realType && rightType == intType || leftType == intType && rightType == realType){
 				return realType
 			}
 			else{
@@ -57,7 +57,7 @@ class ExpressionsTypeProvider {
 			return intType
 		}
 		else{
-			if (leftType == realType && rightType == realType){
+			if (leftType == realType && rightType == intType || leftType == intType && rightType == realType){
 				return realType
 			}
 			else{
@@ -74,7 +74,7 @@ class ExpressionsTypeProvider {
 			return intType
 		}
 		else{
-			if (leftType == realType && rightType == realType){
+			if (leftType == realType && rightType == intType || leftType == intType && rightType == realType){
 				return realType
 			}
 			else{
@@ -91,7 +91,7 @@ class ExpressionsTypeProvider {
 			return intType
 		}
 		else{
-			if (leftType == realType && rightType == realType){
+			if (leftType == realType && rightType == intType || leftType == intType && rightType == realType){
 				return realType
 			}
 			else{
