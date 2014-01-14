@@ -86,8 +86,12 @@
   <eClassifiers xsi:type="ecore:EClass" name="LOOP_INSTR" eSuperTypes="#//INSTRUCTION">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="val" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="ERROR_INSTR" eSuperTypes="#//INSTRUCTION"/>
-  <eClassifiers xsi:type="ecore:EClass" name="NULL_INSTR" eSuperTypes="#//INSTRUCTION"/>
+  <eClassifiers xsi:type="ecore:EClass" name="ERROR_INSTR" eSuperTypes="#//INSTRUCTION">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="end" eType="#//END" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="NULL_INSTR" eSuperTypes="#//INSTRUCTION">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="end" eType="#//END" containment="true"/>
+  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ASSIGN_INSTR" eSuperTypes="#//INSTRUCTION">
     <eStructuralFeatures xsi:type="ecore:EReference" name="sa" upperBound="-1" eType="#//SINGLE_ASSIGN"
         containment="true"/>
@@ -125,12 +129,6 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="unknowLITERAL" eSuperTypes="#//Literal">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="ERROR_ASSIGN" eSuperTypes="#//ERROR_INSTR">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="end" eType="#//END" containment="true"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="NULL_ASSIGN" eSuperTypes="#//NULL_INSTR">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="end" eType="#//END" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="OR" eSuperTypes="#//EXPRESSION">
     <eStructuralFeatures xsi:type="ecore:EReference" name="left" eType="#//EXPRESSION"

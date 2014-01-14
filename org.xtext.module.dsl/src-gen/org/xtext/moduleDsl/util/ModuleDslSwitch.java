@@ -321,24 +321,6 @@ public class ModuleDslSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
-      case ModuleDslPackage.ERROR_ASSIGN:
-      {
-        ERROR_ASSIGN erroR_ASSIGN = (ERROR_ASSIGN)theEObject;
-        T result = caseERROR_ASSIGN(erroR_ASSIGN);
-        if (result == null) result = caseERROR_INSTR(erroR_ASSIGN);
-        if (result == null) result = caseINSTRUCTION(erroR_ASSIGN);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
-      case ModuleDslPackage.NULL_ASSIGN:
-      {
-        NULL_ASSIGN nulL_ASSIGN = (NULL_ASSIGN)theEObject;
-        T result = caseNULL_ASSIGN(nulL_ASSIGN);
-        if (result == null) result = caseNULL_INSTR(nulL_ASSIGN);
-        if (result == null) result = caseINSTRUCTION(nulL_ASSIGN);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
       case ModuleDslPackage.OR:
       {
         OR or = (OR)theEObject;
@@ -1003,38 +985,6 @@ public class ModuleDslSwitch<T> extends Switch<T>
    * @generated
    */
   public T caseunknowLITERAL(unknowLITERAL object)
-  {
-    return null;
-  }
-
-  /**
-   * Returns the result of interpreting the object as an instance of '<em>ERROR ASSIGN</em>'.
-   * <!-- begin-user-doc -->
-   * This implementation returns null;
-   * returning a non-null result will terminate the switch.
-   * <!-- end-user-doc -->
-   * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>ERROR ASSIGN</em>'.
-   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-   * @generated
-   */
-  public T caseERROR_ASSIGN(ERROR_ASSIGN object)
-  {
-    return null;
-  }
-
-  /**
-   * Returns the result of interpreting the object as an instance of '<em>NULL ASSIGN</em>'.
-   * <!-- begin-user-doc -->
-   * This implementation returns null;
-   * returning a non-null result will terminate the switch.
-   * <!-- end-user-doc -->
-   * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>NULL ASSIGN</em>'.
-   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-   * @generated
-   */
-  public T caseNULL_ASSIGN(NULL_ASSIGN object)
   {
     return null;
   }

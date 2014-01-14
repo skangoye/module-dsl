@@ -1029,23 +1029,23 @@ public class ModuleDslGrammarAccess extends AbstractGrammarElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "ERROR_INSTR");
 		private final Group cGroup = (Group)rule.eContents().get(1);
 		private final Keyword cErrorKeyword_0 = (Keyword)cGroup.eContents().get(0);
-		private final Action cERROR_ASSIGNAction_1 = (Action)cGroup.eContents().get(1);
+		private final Action cERROR_INSTRAction_1 = (Action)cGroup.eContents().get(1);
 		private final Assignment cEndAssignment_2 = (Assignment)cGroup.eContents().get(2);
 		private final RuleCall cEndENDParserRuleCall_2_0 = (RuleCall)cEndAssignment_2.eContents().get(0);
 		
 		//ERROR_INSTR:
 		//
-		//	"error" {ERROR_ASSIGN} end=END;
+		//	"error" {ERROR_INSTR} end=END;
 		public ParserRule getRule() { return rule; }
 
-		//"error" {ERROR_ASSIGN} end=END
+		//"error" {ERROR_INSTR} end=END
 		public Group getGroup() { return cGroup; }
 
 		//"error"
 		public Keyword getErrorKeyword_0() { return cErrorKeyword_0; }
 
-		//{ERROR_ASSIGN}
-		public Action getERROR_ASSIGNAction_1() { return cERROR_ASSIGNAction_1; }
+		//{ERROR_INSTR}
+		public Action getERROR_INSTRAction_1() { return cERROR_INSTRAction_1; }
 
 		//end=END
 		public Assignment getEndAssignment_2() { return cEndAssignment_2; }
@@ -1058,23 +1058,23 @@ public class ModuleDslGrammarAccess extends AbstractGrammarElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "NULL_INSTR");
 		private final Group cGroup = (Group)rule.eContents().get(1);
 		private final Keyword cNullKeyword_0 = (Keyword)cGroup.eContents().get(0);
-		private final Action cNULL_ASSIGNAction_1 = (Action)cGroup.eContents().get(1);
+		private final Action cNULL_INSTRAction_1 = (Action)cGroup.eContents().get(1);
 		private final Assignment cEndAssignment_2 = (Assignment)cGroup.eContents().get(2);
 		private final RuleCall cEndENDParserRuleCall_2_0 = (RuleCall)cEndAssignment_2.eContents().get(0);
 		
 		//NULL_INSTR:
 		//
-		//	"null" {NULL_ASSIGN} end=END;
+		//	"null" {NULL_INSTR} end=END;
 		public ParserRule getRule() { return rule; }
 
-		//"null" {NULL_ASSIGN} end=END
+		//"null" {NULL_INSTR} end=END
 		public Group getGroup() { return cGroup; }
 
 		//"null"
 		public Keyword getNullKeyword_0() { return cNullKeyword_0; }
 
-		//{NULL_ASSIGN}
-		public Action getNULL_ASSIGNAction_1() { return cNULL_ASSIGNAction_1; }
+		//{NULL_INSTR}
+		public Action getNULL_INSTRAction_1() { return cNULL_INSTRAction_1; }
 
 		//end=END
 		public Assignment getEndAssignment_2() { return cEndAssignment_2; }
@@ -2082,7 +2082,7 @@ public class ModuleDslGrammarAccess extends AbstractGrammarElementFinder {
 
 	//ERROR_INSTR:
 	//
-	//	"error" {ERROR_ASSIGN} end=END;
+	//	"error" {ERROR_INSTR} end=END;
 	public ERROR_INSTRElements getERROR_INSTRAccess() {
 		return (pERROR_INSTR != null) ? pERROR_INSTR : (pERROR_INSTR = new ERROR_INSTRElements());
 	}
@@ -2093,7 +2093,7 @@ public class ModuleDslGrammarAccess extends AbstractGrammarElementFinder {
 
 	//NULL_INSTR:
 	//
-	//	"null" {NULL_ASSIGN} end=END;
+	//	"null" {NULL_INSTR} end=END;
 	public NULL_INSTRElements getNULL_INSTRAccess() {
 		return (pNULL_INSTR != null) ? pNULL_INSTR : (pNULL_INSTR = new NULL_INSTRElements());
 	}

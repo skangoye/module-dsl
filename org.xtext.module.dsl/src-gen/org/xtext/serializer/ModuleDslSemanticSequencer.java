@@ -25,7 +25,7 @@ import org.xtext.moduleDsl.DATASEL_DECL;
 import org.xtext.moduleDsl.DIV;
 import org.xtext.moduleDsl.END;
 import org.xtext.moduleDsl.EQUAL_DIFF;
-import org.xtext.moduleDsl.ERROR_ASSIGN;
+import org.xtext.moduleDsl.ERROR_INSTR;
 import org.xtext.moduleDsl.Flow;
 import org.xtext.moduleDsl.IF_INSTR;
 import org.xtext.moduleDsl.INTERVAL;
@@ -36,7 +36,7 @@ import org.xtext.moduleDsl.MODULE_DECL;
 import org.xtext.moduleDsl.MULT;
 import org.xtext.moduleDsl.ModuleDslPackage;
 import org.xtext.moduleDsl.NOT;
-import org.xtext.moduleDsl.NULL_ASSIGN;
+import org.xtext.moduleDsl.NULL_INSTR;
 import org.xtext.moduleDsl.OR;
 import org.xtext.moduleDsl.SINGLE_ASSIGN;
 import org.xtext.moduleDsl.SUB;
@@ -218,10 +218,10 @@ public class ModuleDslSemanticSequencer extends AbstractDelegatingSemanticSequen
 					return; 
 				}
 				else break;
-			case ModuleDslPackage.ERROR_ASSIGN:
+			case ModuleDslPackage.ERROR_INSTR:
 				if(context == grammarAccess.getERROR_INSTRRule() ||
 				   context == grammarAccess.getINSTRUCTIONRule()) {
-					sequence_ERROR_INSTR(context, (ERROR_ASSIGN) semanticObject); 
+					sequence_ERROR_INSTR(context, (ERROR_INSTR) semanticObject); 
 					return; 
 				}
 				else break;
@@ -313,10 +313,10 @@ public class ModuleDslSemanticSequencer extends AbstractDelegatingSemanticSequen
 					return; 
 				}
 				else break;
-			case ModuleDslPackage.NULL_ASSIGN:
+			case ModuleDslPackage.NULL_INSTR:
 				if(context == grammarAccess.getINSTRUCTIONRule() ||
 				   context == grammarAccess.getNULL_INSTRRule()) {
-					sequence_NULL_INSTR(context, (NULL_ASSIGN) semanticObject); 
+					sequence_NULL_INSTR(context, (NULL_INSTR) semanticObject); 
 					return; 
 				}
 				else break;
@@ -921,10 +921,10 @@ public class ModuleDslSemanticSequencer extends AbstractDelegatingSemanticSequen
 	 * Constraint:
 	 *     end=END
 	 */
-	protected void sequence_ERROR_INSTR(EObject context, ERROR_ASSIGN semanticObject) {
+	protected void sequence_ERROR_INSTR(EObject context, ERROR_INSTR semanticObject) {
 		if(errorAcceptor != null) {
-			if(transientValues.isValueTransient(semanticObject, ModuleDslPackage.Literals.ERROR_ASSIGN__END) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ModuleDslPackage.Literals.ERROR_ASSIGN__END));
+			if(transientValues.isValueTransient(semanticObject, ModuleDslPackage.Literals.ERROR_INSTR__END) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ModuleDslPackage.Literals.ERROR_INSTR__END));
 		}
 		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
 		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
@@ -1210,10 +1210,10 @@ public class ModuleDslSemanticSequencer extends AbstractDelegatingSemanticSequen
 	 * Constraint:
 	 *     end=END
 	 */
-	protected void sequence_NULL_INSTR(EObject context, NULL_ASSIGN semanticObject) {
+	protected void sequence_NULL_INSTR(EObject context, NULL_INSTR semanticObject) {
 		if(errorAcceptor != null) {
-			if(transientValues.isValueTransient(semanticObject, ModuleDslPackage.Literals.NULL_ASSIGN__END) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ModuleDslPackage.Literals.NULL_ASSIGN__END));
+			if(transientValues.isValueTransient(semanticObject, ModuleDslPackage.Literals.NULL_INSTR__END) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ModuleDslPackage.Literals.NULL_INSTR__END));
 		}
 		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
 		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);

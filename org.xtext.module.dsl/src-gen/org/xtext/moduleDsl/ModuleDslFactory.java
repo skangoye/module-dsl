@@ -320,24 +320,6 @@ public interface ModuleDslFactory extends EFactory
   unknowLITERAL createunknowLITERAL();
 
   /**
-   * Returns a new object of class '<em>ERROR ASSIGN</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>ERROR ASSIGN</em>'.
-   * @generated
-   */
-  ERROR_ASSIGN createERROR_ASSIGN();
-
-  /**
-   * Returns a new object of class '<em>NULL ASSIGN</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>NULL ASSIGN</em>'.
-   * @generated
-   */
-  NULL_ASSIGN createNULL_ASSIGN();
-
-  /**
    * Returns a new object of class '<em>OR</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->

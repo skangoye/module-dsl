@@ -275,20 +275,6 @@ public class ModuleDslPackageImpl extends EPackageImpl implements ModuleDslPacka
    * <!-- end-user-doc -->
    * @generated
    */
-  private EClass erroR_ASSIGNEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  private EClass nulL_ASSIGNEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   private EClass orEClass = null;
 
   /**
@@ -1001,9 +987,29 @@ public class ModuleDslPackageImpl extends EPackageImpl implements ModuleDslPacka
    * <!-- end-user-doc -->
    * @generated
    */
+  public EReference getERROR_INSTR_End()
+  {
+    return (EReference)erroR_INSTREClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EClass getNULL_INSTR()
   {
     return nulL_INSTREClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getNULL_INSTR_End()
+  {
+    return (EReference)nulL_INSTREClass.getEStructuralFeatures().get(0);
   }
 
   /**
@@ -1254,46 +1260,6 @@ public class ModuleDslPackageImpl extends EPackageImpl implements ModuleDslPacka
   public EAttribute getunknowLITERAL_Value()
   {
     return (EAttribute)unknowLITERALEClass.getEStructuralFeatures().get(0);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EClass getERROR_ASSIGN()
-  {
-    return erroR_ASSIGNEClass;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getERROR_ASSIGN_End()
-  {
-    return (EReference)erroR_ASSIGNEClass.getEStructuralFeatures().get(0);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EClass getNULL_ASSIGN()
-  {
-    return nulL_ASSIGNEClass;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getNULL_ASSIGN_End()
-  {
-    return (EReference)nulL_ASSIGNEClass.getEStructuralFeatures().get(0);
   }
 
   /**
@@ -1838,8 +1804,10 @@ public class ModuleDslPackageImpl extends EPackageImpl implements ModuleDslPacka
     createEAttribute(looP_INSTREClass, LOOP_INSTR__VAL);
 
     erroR_INSTREClass = createEClass(ERROR_INSTR);
+    createEReference(erroR_INSTREClass, ERROR_INSTR__END);
 
     nulL_INSTREClass = createEClass(NULL_INSTR);
+    createEReference(nulL_INSTREClass, NULL_INSTR__END);
 
     assigN_INSTREClass = createEClass(ASSIGN_INSTR);
     createEReference(assigN_INSTREClass, ASSIGN_INSTR__SA);
@@ -1877,12 +1845,6 @@ public class ModuleDslPackageImpl extends EPackageImpl implements ModuleDslPacka
 
     unknowLITERALEClass = createEClass(UNKNOW_LITERAL);
     createEAttribute(unknowLITERALEClass, UNKNOW_LITERAL__VALUE);
-
-    erroR_ASSIGNEClass = createEClass(ERROR_ASSIGN);
-    createEReference(erroR_ASSIGNEClass, ERROR_ASSIGN__END);
-
-    nulL_ASSIGNEClass = createEClass(NULL_ASSIGN);
-    createEReference(nulL_ASSIGNEClass, NULL_ASSIGN__END);
 
     orEClass = createEClass(OR);
     createEReference(orEClass, OR__LEFT);
@@ -1993,8 +1955,6 @@ public class ModuleDslPackageImpl extends EPackageImpl implements ModuleDslPacka
     hexLITERALEClass.getESuperTypes().add(this.getLiteral());
     identLITERALEClass.getESuperTypes().add(this.getLiteral());
     unknowLITERALEClass.getESuperTypes().add(this.getLiteral());
-    erroR_ASSIGNEClass.getESuperTypes().add(this.getERROR_INSTR());
-    nulL_ASSIGNEClass.getESuperTypes().add(this.getNULL_INSTR());
     orEClass.getESuperTypes().add(this.getEXPRESSION());
     andEClass.getESuperTypes().add(this.getEXPRESSION());
     equaL_DIFFEClass.getESuperTypes().add(this.getEXPRESSION());
@@ -2086,8 +2046,10 @@ public class ModuleDslPackageImpl extends EPackageImpl implements ModuleDslPacka
     initEAttribute(getLOOP_INSTR_Val(), ecorePackage.getEInt(), "val", null, 0, 1, org.xtext.moduleDsl.LOOP_INSTR.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(erroR_INSTREClass, org.xtext.moduleDsl.ERROR_INSTR.class, "ERROR_INSTR", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getERROR_INSTR_End(), this.getEND(), null, "end", null, 0, 1, org.xtext.moduleDsl.ERROR_INSTR.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(nulL_INSTREClass, org.xtext.moduleDsl.NULL_INSTR.class, "NULL_INSTR", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getNULL_INSTR_End(), this.getEND(), null, "end", null, 0, 1, org.xtext.moduleDsl.NULL_INSTR.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(assigN_INSTREClass, org.xtext.moduleDsl.ASSIGN_INSTR.class, "ASSIGN_INSTR", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getASSIGN_INSTR_Sa(), this.getSINGLE_ASSIGN(), null, "sa", null, 0, -1, org.xtext.moduleDsl.ASSIGN_INSTR.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -2125,12 +2087,6 @@ public class ModuleDslPackageImpl extends EPackageImpl implements ModuleDslPacka
 
     initEClass(unknowLITERALEClass, unknowLITERAL.class, "unknowLITERAL", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getunknowLITERAL_Value(), ecorePackage.getEString(), "value", null, 0, 1, unknowLITERAL.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-    initEClass(erroR_ASSIGNEClass, org.xtext.moduleDsl.ERROR_ASSIGN.class, "ERROR_ASSIGN", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getERROR_ASSIGN_End(), this.getEND(), null, "end", null, 0, 1, org.xtext.moduleDsl.ERROR_ASSIGN.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-    initEClass(nulL_ASSIGNEClass, org.xtext.moduleDsl.NULL_ASSIGN.class, "NULL_ASSIGN", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getNULL_ASSIGN_End(), this.getEND(), null, "end", null, 0, 1, org.xtext.moduleDsl.NULL_ASSIGN.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(orEClass, org.xtext.moduleDsl.OR.class, "OR", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getOR_Left(), this.getEXPRESSION(), null, "left", null, 0, 1, org.xtext.moduleDsl.OR.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

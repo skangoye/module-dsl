@@ -97,8 +97,6 @@ public class ModuleDslFactoryImpl extends EFactoryImpl implements ModuleDslFacto
       case ModuleDslPackage.HEX_LITERAL: return createhexLITERAL();
       case ModuleDslPackage.IDENT_LITERAL: return createidentLITERAL();
       case ModuleDslPackage.UNKNOW_LITERAL: return createunknowLITERAL();
-      case ModuleDslPackage.ERROR_ASSIGN: return createERROR_ASSIGN();
-      case ModuleDslPackage.NULL_ASSIGN: return createNULL_ASSIGN();
       case ModuleDslPackage.OR: return createOR();
       case ModuleDslPackage.AND: return createAND();
       case ModuleDslPackage.EQUAL_DIFF: return createEQUAL_DIFF();
@@ -482,28 +480,6 @@ public class ModuleDslFactoryImpl extends EFactoryImpl implements ModuleDslFacto
   {
     unknowLITERALImpl unknowLITERAL = new unknowLITERALImpl();
     return unknowLITERAL;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public ERROR_ASSIGN createERROR_ASSIGN()
-  {
-    ERROR_ASSIGNImpl erroR_ASSIGN = new ERROR_ASSIGNImpl();
-    return erroR_ASSIGN;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public NULL_ASSIGN createNULL_ASSIGN()
-  {
-    NULL_ASSIGNImpl nulL_ASSIGN = new NULL_ASSIGNImpl();
-    return nulL_ASSIGN;
   }
 
   /**

@@ -4684,7 +4684,7 @@ public class InternalModuleDslParser extends AbstractInternalAntlrParser {
             if ( state.backtracking==0 ) {
 
                       current = forceCreateModelElement(
-                          grammarAccess.getERROR_INSTRAccess().getERROR_ASSIGNAction_1(),
+                          grammarAccess.getERROR_INSTRAccess().getERROR_INSTRAction_1(),
                           current);
                   
             }
@@ -4818,7 +4818,7 @@ public class InternalModuleDslParser extends AbstractInternalAntlrParser {
             if ( state.backtracking==0 ) {
 
                       current = forceCreateModelElement(
-                          grammarAccess.getNULL_INSTRAccess().getNULL_ASSIGNAction_1(),
+                          grammarAccess.getNULL_INSTRAccess().getNULL_INSTRAction_1(),
                           current);
                   
             }

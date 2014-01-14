@@ -1808,7 +1808,7 @@ ruleERROR_INSTR returns [EObject current=null]
 (
     {
         $current = forceCreateModelElement(
-            grammarAccess.getERROR_INSTRAccess().getERROR_ASSIGNAction_1(),
+            grammarAccess.getERROR_INSTRAccess().getERROR_INSTRAction_1(),
             $current);
     }
 )(
@@ -1857,7 +1857,7 @@ ruleNULL_INSTR returns [EObject current=null]
 (
     {
         $current = forceCreateModelElement(
-            grammarAccess.getNULL_INSTRAccess().getNULL_ASSIGNAction_1(),
+            grammarAccess.getNULL_INSTRAccess().getNULL_INSTRAction_1(),
             $current);
     }
 )(

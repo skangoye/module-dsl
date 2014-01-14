@@ -75,8 +75,12 @@
     <genClasses ecoreClass="ModuleDsl.ecore#//LOOP_INSTR">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ModuleDsl.ecore#//LOOP_INSTR/val"/>
     </genClasses>
-    <genClasses ecoreClass="ModuleDsl.ecore#//ERROR_INSTR"/>
-    <genClasses ecoreClass="ModuleDsl.ecore#//NULL_INSTR"/>
+    <genClasses ecoreClass="ModuleDsl.ecore#//ERROR_INSTR">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ModuleDsl.ecore#//ERROR_INSTR/end"/>
+    </genClasses>
+    <genClasses ecoreClass="ModuleDsl.ecore#//NULL_INSTR">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ModuleDsl.ecore#//NULL_INSTR/end"/>
+    </genClasses>
     <genClasses ecoreClass="ModuleDsl.ecore#//ASSIGN_INSTR">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ModuleDsl.ecore#//ASSIGN_INSTR/sa"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ModuleDsl.ecore#//ASSIGN_INSTR/end"/>
@@ -112,12 +116,6 @@
     </genClasses>
     <genClasses ecoreClass="ModuleDsl.ecore#//unknowLITERAL">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ModuleDsl.ecore#//unknowLITERAL/value"/>
-    </genClasses>
-    <genClasses ecoreClass="ModuleDsl.ecore#//ERROR_ASSIGN">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ModuleDsl.ecore#//ERROR_ASSIGN/end"/>
-    </genClasses>
-    <genClasses ecoreClass="ModuleDsl.ecore#//NULL_ASSIGN">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ModuleDsl.ecore#//NULL_ASSIGN/end"/>
     </genClasses>
     <genClasses ecoreClass="ModuleDsl.ecore#//OR">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ModuleDsl.ecore#//OR/left"/>

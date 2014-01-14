@@ -493,7 +493,7 @@ public static val INVALID_INPUT = 'invalidInput'
 	 }
 	 
 	 def private checkNotEnum(String type, EReference ref){
-	 	if (type == ExpressionsTypeProvider::boolType){
+	 	if (type == ExpressionsTypeProvider::enumType){
 	 		error("cannot be enumeration", ref)
 	 	}
 	 }

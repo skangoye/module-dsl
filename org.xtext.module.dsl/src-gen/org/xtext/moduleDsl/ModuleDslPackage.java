@@ -779,13 +779,22 @@ public interface ModuleDslPackage extends EPackage
   int ERROR_INSTR = 19;
 
   /**
+   * The feature id for the '<em><b>End</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int ERROR_INSTR__END = INSTRUCTION_FEATURE_COUNT + 0;
+
+  /**
    * The number of structural features of the '<em>ERROR INSTR</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int ERROR_INSTR_FEATURE_COUNT = INSTRUCTION_FEATURE_COUNT + 0;
+  int ERROR_INSTR_FEATURE_COUNT = INSTRUCTION_FEATURE_COUNT + 1;
 
   /**
    * The meta object id for the '{@link org.xtext.moduleDsl.impl.NULL_INSTRImpl <em>NULL INSTR</em>}' class.
@@ -798,13 +807,22 @@ public interface ModuleDslPackage extends EPackage
   int NULL_INSTR = 20;
 
   /**
+   * The feature id for the '<em><b>End</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int NULL_INSTR__END = INSTRUCTION_FEATURE_COUNT + 0;
+
+  /**
    * The number of structural features of the '<em>NULL INSTR</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int NULL_INSTR_FEATURE_COUNT = INSTRUCTION_FEATURE_COUNT + 0;
+  int NULL_INSTR_FEATURE_COUNT = INSTRUCTION_FEATURE_COUNT + 1;
 
   /**
    * The meta object id for the '{@link org.xtext.moduleDsl.impl.ASSIGN_INSTRImpl <em>ASSIGN INSTR</em>}' class.
@@ -1152,62 +1170,6 @@ public interface ModuleDslPackage extends EPackage
   int UNKNOW_LITERAL_FEATURE_COUNT = LITERAL_FEATURE_COUNT + 1;
 
   /**
-   * The meta object id for the '{@link org.xtext.moduleDsl.impl.ERROR_ASSIGNImpl <em>ERROR ASSIGN</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see org.xtext.moduleDsl.impl.ERROR_ASSIGNImpl
-   * @see org.xtext.moduleDsl.impl.ModuleDslPackageImpl#getERROR_ASSIGN()
-   * @generated
-   */
-  int ERROR_ASSIGN = 33;
-
-  /**
-   * The feature id for the '<em><b>End</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int ERROR_ASSIGN__END = ERROR_INSTR_FEATURE_COUNT + 0;
-
-  /**
-   * The number of structural features of the '<em>ERROR ASSIGN</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int ERROR_ASSIGN_FEATURE_COUNT = ERROR_INSTR_FEATURE_COUNT + 1;
-
-  /**
-   * The meta object id for the '{@link org.xtext.moduleDsl.impl.NULL_ASSIGNImpl <em>NULL ASSIGN</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see org.xtext.moduleDsl.impl.NULL_ASSIGNImpl
-   * @see org.xtext.moduleDsl.impl.ModuleDslPackageImpl#getNULL_ASSIGN()
-   * @generated
-   */
-  int NULL_ASSIGN = 34;
-
-  /**
-   * The feature id for the '<em><b>End</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int NULL_ASSIGN__END = NULL_INSTR_FEATURE_COUNT + 0;
-
-  /**
-   * The number of structural features of the '<em>NULL ASSIGN</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int NULL_ASSIGN_FEATURE_COUNT = NULL_INSTR_FEATURE_COUNT + 1;
-
-  /**
    * The meta object id for the '{@link org.xtext.moduleDsl.impl.ORImpl <em>OR</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -1215,7 +1177,7 @@ public interface ModuleDslPackage extends EPackage
    * @see org.xtext.moduleDsl.impl.ModuleDslPackageImpl#getOR()
    * @generated
    */
-  int OR = 35;
+  int OR = 33;
 
   /**
    * The feature id for the '<em><b>Left</b></em>' containment reference.
@@ -1252,7 +1214,7 @@ public interface ModuleDslPackage extends EPackage
    * @see org.xtext.moduleDsl.impl.ModuleDslPackageImpl#getAND()
    * @generated
    */
-  int AND = 36;
+  int AND = 34;
 
   /**
    * The feature id for the '<em><b>Left</b></em>' containment reference.
@@ -1289,7 +1251,7 @@ public interface ModuleDslPackage extends EPackage
    * @see org.xtext.moduleDsl.impl.ModuleDslPackageImpl#getEQUAL_DIFF()
    * @generated
    */
-  int EQUAL_DIFF = 37;
+  int EQUAL_DIFF = 35;
 
   /**
    * The feature id for the '<em><b>Left</b></em>' containment reference.
@@ -1335,7 +1297,7 @@ public interface ModuleDslPackage extends EPackage
    * @see org.xtext.moduleDsl.impl.ModuleDslPackageImpl#getCOMPARISON()
    * @generated
    */
-  int COMPARISON = 38;
+  int COMPARISON = 36;
 
   /**
    * The feature id for the '<em><b>Left</b></em>' containment reference.
@@ -1381,7 +1343,7 @@ public interface ModuleDslPackage extends EPackage
    * @see org.xtext.moduleDsl.impl.ModuleDslPackageImpl#getADD()
    * @generated
    */
-  int ADD = 39;
+  int ADD = 37;
 
   /**
    * The feature id for the '<em><b>Left</b></em>' containment reference.
@@ -1418,7 +1380,7 @@ public interface ModuleDslPackage extends EPackage
    * @see org.xtext.moduleDsl.impl.ModuleDslPackageImpl#getSUB()
    * @generated
    */
-  int SUB = 40;
+  int SUB = 38;
 
   /**
    * The feature id for the '<em><b>Left</b></em>' containment reference.
@@ -1455,7 +1417,7 @@ public interface ModuleDslPackage extends EPackage
    * @see org.xtext.moduleDsl.impl.ModuleDslPackageImpl#getMULT()
    * @generated
    */
-  int MULT = 41;
+  int MULT = 39;
 
   /**
    * The feature id for the '<em><b>Left</b></em>' containment reference.
@@ -1492,7 +1454,7 @@ public interface ModuleDslPackage extends EPackage
    * @see org.xtext.moduleDsl.impl.ModuleDslPackageImpl#getDIV()
    * @generated
    */
-  int DIV = 42;
+  int DIV = 40;
 
   /**
    * The feature id for the '<em><b>Left</b></em>' containment reference.
@@ -1529,7 +1491,7 @@ public interface ModuleDslPackage extends EPackage
    * @see org.xtext.moduleDsl.impl.ModuleDslPackageImpl#getNOT()
    * @generated
    */
-  int NOT = 43;
+  int NOT = 41;
 
   /**
    * The feature id for the '<em><b>Exp</b></em>' containment reference.
@@ -1557,7 +1519,7 @@ public interface ModuleDslPackage extends EPackage
    * @see org.xtext.moduleDsl.impl.ModuleDslPackageImpl#getintConstant()
    * @generated
    */
-  int INT_CONSTANT = 44;
+  int INT_CONSTANT = 42;
 
   /**
    * The feature id for the '<em><b>Value</b></em>' attribute.
@@ -1585,7 +1547,7 @@ public interface ModuleDslPackage extends EPackage
    * @see org.xtext.moduleDsl.impl.ModuleDslPackageImpl#getrealConstant()
    * @generated
    */
-  int REAL_CONSTANT = 45;
+  int REAL_CONSTANT = 43;
 
   /**
    * The feature id for the '<em><b>Value</b></em>' attribute.
@@ -1613,7 +1575,7 @@ public interface ModuleDslPackage extends EPackage
    * @see org.xtext.moduleDsl.impl.ModuleDslPackageImpl#getstrConstant()
    * @generated
    */
-  int STR_CONSTANT = 46;
+  int STR_CONSTANT = 44;
 
   /**
    * The feature id for the '<em><b>Value</b></em>' attribute.
@@ -1641,7 +1603,7 @@ public interface ModuleDslPackage extends EPackage
    * @see org.xtext.moduleDsl.impl.ModuleDslPackageImpl#getenumConstant()
    * @generated
    */
-  int ENUM_CONSTANT = 47;
+  int ENUM_CONSTANT = 45;
 
   /**
    * The feature id for the '<em><b>Value</b></em>' attribute.
@@ -1669,7 +1631,7 @@ public interface ModuleDslPackage extends EPackage
    * @see org.xtext.moduleDsl.impl.ModuleDslPackageImpl#getboolConstant()
    * @generated
    */
-  int BOOL_CONSTANT = 48;
+  int BOOL_CONSTANT = 46;
 
   /**
    * The feature id for the '<em><b>Value</b></em>' attribute.
@@ -1697,7 +1659,7 @@ public interface ModuleDslPackage extends EPackage
    * @see org.xtext.moduleDsl.impl.ModuleDslPackageImpl#getbitConstant()
    * @generated
    */
-  int BIT_CONSTANT = 49;
+  int BIT_CONSTANT = 47;
 
   /**
    * The feature id for the '<em><b>Value</b></em>' attribute.
@@ -1725,7 +1687,7 @@ public interface ModuleDslPackage extends EPackage
    * @see org.xtext.moduleDsl.impl.ModuleDslPackageImpl#gethexConstant()
    * @generated
    */
-  int HEX_CONSTANT = 50;
+  int HEX_CONSTANT = 48;
 
   /**
    * The feature id for the '<em><b>Value</b></em>' attribute.
@@ -1753,7 +1715,7 @@ public interface ModuleDslPackage extends EPackage
    * @see org.xtext.moduleDsl.impl.ModuleDslPackageImpl#getVarExpRef()
    * @generated
    */
-  int VAR_EXP_REF = 51;
+  int VAR_EXP_REF = 49;
 
   /**
    * The feature id for the '<em><b>Vref</b></em>' reference.
@@ -2338,6 +2300,17 @@ public interface ModuleDslPackage extends EPackage
   EClass getERROR_INSTR();
 
   /**
+   * Returns the meta object for the containment reference '{@link org.xtext.moduleDsl.ERROR_INSTR#getEnd <em>End</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>End</em>'.
+   * @see org.xtext.moduleDsl.ERROR_INSTR#getEnd()
+   * @see #getERROR_INSTR()
+   * @generated
+   */
+  EReference getERROR_INSTR_End();
+
+  /**
    * Returns the meta object for class '{@link org.xtext.moduleDsl.NULL_INSTR <em>NULL INSTR</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -2346,6 +2319,17 @@ public interface ModuleDslPackage extends EPackage
    * @generated
    */
   EClass getNULL_INSTR();
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.xtext.moduleDsl.NULL_INSTR#getEnd <em>End</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>End</em>'.
+   * @see org.xtext.moduleDsl.NULL_INSTR#getEnd()
+   * @see #getNULL_INSTR()
+   * @generated
+   */
+  EReference getNULL_INSTR_End();
 
   /**
    * Returns the meta object for class '{@link org.xtext.moduleDsl.ASSIGN_INSTR <em>ASSIGN INSTR</em>}'.
@@ -2609,48 +2593,6 @@ public interface ModuleDslPackage extends EPackage
    * @generated
    */
   EAttribute getunknowLITERAL_Value();
-
-  /**
-   * Returns the meta object for class '{@link org.xtext.moduleDsl.ERROR_ASSIGN <em>ERROR ASSIGN</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for class '<em>ERROR ASSIGN</em>'.
-   * @see org.xtext.moduleDsl.ERROR_ASSIGN
-   * @generated
-   */
-  EClass getERROR_ASSIGN();
-
-  /**
-   * Returns the meta object for the containment reference '{@link org.xtext.moduleDsl.ERROR_ASSIGN#getEnd <em>End</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference '<em>End</em>'.
-   * @see org.xtext.moduleDsl.ERROR_ASSIGN#getEnd()
-   * @see #getERROR_ASSIGN()
-   * @generated
-   */
-  EReference getERROR_ASSIGN_End();
-
-  /**
-   * Returns the meta object for class '{@link org.xtext.moduleDsl.NULL_ASSIGN <em>NULL ASSIGN</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for class '<em>NULL ASSIGN</em>'.
-   * @see org.xtext.moduleDsl.NULL_ASSIGN
-   * @generated
-   */
-  EClass getNULL_ASSIGN();
-
-  /**
-   * Returns the meta object for the containment reference '{@link org.xtext.moduleDsl.NULL_ASSIGN#getEnd <em>End</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference '<em>End</em>'.
-   * @see org.xtext.moduleDsl.NULL_ASSIGN#getEnd()
-   * @see #getNULL_ASSIGN()
-   * @generated
-   */
-  EReference getNULL_ASSIGN_End();
 
   /**
    * Returns the meta object for class '{@link org.xtext.moduleDsl.OR <em>OR</em>}'.
@@ -3607,6 +3549,14 @@ public interface ModuleDslPackage extends EPackage
     EClass ERROR_INSTR = eINSTANCE.getERROR_INSTR();
 
     /**
+     * The meta object literal for the '<em><b>End</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference ERROR_INSTR__END = eINSTANCE.getERROR_INSTR_End();
+
+    /**
      * The meta object literal for the '{@link org.xtext.moduleDsl.impl.NULL_INSTRImpl <em>NULL INSTR</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -3615,6 +3565,14 @@ public interface ModuleDslPackage extends EPackage
      * @generated
      */
     EClass NULL_INSTR = eINSTANCE.getNULL_INSTR();
+
+    /**
+     * The meta object literal for the '<em><b>End</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference NULL_INSTR__END = eINSTANCE.getNULL_INSTR_End();
 
     /**
      * The meta object literal for the '{@link org.xtext.moduleDsl.impl.ASSIGN_INSTRImpl <em>ASSIGN INSTR</em>}' class.
@@ -3839,42 +3797,6 @@ public interface ModuleDslPackage extends EPackage
      * @generated
      */
     EAttribute UNKNOW_LITERAL__VALUE = eINSTANCE.getunknowLITERAL_Value();
-
-    /**
-     * The meta object literal for the '{@link org.xtext.moduleDsl.impl.ERROR_ASSIGNImpl <em>ERROR ASSIGN</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see org.xtext.moduleDsl.impl.ERROR_ASSIGNImpl
-     * @see org.xtext.moduleDsl.impl.ModuleDslPackageImpl#getERROR_ASSIGN()
-     * @generated
-     */
-    EClass ERROR_ASSIGN = eINSTANCE.getERROR_ASSIGN();
-
-    /**
-     * The meta object literal for the '<em><b>End</b></em>' containment reference feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference ERROR_ASSIGN__END = eINSTANCE.getERROR_ASSIGN_End();
-
-    /**
-     * The meta object literal for the '{@link org.xtext.moduleDsl.impl.NULL_ASSIGNImpl <em>NULL ASSIGN</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see org.xtext.moduleDsl.impl.NULL_ASSIGNImpl
-     * @see org.xtext.moduleDsl.impl.ModuleDslPackageImpl#getNULL_ASSIGN()
-     * @generated
-     */
-    EClass NULL_ASSIGN = eINSTANCE.getNULL_ASSIGN();
-
-    /**
-     * The meta object literal for the '<em><b>End</b></em>' containment reference feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference NULL_ASSIGN__END = eINSTANCE.getNULL_ASSIGN_End();
 
     /**
      * The meta object literal for the '{@link org.xtext.moduleDsl.impl.ORImpl <em>OR</em>}' class.

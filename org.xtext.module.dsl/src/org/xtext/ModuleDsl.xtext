@@ -131,11 +131,11 @@ LOOP_INSTR:
 ;
 
 ERROR_INSTR:
-	'error'{ERROR_ASSIGN} end=END
+	'error'{ERROR_INSTR} end=END
 ;
 
 NULL_INSTR:
-	'null'{NULL_ASSIGN} end=END
+	'null'{NULL_INSTR} end=END
 ;
 
 ASSIGN_INSTR:

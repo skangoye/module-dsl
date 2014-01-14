@@ -240,16 +240,6 @@ public class ModuleDslAdapterFactory extends AdapterFactoryImpl
         return createunknowLITERALAdapter();
       }
       @Override
-      public Adapter caseERROR_ASSIGN(ERROR_ASSIGN object)
-      {
-        return createERROR_ASSIGNAdapter();
-      }
-      @Override
-      public Adapter caseNULL_ASSIGN(NULL_ASSIGN object)
-      {
-        return createNULL_ASSIGNAdapter();
-      }
-      @Override
       public Adapter caseOR(OR object)
       {
         return createORAdapter();
@@ -847,36 +837,6 @@ public class ModuleDslAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createunknowLITERALAdapter()
-  {
-    return null;
-  }
-
-  /**
-   * Creates a new adapter for an object of class '{@link org.xtext.moduleDsl.ERROR_ASSIGN <em>ERROR ASSIGN</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see org.xtext.moduleDsl.ERROR_ASSIGN
-   * @generated
-   */
-  public Adapter createERROR_ASSIGNAdapter()
-  {
-    return null;
-  }
-
-  /**
-   * Creates a new adapter for an object of class '{@link org.xtext.moduleDsl.NULL_ASSIGN <em>NULL ASSIGN</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see org.xtext.moduleDsl.NULL_ASSIGN
-   * @generated
-   */
-  public Adapter createNULL_ASSIGNAdapter()
   {
     return null;
   }
