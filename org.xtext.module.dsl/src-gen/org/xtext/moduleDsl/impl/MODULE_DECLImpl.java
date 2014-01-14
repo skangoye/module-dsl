@@ -20,6 +20,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
 
 import org.xtext.moduleDsl.CRITERION_DECL;
 import org.xtext.moduleDsl.DATASEL_DECL;
+import org.xtext.moduleDsl.EXPRESSION;
 import org.xtext.moduleDsl.INSTRUCTION;
 import org.xtext.moduleDsl.MODULE_DECL;
 import org.xtext.moduleDsl.ModuleDslPackage;
@@ -36,6 +37,7 @@ import org.xtext.moduleDsl.VAR_CST;
  *   <li>{@link org.xtext.moduleDsl.impl.MODULE_DECLImpl#getCritdecl <em>Critdecl</em>}</li>
  *   <li>{@link org.xtext.moduleDsl.impl.MODULE_DECLImpl#getDataseldecl <em>Dataseldecl</em>}</li>
  *   <li>{@link org.xtext.moduleDsl.impl.MODULE_DECLImpl#getDeclaration <em>Declaration</em>}</li>
+ *   <li>{@link org.xtext.moduleDsl.impl.MODULE_DECLImpl#getExp <em>Exp</em>}</li>
  *   <li>{@link org.xtext.moduleDsl.impl.MODULE_DECLImpl#getInstr <em>Instr</em>}</li>
  * </ul>
  * </p>
@@ -93,6 +95,16 @@ public class MODULE_DECLImpl extends MinimalEObjectImpl.Container implements MOD
    * @ordered
    */
   protected EList<VAR_CST> declaration;
+
+  /**
+   * The cached value of the '{@link #getExp() <em>Exp</em>}' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getExp()
+   * @generated
+   * @ordered
+   */
+  protected EXPRESSION exp;
 
   /**
    * The cached value of the '{@link #getInstr() <em>Instr</em>}' containment reference list.
@@ -263,6 +275,54 @@ public class MODULE_DECLImpl extends MinimalEObjectImpl.Container implements MOD
    * <!-- end-user-doc -->
    * @generated
    */
+  public EXPRESSION getExp()
+  {
+    return exp;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public NotificationChain basicSetExp(EXPRESSION newExp, NotificationChain msgs)
+  {
+    EXPRESSION oldExp = exp;
+    exp = newExp;
+    if (eNotificationRequired())
+    {
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ModuleDslPackage.MODULE_DECL__EXP, oldExp, newExp);
+      if (msgs == null) msgs = notification; else msgs.add(notification);
+    }
+    return msgs;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setExp(EXPRESSION newExp)
+  {
+    if (newExp != exp)
+    {
+      NotificationChain msgs = null;
+      if (exp != null)
+        msgs = ((InternalEObject)exp).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ModuleDslPackage.MODULE_DECL__EXP, null, msgs);
+      if (newExp != null)
+        msgs = ((InternalEObject)newExp).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ModuleDslPackage.MODULE_DECL__EXP, null, msgs);
+      msgs = basicSetExp(newExp, msgs);
+      if (msgs != null) msgs.dispatch();
+    }
+    else if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, ModuleDslPackage.MODULE_DECL__EXP, newExp, newExp));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EList<INSTRUCTION> getInstr()
   {
     if (instr == null)
@@ -288,6 +348,8 @@ public class MODULE_DECLImpl extends MinimalEObjectImpl.Container implements MOD
         return basicSetDataseldecl(null, msgs);
       case ModuleDslPackage.MODULE_DECL__DECLARATION:
         return ((InternalEList<?>)getDeclaration()).basicRemove(otherEnd, msgs);
+      case ModuleDslPackage.MODULE_DECL__EXP:
+        return basicSetExp(null, msgs);
       case ModuleDslPackage.MODULE_DECL__INSTR:
         return ((InternalEList<?>)getInstr()).basicRemove(otherEnd, msgs);
     }
@@ -312,6 +374,8 @@ public class MODULE_DECLImpl extends MinimalEObjectImpl.Container implements MOD
         return getDataseldecl();
       case ModuleDslPackage.MODULE_DECL__DECLARATION:
         return getDeclaration();
+      case ModuleDslPackage.MODULE_DECL__EXP:
+        return getExp();
       case ModuleDslPackage.MODULE_DECL__INSTR:
         return getInstr();
     }
@@ -341,6 +405,9 @@ public class MODULE_DECLImpl extends MinimalEObjectImpl.Container implements MOD
       case ModuleDslPackage.MODULE_DECL__DECLARATION:
         getDeclaration().clear();
         getDeclaration().addAll((Collection<? extends VAR_CST>)newValue);
+        return;
+      case ModuleDslPackage.MODULE_DECL__EXP:
+        setExp((EXPRESSION)newValue);
         return;
       case ModuleDslPackage.MODULE_DECL__INSTR:
         getInstr().clear();
@@ -372,6 +439,9 @@ public class MODULE_DECLImpl extends MinimalEObjectImpl.Container implements MOD
       case ModuleDslPackage.MODULE_DECL__DECLARATION:
         getDeclaration().clear();
         return;
+      case ModuleDslPackage.MODULE_DECL__EXP:
+        setExp((EXPRESSION)null);
+        return;
       case ModuleDslPackage.MODULE_DECL__INSTR:
         getInstr().clear();
         return;
@@ -397,6 +467,8 @@ public class MODULE_DECLImpl extends MinimalEObjectImpl.Container implements MOD
         return dataseldecl != null;
       case ModuleDslPackage.MODULE_DECL__DECLARATION:
         return declaration != null && !declaration.isEmpty();
+      case ModuleDslPackage.MODULE_DECL__EXP:
+        return exp != null;
       case ModuleDslPackage.MODULE_DECL__INSTR:
         return instr != null && !instr.isEmpty();
     }

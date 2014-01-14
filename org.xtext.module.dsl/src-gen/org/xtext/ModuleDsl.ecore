@@ -13,6 +13,8 @@
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="declaration" upperBound="-1"
         eType="#//VAR_CST" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="exp" eType="#//EXPRESSION"
+        containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="instr" upperBound="-1"
         eType="#//INSTRUCTION" containment="true"/>
   </eClassifiers>

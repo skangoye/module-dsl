@@ -1153,7 +1153,15 @@ public class ModuleDslSemanticSequencer extends AbstractDelegatingSemanticSequen
 	
 	/**
 	 * Constraint:
-	 *     (name=IDENT critdecl=CRITERION_DECL dataseldecl=DATASEL_DECL declaration+=VAR_CST* instr+=INSTRUCTION*)
+	 *     (
+	 *         name=IDENT 
+	 *         critdecl=CRITERION_DECL 
+	 *         dataseldecl=DATASEL_DECL 
+	 *         declaration+=VAR_CST* 
+	 *         name=IDENT 
+	 *         exp=EXPRESSION 
+	 *         instr+=INSTRUCTION*
+	 *     )
 	 */
 	protected void sequence_MODULE_DECL(EObject context, MODULE_DECL semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);

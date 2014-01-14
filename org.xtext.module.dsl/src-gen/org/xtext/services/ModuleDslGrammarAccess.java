@@ -49,9 +49,15 @@ public class ModuleDslGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cDataseldeclDATASEL_DECLParserRuleCall_5_0 = (RuleCall)cDataseldeclAssignment_5.eContents().get(0);
 		private final Assignment cDeclarationAssignment_6 = (Assignment)cGroup.eContents().get(6);
 		private final RuleCall cDeclarationVAR_CSTParserRuleCall_6_0 = (RuleCall)cDeclarationAssignment_6.eContents().get(0);
-		private final Assignment cInstrAssignment_7 = (Assignment)cGroup.eContents().get(7);
-		private final RuleCall cInstrINSTRUCTIONParserRuleCall_7_0 = (RuleCall)cInstrAssignment_7.eContents().get(0);
-		private final Keyword cRightCurlyBracketKeyword_8 = (Keyword)cGroup.eContents().get(8);
+		private final Keyword cExpressionKeyword_7 = (Keyword)cGroup.eContents().get(7);
+		private final Assignment cNameAssignment_8 = (Assignment)cGroup.eContents().get(8);
+		private final RuleCall cNameIDENTTerminalRuleCall_8_0 = (RuleCall)cNameAssignment_8.eContents().get(0);
+		private final Keyword cEqualsSignKeyword_9 = (Keyword)cGroup.eContents().get(9);
+		private final Assignment cExpAssignment_10 = (Assignment)cGroup.eContents().get(10);
+		private final RuleCall cExpEXPRESSIONParserRuleCall_10_0 = (RuleCall)cExpAssignment_10.eContents().get(0);
+		private final Assignment cInstrAssignment_11 = (Assignment)cGroup.eContents().get(11);
+		private final RuleCall cInstrINSTRUCTIONParserRuleCall_11_0 = (RuleCall)cInstrAssignment_11.eContents().get(0);
+		private final Keyword cRightCurlyBracketKeyword_12 = (Keyword)cGroup.eContents().get(12);
 		
 		/// *
 		//
@@ -63,12 +69,16 @@ public class ModuleDslGrammarAccess extends AbstractGrammarElementFinder {
 		//
 		//	"module" {MODULE_DECL} name=IDENT "{" critdecl=CRITERION_DECL dataseldecl=DATASEL_DECL declaration+=VAR_CST*
 		//
-		//	instr+=INSTRUCTION* "}";
+		//	"expression" name=IDENT "=" exp= //to be removed after, only for EXPRESSION test purpose
+		//
+		//	EXPRESSION instr+=INSTRUCTION* "}";
 		public ParserRule getRule() { return rule; }
 
 		//"module" {MODULE_DECL} name=IDENT "{" critdecl=CRITERION_DECL dataseldecl=DATASEL_DECL declaration+=VAR_CST*
 		//
-		//instr+=INSTRUCTION* "}"
+		//"expression" name=IDENT "=" exp= //to be removed after, only for EXPRESSION test purpose
+		//
+		//EXPRESSION instr+=INSTRUCTION* "}"
 		public Group getGroup() { return cGroup; }
 
 		//"module"
@@ -104,14 +114,36 @@ public class ModuleDslGrammarAccess extends AbstractGrammarElementFinder {
 		//VAR_CST
 		public RuleCall getDeclarationVAR_CSTParserRuleCall_6_0() { return cDeclarationVAR_CSTParserRuleCall_6_0; }
 
+		//"expression"
+		public Keyword getExpressionKeyword_7() { return cExpressionKeyword_7; }
+
+		//name=IDENT
+		public Assignment getNameAssignment_8() { return cNameAssignment_8; }
+
+		//IDENT
+		public RuleCall getNameIDENTTerminalRuleCall_8_0() { return cNameIDENTTerminalRuleCall_8_0; }
+
+		//"="
+		public Keyword getEqualsSignKeyword_9() { return cEqualsSignKeyword_9; }
+
+		//exp= //to be removed after, only for EXPRESSION test purpose
+		//
+		//EXPRESSION
+		public Assignment getExpAssignment_10() { return cExpAssignment_10; }
+
+		////to be removed after, only for EXPRESSION test purpose
+		//
+		//EXPRESSION
+		public RuleCall getExpEXPRESSIONParserRuleCall_10_0() { return cExpEXPRESSIONParserRuleCall_10_0; }
+
 		//instr+=INSTRUCTION*
-		public Assignment getInstrAssignment_7() { return cInstrAssignment_7; }
+		public Assignment getInstrAssignment_11() { return cInstrAssignment_11; }
 
 		//INSTRUCTION
-		public RuleCall getInstrINSTRUCTIONParserRuleCall_7_0() { return cInstrINSTRUCTIONParserRuleCall_7_0; }
+		public RuleCall getInstrINSTRUCTIONParserRuleCall_11_0() { return cInstrINSTRUCTIONParserRuleCall_11_0; }
 
 		//"}"
-		public Keyword getRightCurlyBracketKeyword_8() { return cRightCurlyBracketKeyword_8; }
+		public Keyword getRightCurlyBracketKeyword_12() { return cRightCurlyBracketKeyword_12; }
 	}
 
 	public class CRITERION_DECLElements extends AbstractParserRuleElementFinder {
@@ -1816,7 +1848,9 @@ public class ModuleDslGrammarAccess extends AbstractGrammarElementFinder {
 	//
 	//	"module" {MODULE_DECL} name=IDENT "{" critdecl=CRITERION_DECL dataseldecl=DATASEL_DECL declaration+=VAR_CST*
 	//
-	//	instr+=INSTRUCTION* "}";
+	//	"expression" name=IDENT "=" exp= //to be removed after, only for EXPRESSION test purpose
+	//
+	//	EXPRESSION instr+=INSTRUCTION* "}";
 	public MODULE_DECLElements getMODULE_DECLAccess() {
 		return (pMODULE_DECL != null) ? pMODULE_DECL : (pMODULE_DECL = new MODULE_DECLElements());
 	}

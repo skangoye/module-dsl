@@ -541,9 +541,19 @@ public class ModuleDslPackageImpl extends EPackageImpl implements ModuleDslPacka
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getMODULE_DECL_Instr()
+  public EReference getMODULE_DECL_Exp()
   {
     return (EReference)modulE_DECLEClass.getEStructuralFeatures().get(4);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getMODULE_DECL_Instr()
+  {
+    return (EReference)modulE_DECLEClass.getEStructuralFeatures().get(5);
   }
 
   /**
@@ -1764,6 +1774,7 @@ public class ModuleDslPackageImpl extends EPackageImpl implements ModuleDslPacka
     createEReference(modulE_DECLEClass, MODULE_DECL__CRITDECL);
     createEReference(modulE_DECLEClass, MODULE_DECL__DATASELDECL);
     createEReference(modulE_DECLEClass, MODULE_DECL__DECLARATION);
+    createEReference(modulE_DECLEClass, MODULE_DECL__EXP);
     createEReference(modulE_DECLEClass, MODULE_DECL__INSTR);
 
     criterioN_DECLEClass = createEClass(CRITERION_DECL);
@@ -2011,6 +2022,7 @@ public class ModuleDslPackageImpl extends EPackageImpl implements ModuleDslPacka
     initEReference(getMODULE_DECL_Critdecl(), this.getCRITERION_DECL(), null, "critdecl", null, 0, 1, org.xtext.moduleDsl.MODULE_DECL.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getMODULE_DECL_Dataseldecl(), this.getDATASEL_DECL(), null, "dataseldecl", null, 0, 1, org.xtext.moduleDsl.MODULE_DECL.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getMODULE_DECL_Declaration(), this.getVAR_CST(), null, "declaration", null, 0, -1, org.xtext.moduleDsl.MODULE_DECL.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getMODULE_DECL_Exp(), this.getEXPRESSION(), null, "exp", null, 0, 1, org.xtext.moduleDsl.MODULE_DECL.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getMODULE_DECL_Instr(), this.getINSTRUCTION(), null, "instr", null, 0, -1, org.xtext.moduleDsl.MODULE_DECL.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(criterioN_DECLEClass, org.xtext.moduleDsl.CRITERION_DECL.class, "CRITERION_DECL", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);

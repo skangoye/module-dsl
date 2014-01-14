@@ -131,13 +131,22 @@ public interface ModuleDslPackage extends EPackage
   int MODULE_DECL__DECLARATION = 3;
 
   /**
+   * The feature id for the '<em><b>Exp</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int MODULE_DECL__EXP = 4;
+
+  /**
    * The feature id for the '<em><b>Instr</b></em>' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int MODULE_DECL__INSTR = 4;
+  int MODULE_DECL__INSTR = 5;
 
   /**
    * The number of structural features of the '<em>MODULE DECL</em>' class.
@@ -146,7 +155,7 @@ public interface ModuleDslPackage extends EPackage
    * @generated
    * @ordered
    */
-  int MODULE_DECL_FEATURE_COUNT = 5;
+  int MODULE_DECL_FEATURE_COUNT = 6;
 
   /**
    * The meta object id for the '{@link org.xtext.moduleDsl.impl.CRITERION_DECLImpl <em>CRITERION DECL</em>}' class.
@@ -1841,6 +1850,17 @@ public interface ModuleDslPackage extends EPackage
   EReference getMODULE_DECL_Declaration();
 
   /**
+   * Returns the meta object for the containment reference '{@link org.xtext.moduleDsl.MODULE_DECL#getExp <em>Exp</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Exp</em>'.
+   * @see org.xtext.moduleDsl.MODULE_DECL#getExp()
+   * @see #getMODULE_DECL()
+   * @generated
+   */
+  EReference getMODULE_DECL_Exp();
+
+  /**
    * Returns the meta object for the containment reference list '{@link org.xtext.moduleDsl.MODULE_DECL#getInstr <em>Instr</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -3181,6 +3201,14 @@ public interface ModuleDslPackage extends EPackage
      * @generated
      */
     EReference MODULE_DECL__DECLARATION = eINSTANCE.getMODULE_DECL_Declaration();
+
+    /**
+     * The meta object literal for the '<em><b>Exp</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference MODULE_DECL__EXP = eINSTANCE.getMODULE_DECL_Exp();
 
     /**
      * The meta object literal for the '<em><b>Instr</b></em>' containment reference list feature.

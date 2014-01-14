@@ -18,6 +18,7 @@ MODULE_DECL:
 		(critdecl=CRITERION_DECL)	
 		(dataseldecl=DATASEL_DECL)	
 		(declaration += VAR_CST)* 
+		'expression' name =IDENT '=' exp= EXPRESSION //to be removed after, only for EXPRESSION test purpose
 		(instr+=INSTRUCTION)*
 		
 	'}'

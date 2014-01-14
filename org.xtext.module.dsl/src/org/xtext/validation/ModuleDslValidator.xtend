@@ -588,8 +588,8 @@ public static val INVALID_INPUT = 'invalidInput'
 	 
 	 @Check
 	 def checkType(ADD add){
-	 	val leftType = getNonNullType(add.left, ModuleDslPackage.Literals.EQUAL_DIFF__LEFT)
-	 	val rightType = getNonNullType(add.right, ModuleDslPackage.Literals.EQUAL_DIFF__RIGHT)
+	 	val leftType = getNonNullType(add.left, ModuleDslPackage.Literals.ADD__LEFT)
+	 	val rightType = getNonNullType(add.right, ModuleDslPackage.Literals.ADD__RIGHT)
 	 	
 	 	if ( (leftType == ExpressionsTypeProvider::intType || leftType == ExpressionsTypeProvider::realType)
 	 		&& (rightType == ExpressionsTypeProvider::intType || rightType == ExpressionsTypeProvider::realType) ) {

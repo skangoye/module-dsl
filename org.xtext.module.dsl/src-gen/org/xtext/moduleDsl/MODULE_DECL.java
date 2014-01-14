@@ -18,6 +18,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.xtext.moduleDsl.MODULE_DECL#getCritdecl <em>Critdecl</em>}</li>
  *   <li>{@link org.xtext.moduleDsl.MODULE_DECL#getDataseldecl <em>Dataseldecl</em>}</li>
  *   <li>{@link org.xtext.moduleDsl.MODULE_DECL#getDeclaration <em>Declaration</em>}</li>
+ *   <li>{@link org.xtext.moduleDsl.MODULE_DECL#getExp <em>Exp</em>}</li>
  *   <li>{@link org.xtext.moduleDsl.MODULE_DECL#getInstr <em>Instr</em>}</li>
  * </ul>
  * </p>
@@ -121,6 +122,32 @@ public interface MODULE_DECL extends EObject
    * @generated
    */
   EList<VAR_CST> getDeclaration();
+
+  /**
+   * Returns the value of the '<em><b>Exp</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Exp</em>' containment reference isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Exp</em>' containment reference.
+   * @see #setExp(EXPRESSION)
+   * @see org.xtext.moduleDsl.ModuleDslPackage#getMODULE_DECL_Exp()
+   * @model containment="true"
+   * @generated
+   */
+  EXPRESSION getExp();
+
+  /**
+   * Sets the value of the '{@link org.xtext.moduleDsl.MODULE_DECL#getExp <em>Exp</em>}' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Exp</em>' containment reference.
+   * @see #getExp()
+   * @generated
+   */
+  void setExp(EXPRESSION value);
 
   /**
    * Returns the value of the '<em><b>Instr</b></em>' containment reference list.

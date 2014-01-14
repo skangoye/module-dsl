@@ -202,27 +202,71 @@ ruleMODULE_DECL returns [EObject current=null]
 	    }
 
 )
-)*(
+)*	otherlv_7='expression' 
+    {
+    	newLeafNode(otherlv_7, grammarAccess.getMODULE_DECLAccess().getExpressionKeyword_7());
+    }
+(
+(
+		lv_name_8_0=RULE_IDENT
+		{
+			newLeafNode(lv_name_8_0, grammarAccess.getMODULE_DECLAccess().getNameIDENTTerminalRuleCall_8_0()); 
+		}
+		{
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getMODULE_DECLRule());
+	        }
+       		setWithLastConsumed(
+       			$current, 
+       			"name",
+        		lv_name_8_0, 
+        		"IDENT");
+	    }
+
+)
+)	otherlv_9='=' 
+    {
+    	newLeafNode(otherlv_9, grammarAccess.getMODULE_DECLAccess().getEqualsSignKeyword_9());
+    }
+(
 (
 		{ 
-	        newCompositeNode(grammarAccess.getMODULE_DECLAccess().getInstrINSTRUCTIONParserRuleCall_7_0()); 
+	        newCompositeNode(grammarAccess.getMODULE_DECLAccess().getExpEXPRESSIONParserRuleCall_10_0()); 
 	    }
-		lv_instr_7_0=ruleINSTRUCTION		{
+		lv_exp_10_0=ruleEXPRESSION		{
+	        if ($current==null) {
+	            $current = createModelElementForParent(grammarAccess.getMODULE_DECLRule());
+	        }
+       		set(
+       			$current, 
+       			"exp",
+        		lv_exp_10_0, 
+        		"EXPRESSION");
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+)(
+(
+		{ 
+	        newCompositeNode(grammarAccess.getMODULE_DECLAccess().getInstrINSTRUCTIONParserRuleCall_11_0()); 
+	    }
+		lv_instr_11_0=ruleINSTRUCTION		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getMODULE_DECLRule());
 	        }
        		add(
        			$current, 
        			"instr",
-        		lv_instr_7_0, 
+        		lv_instr_11_0, 
         		"INSTRUCTION");
 	        afterParserOrEnumRuleCall();
 	    }
 
 )
-)*	otherlv_8='}' 
+)*	otherlv_12='}' 
     {
-    	newLeafNode(otherlv_8, grammarAccess.getMODULE_DECLAccess().getRightCurlyBracketKeyword_8());
+    	newLeafNode(otherlv_12, grammarAccess.getMODULE_DECLAccess().getRightCurlyBracketKeyword_12());
     }
 )
 ;
