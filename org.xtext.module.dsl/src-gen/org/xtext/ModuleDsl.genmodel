@@ -67,7 +67,7 @@
     <genClasses ecoreClass="ModuleDsl.ecore#//Literal"/>
     <genClasses ecoreClass="ModuleDsl.ecore#//INSTRUCTION"/>
     <genClasses ecoreClass="ModuleDsl.ecore#//IF_INSTR">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ModuleDsl.ecore#//IF_INSTR/condInstr"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ModuleDsl.ecore#//IF_INSTR/ifcond"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ModuleDsl.ecore#//IF_INSTR/ifst"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ModuleDsl.ecore#//IF_INSTR/elst"/>
     </genClasses>
@@ -136,26 +136,21 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ModuleDsl.ecore#//COMPARISON/op"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ModuleDsl.ecore#//COMPARISON/right"/>
     </genClasses>
-    <genClasses ecoreClass="ModuleDsl.ecore#//Plus">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ModuleDsl.ecore#//Plus/left"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ModuleDsl.ecore#//Plus/right"/>
+    <genClasses ecoreClass="ModuleDsl.ecore#//ADD">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ModuleDsl.ecore#//ADD/left"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ModuleDsl.ecore#//ADD/right"/>
     </genClasses>
-    <genClasses ecoreClass="ModuleDsl.ecore#//Sub">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ModuleDsl.ecore#//Sub/left"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ModuleDsl.ecore#//Sub/right"/>
+    <genClasses ecoreClass="ModuleDsl.ecore#//SUB">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ModuleDsl.ecore#//SUB/left"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ModuleDsl.ecore#//SUB/right"/>
     </genClasses>
-    <genClasses ecoreClass="ModuleDsl.ecore#//Multi">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ModuleDsl.ecore#//Multi/left"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ModuleDsl.ecore#//Multi/right"/>
+    <genClasses ecoreClass="ModuleDsl.ecore#//MULT">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ModuleDsl.ecore#//MULT/left"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ModuleDsl.ecore#//MULT/right"/>
     </genClasses>
-    <genClasses ecoreClass="ModuleDsl.ecore#//Div">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ModuleDsl.ecore#//Div/left"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ModuleDsl.ecore#//Div/right"/>
-    </genClasses>
-    <genClasses ecoreClass="ModuleDsl.ecore#//strREDUCTION">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ModuleDsl.ecore#//strREDUCTION/left"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ModuleDsl.ecore#//strREDUCTION/op"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ModuleDsl.ecore#//strREDUCTION/pos"/>
+    <genClasses ecoreClass="ModuleDsl.ecore#//DIV">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ModuleDsl.ecore#//DIV/left"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ModuleDsl.ecore#//DIV/right"/>
     </genClasses>
     <genClasses ecoreClass="ModuleDsl.ecore#//NOT">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ModuleDsl.ecore#//NOT/exp"/>
@@ -174,6 +169,12 @@
     </genClasses>
     <genClasses ecoreClass="ModuleDsl.ecore#//boolConstant">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ModuleDsl.ecore#//boolConstant/value"/>
+    </genClasses>
+    <genClasses ecoreClass="ModuleDsl.ecore#//bitConstant">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ModuleDsl.ecore#//bitConstant/value"/>
+    </genClasses>
+    <genClasses ecoreClass="ModuleDsl.ecore#//hexConstant">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ModuleDsl.ecore#//hexConstant/value"/>
     </genClasses>
     <genClasses ecoreClass="ModuleDsl.ecore#//VarExpRef">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ModuleDsl.ecore#//VarExpRef/vref"/>

@@ -374,49 +374,40 @@ public interface ModuleDslFactory extends EFactory
   COMPARISON createCOMPARISON();
 
   /**
-   * Returns a new object of class '<em>Plus</em>'.
+   * Returns a new object of class '<em>ADD</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return a new object of class '<em>Plus</em>'.
+   * @return a new object of class '<em>ADD</em>'.
    * @generated
    */
-  Plus createPlus();
+  ADD createADD();
 
   /**
-   * Returns a new object of class '<em>Sub</em>'.
+   * Returns a new object of class '<em>SUB</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return a new object of class '<em>Sub</em>'.
+   * @return a new object of class '<em>SUB</em>'.
    * @generated
    */
-  Sub createSub();
+  SUB createSUB();
 
   /**
-   * Returns a new object of class '<em>Multi</em>'.
+   * Returns a new object of class '<em>MULT</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return a new object of class '<em>Multi</em>'.
+   * @return a new object of class '<em>MULT</em>'.
    * @generated
    */
-  Multi createMulti();
+  MULT createMULT();
 
   /**
-   * Returns a new object of class '<em>Div</em>'.
+   * Returns a new object of class '<em>DIV</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return a new object of class '<em>Div</em>'.
+   * @return a new object of class '<em>DIV</em>'.
    * @generated
    */
-  Div createDiv();
-
-  /**
-   * Returns a new object of class '<em>str REDUCTION</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>str REDUCTION</em>'.
-   * @generated
-   */
-  strREDUCTION createstrREDUCTION();
+  DIV createDIV();
 
   /**
    * Returns a new object of class '<em>NOT</em>'.
@@ -471,6 +462,24 @@ public interface ModuleDslFactory extends EFactory
    * @generated
    */
   boolConstant createboolConstant();
+
+  /**
+   * Returns a new object of class '<em>bit Constant</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>bit Constant</em>'.
+   * @generated
+   */
+  bitConstant createbitConstant();
+
+  /**
+   * Returns a new object of class '<em>hex Constant</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>hex Constant</em>'.
+   * @generated
+   */
+  hexConstant createhexConstant();
 
   /**
    * Returns a new object of class '<em>Var Exp Ref</em>'.

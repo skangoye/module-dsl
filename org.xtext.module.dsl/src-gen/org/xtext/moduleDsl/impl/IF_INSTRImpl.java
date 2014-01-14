@@ -22,7 +22,7 @@ import org.xtext.moduleDsl.ModuleDslPackage;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.xtext.moduleDsl.impl.IF_INSTRImpl#getCondInstr <em>Cond Instr</em>}</li>
+ *   <li>{@link org.xtext.moduleDsl.impl.IF_INSTRImpl#getIfcond <em>Ifcond</em>}</li>
  *   <li>{@link org.xtext.moduleDsl.impl.IF_INSTRImpl#getIfst <em>Ifst</em>}</li>
  *   <li>{@link org.xtext.moduleDsl.impl.IF_INSTRImpl#getElst <em>Elst</em>}</li>
  * </ul>
@@ -33,14 +33,14 @@ import org.xtext.moduleDsl.ModuleDslPackage;
 public class IF_INSTRImpl extends INSTRUCTIONImpl implements IF_INSTR
 {
   /**
-   * The cached value of the '{@link #getCondInstr() <em>Cond Instr</em>}' containment reference.
+   * The cached value of the '{@link #getIfcond() <em>Ifcond</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getCondInstr()
+   * @see #getIfcond()
    * @generated
    * @ordered
    */
-  protected EXPRESSION condInstr;
+  protected EXPRESSION ifcond;
 
   /**
    * The cached value of the '{@link #getIfst() <em>Ifst</em>}' containment reference.
@@ -88,9 +88,9 @@ public class IF_INSTRImpl extends INSTRUCTIONImpl implements IF_INSTR
    * <!-- end-user-doc -->
    * @generated
    */
-  public EXPRESSION getCondInstr()
+  public EXPRESSION getIfcond()
   {
-    return condInstr;
+    return ifcond;
   }
 
   /**
@@ -98,13 +98,13 @@ public class IF_INSTRImpl extends INSTRUCTIONImpl implements IF_INSTR
    * <!-- end-user-doc -->
    * @generated
    */
-  public NotificationChain basicSetCondInstr(EXPRESSION newCondInstr, NotificationChain msgs)
+  public NotificationChain basicSetIfcond(EXPRESSION newIfcond, NotificationChain msgs)
   {
-    EXPRESSION oldCondInstr = condInstr;
-    condInstr = newCondInstr;
+    EXPRESSION oldIfcond = ifcond;
+    ifcond = newIfcond;
     if (eNotificationRequired())
     {
-      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ModuleDslPackage.IF_INSTR__COND_INSTR, oldCondInstr, newCondInstr);
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ModuleDslPackage.IF_INSTR__IFCOND, oldIfcond, newIfcond);
       if (msgs == null) msgs = notification; else msgs.add(notification);
     }
     return msgs;
@@ -115,20 +115,20 @@ public class IF_INSTRImpl extends INSTRUCTIONImpl implements IF_INSTR
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setCondInstr(EXPRESSION newCondInstr)
+  public void setIfcond(EXPRESSION newIfcond)
   {
-    if (newCondInstr != condInstr)
+    if (newIfcond != ifcond)
     {
       NotificationChain msgs = null;
-      if (condInstr != null)
-        msgs = ((InternalEObject)condInstr).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ModuleDslPackage.IF_INSTR__COND_INSTR, null, msgs);
-      if (newCondInstr != null)
-        msgs = ((InternalEObject)newCondInstr).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ModuleDslPackage.IF_INSTR__COND_INSTR, null, msgs);
-      msgs = basicSetCondInstr(newCondInstr, msgs);
+      if (ifcond != null)
+        msgs = ((InternalEObject)ifcond).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ModuleDslPackage.IF_INSTR__IFCOND, null, msgs);
+      if (newIfcond != null)
+        msgs = ((InternalEObject)newIfcond).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ModuleDslPackage.IF_INSTR__IFCOND, null, msgs);
+      msgs = basicSetIfcond(newIfcond, msgs);
       if (msgs != null) msgs.dispatch();
     }
     else if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, ModuleDslPackage.IF_INSTR__COND_INSTR, newCondInstr, newCondInstr));
+      eNotify(new ENotificationImpl(this, Notification.SET, ModuleDslPackage.IF_INSTR__IFCOND, newIfcond, newIfcond));
   }
 
   /**
@@ -237,8 +237,8 @@ public class IF_INSTRImpl extends INSTRUCTIONImpl implements IF_INSTR
   {
     switch (featureID)
     {
-      case ModuleDslPackage.IF_INSTR__COND_INSTR:
-        return basicSetCondInstr(null, msgs);
+      case ModuleDslPackage.IF_INSTR__IFCOND:
+        return basicSetIfcond(null, msgs);
       case ModuleDslPackage.IF_INSTR__IFST:
         return basicSetIfst(null, msgs);
       case ModuleDslPackage.IF_INSTR__ELST:
@@ -257,8 +257,8 @@ public class IF_INSTRImpl extends INSTRUCTIONImpl implements IF_INSTR
   {
     switch (featureID)
     {
-      case ModuleDslPackage.IF_INSTR__COND_INSTR:
-        return getCondInstr();
+      case ModuleDslPackage.IF_INSTR__IFCOND:
+        return getIfcond();
       case ModuleDslPackage.IF_INSTR__IFST:
         return getIfst();
       case ModuleDslPackage.IF_INSTR__ELST:
@@ -277,8 +277,8 @@ public class IF_INSTRImpl extends INSTRUCTIONImpl implements IF_INSTR
   {
     switch (featureID)
     {
-      case ModuleDslPackage.IF_INSTR__COND_INSTR:
-        setCondInstr((EXPRESSION)newValue);
+      case ModuleDslPackage.IF_INSTR__IFCOND:
+        setIfcond((EXPRESSION)newValue);
         return;
       case ModuleDslPackage.IF_INSTR__IFST:
         setIfst((INSTRUCTION)newValue);
@@ -300,8 +300,8 @@ public class IF_INSTRImpl extends INSTRUCTIONImpl implements IF_INSTR
   {
     switch (featureID)
     {
-      case ModuleDslPackage.IF_INSTR__COND_INSTR:
-        setCondInstr((EXPRESSION)null);
+      case ModuleDslPackage.IF_INSTR__IFCOND:
+        setIfcond((EXPRESSION)null);
         return;
       case ModuleDslPackage.IF_INSTR__IFST:
         setIfst((INSTRUCTION)null);
@@ -323,8 +323,8 @@ public class IF_INSTRImpl extends INSTRUCTIONImpl implements IF_INSTR
   {
     switch (featureID)
     {
-      case ModuleDslPackage.IF_INSTR__COND_INSTR:
-        return condInstr != null;
+      case ModuleDslPackage.IF_INSTR__IFCOND:
+        return ifcond != null;
       case ModuleDslPackage.IF_INSTR__IFST:
         return ifst != null;
       case ModuleDslPackage.IF_INSTR__ELST:

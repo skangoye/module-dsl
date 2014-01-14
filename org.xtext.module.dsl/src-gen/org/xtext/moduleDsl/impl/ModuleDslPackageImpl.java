@@ -9,20 +9,18 @@ import org.eclipse.emf.ecore.EReference;
 
 import org.eclipse.emf.ecore.impl.EPackageImpl;
 
-import org.xtext.moduleDsl.Div;
 import org.xtext.moduleDsl.Flow;
 import org.xtext.moduleDsl.Literal;
 import org.xtext.moduleDsl.ModuleDslFactory;
 import org.xtext.moduleDsl.ModuleDslPackage;
-import org.xtext.moduleDsl.Multi;
-import org.xtext.moduleDsl.Plus;
-import org.xtext.moduleDsl.Sub;
 import org.xtext.moduleDsl.VarExpRef;
+import org.xtext.moduleDsl.bitConstant;
 import org.xtext.moduleDsl.bitLITERAL;
 import org.xtext.moduleDsl.boolConstant;
 import org.xtext.moduleDsl.boolLITERAL;
 import org.xtext.moduleDsl.enumConstant;
 import org.xtext.moduleDsl.enumLITERAL;
+import org.xtext.moduleDsl.hexConstant;
 import org.xtext.moduleDsl.hexLITERAL;
 import org.xtext.moduleDsl.identLITERAL;
 import org.xtext.moduleDsl.intConstant;
@@ -31,7 +29,6 @@ import org.xtext.moduleDsl.realConstant;
 import org.xtext.moduleDsl.realLITERAL;
 import org.xtext.moduleDsl.strConstant;
 import org.xtext.moduleDsl.strLITERAL;
-import org.xtext.moduleDsl.strREDUCTION;
 import org.xtext.moduleDsl.unknowLITERAL;
 
 /**
@@ -320,7 +317,7 @@ public class ModuleDslPackageImpl extends EPackageImpl implements ModuleDslPacka
    * <!-- end-user-doc -->
    * @generated
    */
-  private EClass plusEClass = null;
+  private EClass addEClass = null;
 
   /**
    * <!-- begin-user-doc -->
@@ -334,7 +331,7 @@ public class ModuleDslPackageImpl extends EPackageImpl implements ModuleDslPacka
    * <!-- end-user-doc -->
    * @generated
    */
-  private EClass multiEClass = null;
+  private EClass multEClass = null;
 
   /**
    * <!-- begin-user-doc -->
@@ -342,13 +339,6 @@ public class ModuleDslPackageImpl extends EPackageImpl implements ModuleDslPacka
    * @generated
    */
   private EClass divEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  private EClass strREDUCTIONEClass = null;
 
   /**
    * <!-- begin-user-doc -->
@@ -391,6 +381,20 @@ public class ModuleDslPackageImpl extends EPackageImpl implements ModuleDslPacka
    * @generated
    */
   private EClass boolConstantEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass bitConstantEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass hexConstantEClass = null;
 
   /**
    * <!-- begin-user-doc -->
@@ -927,7 +931,7 @@ public class ModuleDslPackageImpl extends EPackageImpl implements ModuleDslPacka
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getIF_INSTR_CondInstr()
+  public EReference getIF_INSTR_Ifcond()
   {
     return (EReference)iF_INSTREClass.getEStructuralFeatures().get(0);
   }
@@ -1427,9 +1431,9 @@ public class ModuleDslPackageImpl extends EPackageImpl implements ModuleDslPacka
    * <!-- end-user-doc -->
    * @generated
    */
-  public EClass getPlus()
+  public EClass getADD()
   {
-    return plusEClass;
+    return addEClass;
   }
 
   /**
@@ -1437,9 +1441,9 @@ public class ModuleDslPackageImpl extends EPackageImpl implements ModuleDslPacka
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getPlus_Left()
+  public EReference getADD_Left()
   {
-    return (EReference)plusEClass.getEStructuralFeatures().get(0);
+    return (EReference)addEClass.getEStructuralFeatures().get(0);
   }
 
   /**
@@ -1447,9 +1451,9 @@ public class ModuleDslPackageImpl extends EPackageImpl implements ModuleDslPacka
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getPlus_Right()
+  public EReference getADD_Right()
   {
-    return (EReference)plusEClass.getEStructuralFeatures().get(1);
+    return (EReference)addEClass.getEStructuralFeatures().get(1);
   }
 
   /**
@@ -1457,7 +1461,7 @@ public class ModuleDslPackageImpl extends EPackageImpl implements ModuleDslPacka
    * <!-- end-user-doc -->
    * @generated
    */
-  public EClass getSub()
+  public EClass getSUB()
   {
     return subEClass;
   }
@@ -1467,7 +1471,7 @@ public class ModuleDslPackageImpl extends EPackageImpl implements ModuleDslPacka
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getSub_Left()
+  public EReference getSUB_Left()
   {
     return (EReference)subEClass.getEStructuralFeatures().get(0);
   }
@@ -1477,7 +1481,7 @@ public class ModuleDslPackageImpl extends EPackageImpl implements ModuleDslPacka
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getSub_Right()
+  public EReference getSUB_Right()
   {
     return (EReference)subEClass.getEStructuralFeatures().get(1);
   }
@@ -1487,9 +1491,9 @@ public class ModuleDslPackageImpl extends EPackageImpl implements ModuleDslPacka
    * <!-- end-user-doc -->
    * @generated
    */
-  public EClass getMulti()
+  public EClass getMULT()
   {
-    return multiEClass;
+    return multEClass;
   }
 
   /**
@@ -1497,9 +1501,9 @@ public class ModuleDslPackageImpl extends EPackageImpl implements ModuleDslPacka
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getMulti_Left()
+  public EReference getMULT_Left()
   {
-    return (EReference)multiEClass.getEStructuralFeatures().get(0);
+    return (EReference)multEClass.getEStructuralFeatures().get(0);
   }
 
   /**
@@ -1507,9 +1511,9 @@ public class ModuleDslPackageImpl extends EPackageImpl implements ModuleDslPacka
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getMulti_Right()
+  public EReference getMULT_Right()
   {
-    return (EReference)multiEClass.getEStructuralFeatures().get(1);
+    return (EReference)multEClass.getEStructuralFeatures().get(1);
   }
 
   /**
@@ -1517,7 +1521,7 @@ public class ModuleDslPackageImpl extends EPackageImpl implements ModuleDslPacka
    * <!-- end-user-doc -->
    * @generated
    */
-  public EClass getDiv()
+  public EClass getDIV()
   {
     return divEClass;
   }
@@ -1527,7 +1531,7 @@ public class ModuleDslPackageImpl extends EPackageImpl implements ModuleDslPacka
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getDiv_Left()
+  public EReference getDIV_Left()
   {
     return (EReference)divEClass.getEStructuralFeatures().get(0);
   }
@@ -1537,49 +1541,9 @@ public class ModuleDslPackageImpl extends EPackageImpl implements ModuleDslPacka
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getDiv_Right()
+  public EReference getDIV_Right()
   {
     return (EReference)divEClass.getEStructuralFeatures().get(1);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EClass getstrREDUCTION()
-  {
-    return strREDUCTIONEClass;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getstrREDUCTION_Left()
-  {
-    return (EReference)strREDUCTIONEClass.getEStructuralFeatures().get(0);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EAttribute getstrREDUCTION_Op()
-  {
-    return (EAttribute)strREDUCTIONEClass.getEStructuralFeatures().get(1);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getstrREDUCTION_Pos()
-  {
-    return (EReference)strREDUCTIONEClass.getEStructuralFeatures().get(2);
   }
 
   /**
@@ -1707,6 +1671,46 @@ public class ModuleDslPackageImpl extends EPackageImpl implements ModuleDslPacka
    * <!-- end-user-doc -->
    * @generated
    */
+  public EClass getbitConstant()
+  {
+    return bitConstantEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getbitConstant_Value()
+  {
+    return (EAttribute)bitConstantEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass gethexConstant()
+  {
+    return hexConstantEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute gethexConstant_Value()
+  {
+    return (EAttribute)hexConstantEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EClass getVarExpRef()
   {
     return varExpRefEClass;
@@ -1815,7 +1819,7 @@ public class ModuleDslPackageImpl extends EPackageImpl implements ModuleDslPacka
     instructionEClass = createEClass(INSTRUCTION);
 
     iF_INSTREClass = createEClass(IF_INSTR);
-    createEReference(iF_INSTREClass, IF_INSTR__COND_INSTR);
+    createEReference(iF_INSTREClass, IF_INSTR__IFCOND);
     createEReference(iF_INSTREClass, IF_INSTR__IFST);
     createEReference(iF_INSTREClass, IF_INSTR__ELST);
 
@@ -1887,26 +1891,21 @@ public class ModuleDslPackageImpl extends EPackageImpl implements ModuleDslPacka
     createEAttribute(comparisonEClass, COMPARISON__OP);
     createEReference(comparisonEClass, COMPARISON__RIGHT);
 
-    plusEClass = createEClass(PLUS);
-    createEReference(plusEClass, PLUS__LEFT);
-    createEReference(plusEClass, PLUS__RIGHT);
+    addEClass = createEClass(ADD);
+    createEReference(addEClass, ADD__LEFT);
+    createEReference(addEClass, ADD__RIGHT);
 
     subEClass = createEClass(SUB);
     createEReference(subEClass, SUB__LEFT);
     createEReference(subEClass, SUB__RIGHT);
 
-    multiEClass = createEClass(MULTI);
-    createEReference(multiEClass, MULTI__LEFT);
-    createEReference(multiEClass, MULTI__RIGHT);
+    multEClass = createEClass(MULT);
+    createEReference(multEClass, MULT__LEFT);
+    createEReference(multEClass, MULT__RIGHT);
 
     divEClass = createEClass(DIV);
     createEReference(divEClass, DIV__LEFT);
     createEReference(divEClass, DIV__RIGHT);
-
-    strREDUCTIONEClass = createEClass(STR_REDUCTION);
-    createEReference(strREDUCTIONEClass, STR_REDUCTION__LEFT);
-    createEAttribute(strREDUCTIONEClass, STR_REDUCTION__OP);
-    createEReference(strREDUCTIONEClass, STR_REDUCTION__POS);
 
     notEClass = createEClass(NOT);
     createEReference(notEClass, NOT__EXP);
@@ -1925,6 +1924,12 @@ public class ModuleDslPackageImpl extends EPackageImpl implements ModuleDslPacka
 
     boolConstantEClass = createEClass(BOOL_CONSTANT);
     createEAttribute(boolConstantEClass, BOOL_CONSTANT__VALUE);
+
+    bitConstantEClass = createEClass(BIT_CONSTANT);
+    createEAttribute(bitConstantEClass, BIT_CONSTANT__VALUE);
+
+    hexConstantEClass = createEClass(HEX_CONSTANT);
+    createEAttribute(hexConstantEClass, HEX_CONSTANT__VALUE);
 
     varExpRefEClass = createEClass(VAR_EXP_REF);
     createEReference(varExpRefEClass, VAR_EXP_REF__VREF);
@@ -1983,17 +1988,18 @@ public class ModuleDslPackageImpl extends EPackageImpl implements ModuleDslPacka
     andEClass.getESuperTypes().add(this.getEXPRESSION());
     equaL_DIFFEClass.getESuperTypes().add(this.getEXPRESSION());
     comparisonEClass.getESuperTypes().add(this.getEXPRESSION());
-    plusEClass.getESuperTypes().add(this.getEXPRESSION());
+    addEClass.getESuperTypes().add(this.getEXPRESSION());
     subEClass.getESuperTypes().add(this.getEXPRESSION());
-    multiEClass.getESuperTypes().add(this.getEXPRESSION());
+    multEClass.getESuperTypes().add(this.getEXPRESSION());
     divEClass.getESuperTypes().add(this.getEXPRESSION());
-    strREDUCTIONEClass.getESuperTypes().add(this.getEXPRESSION());
     notEClass.getESuperTypes().add(this.getEXPRESSION());
     intConstantEClass.getESuperTypes().add(this.getEXPRESSION());
     realConstantEClass.getESuperTypes().add(this.getEXPRESSION());
     strConstantEClass.getESuperTypes().add(this.getEXPRESSION());
     enumConstantEClass.getESuperTypes().add(this.getEXPRESSION());
     boolConstantEClass.getESuperTypes().add(this.getEXPRESSION());
+    bitConstantEClass.getESuperTypes().add(this.getEXPRESSION());
+    hexConstantEClass.getESuperTypes().add(this.getEXPRESSION());
     varExpRefEClass.getESuperTypes().add(this.getEXPRESSION());
 
     // Initialize classes and features; add operations and parameters
@@ -2060,7 +2066,7 @@ public class ModuleDslPackageImpl extends EPackageImpl implements ModuleDslPacka
     initEClass(instructionEClass, org.xtext.moduleDsl.INSTRUCTION.class, "INSTRUCTION", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
     initEClass(iF_INSTREClass, org.xtext.moduleDsl.IF_INSTR.class, "IF_INSTR", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getIF_INSTR_CondInstr(), this.getEXPRESSION(), null, "condInstr", null, 0, 1, org.xtext.moduleDsl.IF_INSTR.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getIF_INSTR_Ifcond(), this.getEXPRESSION(), null, "ifcond", null, 0, 1, org.xtext.moduleDsl.IF_INSTR.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getIF_INSTR_Ifst(), this.getINSTRUCTION(), null, "ifst", null, 0, 1, org.xtext.moduleDsl.IF_INSTR.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getIF_INSTR_Elst(), this.getINSTRUCTION(), null, "elst", null, 0, 1, org.xtext.moduleDsl.IF_INSTR.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
@@ -2132,26 +2138,21 @@ public class ModuleDslPackageImpl extends EPackageImpl implements ModuleDslPacka
     initEAttribute(getCOMPARISON_Op(), ecorePackage.getEString(), "op", null, 0, 1, org.xtext.moduleDsl.COMPARISON.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getCOMPARISON_Right(), this.getEXPRESSION(), null, "right", null, 0, 1, org.xtext.moduleDsl.COMPARISON.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-    initEClass(plusEClass, Plus.class, "Plus", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getPlus_Left(), this.getEXPRESSION(), null, "left", null, 0, 1, Plus.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getPlus_Right(), this.getEXPRESSION(), null, "right", null, 0, 1, Plus.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEClass(addEClass, org.xtext.moduleDsl.ADD.class, "ADD", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getADD_Left(), this.getEXPRESSION(), null, "left", null, 0, 1, org.xtext.moduleDsl.ADD.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getADD_Right(), this.getEXPRESSION(), null, "right", null, 0, 1, org.xtext.moduleDsl.ADD.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-    initEClass(subEClass, Sub.class, "Sub", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getSub_Left(), this.getEXPRESSION(), null, "left", null, 0, 1, Sub.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getSub_Right(), this.getEXPRESSION(), null, "right", null, 0, 1, Sub.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEClass(subEClass, org.xtext.moduleDsl.SUB.class, "SUB", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getSUB_Left(), this.getEXPRESSION(), null, "left", null, 0, 1, org.xtext.moduleDsl.SUB.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getSUB_Right(), this.getEXPRESSION(), null, "right", null, 0, 1, org.xtext.moduleDsl.SUB.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-    initEClass(multiEClass, Multi.class, "Multi", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getMulti_Left(), this.getEXPRESSION(), null, "left", null, 0, 1, Multi.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getMulti_Right(), this.getEXPRESSION(), null, "right", null, 0, 1, Multi.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEClass(multEClass, org.xtext.moduleDsl.MULT.class, "MULT", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getMULT_Left(), this.getEXPRESSION(), null, "left", null, 0, 1, org.xtext.moduleDsl.MULT.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getMULT_Right(), this.getEXPRESSION(), null, "right", null, 0, 1, org.xtext.moduleDsl.MULT.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-    initEClass(divEClass, Div.class, "Div", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getDiv_Left(), this.getEXPRESSION(), null, "left", null, 0, 1, Div.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getDiv_Right(), this.getEXPRESSION(), null, "right", null, 0, 1, Div.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-    initEClass(strREDUCTIONEClass, strREDUCTION.class, "strREDUCTION", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getstrREDUCTION_Left(), this.getEXPRESSION(), null, "left", null, 0, 1, strREDUCTION.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEAttribute(getstrREDUCTION_Op(), ecorePackage.getEString(), "op", null, 0, 1, strREDUCTION.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getstrREDUCTION_Pos(), this.getEXPRESSION(), null, "pos", null, 0, 1, strREDUCTION.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEClass(divEClass, org.xtext.moduleDsl.DIV.class, "DIV", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getDIV_Left(), this.getEXPRESSION(), null, "left", null, 0, 1, org.xtext.moduleDsl.DIV.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getDIV_Right(), this.getEXPRESSION(), null, "right", null, 0, 1, org.xtext.moduleDsl.DIV.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(notEClass, org.xtext.moduleDsl.NOT.class, "NOT", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getNOT_Exp(), this.getEXPRESSION(), null, "exp", null, 0, 1, org.xtext.moduleDsl.NOT.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -2170,6 +2171,12 @@ public class ModuleDslPackageImpl extends EPackageImpl implements ModuleDslPacka
 
     initEClass(boolConstantEClass, boolConstant.class, "boolConstant", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getboolConstant_Value(), ecorePackage.getEBoolean(), "value", null, 0, 1, boolConstant.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(bitConstantEClass, bitConstant.class, "bitConstant", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getbitConstant_Value(), ecorePackage.getEString(), "value", null, 0, 1, bitConstant.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(hexConstantEClass, hexConstant.class, "hexConstant", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(gethexConstant_Value(), ecorePackage.getEString(), "value", null, 0, 1, hexConstant.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(varExpRefEClass, VarExpRef.class, "VarExpRef", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getVarExpRef_Vref(), this.getVAR_CST(), null, "vref", null, 0, 1, VarExpRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

@@ -371,43 +371,35 @@ public class ModuleDslSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
-      case ModuleDslPackage.PLUS:
+      case ModuleDslPackage.ADD:
       {
-        Plus plus = (Plus)theEObject;
-        T result = casePlus(plus);
-        if (result == null) result = caseEXPRESSION(plus);
+        ADD add = (ADD)theEObject;
+        T result = caseADD(add);
+        if (result == null) result = caseEXPRESSION(add);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
       case ModuleDslPackage.SUB:
       {
-        Sub sub = (Sub)theEObject;
-        T result = caseSub(sub);
+        SUB sub = (SUB)theEObject;
+        T result = caseSUB(sub);
         if (result == null) result = caseEXPRESSION(sub);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
-      case ModuleDslPackage.MULTI:
+      case ModuleDslPackage.MULT:
       {
-        Multi multi = (Multi)theEObject;
-        T result = caseMulti(multi);
-        if (result == null) result = caseEXPRESSION(multi);
+        MULT mult = (MULT)theEObject;
+        T result = caseMULT(mult);
+        if (result == null) result = caseEXPRESSION(mult);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
       case ModuleDslPackage.DIV:
       {
-        Div div = (Div)theEObject;
-        T result = caseDiv(div);
+        DIV div = (DIV)theEObject;
+        T result = caseDIV(div);
         if (result == null) result = caseEXPRESSION(div);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
-      case ModuleDslPackage.STR_REDUCTION:
-      {
-        strREDUCTION strREDUCTION = (strREDUCTION)theEObject;
-        T result = casestrREDUCTION(strREDUCTION);
-        if (result == null) result = caseEXPRESSION(strREDUCTION);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -456,6 +448,22 @@ public class ModuleDslSwitch<T> extends Switch<T>
         boolConstant boolConstant = (boolConstant)theEObject;
         T result = caseboolConstant(boolConstant);
         if (result == null) result = caseEXPRESSION(boolConstant);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case ModuleDslPackage.BIT_CONSTANT:
+      {
+        bitConstant bitConstant = (bitConstant)theEObject;
+        T result = casebitConstant(bitConstant);
+        if (result == null) result = caseEXPRESSION(bitConstant);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case ModuleDslPackage.HEX_CONSTANT:
+      {
+        hexConstant hexConstant = (hexConstant)theEObject;
+        T result = casehexConstant(hexConstant);
+        if (result == null) result = caseEXPRESSION(hexConstant);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -1096,81 +1104,65 @@ public class ModuleDslSwitch<T> extends Switch<T>
   }
 
   /**
-   * Returns the result of interpreting the object as an instance of '<em>Plus</em>'.
+   * Returns the result of interpreting the object as an instance of '<em>ADD</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
    * returning a non-null result will terminate the switch.
    * <!-- end-user-doc -->
    * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Plus</em>'.
+   * @return the result of interpreting the object as an instance of '<em>ADD</em>'.
    * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
    * @generated
    */
-  public T casePlus(Plus object)
+  public T caseADD(ADD object)
   {
     return null;
   }
 
   /**
-   * Returns the result of interpreting the object as an instance of '<em>Sub</em>'.
+   * Returns the result of interpreting the object as an instance of '<em>SUB</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
    * returning a non-null result will terminate the switch.
    * <!-- end-user-doc -->
    * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Sub</em>'.
+   * @return the result of interpreting the object as an instance of '<em>SUB</em>'.
    * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
    * @generated
    */
-  public T caseSub(Sub object)
+  public T caseSUB(SUB object)
   {
     return null;
   }
 
   /**
-   * Returns the result of interpreting the object as an instance of '<em>Multi</em>'.
+   * Returns the result of interpreting the object as an instance of '<em>MULT</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
    * returning a non-null result will terminate the switch.
    * <!-- end-user-doc -->
    * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Multi</em>'.
+   * @return the result of interpreting the object as an instance of '<em>MULT</em>'.
    * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
    * @generated
    */
-  public T caseMulti(Multi object)
+  public T caseMULT(MULT object)
   {
     return null;
   }
 
   /**
-   * Returns the result of interpreting the object as an instance of '<em>Div</em>'.
+   * Returns the result of interpreting the object as an instance of '<em>DIV</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
    * returning a non-null result will terminate the switch.
    * <!-- end-user-doc -->
    * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Div</em>'.
+   * @return the result of interpreting the object as an instance of '<em>DIV</em>'.
    * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
    * @generated
    */
-  public T caseDiv(Div object)
-  {
-    return null;
-  }
-
-  /**
-   * Returns the result of interpreting the object as an instance of '<em>str REDUCTION</em>'.
-   * <!-- begin-user-doc -->
-   * This implementation returns null;
-   * returning a non-null result will terminate the switch.
-   * <!-- end-user-doc -->
-   * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>str REDUCTION</em>'.
-   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-   * @generated
-   */
-  public T casestrREDUCTION(strREDUCTION object)
+  public T caseDIV(DIV object)
   {
     return null;
   }
@@ -1267,6 +1259,38 @@ public class ModuleDslSwitch<T> extends Switch<T>
    * @generated
    */
   public T caseboolConstant(boolConstant object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>bit Constant</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>bit Constant</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T casebitConstant(bitConstant object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>hex Constant</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>hex Constant</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T casehexConstant(hexConstant object)
   {
     return null;
   }

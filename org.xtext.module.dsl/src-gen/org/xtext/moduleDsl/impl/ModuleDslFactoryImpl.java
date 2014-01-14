@@ -103,17 +103,18 @@ public class ModuleDslFactoryImpl extends EFactoryImpl implements ModuleDslFacto
       case ModuleDslPackage.AND: return createAND();
       case ModuleDslPackage.EQUAL_DIFF: return createEQUAL_DIFF();
       case ModuleDslPackage.COMPARISON: return createCOMPARISON();
-      case ModuleDslPackage.PLUS: return createPlus();
-      case ModuleDslPackage.SUB: return createSub();
-      case ModuleDslPackage.MULTI: return createMulti();
-      case ModuleDslPackage.DIV: return createDiv();
-      case ModuleDslPackage.STR_REDUCTION: return createstrREDUCTION();
+      case ModuleDslPackage.ADD: return createADD();
+      case ModuleDslPackage.SUB: return createSUB();
+      case ModuleDslPackage.MULT: return createMULT();
+      case ModuleDslPackage.DIV: return createDIV();
       case ModuleDslPackage.NOT: return createNOT();
       case ModuleDslPackage.INT_CONSTANT: return createintConstant();
       case ModuleDslPackage.REAL_CONSTANT: return createrealConstant();
       case ModuleDslPackage.STR_CONSTANT: return createstrConstant();
       case ModuleDslPackage.ENUM_CONSTANT: return createenumConstant();
       case ModuleDslPackage.BOOL_CONSTANT: return createboolConstant();
+      case ModuleDslPackage.BIT_CONSTANT: return createbitConstant();
+      case ModuleDslPackage.HEX_CONSTANT: return createhexConstant();
       case ModuleDslPackage.VAR_EXP_REF: return createVarExpRef();
       default:
         throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
@@ -554,10 +555,10 @@ public class ModuleDslFactoryImpl extends EFactoryImpl implements ModuleDslFacto
    * <!-- end-user-doc -->
    * @generated
    */
-  public Plus createPlus()
+  public ADD createADD()
   {
-    PlusImpl plus = new PlusImpl();
-    return plus;
+    ADDImpl add = new ADDImpl();
+    return add;
   }
 
   /**
@@ -565,9 +566,9 @@ public class ModuleDslFactoryImpl extends EFactoryImpl implements ModuleDslFacto
    * <!-- end-user-doc -->
    * @generated
    */
-  public Sub createSub()
+  public SUB createSUB()
   {
-    SubImpl sub = new SubImpl();
+    SUBImpl sub = new SUBImpl();
     return sub;
   }
 
@@ -576,10 +577,10 @@ public class ModuleDslFactoryImpl extends EFactoryImpl implements ModuleDslFacto
    * <!-- end-user-doc -->
    * @generated
    */
-  public Multi createMulti()
+  public MULT createMULT()
   {
-    MultiImpl multi = new MultiImpl();
-    return multi;
+    MULTImpl mult = new MULTImpl();
+    return mult;
   }
 
   /**
@@ -587,21 +588,10 @@ public class ModuleDslFactoryImpl extends EFactoryImpl implements ModuleDslFacto
    * <!-- end-user-doc -->
    * @generated
    */
-  public Div createDiv()
+  public DIV createDIV()
   {
-    DivImpl div = new DivImpl();
+    DIVImpl div = new DIVImpl();
     return div;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public strREDUCTION createstrREDUCTION()
-  {
-    strREDUCTIONImpl strREDUCTION = new strREDUCTIONImpl();
-    return strREDUCTION;
   }
 
   /**
@@ -668,6 +658,28 @@ public class ModuleDslFactoryImpl extends EFactoryImpl implements ModuleDslFacto
   {
     boolConstantImpl boolConstant = new boolConstantImpl();
     return boolConstant;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public bitConstant createbitConstant()
+  {
+    bitConstantImpl bitConstant = new bitConstantImpl();
+    return bitConstant;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public hexConstant createhexConstant()
+  {
+    hexConstantImpl hexConstant = new hexConstantImpl();
+    return hexConstant;
   }
 
   /**

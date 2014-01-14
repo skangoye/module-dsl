@@ -13,6 +13,7 @@ import org.eclipse.xtext.serializer.sequencer.ISemanticNodeProvider.INodesForEOb
 import org.eclipse.xtext.serializer.sequencer.ISemanticSequencer;
 import org.eclipse.xtext.serializer.sequencer.ITransientValueService;
 import org.eclipse.xtext.serializer.sequencer.ITransientValueService.ValueTransient;
+import org.xtext.moduleDsl.ADD;
 import org.xtext.moduleDsl.AND;
 import org.xtext.moduleDsl.ASSIGN_INSTR;
 import org.xtext.moduleDsl.COMPARISON;
@@ -21,7 +22,7 @@ import org.xtext.moduleDsl.CRITERION_DECL;
 import org.xtext.moduleDsl.CST;
 import org.xtext.moduleDsl.DATASEL;
 import org.xtext.moduleDsl.DATASEL_DECL;
-import org.xtext.moduleDsl.Div;
+import org.xtext.moduleDsl.DIV;
 import org.xtext.moduleDsl.END;
 import org.xtext.moduleDsl.EQUAL_DIFF;
 import org.xtext.moduleDsl.ERROR_ASSIGN;
@@ -32,22 +33,23 @@ import org.xtext.moduleDsl.LANGUAGE;
 import org.xtext.moduleDsl.LOOP_INSTR;
 import org.xtext.moduleDsl.LSET;
 import org.xtext.moduleDsl.MODULE_DECL;
+import org.xtext.moduleDsl.MULT;
 import org.xtext.moduleDsl.ModuleDslPackage;
-import org.xtext.moduleDsl.Multi;
 import org.xtext.moduleDsl.NOT;
 import org.xtext.moduleDsl.NULL_ASSIGN;
 import org.xtext.moduleDsl.OR;
-import org.xtext.moduleDsl.Plus;
 import org.xtext.moduleDsl.SINGLE_ASSIGN;
-import org.xtext.moduleDsl.Sub;
+import org.xtext.moduleDsl.SUB;
 import org.xtext.moduleDsl.TYPE;
 import org.xtext.moduleDsl.VAR;
 import org.xtext.moduleDsl.VarExpRef;
+import org.xtext.moduleDsl.bitConstant;
 import org.xtext.moduleDsl.bitLITERAL;
 import org.xtext.moduleDsl.boolConstant;
 import org.xtext.moduleDsl.boolLITERAL;
 import org.xtext.moduleDsl.enumConstant;
 import org.xtext.moduleDsl.enumLITERAL;
+import org.xtext.moduleDsl.hexConstant;
 import org.xtext.moduleDsl.hexLITERAL;
 import org.xtext.moduleDsl.identLITERAL;
 import org.xtext.moduleDsl.intConstant;
@@ -56,7 +58,6 @@ import org.xtext.moduleDsl.realConstant;
 import org.xtext.moduleDsl.realLITERAL;
 import org.xtext.moduleDsl.strConstant;
 import org.xtext.moduleDsl.strLITERAL;
-import org.xtext.moduleDsl.strREDUCTION;
 import org.xtext.moduleDsl.unknowLITERAL;
 import org.xtext.services.ModuleDslGrammarAccess;
 
@@ -68,10 +69,10 @@ public class ModuleDslSemanticSequencer extends AbstractDelegatingSemanticSequen
 	
 	public void createSequence(EObject context, EObject semanticObject) {
 		if(semanticObject.eClass().getEPackage() == ModuleDslPackage.eINSTANCE) switch(semanticObject.eClass().getClassifierID()) {
-			case ModuleDslPackage.AND:
+			case ModuleDslPackage.ADD:
 				if(context == grammarAccess.getADD_SUBRule() ||
-				   context == grammarAccess.getADD_SUBAccess().getPlusLeftAction_1_0_0_0() ||
-				   context == grammarAccess.getADD_SUBAccess().getSubLeftAction_1_0_1_0() ||
+				   context == grammarAccess.getADD_SUBAccess().getADDLeftAction_1_0_0_0() ||
+				   context == grammarAccess.getADD_SUBAccess().getSUBLeftAction_1_0_1_0() ||
 				   context == grammarAccess.getANDRule() ||
 				   context == grammarAccess.getANDAccess().getANDLeftAction_1_0() ||
 				   context == grammarAccess.getCOMPARISONRule() ||
@@ -80,13 +81,32 @@ public class ModuleDslSemanticSequencer extends AbstractDelegatingSemanticSequen
 				   context == grammarAccess.getEQUAL_DIFFAccess().getEQUAL_DIFFLeftAction_1_0() ||
 				   context == grammarAccess.getEXPRESSIONRule() ||
 				   context == grammarAccess.getMULT_DIVRule() ||
-				   context == grammarAccess.getMULT_DIVAccess().getDivLeftAction_1_0_1_0() ||
-				   context == grammarAccess.getMULT_DIVAccess().getMultiLeftAction_1_0_0_0() ||
+				   context == grammarAccess.getMULT_DIVAccess().getDIVLeftAction_1_0_1_0() ||
+				   context == grammarAccess.getMULT_DIVAccess().getMULTLeftAction_1_0_0_0() ||
 				   context == grammarAccess.getORRule() ||
 				   context == grammarAccess.getORAccess().getORLeftAction_1_0() ||
-				   context == grammarAccess.getPrimaryExpressionRule() ||
-				   context == grammarAccess.getStrREDUCTIONRule() ||
-				   context == grammarAccess.getStrREDUCTIONAccess().getStrREDUCTIONLeftAction_1_0()) {
+				   context == grammarAccess.getPrimaryExpressionRule()) {
+					sequence_ADD_SUB(context, (ADD) semanticObject); 
+					return; 
+				}
+				else break;
+			case ModuleDslPackage.AND:
+				if(context == grammarAccess.getADD_SUBRule() ||
+				   context == grammarAccess.getADD_SUBAccess().getADDLeftAction_1_0_0_0() ||
+				   context == grammarAccess.getADD_SUBAccess().getSUBLeftAction_1_0_1_0() ||
+				   context == grammarAccess.getANDRule() ||
+				   context == grammarAccess.getANDAccess().getANDLeftAction_1_0() ||
+				   context == grammarAccess.getCOMPARISONRule() ||
+				   context == grammarAccess.getCOMPARISONAccess().getCOMPARISONLeftAction_1_0() ||
+				   context == grammarAccess.getEQUAL_DIFFRule() ||
+				   context == grammarAccess.getEQUAL_DIFFAccess().getEQUAL_DIFFLeftAction_1_0() ||
+				   context == grammarAccess.getEXPRESSIONRule() ||
+				   context == grammarAccess.getMULT_DIVRule() ||
+				   context == grammarAccess.getMULT_DIVAccess().getDIVLeftAction_1_0_1_0() ||
+				   context == grammarAccess.getMULT_DIVAccess().getMULTLeftAction_1_0_0_0() ||
+				   context == grammarAccess.getORRule() ||
+				   context == grammarAccess.getORAccess().getORLeftAction_1_0() ||
+				   context == grammarAccess.getPrimaryExpressionRule()) {
 					sequence_AND(context, (AND) semanticObject); 
 					return; 
 				}
@@ -100,8 +120,8 @@ public class ModuleDslSemanticSequencer extends AbstractDelegatingSemanticSequen
 				else break;
 			case ModuleDslPackage.COMPARISON:
 				if(context == grammarAccess.getADD_SUBRule() ||
-				   context == grammarAccess.getADD_SUBAccess().getPlusLeftAction_1_0_0_0() ||
-				   context == grammarAccess.getADD_SUBAccess().getSubLeftAction_1_0_1_0() ||
+				   context == grammarAccess.getADD_SUBAccess().getADDLeftAction_1_0_0_0() ||
+				   context == grammarAccess.getADD_SUBAccess().getSUBLeftAction_1_0_1_0() ||
 				   context == grammarAccess.getANDRule() ||
 				   context == grammarAccess.getANDAccess().getANDLeftAction_1_0() ||
 				   context == grammarAccess.getCOMPARISONRule() ||
@@ -110,13 +130,11 @@ public class ModuleDslSemanticSequencer extends AbstractDelegatingSemanticSequen
 				   context == grammarAccess.getEQUAL_DIFFAccess().getEQUAL_DIFFLeftAction_1_0() ||
 				   context == grammarAccess.getEXPRESSIONRule() ||
 				   context == grammarAccess.getMULT_DIVRule() ||
-				   context == grammarAccess.getMULT_DIVAccess().getDivLeftAction_1_0_1_0() ||
-				   context == grammarAccess.getMULT_DIVAccess().getMultiLeftAction_1_0_0_0() ||
+				   context == grammarAccess.getMULT_DIVAccess().getDIVLeftAction_1_0_1_0() ||
+				   context == grammarAccess.getMULT_DIVAccess().getMULTLeftAction_1_0_0_0() ||
 				   context == grammarAccess.getORRule() ||
 				   context == grammarAccess.getORAccess().getORLeftAction_1_0() ||
-				   context == grammarAccess.getPrimaryExpressionRule() ||
-				   context == grammarAccess.getStrREDUCTIONRule() ||
-				   context == grammarAccess.getStrREDUCTIONAccess().getStrREDUCTIONLeftAction_1_0()) {
+				   context == grammarAccess.getPrimaryExpressionRule()) {
 					sequence_COMPARISON(context, (COMPARISON) semanticObject); 
 					return; 
 				}
@@ -154,8 +172,8 @@ public class ModuleDslSemanticSequencer extends AbstractDelegatingSemanticSequen
 				else break;
 			case ModuleDslPackage.DIV:
 				if(context == grammarAccess.getADD_SUBRule() ||
-				   context == grammarAccess.getADD_SUBAccess().getPlusLeftAction_1_0_0_0() ||
-				   context == grammarAccess.getADD_SUBAccess().getSubLeftAction_1_0_1_0() ||
+				   context == grammarAccess.getADD_SUBAccess().getADDLeftAction_1_0_0_0() ||
+				   context == grammarAccess.getADD_SUBAccess().getSUBLeftAction_1_0_1_0() ||
 				   context == grammarAccess.getANDRule() ||
 				   context == grammarAccess.getANDAccess().getANDLeftAction_1_0() ||
 				   context == grammarAccess.getCOMPARISONRule() ||
@@ -164,14 +182,12 @@ public class ModuleDslSemanticSequencer extends AbstractDelegatingSemanticSequen
 				   context == grammarAccess.getEQUAL_DIFFAccess().getEQUAL_DIFFLeftAction_1_0() ||
 				   context == grammarAccess.getEXPRESSIONRule() ||
 				   context == grammarAccess.getMULT_DIVRule() ||
-				   context == grammarAccess.getMULT_DIVAccess().getDivLeftAction_1_0_1_0() ||
-				   context == grammarAccess.getMULT_DIVAccess().getMultiLeftAction_1_0_0_0() ||
+				   context == grammarAccess.getMULT_DIVAccess().getDIVLeftAction_1_0_1_0() ||
+				   context == grammarAccess.getMULT_DIVAccess().getMULTLeftAction_1_0_0_0() ||
 				   context == grammarAccess.getORRule() ||
 				   context == grammarAccess.getORAccess().getORLeftAction_1_0() ||
-				   context == grammarAccess.getPrimaryExpressionRule() ||
-				   context == grammarAccess.getStrREDUCTIONRule() ||
-				   context == grammarAccess.getStrREDUCTIONAccess().getStrREDUCTIONLeftAction_1_0()) {
-					sequence_MULT_DIV(context, (Div) semanticObject); 
+				   context == grammarAccess.getPrimaryExpressionRule()) {
+					sequence_MULT_DIV(context, (DIV) semanticObject); 
 					return; 
 				}
 				else break;
@@ -183,8 +199,8 @@ public class ModuleDslSemanticSequencer extends AbstractDelegatingSemanticSequen
 				else break;
 			case ModuleDslPackage.EQUAL_DIFF:
 				if(context == grammarAccess.getADD_SUBRule() ||
-				   context == grammarAccess.getADD_SUBAccess().getPlusLeftAction_1_0_0_0() ||
-				   context == grammarAccess.getADD_SUBAccess().getSubLeftAction_1_0_1_0() ||
+				   context == grammarAccess.getADD_SUBAccess().getADDLeftAction_1_0_0_0() ||
+				   context == grammarAccess.getADD_SUBAccess().getSUBLeftAction_1_0_1_0() ||
 				   context == grammarAccess.getANDRule() ||
 				   context == grammarAccess.getANDAccess().getANDLeftAction_1_0() ||
 				   context == grammarAccess.getCOMPARISONRule() ||
@@ -193,13 +209,11 @@ public class ModuleDslSemanticSequencer extends AbstractDelegatingSemanticSequen
 				   context == grammarAccess.getEQUAL_DIFFAccess().getEQUAL_DIFFLeftAction_1_0() ||
 				   context == grammarAccess.getEXPRESSIONRule() ||
 				   context == grammarAccess.getMULT_DIVRule() ||
-				   context == grammarAccess.getMULT_DIVAccess().getDivLeftAction_1_0_1_0() ||
-				   context == grammarAccess.getMULT_DIVAccess().getMultiLeftAction_1_0_0_0() ||
+				   context == grammarAccess.getMULT_DIVAccess().getDIVLeftAction_1_0_1_0() ||
+				   context == grammarAccess.getMULT_DIVAccess().getMULTLeftAction_1_0_0_0() ||
 				   context == grammarAccess.getORRule() ||
 				   context == grammarAccess.getORAccess().getORLeftAction_1_0() ||
-				   context == grammarAccess.getPrimaryExpressionRule() ||
-				   context == grammarAccess.getStrREDUCTIONRule() ||
-				   context == grammarAccess.getStrREDUCTIONAccess().getStrREDUCTIONLeftAction_1_0()) {
+				   context == grammarAccess.getPrimaryExpressionRule()) {
 					sequence_EQUAL_DIFF(context, (EQUAL_DIFF) semanticObject); 
 					return; 
 				}
@@ -257,10 +271,10 @@ public class ModuleDslSemanticSequencer extends AbstractDelegatingSemanticSequen
 					return; 
 				}
 				else break;
-			case ModuleDslPackage.MULTI:
+			case ModuleDslPackage.MULT:
 				if(context == grammarAccess.getADD_SUBRule() ||
-				   context == grammarAccess.getADD_SUBAccess().getPlusLeftAction_1_0_0_0() ||
-				   context == grammarAccess.getADD_SUBAccess().getSubLeftAction_1_0_1_0() ||
+				   context == grammarAccess.getADD_SUBAccess().getADDLeftAction_1_0_0_0() ||
+				   context == grammarAccess.getADD_SUBAccess().getSUBLeftAction_1_0_1_0() ||
 				   context == grammarAccess.getANDRule() ||
 				   context == grammarAccess.getANDAccess().getANDLeftAction_1_0() ||
 				   context == grammarAccess.getCOMPARISONRule() ||
@@ -269,21 +283,19 @@ public class ModuleDslSemanticSequencer extends AbstractDelegatingSemanticSequen
 				   context == grammarAccess.getEQUAL_DIFFAccess().getEQUAL_DIFFLeftAction_1_0() ||
 				   context == grammarAccess.getEXPRESSIONRule() ||
 				   context == grammarAccess.getMULT_DIVRule() ||
-				   context == grammarAccess.getMULT_DIVAccess().getDivLeftAction_1_0_1_0() ||
-				   context == grammarAccess.getMULT_DIVAccess().getMultiLeftAction_1_0_0_0() ||
+				   context == grammarAccess.getMULT_DIVAccess().getDIVLeftAction_1_0_1_0() ||
+				   context == grammarAccess.getMULT_DIVAccess().getMULTLeftAction_1_0_0_0() ||
 				   context == grammarAccess.getORRule() ||
 				   context == grammarAccess.getORAccess().getORLeftAction_1_0() ||
-				   context == grammarAccess.getPrimaryExpressionRule() ||
-				   context == grammarAccess.getStrREDUCTIONRule() ||
-				   context == grammarAccess.getStrREDUCTIONAccess().getStrREDUCTIONLeftAction_1_0()) {
-					sequence_MULT_DIV(context, (Multi) semanticObject); 
+				   context == grammarAccess.getPrimaryExpressionRule()) {
+					sequence_MULT_DIV(context, (MULT) semanticObject); 
 					return; 
 				}
 				else break;
 			case ModuleDslPackage.NOT:
 				if(context == grammarAccess.getADD_SUBRule() ||
-				   context == grammarAccess.getADD_SUBAccess().getPlusLeftAction_1_0_0_0() ||
-				   context == grammarAccess.getADD_SUBAccess().getSubLeftAction_1_0_1_0() ||
+				   context == grammarAccess.getADD_SUBAccess().getADDLeftAction_1_0_0_0() ||
+				   context == grammarAccess.getADD_SUBAccess().getSUBLeftAction_1_0_1_0() ||
 				   context == grammarAccess.getANDRule() ||
 				   context == grammarAccess.getANDAccess().getANDLeftAction_1_0() ||
 				   context == grammarAccess.getCOMPARISONRule() ||
@@ -292,13 +304,11 @@ public class ModuleDslSemanticSequencer extends AbstractDelegatingSemanticSequen
 				   context == grammarAccess.getEQUAL_DIFFAccess().getEQUAL_DIFFLeftAction_1_0() ||
 				   context == grammarAccess.getEXPRESSIONRule() ||
 				   context == grammarAccess.getMULT_DIVRule() ||
-				   context == grammarAccess.getMULT_DIVAccess().getDivLeftAction_1_0_1_0() ||
-				   context == grammarAccess.getMULT_DIVAccess().getMultiLeftAction_1_0_0_0() ||
+				   context == grammarAccess.getMULT_DIVAccess().getDIVLeftAction_1_0_1_0() ||
+				   context == grammarAccess.getMULT_DIVAccess().getMULTLeftAction_1_0_0_0() ||
 				   context == grammarAccess.getORRule() ||
 				   context == grammarAccess.getORAccess().getORLeftAction_1_0() ||
-				   context == grammarAccess.getPrimaryExpressionRule() ||
-				   context == grammarAccess.getStrREDUCTIONRule() ||
-				   context == grammarAccess.getStrREDUCTIONAccess().getStrREDUCTIONLeftAction_1_0()) {
+				   context == grammarAccess.getPrimaryExpressionRule()) {
 					sequence_PrimaryExpression(context, (NOT) semanticObject); 
 					return; 
 				}
@@ -312,8 +322,8 @@ public class ModuleDslSemanticSequencer extends AbstractDelegatingSemanticSequen
 				else break;
 			case ModuleDslPackage.OR:
 				if(context == grammarAccess.getADD_SUBRule() ||
-				   context == grammarAccess.getADD_SUBAccess().getPlusLeftAction_1_0_0_0() ||
-				   context == grammarAccess.getADD_SUBAccess().getSubLeftAction_1_0_1_0() ||
+				   context == grammarAccess.getADD_SUBAccess().getADDLeftAction_1_0_0_0() ||
+				   context == grammarAccess.getADD_SUBAccess().getSUBLeftAction_1_0_1_0() ||
 				   context == grammarAccess.getANDRule() ||
 				   context == grammarAccess.getANDAccess().getANDLeftAction_1_0() ||
 				   context == grammarAccess.getCOMPARISONRule() ||
@@ -322,37 +332,12 @@ public class ModuleDslSemanticSequencer extends AbstractDelegatingSemanticSequen
 				   context == grammarAccess.getEQUAL_DIFFAccess().getEQUAL_DIFFLeftAction_1_0() ||
 				   context == grammarAccess.getEXPRESSIONRule() ||
 				   context == grammarAccess.getMULT_DIVRule() ||
-				   context == grammarAccess.getMULT_DIVAccess().getDivLeftAction_1_0_1_0() ||
-				   context == grammarAccess.getMULT_DIVAccess().getMultiLeftAction_1_0_0_0() ||
+				   context == grammarAccess.getMULT_DIVAccess().getDIVLeftAction_1_0_1_0() ||
+				   context == grammarAccess.getMULT_DIVAccess().getMULTLeftAction_1_0_0_0() ||
 				   context == grammarAccess.getORRule() ||
 				   context == grammarAccess.getORAccess().getORLeftAction_1_0() ||
-				   context == grammarAccess.getPrimaryExpressionRule() ||
-				   context == grammarAccess.getStrREDUCTIONRule() ||
-				   context == grammarAccess.getStrREDUCTIONAccess().getStrREDUCTIONLeftAction_1_0()) {
+				   context == grammarAccess.getPrimaryExpressionRule()) {
 					sequence_OR(context, (OR) semanticObject); 
-					return; 
-				}
-				else break;
-			case ModuleDslPackage.PLUS:
-				if(context == grammarAccess.getADD_SUBRule() ||
-				   context == grammarAccess.getADD_SUBAccess().getPlusLeftAction_1_0_0_0() ||
-				   context == grammarAccess.getADD_SUBAccess().getSubLeftAction_1_0_1_0() ||
-				   context == grammarAccess.getANDRule() ||
-				   context == grammarAccess.getANDAccess().getANDLeftAction_1_0() ||
-				   context == grammarAccess.getCOMPARISONRule() ||
-				   context == grammarAccess.getCOMPARISONAccess().getCOMPARISONLeftAction_1_0() ||
-				   context == grammarAccess.getEQUAL_DIFFRule() ||
-				   context == grammarAccess.getEQUAL_DIFFAccess().getEQUAL_DIFFLeftAction_1_0() ||
-				   context == grammarAccess.getEXPRESSIONRule() ||
-				   context == grammarAccess.getMULT_DIVRule() ||
-				   context == grammarAccess.getMULT_DIVAccess().getDivLeftAction_1_0_1_0() ||
-				   context == grammarAccess.getMULT_DIVAccess().getMultiLeftAction_1_0_0_0() ||
-				   context == grammarAccess.getORRule() ||
-				   context == grammarAccess.getORAccess().getORLeftAction_1_0() ||
-				   context == grammarAccess.getPrimaryExpressionRule() ||
-				   context == grammarAccess.getStrREDUCTIONRule() ||
-				   context == grammarAccess.getStrREDUCTIONAccess().getStrREDUCTIONLeftAction_1_0()) {
-					sequence_ADD_SUB(context, (Plus) semanticObject); 
 					return; 
 				}
 				else break;
@@ -364,8 +349,8 @@ public class ModuleDslSemanticSequencer extends AbstractDelegatingSemanticSequen
 				else break;
 			case ModuleDslPackage.SUB:
 				if(context == grammarAccess.getADD_SUBRule() ||
-				   context == grammarAccess.getADD_SUBAccess().getPlusLeftAction_1_0_0_0() ||
-				   context == grammarAccess.getADD_SUBAccess().getSubLeftAction_1_0_1_0() ||
+				   context == grammarAccess.getADD_SUBAccess().getADDLeftAction_1_0_0_0() ||
+				   context == grammarAccess.getADD_SUBAccess().getSUBLeftAction_1_0_1_0() ||
 				   context == grammarAccess.getANDRule() ||
 				   context == grammarAccess.getANDAccess().getANDLeftAction_1_0() ||
 				   context == grammarAccess.getCOMPARISONRule() ||
@@ -374,14 +359,12 @@ public class ModuleDslSemanticSequencer extends AbstractDelegatingSemanticSequen
 				   context == grammarAccess.getEQUAL_DIFFAccess().getEQUAL_DIFFLeftAction_1_0() ||
 				   context == grammarAccess.getEXPRESSIONRule() ||
 				   context == grammarAccess.getMULT_DIVRule() ||
-				   context == grammarAccess.getMULT_DIVAccess().getDivLeftAction_1_0_1_0() ||
-				   context == grammarAccess.getMULT_DIVAccess().getMultiLeftAction_1_0_0_0() ||
+				   context == grammarAccess.getMULT_DIVAccess().getDIVLeftAction_1_0_1_0() ||
+				   context == grammarAccess.getMULT_DIVAccess().getMULTLeftAction_1_0_0_0() ||
 				   context == grammarAccess.getORRule() ||
 				   context == grammarAccess.getORAccess().getORLeftAction_1_0() ||
-				   context == grammarAccess.getPrimaryExpressionRule() ||
-				   context == grammarAccess.getStrREDUCTIONRule() ||
-				   context == grammarAccess.getStrREDUCTIONAccess().getStrREDUCTIONLeftAction_1_0()) {
-					sequence_ADD_SUB(context, (Sub) semanticObject); 
+				   context == grammarAccess.getPrimaryExpressionRule()) {
+					sequence_ADD_SUB(context, (SUB) semanticObject); 
 					return; 
 				}
 				else break;
@@ -400,8 +383,8 @@ public class ModuleDslSemanticSequencer extends AbstractDelegatingSemanticSequen
 				else break;
 			case ModuleDslPackage.VAR_EXP_REF:
 				if(context == grammarAccess.getADD_SUBRule() ||
-				   context == grammarAccess.getADD_SUBAccess().getPlusLeftAction_1_0_0_0() ||
-				   context == grammarAccess.getADD_SUBAccess().getSubLeftAction_1_0_1_0() ||
+				   context == grammarAccess.getADD_SUBAccess().getADDLeftAction_1_0_0_0() ||
+				   context == grammarAccess.getADD_SUBAccess().getSUBLeftAction_1_0_1_0() ||
 				   context == grammarAccess.getANDRule() ||
 				   context == grammarAccess.getANDAccess().getANDLeftAction_1_0() ||
 				   context == grammarAccess.getAtomicRule() ||
@@ -411,14 +394,34 @@ public class ModuleDslSemanticSequencer extends AbstractDelegatingSemanticSequen
 				   context == grammarAccess.getEQUAL_DIFFAccess().getEQUAL_DIFFLeftAction_1_0() ||
 				   context == grammarAccess.getEXPRESSIONRule() ||
 				   context == grammarAccess.getMULT_DIVRule() ||
-				   context == grammarAccess.getMULT_DIVAccess().getDivLeftAction_1_0_1_0() ||
-				   context == grammarAccess.getMULT_DIVAccess().getMultiLeftAction_1_0_0_0() ||
+				   context == grammarAccess.getMULT_DIVAccess().getDIVLeftAction_1_0_1_0() ||
+				   context == grammarAccess.getMULT_DIVAccess().getMULTLeftAction_1_0_0_0() ||
 				   context == grammarAccess.getORRule() ||
 				   context == grammarAccess.getORAccess().getORLeftAction_1_0() ||
-				   context == grammarAccess.getPrimaryExpressionRule() ||
-				   context == grammarAccess.getStrREDUCTIONRule() ||
-				   context == grammarAccess.getStrREDUCTIONAccess().getStrREDUCTIONLeftAction_1_0()) {
+				   context == grammarAccess.getPrimaryExpressionRule()) {
 					sequence_Atomic(context, (VarExpRef) semanticObject); 
+					return; 
+				}
+				else break;
+			case ModuleDslPackage.BIT_CONSTANT:
+				if(context == grammarAccess.getADD_SUBRule() ||
+				   context == grammarAccess.getADD_SUBAccess().getADDLeftAction_1_0_0_0() ||
+				   context == grammarAccess.getADD_SUBAccess().getSUBLeftAction_1_0_1_0() ||
+				   context == grammarAccess.getANDRule() ||
+				   context == grammarAccess.getANDAccess().getANDLeftAction_1_0() ||
+				   context == grammarAccess.getAtomicRule() ||
+				   context == grammarAccess.getCOMPARISONRule() ||
+				   context == grammarAccess.getCOMPARISONAccess().getCOMPARISONLeftAction_1_0() ||
+				   context == grammarAccess.getEQUAL_DIFFRule() ||
+				   context == grammarAccess.getEQUAL_DIFFAccess().getEQUAL_DIFFLeftAction_1_0() ||
+				   context == grammarAccess.getEXPRESSIONRule() ||
+				   context == grammarAccess.getMULT_DIVRule() ||
+				   context == grammarAccess.getMULT_DIVAccess().getDIVLeftAction_1_0_1_0() ||
+				   context == grammarAccess.getMULT_DIVAccess().getMULTLeftAction_1_0_0_0() ||
+				   context == grammarAccess.getORRule() ||
+				   context == grammarAccess.getORAccess().getORLeftAction_1_0() ||
+				   context == grammarAccess.getPrimaryExpressionRule()) {
+					sequence_Atomic(context, (bitConstant) semanticObject); 
 					return; 
 				}
 				else break;
@@ -430,8 +433,8 @@ public class ModuleDslSemanticSequencer extends AbstractDelegatingSemanticSequen
 				else break;
 			case ModuleDslPackage.BOOL_CONSTANT:
 				if(context == grammarAccess.getADD_SUBRule() ||
-				   context == grammarAccess.getADD_SUBAccess().getPlusLeftAction_1_0_0_0() ||
-				   context == grammarAccess.getADD_SUBAccess().getSubLeftAction_1_0_1_0() ||
+				   context == grammarAccess.getADD_SUBAccess().getADDLeftAction_1_0_0_0() ||
+				   context == grammarAccess.getADD_SUBAccess().getSUBLeftAction_1_0_1_0() ||
 				   context == grammarAccess.getANDRule() ||
 				   context == grammarAccess.getANDAccess().getANDLeftAction_1_0() ||
 				   context == grammarAccess.getAtomicRule() ||
@@ -441,13 +444,11 @@ public class ModuleDslSemanticSequencer extends AbstractDelegatingSemanticSequen
 				   context == grammarAccess.getEQUAL_DIFFAccess().getEQUAL_DIFFLeftAction_1_0() ||
 				   context == grammarAccess.getEXPRESSIONRule() ||
 				   context == grammarAccess.getMULT_DIVRule() ||
-				   context == grammarAccess.getMULT_DIVAccess().getDivLeftAction_1_0_1_0() ||
-				   context == grammarAccess.getMULT_DIVAccess().getMultiLeftAction_1_0_0_0() ||
+				   context == grammarAccess.getMULT_DIVAccess().getDIVLeftAction_1_0_1_0() ||
+				   context == grammarAccess.getMULT_DIVAccess().getMULTLeftAction_1_0_0_0() ||
 				   context == grammarAccess.getORRule() ||
 				   context == grammarAccess.getORAccess().getORLeftAction_1_0() ||
-				   context == grammarAccess.getPrimaryExpressionRule() ||
-				   context == grammarAccess.getStrREDUCTIONRule() ||
-				   context == grammarAccess.getStrREDUCTIONAccess().getStrREDUCTIONLeftAction_1_0()) {
+				   context == grammarAccess.getPrimaryExpressionRule()) {
 					sequence_Atomic(context, (boolConstant) semanticObject); 
 					return; 
 				}
@@ -460,8 +461,8 @@ public class ModuleDslSemanticSequencer extends AbstractDelegatingSemanticSequen
 				else break;
 			case ModuleDslPackage.ENUM_CONSTANT:
 				if(context == grammarAccess.getADD_SUBRule() ||
-				   context == grammarAccess.getADD_SUBAccess().getPlusLeftAction_1_0_0_0() ||
-				   context == grammarAccess.getADD_SUBAccess().getSubLeftAction_1_0_1_0() ||
+				   context == grammarAccess.getADD_SUBAccess().getADDLeftAction_1_0_0_0() ||
+				   context == grammarAccess.getADD_SUBAccess().getSUBLeftAction_1_0_1_0() ||
 				   context == grammarAccess.getANDRule() ||
 				   context == grammarAccess.getANDAccess().getANDLeftAction_1_0() ||
 				   context == grammarAccess.getAtomicRule() ||
@@ -471,13 +472,11 @@ public class ModuleDslSemanticSequencer extends AbstractDelegatingSemanticSequen
 				   context == grammarAccess.getEQUAL_DIFFAccess().getEQUAL_DIFFLeftAction_1_0() ||
 				   context == grammarAccess.getEXPRESSIONRule() ||
 				   context == grammarAccess.getMULT_DIVRule() ||
-				   context == grammarAccess.getMULT_DIVAccess().getDivLeftAction_1_0_1_0() ||
-				   context == grammarAccess.getMULT_DIVAccess().getMultiLeftAction_1_0_0_0() ||
+				   context == grammarAccess.getMULT_DIVAccess().getDIVLeftAction_1_0_1_0() ||
+				   context == grammarAccess.getMULT_DIVAccess().getMULTLeftAction_1_0_0_0() ||
 				   context == grammarAccess.getORRule() ||
 				   context == grammarAccess.getORAccess().getORLeftAction_1_0() ||
-				   context == grammarAccess.getPrimaryExpressionRule() ||
-				   context == grammarAccess.getStrREDUCTIONRule() ||
-				   context == grammarAccess.getStrREDUCTIONAccess().getStrREDUCTIONLeftAction_1_0()) {
+				   context == grammarAccess.getPrimaryExpressionRule()) {
 					sequence_Atomic(context, (enumConstant) semanticObject); 
 					return; 
 				}
@@ -485,6 +484,28 @@ public class ModuleDslSemanticSequencer extends AbstractDelegatingSemanticSequen
 			case ModuleDslPackage.ENUM_LITERAL:
 				if(context == grammarAccess.getLiteralRule()) {
 					sequence_Literal(context, (enumLITERAL) semanticObject); 
+					return; 
+				}
+				else break;
+			case ModuleDslPackage.HEX_CONSTANT:
+				if(context == grammarAccess.getADD_SUBRule() ||
+				   context == grammarAccess.getADD_SUBAccess().getADDLeftAction_1_0_0_0() ||
+				   context == grammarAccess.getADD_SUBAccess().getSUBLeftAction_1_0_1_0() ||
+				   context == grammarAccess.getANDRule() ||
+				   context == grammarAccess.getANDAccess().getANDLeftAction_1_0() ||
+				   context == grammarAccess.getAtomicRule() ||
+				   context == grammarAccess.getCOMPARISONRule() ||
+				   context == grammarAccess.getCOMPARISONAccess().getCOMPARISONLeftAction_1_0() ||
+				   context == grammarAccess.getEQUAL_DIFFRule() ||
+				   context == grammarAccess.getEQUAL_DIFFAccess().getEQUAL_DIFFLeftAction_1_0() ||
+				   context == grammarAccess.getEXPRESSIONRule() ||
+				   context == grammarAccess.getMULT_DIVRule() ||
+				   context == grammarAccess.getMULT_DIVAccess().getDIVLeftAction_1_0_1_0() ||
+				   context == grammarAccess.getMULT_DIVAccess().getMULTLeftAction_1_0_0_0() ||
+				   context == grammarAccess.getORRule() ||
+				   context == grammarAccess.getORAccess().getORLeftAction_1_0() ||
+				   context == grammarAccess.getPrimaryExpressionRule()) {
+					sequence_Atomic(context, (hexConstant) semanticObject); 
 					return; 
 				}
 				else break;
@@ -502,8 +523,8 @@ public class ModuleDslSemanticSequencer extends AbstractDelegatingSemanticSequen
 				else break;
 			case ModuleDslPackage.INT_CONSTANT:
 				if(context == grammarAccess.getADD_SUBRule() ||
-				   context == grammarAccess.getADD_SUBAccess().getPlusLeftAction_1_0_0_0() ||
-				   context == grammarAccess.getADD_SUBAccess().getSubLeftAction_1_0_1_0() ||
+				   context == grammarAccess.getADD_SUBAccess().getADDLeftAction_1_0_0_0() ||
+				   context == grammarAccess.getADD_SUBAccess().getSUBLeftAction_1_0_1_0() ||
 				   context == grammarAccess.getANDRule() ||
 				   context == grammarAccess.getANDAccess().getANDLeftAction_1_0() ||
 				   context == grammarAccess.getAtomicRule() ||
@@ -513,13 +534,11 @@ public class ModuleDslSemanticSequencer extends AbstractDelegatingSemanticSequen
 				   context == grammarAccess.getEQUAL_DIFFAccess().getEQUAL_DIFFLeftAction_1_0() ||
 				   context == grammarAccess.getEXPRESSIONRule() ||
 				   context == grammarAccess.getMULT_DIVRule() ||
-				   context == grammarAccess.getMULT_DIVAccess().getDivLeftAction_1_0_1_0() ||
-				   context == grammarAccess.getMULT_DIVAccess().getMultiLeftAction_1_0_0_0() ||
+				   context == grammarAccess.getMULT_DIVAccess().getDIVLeftAction_1_0_1_0() ||
+				   context == grammarAccess.getMULT_DIVAccess().getMULTLeftAction_1_0_0_0() ||
 				   context == grammarAccess.getORRule() ||
 				   context == grammarAccess.getORAccess().getORLeftAction_1_0() ||
-				   context == grammarAccess.getPrimaryExpressionRule() ||
-				   context == grammarAccess.getStrREDUCTIONRule() ||
-				   context == grammarAccess.getStrREDUCTIONAccess().getStrREDUCTIONLeftAction_1_0()) {
+				   context == grammarAccess.getPrimaryExpressionRule()) {
 					sequence_Atomic(context, (intConstant) semanticObject); 
 					return; 
 				}
@@ -532,8 +551,8 @@ public class ModuleDslSemanticSequencer extends AbstractDelegatingSemanticSequen
 				else break;
 			case ModuleDslPackage.REAL_CONSTANT:
 				if(context == grammarAccess.getADD_SUBRule() ||
-				   context == grammarAccess.getADD_SUBAccess().getPlusLeftAction_1_0_0_0() ||
-				   context == grammarAccess.getADD_SUBAccess().getSubLeftAction_1_0_1_0() ||
+				   context == grammarAccess.getADD_SUBAccess().getADDLeftAction_1_0_0_0() ||
+				   context == grammarAccess.getADD_SUBAccess().getSUBLeftAction_1_0_1_0() ||
 				   context == grammarAccess.getANDRule() ||
 				   context == grammarAccess.getANDAccess().getANDLeftAction_1_0() ||
 				   context == grammarAccess.getAtomicRule() ||
@@ -543,13 +562,11 @@ public class ModuleDslSemanticSequencer extends AbstractDelegatingSemanticSequen
 				   context == grammarAccess.getEQUAL_DIFFAccess().getEQUAL_DIFFLeftAction_1_0() ||
 				   context == grammarAccess.getEXPRESSIONRule() ||
 				   context == grammarAccess.getMULT_DIVRule() ||
-				   context == grammarAccess.getMULT_DIVAccess().getDivLeftAction_1_0_1_0() ||
-				   context == grammarAccess.getMULT_DIVAccess().getMultiLeftAction_1_0_0_0() ||
+				   context == grammarAccess.getMULT_DIVAccess().getDIVLeftAction_1_0_1_0() ||
+				   context == grammarAccess.getMULT_DIVAccess().getMULTLeftAction_1_0_0_0() ||
 				   context == grammarAccess.getORRule() ||
 				   context == grammarAccess.getORAccess().getORLeftAction_1_0() ||
-				   context == grammarAccess.getPrimaryExpressionRule() ||
-				   context == grammarAccess.getStrREDUCTIONRule() ||
-				   context == grammarAccess.getStrREDUCTIONAccess().getStrREDUCTIONLeftAction_1_0()) {
+				   context == grammarAccess.getPrimaryExpressionRule()) {
 					sequence_Atomic(context, (realConstant) semanticObject); 
 					return; 
 				}
@@ -562,8 +579,8 @@ public class ModuleDslSemanticSequencer extends AbstractDelegatingSemanticSequen
 				else break;
 			case ModuleDslPackage.STR_CONSTANT:
 				if(context == grammarAccess.getADD_SUBRule() ||
-				   context == grammarAccess.getADD_SUBAccess().getPlusLeftAction_1_0_0_0() ||
-				   context == grammarAccess.getADD_SUBAccess().getSubLeftAction_1_0_1_0() ||
+				   context == grammarAccess.getADD_SUBAccess().getADDLeftAction_1_0_0_0() ||
+				   context == grammarAccess.getADD_SUBAccess().getSUBLeftAction_1_0_1_0() ||
 				   context == grammarAccess.getANDRule() ||
 				   context == grammarAccess.getANDAccess().getANDLeftAction_1_0() ||
 				   context == grammarAccess.getAtomicRule() ||
@@ -573,13 +590,11 @@ public class ModuleDslSemanticSequencer extends AbstractDelegatingSemanticSequen
 				   context == grammarAccess.getEQUAL_DIFFAccess().getEQUAL_DIFFLeftAction_1_0() ||
 				   context == grammarAccess.getEXPRESSIONRule() ||
 				   context == grammarAccess.getMULT_DIVRule() ||
-				   context == grammarAccess.getMULT_DIVAccess().getDivLeftAction_1_0_1_0() ||
-				   context == grammarAccess.getMULT_DIVAccess().getMultiLeftAction_1_0_0_0() ||
+				   context == grammarAccess.getMULT_DIVAccess().getDIVLeftAction_1_0_1_0() ||
+				   context == grammarAccess.getMULT_DIVAccess().getMULTLeftAction_1_0_0_0() ||
 				   context == grammarAccess.getORRule() ||
 				   context == grammarAccess.getORAccess().getORLeftAction_1_0() ||
-				   context == grammarAccess.getPrimaryExpressionRule() ||
-				   context == grammarAccess.getStrREDUCTIONRule() ||
-				   context == grammarAccess.getStrREDUCTIONAccess().getStrREDUCTIONLeftAction_1_0()) {
+				   context == grammarAccess.getPrimaryExpressionRule()) {
 					sequence_Atomic(context, (strConstant) semanticObject); 
 					return; 
 				}
@@ -587,29 +602,6 @@ public class ModuleDslSemanticSequencer extends AbstractDelegatingSemanticSequen
 			case ModuleDslPackage.STR_LITERAL:
 				if(context == grammarAccess.getLiteralRule()) {
 					sequence_Literal(context, (strLITERAL) semanticObject); 
-					return; 
-				}
-				else break;
-			case ModuleDslPackage.STR_REDUCTION:
-				if(context == grammarAccess.getADD_SUBRule() ||
-				   context == grammarAccess.getADD_SUBAccess().getPlusLeftAction_1_0_0_0() ||
-				   context == grammarAccess.getADD_SUBAccess().getSubLeftAction_1_0_1_0() ||
-				   context == grammarAccess.getANDRule() ||
-				   context == grammarAccess.getANDAccess().getANDLeftAction_1_0() ||
-				   context == grammarAccess.getCOMPARISONRule() ||
-				   context == grammarAccess.getCOMPARISONAccess().getCOMPARISONLeftAction_1_0() ||
-				   context == grammarAccess.getEQUAL_DIFFRule() ||
-				   context == grammarAccess.getEQUAL_DIFFAccess().getEQUAL_DIFFLeftAction_1_0() ||
-				   context == grammarAccess.getEXPRESSIONRule() ||
-				   context == grammarAccess.getMULT_DIVRule() ||
-				   context == grammarAccess.getMULT_DIVAccess().getDivLeftAction_1_0_1_0() ||
-				   context == grammarAccess.getMULT_DIVAccess().getMultiLeftAction_1_0_0_0() ||
-				   context == grammarAccess.getORRule() ||
-				   context == grammarAccess.getORAccess().getORLeftAction_1_0() ||
-				   context == grammarAccess.getPrimaryExpressionRule() ||
-				   context == grammarAccess.getStrREDUCTIONRule() ||
-				   context == grammarAccess.getStrREDUCTIONAccess().getStrREDUCTIONLeftAction_1_0()) {
-					sequence_strREDUCTION(context, (strREDUCTION) semanticObject); 
 					return; 
 				}
 				else break;
@@ -625,18 +617,18 @@ public class ModuleDslSemanticSequencer extends AbstractDelegatingSemanticSequen
 	
 	/**
 	 * Constraint:
-	 *     (left=ADD_SUB_Plus_1_0_0_0 right=MULT_DIV)
+	 *     (left=ADD_SUB_ADD_1_0_0_0 right=MULT_DIV)
 	 */
-	protected void sequence_ADD_SUB(EObject context, Plus semanticObject) {
+	protected void sequence_ADD_SUB(EObject context, ADD semanticObject) {
 		if(errorAcceptor != null) {
-			if(transientValues.isValueTransient(semanticObject, ModuleDslPackage.Literals.PLUS__LEFT) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ModuleDslPackage.Literals.PLUS__LEFT));
-			if(transientValues.isValueTransient(semanticObject, ModuleDslPackage.Literals.PLUS__RIGHT) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ModuleDslPackage.Literals.PLUS__RIGHT));
+			if(transientValues.isValueTransient(semanticObject, ModuleDslPackage.Literals.ADD__LEFT) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ModuleDslPackage.Literals.ADD__LEFT));
+			if(transientValues.isValueTransient(semanticObject, ModuleDslPackage.Literals.ADD__RIGHT) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ModuleDslPackage.Literals.ADD__RIGHT));
 		}
 		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
 		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
-		feeder.accept(grammarAccess.getADD_SUBAccess().getPlusLeftAction_1_0_0_0(), semanticObject.getLeft());
+		feeder.accept(grammarAccess.getADD_SUBAccess().getADDLeftAction_1_0_0_0(), semanticObject.getLeft());
 		feeder.accept(grammarAccess.getADD_SUBAccess().getRightMULT_DIVParserRuleCall_1_1_0(), semanticObject.getRight());
 		feeder.finish();
 	}
@@ -644,9 +636,9 @@ public class ModuleDslSemanticSequencer extends AbstractDelegatingSemanticSequen
 	
 	/**
 	 * Constraint:
-	 *     (left=ADD_SUB_Sub_1_0_1_0 right=MULT_DIV)
+	 *     (left=ADD_SUB_SUB_1_0_1_0 right=MULT_DIV)
 	 */
-	protected void sequence_ADD_SUB(EObject context, Sub semanticObject) {
+	protected void sequence_ADD_SUB(EObject context, SUB semanticObject) {
 		if(errorAcceptor != null) {
 			if(transientValues.isValueTransient(semanticObject, ModuleDslPackage.Literals.SUB__LEFT) == ValueTransient.YES)
 				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ModuleDslPackage.Literals.SUB__LEFT));
@@ -655,7 +647,7 @@ public class ModuleDslSemanticSequencer extends AbstractDelegatingSemanticSequen
 		}
 		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
 		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
-		feeder.accept(grammarAccess.getADD_SUBAccess().getSubLeftAction_1_0_1_0(), semanticObject.getLeft());
+		feeder.accept(grammarAccess.getADD_SUBAccess().getSUBLeftAction_1_0_1_0(), semanticObject.getLeft());
 		feeder.accept(grammarAccess.getADD_SUBAccess().getRightMULT_DIVParserRuleCall_1_1_0(), semanticObject.getRight());
 		feeder.finish();
 	}
@@ -700,7 +692,23 @@ public class ModuleDslSemanticSequencer extends AbstractDelegatingSemanticSequen
 		}
 		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
 		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
-		feeder.accept(grammarAccess.getAtomicAccess().getVrefVAR_CSTIDENTTerminalRuleCall_5_1_0_1(), semanticObject.getVref());
+		feeder.accept(grammarAccess.getAtomicAccess().getVrefVAR_CSTIDENTTerminalRuleCall_7_1_0_1(), semanticObject.getVref());
+		feeder.finish();
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     value=BIT
+	 */
+	protected void sequence_Atomic(EObject context, bitConstant semanticObject) {
+		if(errorAcceptor != null) {
+			if(transientValues.isValueTransient(semanticObject, ModuleDslPackage.Literals.BIT_CONSTANT__VALUE) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ModuleDslPackage.Literals.BIT_CONSTANT__VALUE));
+		}
+		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
+		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
+		feeder.accept(grammarAccess.getAtomicAccess().getValueBITTerminalRuleCall_5_1_0(), semanticObject.getValue());
 		feeder.finish();
 	}
 	
@@ -733,6 +741,22 @@ public class ModuleDslSemanticSequencer extends AbstractDelegatingSemanticSequen
 		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
 		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
 		feeder.accept(grammarAccess.getAtomicAccess().getValueENUM_ELEMENTTerminalRuleCall_3_1_0(), semanticObject.getValue());
+		feeder.finish();
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     value=HEX
+	 */
+	protected void sequence_Atomic(EObject context, hexConstant semanticObject) {
+		if(errorAcceptor != null) {
+			if(transientValues.isValueTransient(semanticObject, ModuleDslPackage.Literals.HEX_CONSTANT__VALUE) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ModuleDslPackage.Literals.HEX_CONSTANT__VALUE));
+		}
+		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
+		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
+		feeder.accept(grammarAccess.getAtomicAccess().getValueHEXTerminalRuleCall_6_1_0(), semanticObject.getValue());
 		feeder.finish();
 	}
 	
@@ -920,12 +944,12 @@ public class ModuleDslSemanticSequencer extends AbstractDelegatingSemanticSequen
 	
 	/**
 	 * Constraint:
-	 *     (condInstr=EXPRESSION ifst=INSTRUCTION elst=INSTRUCTION)
+	 *     (ifcond=EXPRESSION ifst=INSTRUCTION elst=INSTRUCTION)
 	 */
 	protected void sequence_IF_INSTR(EObject context, IF_INSTR semanticObject) {
 		if(errorAcceptor != null) {
-			if(transientValues.isValueTransient(semanticObject, ModuleDslPackage.Literals.IF_INSTR__COND_INSTR) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ModuleDslPackage.Literals.IF_INSTR__COND_INSTR));
+			if(transientValues.isValueTransient(semanticObject, ModuleDslPackage.Literals.IF_INSTR__IFCOND) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ModuleDslPackage.Literals.IF_INSTR__IFCOND));
 			if(transientValues.isValueTransient(semanticObject, ModuleDslPackage.Literals.IF_INSTR__IFST) == ValueTransient.YES)
 				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ModuleDslPackage.Literals.IF_INSTR__IFST));
 			if(transientValues.isValueTransient(semanticObject, ModuleDslPackage.Literals.IF_INSTR__ELST) == ValueTransient.YES)
@@ -933,7 +957,7 @@ public class ModuleDslSemanticSequencer extends AbstractDelegatingSemanticSequen
 		}
 		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
 		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
-		feeder.accept(grammarAccess.getIF_INSTRAccess().getCondInstrEXPRESSIONParserRuleCall_1_0(), semanticObject.getCondInstr());
+		feeder.accept(grammarAccess.getIF_INSTRAccess().getIfcondEXPRESSIONParserRuleCall_1_0(), semanticObject.getIfcond());
 		feeder.accept(grammarAccess.getIF_INSTRAccess().getIfstINSTRUCTIONParserRuleCall_5_0(), semanticObject.getIfst());
 		feeder.accept(grammarAccess.getIF_INSTRAccess().getElstINSTRUCTIONParserRuleCall_7_3_0(), semanticObject.getElst());
 		feeder.finish();
@@ -969,7 +993,7 @@ public class ModuleDslSemanticSequencer extends AbstractDelegatingSemanticSequen
 		}
 		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
 		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
-		feeder.accept(grammarAccess.getLOOP_INSTRAccess().getValINTTerminalRuleCall_0_0(), semanticObject.getVal());
+		feeder.accept(grammarAccess.getLOOP_INSTRAccess().getValINTTerminalRuleCall_2_0(), semanticObject.getVal());
 		feeder.finish();
 	}
 	
@@ -1138,9 +1162,9 @@ public class ModuleDslSemanticSequencer extends AbstractDelegatingSemanticSequen
 	
 	/**
 	 * Constraint:
-	 *     (left=MULT_DIV_Div_1_0_1_0 right=strREDUCTION)
+	 *     (left=MULT_DIV_DIV_1_0_1_0 right=PrimaryExpression)
 	 */
-	protected void sequence_MULT_DIV(EObject context, Div semanticObject) {
+	protected void sequence_MULT_DIV(EObject context, DIV semanticObject) {
 		if(errorAcceptor != null) {
 			if(transientValues.isValueTransient(semanticObject, ModuleDslPackage.Literals.DIV__LEFT) == ValueTransient.YES)
 				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ModuleDslPackage.Literals.DIV__LEFT));
@@ -1149,27 +1173,27 @@ public class ModuleDslSemanticSequencer extends AbstractDelegatingSemanticSequen
 		}
 		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
 		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
-		feeder.accept(grammarAccess.getMULT_DIVAccess().getDivLeftAction_1_0_1_0(), semanticObject.getLeft());
-		feeder.accept(grammarAccess.getMULT_DIVAccess().getRightStrREDUCTIONParserRuleCall_1_1_0(), semanticObject.getRight());
+		feeder.accept(grammarAccess.getMULT_DIVAccess().getDIVLeftAction_1_0_1_0(), semanticObject.getLeft());
+		feeder.accept(grammarAccess.getMULT_DIVAccess().getRightPrimaryExpressionParserRuleCall_1_1_0(), semanticObject.getRight());
 		feeder.finish();
 	}
 	
 	
 	/**
 	 * Constraint:
-	 *     (left=MULT_DIV_Multi_1_0_0_0 right=strREDUCTION)
+	 *     (left=MULT_DIV_MULT_1_0_0_0 right=PrimaryExpression)
 	 */
-	protected void sequence_MULT_DIV(EObject context, Multi semanticObject) {
+	protected void sequence_MULT_DIV(EObject context, MULT semanticObject) {
 		if(errorAcceptor != null) {
-			if(transientValues.isValueTransient(semanticObject, ModuleDslPackage.Literals.MULTI__LEFT) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ModuleDslPackage.Literals.MULTI__LEFT));
-			if(transientValues.isValueTransient(semanticObject, ModuleDslPackage.Literals.MULTI__RIGHT) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ModuleDslPackage.Literals.MULTI__RIGHT));
+			if(transientValues.isValueTransient(semanticObject, ModuleDslPackage.Literals.MULT__LEFT) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ModuleDslPackage.Literals.MULT__LEFT));
+			if(transientValues.isValueTransient(semanticObject, ModuleDslPackage.Literals.MULT__RIGHT) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ModuleDslPackage.Literals.MULT__RIGHT));
 		}
 		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
 		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
-		feeder.accept(grammarAccess.getMULT_DIVAccess().getMultiLeftAction_1_0_0_0(), semanticObject.getLeft());
-		feeder.accept(grammarAccess.getMULT_DIVAccess().getRightStrREDUCTIONParserRuleCall_1_1_0(), semanticObject.getRight());
+		feeder.accept(grammarAccess.getMULT_DIVAccess().getMULTLeftAction_1_0_0_0(), semanticObject.getLeft());
+		feeder.accept(grammarAccess.getMULT_DIVAccess().getRightPrimaryExpressionParserRuleCall_1_1_0(), semanticObject.getRight());
 		feeder.finish();
 	}
 	
@@ -1267,27 +1291,5 @@ public class ModuleDslSemanticSequencer extends AbstractDelegatingSemanticSequen
 	 */
 	protected void sequence_VAR(EObject context, VAR semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
-	}
-	
-	
-	/**
-	 * Constraint:
-	 *     (left=strREDUCTION_strREDUCTION_1_0 op='.CharAt' pos=PrimaryExpression)
-	 */
-	protected void sequence_strREDUCTION(EObject context, strREDUCTION semanticObject) {
-		if(errorAcceptor != null) {
-			if(transientValues.isValueTransient(semanticObject, ModuleDslPackage.Literals.STR_REDUCTION__LEFT) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ModuleDslPackage.Literals.STR_REDUCTION__LEFT));
-			if(transientValues.isValueTransient(semanticObject, ModuleDslPackage.Literals.STR_REDUCTION__OP) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ModuleDslPackage.Literals.STR_REDUCTION__OP));
-			if(transientValues.isValueTransient(semanticObject, ModuleDslPackage.Literals.STR_REDUCTION__POS) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ModuleDslPackage.Literals.STR_REDUCTION__POS));
-		}
-		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
-		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
-		feeder.accept(grammarAccess.getStrREDUCTIONAccess().getStrREDUCTIONLeftAction_1_0(), semanticObject.getLeft());
-		feeder.accept(grammarAccess.getStrREDUCTIONAccess().getOpCharAtKeyword_1_1_0(), semanticObject.getOp());
-		feeder.accept(grammarAccess.getStrREDUCTIONAccess().getPosPrimaryExpressionParserRuleCall_1_3_0(), semanticObject.getPos());
-		feeder.finish();
 	}
 }

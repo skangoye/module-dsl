@@ -270,29 +270,24 @@ public class ModuleDslAdapterFactory extends AdapterFactoryImpl
         return createCOMPARISONAdapter();
       }
       @Override
-      public Adapter casePlus(Plus object)
+      public Adapter caseADD(ADD object)
       {
-        return createPlusAdapter();
+        return createADDAdapter();
       }
       @Override
-      public Adapter caseSub(Sub object)
+      public Adapter caseSUB(SUB object)
       {
-        return createSubAdapter();
+        return createSUBAdapter();
       }
       @Override
-      public Adapter caseMulti(Multi object)
+      public Adapter caseMULT(MULT object)
       {
-        return createMultiAdapter();
+        return createMULTAdapter();
       }
       @Override
-      public Adapter caseDiv(Div object)
+      public Adapter caseDIV(DIV object)
       {
-        return createDivAdapter();
-      }
-      @Override
-      public Adapter casestrREDUCTION(strREDUCTION object)
-      {
-        return createstrREDUCTIONAdapter();
+        return createDIVAdapter();
       }
       @Override
       public Adapter caseNOT(NOT object)
@@ -323,6 +318,16 @@ public class ModuleDslAdapterFactory extends AdapterFactoryImpl
       public Adapter caseboolConstant(boolConstant object)
       {
         return createboolConstantAdapter();
+      }
+      @Override
+      public Adapter casebitConstant(bitConstant object)
+      {
+        return createbitConstantAdapter();
+      }
+      @Override
+      public Adapter casehexConstant(hexConstant object)
+      {
+        return createhexConstantAdapter();
       }
       @Override
       public Adapter caseVarExpRef(VarExpRef object)
@@ -937,76 +942,61 @@ public class ModuleDslAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link org.xtext.moduleDsl.Plus <em>Plus</em>}'.
+   * Creates a new adapter for an object of class '{@link org.xtext.moduleDsl.ADD <em>ADD</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
    * @return the new adapter.
-   * @see org.xtext.moduleDsl.Plus
+   * @see org.xtext.moduleDsl.ADD
    * @generated
    */
-  public Adapter createPlusAdapter()
+  public Adapter createADDAdapter()
   {
     return null;
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link org.xtext.moduleDsl.Sub <em>Sub</em>}'.
+   * Creates a new adapter for an object of class '{@link org.xtext.moduleDsl.SUB <em>SUB</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
    * @return the new adapter.
-   * @see org.xtext.moduleDsl.Sub
+   * @see org.xtext.moduleDsl.SUB
    * @generated
    */
-  public Adapter createSubAdapter()
+  public Adapter createSUBAdapter()
   {
     return null;
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link org.xtext.moduleDsl.Multi <em>Multi</em>}'.
+   * Creates a new adapter for an object of class '{@link org.xtext.moduleDsl.MULT <em>MULT</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
    * @return the new adapter.
-   * @see org.xtext.moduleDsl.Multi
+   * @see org.xtext.moduleDsl.MULT
    * @generated
    */
-  public Adapter createMultiAdapter()
+  public Adapter createMULTAdapter()
   {
     return null;
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link org.xtext.moduleDsl.Div <em>Div</em>}'.
+   * Creates a new adapter for an object of class '{@link org.xtext.moduleDsl.DIV <em>DIV</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
    * @return the new adapter.
-   * @see org.xtext.moduleDsl.Div
+   * @see org.xtext.moduleDsl.DIV
    * @generated
    */
-  public Adapter createDivAdapter()
-  {
-    return null;
-  }
-
-  /**
-   * Creates a new adapter for an object of class '{@link org.xtext.moduleDsl.strREDUCTION <em>str REDUCTION</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see org.xtext.moduleDsl.strREDUCTION
-   * @generated
-   */
-  public Adapter createstrREDUCTIONAdapter()
+  public Adapter createDIVAdapter()
   {
     return null;
   }
@@ -1097,6 +1087,36 @@ public class ModuleDslAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createboolConstantAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.xtext.moduleDsl.bitConstant <em>bit Constant</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.xtext.moduleDsl.bitConstant
+   * @generated
+   */
+  public Adapter createbitConstantAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.xtext.moduleDsl.hexConstant <em>hex Constant</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.xtext.moduleDsl.hexConstant
+   * @generated
+   */
+  public Adapter createhexConstantAdapter()
   {
     return null;
   }

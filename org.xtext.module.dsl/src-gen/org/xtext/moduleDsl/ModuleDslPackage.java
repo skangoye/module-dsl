@@ -696,13 +696,13 @@ public interface ModuleDslPackage extends EPackage
   int IF_INSTR = 17;
 
   /**
-   * The feature id for the '<em><b>Cond Instr</b></em>' containment reference.
+   * The feature id for the '<em><b>Ifcond</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int IF_INSTR__COND_INSTR = INSTRUCTION_FEATURE_COUNT + 0;
+  int IF_INSTR__IFCOND = INSTRUCTION_FEATURE_COUNT + 0;
 
   /**
    * The feature id for the '<em><b>Ifst</b></em>' containment reference.
@@ -1365,14 +1365,14 @@ public interface ModuleDslPackage extends EPackage
   int COMPARISON_FEATURE_COUNT = EXPRESSION_FEATURE_COUNT + 3;
 
   /**
-   * The meta object id for the '{@link org.xtext.moduleDsl.impl.PlusImpl <em>Plus</em>}' class.
+   * The meta object id for the '{@link org.xtext.moduleDsl.impl.ADDImpl <em>ADD</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see org.xtext.moduleDsl.impl.PlusImpl
-   * @see org.xtext.moduleDsl.impl.ModuleDslPackageImpl#getPlus()
+   * @see org.xtext.moduleDsl.impl.ADDImpl
+   * @see org.xtext.moduleDsl.impl.ModuleDslPackageImpl#getADD()
    * @generated
    */
-  int PLUS = 39;
+  int ADD = 39;
 
   /**
    * The feature id for the '<em><b>Left</b></em>' containment reference.
@@ -1381,7 +1381,7 @@ public interface ModuleDslPackage extends EPackage
    * @generated
    * @ordered
    */
-  int PLUS__LEFT = EXPRESSION_FEATURE_COUNT + 0;
+  int ADD__LEFT = EXPRESSION_FEATURE_COUNT + 0;
 
   /**
    * The feature id for the '<em><b>Right</b></em>' containment reference.
@@ -1390,23 +1390,23 @@ public interface ModuleDslPackage extends EPackage
    * @generated
    * @ordered
    */
-  int PLUS__RIGHT = EXPRESSION_FEATURE_COUNT + 1;
+  int ADD__RIGHT = EXPRESSION_FEATURE_COUNT + 1;
 
   /**
-   * The number of structural features of the '<em>Plus</em>' class.
+   * The number of structural features of the '<em>ADD</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int PLUS_FEATURE_COUNT = EXPRESSION_FEATURE_COUNT + 2;
+  int ADD_FEATURE_COUNT = EXPRESSION_FEATURE_COUNT + 2;
 
   /**
-   * The meta object id for the '{@link org.xtext.moduleDsl.impl.SubImpl <em>Sub</em>}' class.
+   * The meta object id for the '{@link org.xtext.moduleDsl.impl.SUBImpl <em>SUB</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see org.xtext.moduleDsl.impl.SubImpl
-   * @see org.xtext.moduleDsl.impl.ModuleDslPackageImpl#getSub()
+   * @see org.xtext.moduleDsl.impl.SUBImpl
+   * @see org.xtext.moduleDsl.impl.ModuleDslPackageImpl#getSUB()
    * @generated
    */
   int SUB = 40;
@@ -1430,7 +1430,7 @@ public interface ModuleDslPackage extends EPackage
   int SUB__RIGHT = EXPRESSION_FEATURE_COUNT + 1;
 
   /**
-   * The number of structural features of the '<em>Sub</em>' class.
+   * The number of structural features of the '<em>SUB</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
@@ -1439,14 +1439,14 @@ public interface ModuleDslPackage extends EPackage
   int SUB_FEATURE_COUNT = EXPRESSION_FEATURE_COUNT + 2;
 
   /**
-   * The meta object id for the '{@link org.xtext.moduleDsl.impl.MultiImpl <em>Multi</em>}' class.
+   * The meta object id for the '{@link org.xtext.moduleDsl.impl.MULTImpl <em>MULT</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see org.xtext.moduleDsl.impl.MultiImpl
-   * @see org.xtext.moduleDsl.impl.ModuleDslPackageImpl#getMulti()
+   * @see org.xtext.moduleDsl.impl.MULTImpl
+   * @see org.xtext.moduleDsl.impl.ModuleDslPackageImpl#getMULT()
    * @generated
    */
-  int MULTI = 41;
+  int MULT = 41;
 
   /**
    * The feature id for the '<em><b>Left</b></em>' containment reference.
@@ -1455,7 +1455,7 @@ public interface ModuleDslPackage extends EPackage
    * @generated
    * @ordered
    */
-  int MULTI__LEFT = EXPRESSION_FEATURE_COUNT + 0;
+  int MULT__LEFT = EXPRESSION_FEATURE_COUNT + 0;
 
   /**
    * The feature id for the '<em><b>Right</b></em>' containment reference.
@@ -1464,23 +1464,23 @@ public interface ModuleDslPackage extends EPackage
    * @generated
    * @ordered
    */
-  int MULTI__RIGHT = EXPRESSION_FEATURE_COUNT + 1;
+  int MULT__RIGHT = EXPRESSION_FEATURE_COUNT + 1;
 
   /**
-   * The number of structural features of the '<em>Multi</em>' class.
+   * The number of structural features of the '<em>MULT</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int MULTI_FEATURE_COUNT = EXPRESSION_FEATURE_COUNT + 2;
+  int MULT_FEATURE_COUNT = EXPRESSION_FEATURE_COUNT + 2;
 
   /**
-   * The meta object id for the '{@link org.xtext.moduleDsl.impl.DivImpl <em>Div</em>}' class.
+   * The meta object id for the '{@link org.xtext.moduleDsl.impl.DIVImpl <em>DIV</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see org.xtext.moduleDsl.impl.DivImpl
-   * @see org.xtext.moduleDsl.impl.ModuleDslPackageImpl#getDiv()
+   * @see org.xtext.moduleDsl.impl.DIVImpl
+   * @see org.xtext.moduleDsl.impl.ModuleDslPackageImpl#getDIV()
    * @generated
    */
   int DIV = 42;
@@ -1504,59 +1504,13 @@ public interface ModuleDslPackage extends EPackage
   int DIV__RIGHT = EXPRESSION_FEATURE_COUNT + 1;
 
   /**
-   * The number of structural features of the '<em>Div</em>' class.
+   * The number of structural features of the '<em>DIV</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
   int DIV_FEATURE_COUNT = EXPRESSION_FEATURE_COUNT + 2;
-
-  /**
-   * The meta object id for the '{@link org.xtext.moduleDsl.impl.strREDUCTIONImpl <em>str REDUCTION</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see org.xtext.moduleDsl.impl.strREDUCTIONImpl
-   * @see org.xtext.moduleDsl.impl.ModuleDslPackageImpl#getstrREDUCTION()
-   * @generated
-   */
-  int STR_REDUCTION = 43;
-
-  /**
-   * The feature id for the '<em><b>Left</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int STR_REDUCTION__LEFT = EXPRESSION_FEATURE_COUNT + 0;
-
-  /**
-   * The feature id for the '<em><b>Op</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int STR_REDUCTION__OP = EXPRESSION_FEATURE_COUNT + 1;
-
-  /**
-   * The feature id for the '<em><b>Pos</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int STR_REDUCTION__POS = EXPRESSION_FEATURE_COUNT + 2;
-
-  /**
-   * The number of structural features of the '<em>str REDUCTION</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int STR_REDUCTION_FEATURE_COUNT = EXPRESSION_FEATURE_COUNT + 3;
 
   /**
    * The meta object id for the '{@link org.xtext.moduleDsl.impl.NOTImpl <em>NOT</em>}' class.
@@ -1566,7 +1520,7 @@ public interface ModuleDslPackage extends EPackage
    * @see org.xtext.moduleDsl.impl.ModuleDslPackageImpl#getNOT()
    * @generated
    */
-  int NOT = 44;
+  int NOT = 43;
 
   /**
    * The feature id for the '<em><b>Exp</b></em>' containment reference.
@@ -1594,7 +1548,7 @@ public interface ModuleDslPackage extends EPackage
    * @see org.xtext.moduleDsl.impl.ModuleDslPackageImpl#getintConstant()
    * @generated
    */
-  int INT_CONSTANT = 45;
+  int INT_CONSTANT = 44;
 
   /**
    * The feature id for the '<em><b>Value</b></em>' attribute.
@@ -1622,7 +1576,7 @@ public interface ModuleDslPackage extends EPackage
    * @see org.xtext.moduleDsl.impl.ModuleDslPackageImpl#getrealConstant()
    * @generated
    */
-  int REAL_CONSTANT = 46;
+  int REAL_CONSTANT = 45;
 
   /**
    * The feature id for the '<em><b>Value</b></em>' attribute.
@@ -1650,7 +1604,7 @@ public interface ModuleDslPackage extends EPackage
    * @see org.xtext.moduleDsl.impl.ModuleDslPackageImpl#getstrConstant()
    * @generated
    */
-  int STR_CONSTANT = 47;
+  int STR_CONSTANT = 46;
 
   /**
    * The feature id for the '<em><b>Value</b></em>' attribute.
@@ -1678,7 +1632,7 @@ public interface ModuleDslPackage extends EPackage
    * @see org.xtext.moduleDsl.impl.ModuleDslPackageImpl#getenumConstant()
    * @generated
    */
-  int ENUM_CONSTANT = 48;
+  int ENUM_CONSTANT = 47;
 
   /**
    * The feature id for the '<em><b>Value</b></em>' attribute.
@@ -1706,7 +1660,7 @@ public interface ModuleDslPackage extends EPackage
    * @see org.xtext.moduleDsl.impl.ModuleDslPackageImpl#getboolConstant()
    * @generated
    */
-  int BOOL_CONSTANT = 49;
+  int BOOL_CONSTANT = 48;
 
   /**
    * The feature id for the '<em><b>Value</b></em>' attribute.
@@ -1727,6 +1681,62 @@ public interface ModuleDslPackage extends EPackage
   int BOOL_CONSTANT_FEATURE_COUNT = EXPRESSION_FEATURE_COUNT + 1;
 
   /**
+   * The meta object id for the '{@link org.xtext.moduleDsl.impl.bitConstantImpl <em>bit Constant</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.xtext.moduleDsl.impl.bitConstantImpl
+   * @see org.xtext.moduleDsl.impl.ModuleDslPackageImpl#getbitConstant()
+   * @generated
+   */
+  int BIT_CONSTANT = 49;
+
+  /**
+   * The feature id for the '<em><b>Value</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int BIT_CONSTANT__VALUE = EXPRESSION_FEATURE_COUNT + 0;
+
+  /**
+   * The number of structural features of the '<em>bit Constant</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int BIT_CONSTANT_FEATURE_COUNT = EXPRESSION_FEATURE_COUNT + 1;
+
+  /**
+   * The meta object id for the '{@link org.xtext.moduleDsl.impl.hexConstantImpl <em>hex Constant</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.xtext.moduleDsl.impl.hexConstantImpl
+   * @see org.xtext.moduleDsl.impl.ModuleDslPackageImpl#gethexConstant()
+   * @generated
+   */
+  int HEX_CONSTANT = 50;
+
+  /**
+   * The feature id for the '<em><b>Value</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int HEX_CONSTANT__VALUE = EXPRESSION_FEATURE_COUNT + 0;
+
+  /**
+   * The number of structural features of the '<em>hex Constant</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int HEX_CONSTANT_FEATURE_COUNT = EXPRESSION_FEATURE_COUNT + 1;
+
+  /**
    * The meta object id for the '{@link org.xtext.moduleDsl.impl.VarExpRefImpl <em>Var Exp Ref</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -1734,7 +1744,7 @@ public interface ModuleDslPackage extends EPackage
    * @see org.xtext.moduleDsl.impl.ModuleDslPackageImpl#getVarExpRef()
    * @generated
    */
-  int VAR_EXP_REF = 50;
+  int VAR_EXP_REF = 51;
 
   /**
    * The feature id for the '<em><b>Vref</b></em>' reference.
@@ -2244,15 +2254,15 @@ public interface ModuleDslPackage extends EPackage
   EClass getIF_INSTR();
 
   /**
-   * Returns the meta object for the containment reference '{@link org.xtext.moduleDsl.IF_INSTR#getCondInstr <em>Cond Instr</em>}'.
+   * Returns the meta object for the containment reference '{@link org.xtext.moduleDsl.IF_INSTR#getIfcond <em>Ifcond</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the containment reference '<em>Cond Instr</em>'.
-   * @see org.xtext.moduleDsl.IF_INSTR#getCondInstr()
+   * @return the meta object for the containment reference '<em>Ifcond</em>'.
+   * @see org.xtext.moduleDsl.IF_INSTR#getIfcond()
    * @see #getIF_INSTR()
    * @generated
    */
-  EReference getIF_INSTR_CondInstr();
+  EReference getIF_INSTR_Ifcond();
 
   /**
    * Returns the meta object for the containment reference '{@link org.xtext.moduleDsl.IF_INSTR#getIfst <em>Ifst</em>}'.
@@ -2773,175 +2783,132 @@ public interface ModuleDslPackage extends EPackage
   EReference getCOMPARISON_Right();
 
   /**
-   * Returns the meta object for class '{@link org.xtext.moduleDsl.Plus <em>Plus</em>}'.
+   * Returns the meta object for class '{@link org.xtext.moduleDsl.ADD <em>ADD</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Plus</em>'.
-   * @see org.xtext.moduleDsl.Plus
+   * @return the meta object for class '<em>ADD</em>'.
+   * @see org.xtext.moduleDsl.ADD
    * @generated
    */
-  EClass getPlus();
+  EClass getADD();
 
   /**
-   * Returns the meta object for the containment reference '{@link org.xtext.moduleDsl.Plus#getLeft <em>Left</em>}'.
+   * Returns the meta object for the containment reference '{@link org.xtext.moduleDsl.ADD#getLeft <em>Left</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the meta object for the containment reference '<em>Left</em>'.
-   * @see org.xtext.moduleDsl.Plus#getLeft()
-   * @see #getPlus()
+   * @see org.xtext.moduleDsl.ADD#getLeft()
+   * @see #getADD()
    * @generated
    */
-  EReference getPlus_Left();
+  EReference getADD_Left();
 
   /**
-   * Returns the meta object for the containment reference '{@link org.xtext.moduleDsl.Plus#getRight <em>Right</em>}'.
+   * Returns the meta object for the containment reference '{@link org.xtext.moduleDsl.ADD#getRight <em>Right</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the meta object for the containment reference '<em>Right</em>'.
-   * @see org.xtext.moduleDsl.Plus#getRight()
-   * @see #getPlus()
+   * @see org.xtext.moduleDsl.ADD#getRight()
+   * @see #getADD()
    * @generated
    */
-  EReference getPlus_Right();
+  EReference getADD_Right();
 
   /**
-   * Returns the meta object for class '{@link org.xtext.moduleDsl.Sub <em>Sub</em>}'.
+   * Returns the meta object for class '{@link org.xtext.moduleDsl.SUB <em>SUB</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Sub</em>'.
-   * @see org.xtext.moduleDsl.Sub
+   * @return the meta object for class '<em>SUB</em>'.
+   * @see org.xtext.moduleDsl.SUB
    * @generated
    */
-  EClass getSub();
+  EClass getSUB();
 
   /**
-   * Returns the meta object for the containment reference '{@link org.xtext.moduleDsl.Sub#getLeft <em>Left</em>}'.
+   * Returns the meta object for the containment reference '{@link org.xtext.moduleDsl.SUB#getLeft <em>Left</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the meta object for the containment reference '<em>Left</em>'.
-   * @see org.xtext.moduleDsl.Sub#getLeft()
-   * @see #getSub()
+   * @see org.xtext.moduleDsl.SUB#getLeft()
+   * @see #getSUB()
    * @generated
    */
-  EReference getSub_Left();
+  EReference getSUB_Left();
 
   /**
-   * Returns the meta object for the containment reference '{@link org.xtext.moduleDsl.Sub#getRight <em>Right</em>}'.
+   * Returns the meta object for the containment reference '{@link org.xtext.moduleDsl.SUB#getRight <em>Right</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the meta object for the containment reference '<em>Right</em>'.
-   * @see org.xtext.moduleDsl.Sub#getRight()
-   * @see #getSub()
+   * @see org.xtext.moduleDsl.SUB#getRight()
+   * @see #getSUB()
    * @generated
    */
-  EReference getSub_Right();
+  EReference getSUB_Right();
 
   /**
-   * Returns the meta object for class '{@link org.xtext.moduleDsl.Multi <em>Multi</em>}'.
+   * Returns the meta object for class '{@link org.xtext.moduleDsl.MULT <em>MULT</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Multi</em>'.
-   * @see org.xtext.moduleDsl.Multi
+   * @return the meta object for class '<em>MULT</em>'.
+   * @see org.xtext.moduleDsl.MULT
    * @generated
    */
-  EClass getMulti();
+  EClass getMULT();
 
   /**
-   * Returns the meta object for the containment reference '{@link org.xtext.moduleDsl.Multi#getLeft <em>Left</em>}'.
+   * Returns the meta object for the containment reference '{@link org.xtext.moduleDsl.MULT#getLeft <em>Left</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the meta object for the containment reference '<em>Left</em>'.
-   * @see org.xtext.moduleDsl.Multi#getLeft()
-   * @see #getMulti()
+   * @see org.xtext.moduleDsl.MULT#getLeft()
+   * @see #getMULT()
    * @generated
    */
-  EReference getMulti_Left();
+  EReference getMULT_Left();
 
   /**
-   * Returns the meta object for the containment reference '{@link org.xtext.moduleDsl.Multi#getRight <em>Right</em>}'.
+   * Returns the meta object for the containment reference '{@link org.xtext.moduleDsl.MULT#getRight <em>Right</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the meta object for the containment reference '<em>Right</em>'.
-   * @see org.xtext.moduleDsl.Multi#getRight()
-   * @see #getMulti()
+   * @see org.xtext.moduleDsl.MULT#getRight()
+   * @see #getMULT()
    * @generated
    */
-  EReference getMulti_Right();
+  EReference getMULT_Right();
 
   /**
-   * Returns the meta object for class '{@link org.xtext.moduleDsl.Div <em>Div</em>}'.
+   * Returns the meta object for class '{@link org.xtext.moduleDsl.DIV <em>DIV</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Div</em>'.
-   * @see org.xtext.moduleDsl.Div
+   * @return the meta object for class '<em>DIV</em>'.
+   * @see org.xtext.moduleDsl.DIV
    * @generated
    */
-  EClass getDiv();
+  EClass getDIV();
 
   /**
-   * Returns the meta object for the containment reference '{@link org.xtext.moduleDsl.Div#getLeft <em>Left</em>}'.
+   * Returns the meta object for the containment reference '{@link org.xtext.moduleDsl.DIV#getLeft <em>Left</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the meta object for the containment reference '<em>Left</em>'.
-   * @see org.xtext.moduleDsl.Div#getLeft()
-   * @see #getDiv()
+   * @see org.xtext.moduleDsl.DIV#getLeft()
+   * @see #getDIV()
    * @generated
    */
-  EReference getDiv_Left();
+  EReference getDIV_Left();
 
   /**
-   * Returns the meta object for the containment reference '{@link org.xtext.moduleDsl.Div#getRight <em>Right</em>}'.
+   * Returns the meta object for the containment reference '{@link org.xtext.moduleDsl.DIV#getRight <em>Right</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the meta object for the containment reference '<em>Right</em>'.
-   * @see org.xtext.moduleDsl.Div#getRight()
-   * @see #getDiv()
+   * @see org.xtext.moduleDsl.DIV#getRight()
+   * @see #getDIV()
    * @generated
    */
-  EReference getDiv_Right();
-
-  /**
-   * Returns the meta object for class '{@link org.xtext.moduleDsl.strREDUCTION <em>str REDUCTION</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for class '<em>str REDUCTION</em>'.
-   * @see org.xtext.moduleDsl.strREDUCTION
-   * @generated
-   */
-  EClass getstrREDUCTION();
-
-  /**
-   * Returns the meta object for the containment reference '{@link org.xtext.moduleDsl.strREDUCTION#getLeft <em>Left</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference '<em>Left</em>'.
-   * @see org.xtext.moduleDsl.strREDUCTION#getLeft()
-   * @see #getstrREDUCTION()
-   * @generated
-   */
-  EReference getstrREDUCTION_Left();
-
-  /**
-   * Returns the meta object for the attribute '{@link org.xtext.moduleDsl.strREDUCTION#getOp <em>Op</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Op</em>'.
-   * @see org.xtext.moduleDsl.strREDUCTION#getOp()
-   * @see #getstrREDUCTION()
-   * @generated
-   */
-  EAttribute getstrREDUCTION_Op();
-
-  /**
-   * Returns the meta object for the containment reference '{@link org.xtext.moduleDsl.strREDUCTION#getPos <em>Pos</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference '<em>Pos</em>'.
-   * @see org.xtext.moduleDsl.strREDUCTION#getPos()
-   * @see #getstrREDUCTION()
-   * @generated
-   */
-  EReference getstrREDUCTION_Pos();
+  EReference getDIV_Right();
 
   /**
    * Returns the meta object for class '{@link org.xtext.moduleDsl.NOT <em>NOT</em>}'.
@@ -3068,6 +3035,48 @@ public interface ModuleDslPackage extends EPackage
    * @generated
    */
   EAttribute getboolConstant_Value();
+
+  /**
+   * Returns the meta object for class '{@link org.xtext.moduleDsl.bitConstant <em>bit Constant</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>bit Constant</em>'.
+   * @see org.xtext.moduleDsl.bitConstant
+   * @generated
+   */
+  EClass getbitConstant();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.xtext.moduleDsl.bitConstant#getValue <em>Value</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Value</em>'.
+   * @see org.xtext.moduleDsl.bitConstant#getValue()
+   * @see #getbitConstant()
+   * @generated
+   */
+  EAttribute getbitConstant_Value();
+
+  /**
+   * Returns the meta object for class '{@link org.xtext.moduleDsl.hexConstant <em>hex Constant</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>hex Constant</em>'.
+   * @see org.xtext.moduleDsl.hexConstant
+   * @generated
+   */
+  EClass gethexConstant();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.xtext.moduleDsl.hexConstant#getValue <em>Value</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Value</em>'.
+   * @see org.xtext.moduleDsl.hexConstant#getValue()
+   * @see #gethexConstant()
+   * @generated
+   */
+  EAttribute gethexConstant_Value();
 
   /**
    * Returns the meta object for class '{@link org.xtext.moduleDsl.VarExpRef <em>Var Exp Ref</em>}'.
@@ -3518,12 +3527,12 @@ public interface ModuleDslPackage extends EPackage
     EClass IF_INSTR = eINSTANCE.getIF_INSTR();
 
     /**
-     * The meta object literal for the '<em><b>Cond Instr</b></em>' containment reference feature.
+     * The meta object literal for the '<em><b>Ifcond</b></em>' containment reference feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference IF_INSTR__COND_INSTR = eINSTANCE.getIF_INSTR_CondInstr();
+    EReference IF_INSTR__IFCOND = eINSTANCE.getIF_INSTR_Ifcond();
 
     /**
      * The meta object literal for the '<em><b>Ifst</b></em>' containment reference feature.
@@ -3960,14 +3969,14 @@ public interface ModuleDslPackage extends EPackage
     EReference COMPARISON__RIGHT = eINSTANCE.getCOMPARISON_Right();
 
     /**
-     * The meta object literal for the '{@link org.xtext.moduleDsl.impl.PlusImpl <em>Plus</em>}' class.
+     * The meta object literal for the '{@link org.xtext.moduleDsl.impl.ADDImpl <em>ADD</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see org.xtext.moduleDsl.impl.PlusImpl
-     * @see org.xtext.moduleDsl.impl.ModuleDslPackageImpl#getPlus()
+     * @see org.xtext.moduleDsl.impl.ADDImpl
+     * @see org.xtext.moduleDsl.impl.ModuleDslPackageImpl#getADD()
      * @generated
      */
-    EClass PLUS = eINSTANCE.getPlus();
+    EClass ADD = eINSTANCE.getADD();
 
     /**
      * The meta object literal for the '<em><b>Left</b></em>' containment reference feature.
@@ -3975,7 +3984,7 @@ public interface ModuleDslPackage extends EPackage
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference PLUS__LEFT = eINSTANCE.getPlus_Left();
+    EReference ADD__LEFT = eINSTANCE.getADD_Left();
 
     /**
      * The meta object literal for the '<em><b>Right</b></em>' containment reference feature.
@@ -3983,17 +3992,17 @@ public interface ModuleDslPackage extends EPackage
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference PLUS__RIGHT = eINSTANCE.getPlus_Right();
+    EReference ADD__RIGHT = eINSTANCE.getADD_Right();
 
     /**
-     * The meta object literal for the '{@link org.xtext.moduleDsl.impl.SubImpl <em>Sub</em>}' class.
+     * The meta object literal for the '{@link org.xtext.moduleDsl.impl.SUBImpl <em>SUB</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see org.xtext.moduleDsl.impl.SubImpl
-     * @see org.xtext.moduleDsl.impl.ModuleDslPackageImpl#getSub()
+     * @see org.xtext.moduleDsl.impl.SUBImpl
+     * @see org.xtext.moduleDsl.impl.ModuleDslPackageImpl#getSUB()
      * @generated
      */
-    EClass SUB = eINSTANCE.getSub();
+    EClass SUB = eINSTANCE.getSUB();
 
     /**
      * The meta object literal for the '<em><b>Left</b></em>' containment reference feature.
@@ -4001,7 +4010,7 @@ public interface ModuleDslPackage extends EPackage
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference SUB__LEFT = eINSTANCE.getSub_Left();
+    EReference SUB__LEFT = eINSTANCE.getSUB_Left();
 
     /**
      * The meta object literal for the '<em><b>Right</b></em>' containment reference feature.
@@ -4009,17 +4018,17 @@ public interface ModuleDslPackage extends EPackage
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference SUB__RIGHT = eINSTANCE.getSub_Right();
+    EReference SUB__RIGHT = eINSTANCE.getSUB_Right();
 
     /**
-     * The meta object literal for the '{@link org.xtext.moduleDsl.impl.MultiImpl <em>Multi</em>}' class.
+     * The meta object literal for the '{@link org.xtext.moduleDsl.impl.MULTImpl <em>MULT</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see org.xtext.moduleDsl.impl.MultiImpl
-     * @see org.xtext.moduleDsl.impl.ModuleDslPackageImpl#getMulti()
+     * @see org.xtext.moduleDsl.impl.MULTImpl
+     * @see org.xtext.moduleDsl.impl.ModuleDslPackageImpl#getMULT()
      * @generated
      */
-    EClass MULTI = eINSTANCE.getMulti();
+    EClass MULT = eINSTANCE.getMULT();
 
     /**
      * The meta object literal for the '<em><b>Left</b></em>' containment reference feature.
@@ -4027,7 +4036,7 @@ public interface ModuleDslPackage extends EPackage
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference MULTI__LEFT = eINSTANCE.getMulti_Left();
+    EReference MULT__LEFT = eINSTANCE.getMULT_Left();
 
     /**
      * The meta object literal for the '<em><b>Right</b></em>' containment reference feature.
@@ -4035,17 +4044,17 @@ public interface ModuleDslPackage extends EPackage
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference MULTI__RIGHT = eINSTANCE.getMulti_Right();
+    EReference MULT__RIGHT = eINSTANCE.getMULT_Right();
 
     /**
-     * The meta object literal for the '{@link org.xtext.moduleDsl.impl.DivImpl <em>Div</em>}' class.
+     * The meta object literal for the '{@link org.xtext.moduleDsl.impl.DIVImpl <em>DIV</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see org.xtext.moduleDsl.impl.DivImpl
-     * @see org.xtext.moduleDsl.impl.ModuleDslPackageImpl#getDiv()
+     * @see org.xtext.moduleDsl.impl.DIVImpl
+     * @see org.xtext.moduleDsl.impl.ModuleDslPackageImpl#getDIV()
      * @generated
      */
-    EClass DIV = eINSTANCE.getDiv();
+    EClass DIV = eINSTANCE.getDIV();
 
     /**
      * The meta object literal for the '<em><b>Left</b></em>' containment reference feature.
@@ -4053,7 +4062,7 @@ public interface ModuleDslPackage extends EPackage
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference DIV__LEFT = eINSTANCE.getDiv_Left();
+    EReference DIV__LEFT = eINSTANCE.getDIV_Left();
 
     /**
      * The meta object literal for the '<em><b>Right</b></em>' containment reference feature.
@@ -4061,41 +4070,7 @@ public interface ModuleDslPackage extends EPackage
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference DIV__RIGHT = eINSTANCE.getDiv_Right();
-
-    /**
-     * The meta object literal for the '{@link org.xtext.moduleDsl.impl.strREDUCTIONImpl <em>str REDUCTION</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see org.xtext.moduleDsl.impl.strREDUCTIONImpl
-     * @see org.xtext.moduleDsl.impl.ModuleDslPackageImpl#getstrREDUCTION()
-     * @generated
-     */
-    EClass STR_REDUCTION = eINSTANCE.getstrREDUCTION();
-
-    /**
-     * The meta object literal for the '<em><b>Left</b></em>' containment reference feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference STR_REDUCTION__LEFT = eINSTANCE.getstrREDUCTION_Left();
-
-    /**
-     * The meta object literal for the '<em><b>Op</b></em>' attribute feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EAttribute STR_REDUCTION__OP = eINSTANCE.getstrREDUCTION_Op();
-
-    /**
-     * The meta object literal for the '<em><b>Pos</b></em>' containment reference feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference STR_REDUCTION__POS = eINSTANCE.getstrREDUCTION_Pos();
+    EReference DIV__RIGHT = eINSTANCE.getDIV_Right();
 
     /**
      * The meta object literal for the '{@link org.xtext.moduleDsl.impl.NOTImpl <em>NOT</em>}' class.
@@ -4204,6 +4179,42 @@ public interface ModuleDslPackage extends EPackage
      * @generated
      */
     EAttribute BOOL_CONSTANT__VALUE = eINSTANCE.getboolConstant_Value();
+
+    /**
+     * The meta object literal for the '{@link org.xtext.moduleDsl.impl.bitConstantImpl <em>bit Constant</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.xtext.moduleDsl.impl.bitConstantImpl
+     * @see org.xtext.moduleDsl.impl.ModuleDslPackageImpl#getbitConstant()
+     * @generated
+     */
+    EClass BIT_CONSTANT = eINSTANCE.getbitConstant();
+
+    /**
+     * The meta object literal for the '<em><b>Value</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute BIT_CONSTANT__VALUE = eINSTANCE.getbitConstant_Value();
+
+    /**
+     * The meta object literal for the '{@link org.xtext.moduleDsl.impl.hexConstantImpl <em>hex Constant</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.xtext.moduleDsl.impl.hexConstantImpl
+     * @see org.xtext.moduleDsl.impl.ModuleDslPackageImpl#gethexConstant()
+     * @generated
+     */
+    EClass HEX_CONSTANT = eINSTANCE.gethexConstant();
+
+    /**
+     * The meta object literal for the '<em><b>Value</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute HEX_CONSTANT__VALUE = eINSTANCE.gethexConstant_Value();
 
     /**
      * The meta object literal for the '{@link org.xtext.moduleDsl.impl.VarExpRefImpl <em>Var Exp Ref</em>}' class.

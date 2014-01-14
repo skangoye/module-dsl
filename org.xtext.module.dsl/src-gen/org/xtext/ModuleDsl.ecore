@@ -74,7 +74,7 @@
   <eClassifiers xsi:type="ecore:EClass" name="Literal"/>
   <eClassifiers xsi:type="ecore:EClass" name="INSTRUCTION"/>
   <eClassifiers xsi:type="ecore:EClass" name="IF_INSTR" eSuperTypes="#//INSTRUCTION">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="condInstr" eType="#//EXPRESSION"
+    <eStructuralFeatures xsi:type="ecore:EReference" name="ifcond" eType="#//EXPRESSION"
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ifst" eType="#//INSTRUCTION"
         containment="true"/>
@@ -156,35 +156,28 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="right" eType="#//EXPRESSION"
         containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Plus" eSuperTypes="#//EXPRESSION">
+  <eClassifiers xsi:type="ecore:EClass" name="ADD" eSuperTypes="#//EXPRESSION">
     <eStructuralFeatures xsi:type="ecore:EReference" name="left" eType="#//EXPRESSION"
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="right" eType="#//EXPRESSION"
         containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Sub" eSuperTypes="#//EXPRESSION">
+  <eClassifiers xsi:type="ecore:EClass" name="SUB" eSuperTypes="#//EXPRESSION">
     <eStructuralFeatures xsi:type="ecore:EReference" name="left" eType="#//EXPRESSION"
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="right" eType="#//EXPRESSION"
         containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Multi" eSuperTypes="#//EXPRESSION">
+  <eClassifiers xsi:type="ecore:EClass" name="MULT" eSuperTypes="#//EXPRESSION">
     <eStructuralFeatures xsi:type="ecore:EReference" name="left" eType="#//EXPRESSION"
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="right" eType="#//EXPRESSION"
         containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Div" eSuperTypes="#//EXPRESSION">
+  <eClassifiers xsi:type="ecore:EClass" name="DIV" eSuperTypes="#//EXPRESSION">
     <eStructuralFeatures xsi:type="ecore:EReference" name="left" eType="#//EXPRESSION"
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="right" eType="#//EXPRESSION"
-        containment="true"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="strREDUCTION" eSuperTypes="#//EXPRESSION">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="left" eType="#//EXPRESSION"
-        containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="op" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="pos" eType="#//EXPRESSION"
         containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="NOT" eSuperTypes="#//EXPRESSION">
@@ -205,6 +198,12 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="boolConstant" eSuperTypes="#//EXPRESSION">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="bitConstant" eSuperTypes="#//EXPRESSION">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="hexConstant" eSuperTypes="#//EXPRESSION">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="VarExpRef" eSuperTypes="#//EXPRESSION">
     <eStructuralFeatures xsi:type="ecore:EReference" name="vref" eType="#//VAR_CST"/>
