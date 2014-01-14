@@ -486,41 +486,9 @@ public static val INVALID_INPUT = 'invalidInput'
 	 	}
 	 }
 	 
-	 def private checkExpectedInt(EXPRESSION exp, EReference ref){
-	 	checkExpectedType(exp, ExpressionsTypeProvider::intType,ref)
-	 }
-	 
-	 def private checkExpectedReal(EXPRESSION exp, EReference ref){
-	 	checkExpectedType(exp, ExpressionsTypeProvider::realType,ref)
-	 }
-	 
-	 def private checkExpectedStr(EXPRESSION exp, EReference ref){
-	 	checkExpectedType(exp, ExpressionsTypeProvider::strType,ref)
-	 }
-	 
 	 def private checkNotString(String type, EReference ref){
 	 	if (type == ExpressionsTypeProvider::strType){
 	 		error("cannot be string", ref)
-	 	}
-	 }
-	 
-	 def private checkExpectedHex(EXPRESSION exp, EReference ref){
-	 	checkExpectedType(exp, ExpressionsTypeProvider::hexType,ref)
-	 }
-	 
-	 def private checkNotHex(String type, EReference ref){
-	 	if (type == ExpressionsTypeProvider::hexType){
-	 		error("cannot be hexadecimal", ref)
-	 	}
-	 }
-	 
-	 def private checkExpectedBit(EXPRESSION exp, EReference ref){
-	 	checkExpectedType(exp, ExpressionsTypeProvider::bitType,ref)
-	 }
-	 
-	 def private checkNotBit(String type, EReference ref){
-	 	if (type == ExpressionsTypeProvider::bitType){
-	 		error("cannot be bit", ref)
 	 	}
 	 }
 	 
