@@ -58,6 +58,27 @@ public class ModuleDslPackageImpl extends EPackageImpl implements ModuleDslPacka
    * <!-- end-user-doc -->
    * @generated
    */
+  private EClass strategyEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass interfaceEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass bodyEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   private EClass criterioN_DECLEClass = null;
 
   /**
@@ -497,7 +518,7 @@ public class ModuleDslPackageImpl extends EPackageImpl implements ModuleDslPacka
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getMODULE_DECL_Critdecl()
+  public EReference getMODULE_DECL_Strategy()
   {
     return (EReference)modulE_DECLEClass.getEStructuralFeatures().get(1);
   }
@@ -507,7 +528,7 @@ public class ModuleDslPackageImpl extends EPackageImpl implements ModuleDslPacka
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getMODULE_DECL_Dataseldecl()
+  public EReference getMODULE_DECL_Interface()
   {
     return (EReference)modulE_DECLEClass.getEStructuralFeatures().get(2);
   }
@@ -517,7 +538,7 @@ public class ModuleDslPackageImpl extends EPackageImpl implements ModuleDslPacka
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getMODULE_DECL_Declaration()
+  public EReference getMODULE_DECL_Body()
   {
     return (EReference)modulE_DECLEClass.getEStructuralFeatures().get(3);
   }
@@ -527,9 +548,9 @@ public class ModuleDslPackageImpl extends EPackageImpl implements ModuleDslPacka
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getMODULE_DECL_Exp()
+  public EClass getSTRATEGY()
   {
-    return (EReference)modulE_DECLEClass.getEStructuralFeatures().get(4);
+    return strategyEClass;
   }
 
   /**
@@ -537,9 +558,59 @@ public class ModuleDslPackageImpl extends EPackageImpl implements ModuleDslPacka
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getMODULE_DECL_Instr()
+  public EReference getSTRATEGY_Critdecl()
   {
-    return (EReference)modulE_DECLEClass.getEStructuralFeatures().get(5);
+    return (EReference)strategyEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getSTRATEGY_Dataseldecl()
+  {
+    return (EReference)strategyEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getINTERFACE()
+  {
+    return interfaceEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getINTERFACE_Declaration()
+  {
+    return (EReference)interfaceEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getBODY()
+  {
+    return bodyEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getBODY_Instr()
+  {
+    return (EReference)bodyEClass.getEStructuralFeatures().get(0);
   }
 
   /**
@@ -1057,7 +1128,7 @@ public class ModuleDslPackageImpl extends EPackageImpl implements ModuleDslPacka
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getSINGLE_ASSIGN_Var()
+  public EReference getSINGLE_ASSIGN_Left()
   {
     return (EReference)singlE_ASSIGNEClass.getEStructuralFeatures().get(0);
   }
@@ -1067,7 +1138,7 @@ public class ModuleDslPackageImpl extends EPackageImpl implements ModuleDslPacka
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getSINGLE_ASSIGN_Exp()
+  public EReference getSINGLE_ASSIGN_Right()
   {
     return (EReference)singlE_ASSIGNEClass.getEStructuralFeatures().get(1);
   }
@@ -1737,11 +1808,19 @@ public class ModuleDslPackageImpl extends EPackageImpl implements ModuleDslPacka
 
     modulE_DECLEClass = createEClass(MODULE_DECL);
     createEAttribute(modulE_DECLEClass, MODULE_DECL__NAME);
-    createEReference(modulE_DECLEClass, MODULE_DECL__CRITDECL);
-    createEReference(modulE_DECLEClass, MODULE_DECL__DATASELDECL);
-    createEReference(modulE_DECLEClass, MODULE_DECL__DECLARATION);
-    createEReference(modulE_DECLEClass, MODULE_DECL__EXP);
-    createEReference(modulE_DECLEClass, MODULE_DECL__INSTR);
+    createEReference(modulE_DECLEClass, MODULE_DECL__STRATEGY);
+    createEReference(modulE_DECLEClass, MODULE_DECL__INTERFACE);
+    createEReference(modulE_DECLEClass, MODULE_DECL__BODY);
+
+    strategyEClass = createEClass(STRATEGY);
+    createEReference(strategyEClass, STRATEGY__CRITDECL);
+    createEReference(strategyEClass, STRATEGY__DATASELDECL);
+
+    interfaceEClass = createEClass(INTERFACE);
+    createEReference(interfaceEClass, INTERFACE__DECLARATION);
+
+    bodyEClass = createEClass(BODY);
+    createEReference(bodyEClass, BODY__INSTR);
 
     criterioN_DECLEClass = createEClass(CRITERION_DECL);
     createEReference(criterioN_DECLEClass, CRITERION_DECL__CRIT);
@@ -1814,8 +1893,8 @@ public class ModuleDslPackageImpl extends EPackageImpl implements ModuleDslPacka
     createEReference(assigN_INSTREClass, ASSIGN_INSTR__END);
 
     singlE_ASSIGNEClass = createEClass(SINGLE_ASSIGN);
-    createEReference(singlE_ASSIGNEClass, SINGLE_ASSIGN__VAR);
-    createEReference(singlE_ASSIGNEClass, SINGLE_ASSIGN__EXP);
+    createEReference(singlE_ASSIGNEClass, SINGLE_ASSIGN__LEFT);
+    createEReference(singlE_ASSIGNEClass, SINGLE_ASSIGN__RIGHT);
 
     expressionEClass = createEClass(EXPRESSION);
 
@@ -1979,11 +2058,19 @@ public class ModuleDslPackageImpl extends EPackageImpl implements ModuleDslPacka
 
     initEClass(modulE_DECLEClass, org.xtext.moduleDsl.MODULE_DECL.class, "MODULE_DECL", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getMODULE_DECL_Name(), ecorePackage.getEString(), "name", null, 0, 1, org.xtext.moduleDsl.MODULE_DECL.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getMODULE_DECL_Critdecl(), this.getCRITERION_DECL(), null, "critdecl", null, 0, 1, org.xtext.moduleDsl.MODULE_DECL.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getMODULE_DECL_Dataseldecl(), this.getDATASEL_DECL(), null, "dataseldecl", null, 0, 1, org.xtext.moduleDsl.MODULE_DECL.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getMODULE_DECL_Declaration(), this.getVAR_CST(), null, "declaration", null, 0, -1, org.xtext.moduleDsl.MODULE_DECL.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getMODULE_DECL_Exp(), this.getEXPRESSION(), null, "exp", null, 0, 1, org.xtext.moduleDsl.MODULE_DECL.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getMODULE_DECL_Instr(), this.getINSTRUCTION(), null, "instr", null, 0, -1, org.xtext.moduleDsl.MODULE_DECL.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getMODULE_DECL_Strategy(), this.getSTRATEGY(), null, "strategy", null, 0, 1, org.xtext.moduleDsl.MODULE_DECL.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getMODULE_DECL_Interface(), this.getINTERFACE(), null, "interface", null, 0, 1, org.xtext.moduleDsl.MODULE_DECL.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getMODULE_DECL_Body(), this.getBODY(), null, "body", null, 0, 1, org.xtext.moduleDsl.MODULE_DECL.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(strategyEClass, org.xtext.moduleDsl.STRATEGY.class, "STRATEGY", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getSTRATEGY_Critdecl(), this.getCRITERION_DECL(), null, "critdecl", null, 0, 1, org.xtext.moduleDsl.STRATEGY.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getSTRATEGY_Dataseldecl(), this.getDATASEL_DECL(), null, "dataseldecl", null, 0, 1, org.xtext.moduleDsl.STRATEGY.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(interfaceEClass, org.xtext.moduleDsl.INTERFACE.class, "INTERFACE", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getINTERFACE_Declaration(), this.getVAR_CST(), null, "declaration", null, 0, -1, org.xtext.moduleDsl.INTERFACE.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(bodyEClass, org.xtext.moduleDsl.BODY.class, "BODY", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getBODY_Instr(), this.getINSTRUCTION(), null, "instr", null, 0, -1, org.xtext.moduleDsl.BODY.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(criterioN_DECLEClass, org.xtext.moduleDsl.CRITERION_DECL.class, "CRITERION_DECL", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getCRITERION_DECL_Crit(), this.getCRITERION(), null, "crit", null, 0, 1, org.xtext.moduleDsl.CRITERION_DECL.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -2056,8 +2143,8 @@ public class ModuleDslPackageImpl extends EPackageImpl implements ModuleDslPacka
     initEReference(getASSIGN_INSTR_End(), this.getEND(), null, "end", null, 0, 1, org.xtext.moduleDsl.ASSIGN_INSTR.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(singlE_ASSIGNEClass, org.xtext.moduleDsl.SINGLE_ASSIGN.class, "SINGLE_ASSIGN", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getSINGLE_ASSIGN_Var(), this.getVAR_CST(), null, "var", null, 0, 1, org.xtext.moduleDsl.SINGLE_ASSIGN.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getSINGLE_ASSIGN_Exp(), this.getEXPRESSION(), null, "exp", null, 0, 1, org.xtext.moduleDsl.SINGLE_ASSIGN.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getSINGLE_ASSIGN_Left(), this.getEXPRESSION(), null, "left", null, 0, 1, org.xtext.moduleDsl.SINGLE_ASSIGN.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getSINGLE_ASSIGN_Right(), this.getEXPRESSION(), null, "right", null, 0, 1, org.xtext.moduleDsl.SINGLE_ASSIGN.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(expressionEClass, org.xtext.moduleDsl.EXPRESSION.class, "EXPRESSION", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 

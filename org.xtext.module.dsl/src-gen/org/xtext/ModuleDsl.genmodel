@@ -12,11 +12,19 @@
     </genClasses>
     <genClasses ecoreClass="ModuleDsl.ecore#//MODULE_DECL">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ModuleDsl.ecore#//MODULE_DECL/name"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ModuleDsl.ecore#//MODULE_DECL/critdecl"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ModuleDsl.ecore#//MODULE_DECL/dataseldecl"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ModuleDsl.ecore#//MODULE_DECL/declaration"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ModuleDsl.ecore#//MODULE_DECL/exp"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ModuleDsl.ecore#//MODULE_DECL/instr"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ModuleDsl.ecore#//MODULE_DECL/strategy"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ModuleDsl.ecore#//MODULE_DECL/interface"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ModuleDsl.ecore#//MODULE_DECL/body"/>
+    </genClasses>
+    <genClasses ecoreClass="ModuleDsl.ecore#//STRATEGY">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ModuleDsl.ecore#//STRATEGY/critdecl"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ModuleDsl.ecore#//STRATEGY/dataseldecl"/>
+    </genClasses>
+    <genClasses ecoreClass="ModuleDsl.ecore#//INTERFACE">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ModuleDsl.ecore#//INTERFACE/declaration"/>
+    </genClasses>
+    <genClasses ecoreClass="ModuleDsl.ecore#//BODY">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ModuleDsl.ecore#//BODY/instr"/>
     </genClasses>
     <genClasses ecoreClass="ModuleDsl.ecore#//CRITERION_DECL">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ModuleDsl.ecore#//CRITERION_DECL/crit"/>
@@ -86,8 +94,8 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ModuleDsl.ecore#//ASSIGN_INSTR/end"/>
     </genClasses>
     <genClasses ecoreClass="ModuleDsl.ecore#//SINGLE_ASSIGN">
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ModuleDsl.ecore#//SINGLE_ASSIGN/var"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ModuleDsl.ecore#//SINGLE_ASSIGN/exp"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ModuleDsl.ecore#//SINGLE_ASSIGN/left"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ModuleDsl.ecore#//SINGLE_ASSIGN/right"/>
     </genClasses>
     <genClasses ecoreClass="ModuleDsl.ecore#//EXPRESSION"/>
     <genClasses ecoreClass="ModuleDsl.ecore#//intLITERAL">

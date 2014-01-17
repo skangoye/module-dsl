@@ -104,49 +104,31 @@ public interface ModuleDslPackage extends EPackage
   int MODULE_DECL__NAME = 0;
 
   /**
-   * The feature id for the '<em><b>Critdecl</b></em>' containment reference.
+   * The feature id for the '<em><b>Strategy</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int MODULE_DECL__CRITDECL = 1;
+  int MODULE_DECL__STRATEGY = 1;
 
   /**
-   * The feature id for the '<em><b>Dataseldecl</b></em>' containment reference.
+   * The feature id for the '<em><b>Interface</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int MODULE_DECL__DATASELDECL = 2;
+  int MODULE_DECL__INTERFACE = 2;
 
   /**
-   * The feature id for the '<em><b>Declaration</b></em>' containment reference list.
+   * The feature id for the '<em><b>Body</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int MODULE_DECL__DECLARATION = 3;
-
-  /**
-   * The feature id for the '<em><b>Exp</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int MODULE_DECL__EXP = 4;
-
-  /**
-   * The feature id for the '<em><b>Instr</b></em>' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int MODULE_DECL__INSTR = 5;
+  int MODULE_DECL__BODY = 3;
 
   /**
    * The number of structural features of the '<em>MODULE DECL</em>' class.
@@ -155,7 +137,100 @@ public interface ModuleDslPackage extends EPackage
    * @generated
    * @ordered
    */
-  int MODULE_DECL_FEATURE_COUNT = 6;
+  int MODULE_DECL_FEATURE_COUNT = 4;
+
+  /**
+   * The meta object id for the '{@link org.xtext.moduleDsl.impl.STRATEGYImpl <em>STRATEGY</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.xtext.moduleDsl.impl.STRATEGYImpl
+   * @see org.xtext.moduleDsl.impl.ModuleDslPackageImpl#getSTRATEGY()
+   * @generated
+   */
+  int STRATEGY = 2;
+
+  /**
+   * The feature id for the '<em><b>Critdecl</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int STRATEGY__CRITDECL = 0;
+
+  /**
+   * The feature id for the '<em><b>Dataseldecl</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int STRATEGY__DATASELDECL = 1;
+
+  /**
+   * The number of structural features of the '<em>STRATEGY</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int STRATEGY_FEATURE_COUNT = 2;
+
+  /**
+   * The meta object id for the '{@link org.xtext.moduleDsl.impl.INTERFACEImpl <em>INTERFACE</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.xtext.moduleDsl.impl.INTERFACEImpl
+   * @see org.xtext.moduleDsl.impl.ModuleDslPackageImpl#getINTERFACE()
+   * @generated
+   */
+  int INTERFACE = 3;
+
+  /**
+   * The feature id for the '<em><b>Declaration</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int INTERFACE__DECLARATION = 0;
+
+  /**
+   * The number of structural features of the '<em>INTERFACE</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int INTERFACE_FEATURE_COUNT = 1;
+
+  /**
+   * The meta object id for the '{@link org.xtext.moduleDsl.impl.BODYImpl <em>BODY</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.xtext.moduleDsl.impl.BODYImpl
+   * @see org.xtext.moduleDsl.impl.ModuleDslPackageImpl#getBODY()
+   * @generated
+   */
+  int BODY = 4;
+
+  /**
+   * The feature id for the '<em><b>Instr</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int BODY__INSTR = 0;
+
+  /**
+   * The number of structural features of the '<em>BODY</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int BODY_FEATURE_COUNT = 1;
 
   /**
    * The meta object id for the '{@link org.xtext.moduleDsl.impl.CRITERION_DECLImpl <em>CRITERION DECL</em>}' class.
@@ -165,7 +240,7 @@ public interface ModuleDslPackage extends EPackage
    * @see org.xtext.moduleDsl.impl.ModuleDslPackageImpl#getCRITERION_DECL()
    * @generated
    */
-  int CRITERION_DECL = 2;
+  int CRITERION_DECL = 5;
 
   /**
    * The feature id for the '<em><b>Crit</b></em>' containment reference.
@@ -202,7 +277,7 @@ public interface ModuleDslPackage extends EPackage
    * @see org.xtext.moduleDsl.impl.ModuleDslPackageImpl#getDATASEL_DECL()
    * @generated
    */
-  int DATASEL_DECL = 3;
+  int DATASEL_DECL = 6;
 
   /**
    * The feature id for the '<em><b>Data1</b></em>' containment reference.
@@ -248,7 +323,7 @@ public interface ModuleDslPackage extends EPackage
    * @see org.xtext.moduleDsl.impl.ModuleDslPackageImpl#getEND()
    * @generated
    */
-  int END = 4;
+  int END = 7;
 
   /**
    * The feature id for the '<em><b>End</b></em>' attribute.
@@ -276,7 +351,7 @@ public interface ModuleDslPackage extends EPackage
    * @see org.xtext.moduleDsl.impl.ModuleDslPackageImpl#getCRITERION()
    * @generated
    */
-  int CRITERION = 5;
+  int CRITERION = 8;
 
   /**
    * The feature id for the '<em><b>Crit</b></em>' attribute.
@@ -304,7 +379,7 @@ public interface ModuleDslPackage extends EPackage
    * @see org.xtext.moduleDsl.impl.ModuleDslPackageImpl#getDATASEL()
    * @generated
    */
-  int DATASEL = 6;
+  int DATASEL = 9;
 
   /**
    * The feature id for the '<em><b>Sel</b></em>' attribute.
@@ -332,7 +407,7 @@ public interface ModuleDslPackage extends EPackage
    * @see org.xtext.moduleDsl.impl.ModuleDslPackageImpl#getVAR_CST()
    * @generated
    */
-  int VAR_CST = 7;
+  int VAR_CST = 10;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -378,7 +453,7 @@ public interface ModuleDslPackage extends EPackage
    * @see org.xtext.moduleDsl.impl.ModuleDslPackageImpl#getVAR()
    * @generated
    */
-  int VAR = 8;
+  int VAR = 11;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -442,7 +517,7 @@ public interface ModuleDslPackage extends EPackage
    * @see org.xtext.moduleDsl.impl.ModuleDslPackageImpl#getFlow()
    * @generated
    */
-  int FLOW = 9;
+  int FLOW = 12;
 
   /**
    * The feature id for the '<em><b>Flow</b></em>' attribute.
@@ -470,7 +545,7 @@ public interface ModuleDslPackage extends EPackage
    * @see org.xtext.moduleDsl.impl.ModuleDslPackageImpl#getCST()
    * @generated
    */
-  int CST = 10;
+  int CST = 13;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -534,7 +609,7 @@ public interface ModuleDslPackage extends EPackage
    * @see org.xtext.moduleDsl.impl.ModuleDslPackageImpl#getTYPE()
    * @generated
    */
-  int TYPE = 11;
+  int TYPE = 14;
 
   /**
    * The feature id for the '<em><b>Type</b></em>' attribute.
@@ -562,7 +637,7 @@ public interface ModuleDslPackage extends EPackage
    * @see org.xtext.moduleDsl.impl.ModuleDslPackageImpl#getRANGE()
    * @generated
    */
-  int RANGE = 12;
+  int RANGE = 15;
 
   /**
    * The number of structural features of the '<em>RANGE</em>' class.
@@ -581,7 +656,7 @@ public interface ModuleDslPackage extends EPackage
    * @see org.xtext.moduleDsl.impl.ModuleDslPackageImpl#getINTERVAL()
    * @generated
    */
-  int INTERVAL = 13;
+  int INTERVAL = 16;
 
   /**
    * The feature id for the '<em><b>Lsqbr</b></em>' attribute.
@@ -636,7 +711,7 @@ public interface ModuleDslPackage extends EPackage
    * @see org.xtext.moduleDsl.impl.ModuleDslPackageImpl#getLSET()
    * @generated
    */
-  int LSET = 14;
+  int LSET = 17;
 
   /**
    * The feature id for the '<em><b>Value</b></em>' containment reference list.
@@ -664,7 +739,7 @@ public interface ModuleDslPackage extends EPackage
    * @see org.xtext.moduleDsl.impl.ModuleDslPackageImpl#getLiteral()
    * @generated
    */
-  int LITERAL = 15;
+  int LITERAL = 18;
 
   /**
    * The number of structural features of the '<em>Literal</em>' class.
@@ -683,7 +758,7 @@ public interface ModuleDslPackage extends EPackage
    * @see org.xtext.moduleDsl.impl.ModuleDslPackageImpl#getINSTRUCTION()
    * @generated
    */
-  int INSTRUCTION = 16;
+  int INSTRUCTION = 19;
 
   /**
    * The number of structural features of the '<em>INSTRUCTION</em>' class.
@@ -702,7 +777,7 @@ public interface ModuleDslPackage extends EPackage
    * @see org.xtext.moduleDsl.impl.ModuleDslPackageImpl#getIF_INSTR()
    * @generated
    */
-  int IF_INSTR = 17;
+  int IF_INSTR = 20;
 
   /**
    * The feature id for the '<em><b>Ifcond</b></em>' containment reference.
@@ -748,7 +823,7 @@ public interface ModuleDslPackage extends EPackage
    * @see org.xtext.moduleDsl.impl.ModuleDslPackageImpl#getLOOP_INSTR()
    * @generated
    */
-  int LOOP_INSTR = 18;
+  int LOOP_INSTR = 21;
 
   /**
    * The feature id for the '<em><b>Val</b></em>' attribute.
@@ -776,7 +851,7 @@ public interface ModuleDslPackage extends EPackage
    * @see org.xtext.moduleDsl.impl.ModuleDslPackageImpl#getERROR_INSTR()
    * @generated
    */
-  int ERROR_INSTR = 19;
+  int ERROR_INSTR = 22;
 
   /**
    * The feature id for the '<em><b>End</b></em>' containment reference.
@@ -804,7 +879,7 @@ public interface ModuleDslPackage extends EPackage
    * @see org.xtext.moduleDsl.impl.ModuleDslPackageImpl#getNULL_INSTR()
    * @generated
    */
-  int NULL_INSTR = 20;
+  int NULL_INSTR = 23;
 
   /**
    * The feature id for the '<em><b>End</b></em>' containment reference.
@@ -832,7 +907,7 @@ public interface ModuleDslPackage extends EPackage
    * @see org.xtext.moduleDsl.impl.ModuleDslPackageImpl#getASSIGN_INSTR()
    * @generated
    */
-  int ASSIGN_INSTR = 21;
+  int ASSIGN_INSTR = 24;
 
   /**
    * The feature id for the '<em><b>Sa</b></em>' containment reference list.
@@ -869,25 +944,25 @@ public interface ModuleDslPackage extends EPackage
    * @see org.xtext.moduleDsl.impl.ModuleDslPackageImpl#getSINGLE_ASSIGN()
    * @generated
    */
-  int SINGLE_ASSIGN = 22;
+  int SINGLE_ASSIGN = 25;
 
   /**
-   * The feature id for the '<em><b>Var</b></em>' reference.
+   * The feature id for the '<em><b>Left</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int SINGLE_ASSIGN__VAR = 0;
+  int SINGLE_ASSIGN__LEFT = 0;
 
   /**
-   * The feature id for the '<em><b>Exp</b></em>' containment reference.
+   * The feature id for the '<em><b>Right</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int SINGLE_ASSIGN__EXP = 1;
+  int SINGLE_ASSIGN__RIGHT = 1;
 
   /**
    * The number of structural features of the '<em>SINGLE ASSIGN</em>' class.
@@ -906,7 +981,7 @@ public interface ModuleDslPackage extends EPackage
    * @see org.xtext.moduleDsl.impl.ModuleDslPackageImpl#getEXPRESSION()
    * @generated
    */
-  int EXPRESSION = 23;
+  int EXPRESSION = 26;
 
   /**
    * The number of structural features of the '<em>EXPRESSION</em>' class.
@@ -925,7 +1000,7 @@ public interface ModuleDslPackage extends EPackage
    * @see org.xtext.moduleDsl.impl.ModuleDslPackageImpl#getintLITERAL()
    * @generated
    */
-  int INT_LITERAL = 24;
+  int INT_LITERAL = 27;
 
   /**
    * The feature id for the '<em><b>Value</b></em>' attribute.
@@ -953,7 +1028,7 @@ public interface ModuleDslPackage extends EPackage
    * @see org.xtext.moduleDsl.impl.ModuleDslPackageImpl#getrealLITERAL()
    * @generated
    */
-  int REAL_LITERAL = 25;
+  int REAL_LITERAL = 28;
 
   /**
    * The feature id for the '<em><b>Value</b></em>' attribute.
@@ -981,7 +1056,7 @@ public interface ModuleDslPackage extends EPackage
    * @see org.xtext.moduleDsl.impl.ModuleDslPackageImpl#getboolLITERAL()
    * @generated
    */
-  int BOOL_LITERAL = 26;
+  int BOOL_LITERAL = 29;
 
   /**
    * The feature id for the '<em><b>Value</b></em>' attribute.
@@ -1009,7 +1084,7 @@ public interface ModuleDslPackage extends EPackage
    * @see org.xtext.moduleDsl.impl.ModuleDslPackageImpl#getstrLITERAL()
    * @generated
    */
-  int STR_LITERAL = 27;
+  int STR_LITERAL = 30;
 
   /**
    * The feature id for the '<em><b>Value</b></em>' attribute.
@@ -1037,7 +1112,7 @@ public interface ModuleDslPackage extends EPackage
    * @see org.xtext.moduleDsl.impl.ModuleDslPackageImpl#getenumLITERAL()
    * @generated
    */
-  int ENUM_LITERAL = 28;
+  int ENUM_LITERAL = 31;
 
   /**
    * The feature id for the '<em><b>Value</b></em>' attribute.
@@ -1065,7 +1140,7 @@ public interface ModuleDslPackage extends EPackage
    * @see org.xtext.moduleDsl.impl.ModuleDslPackageImpl#getbitLITERAL()
    * @generated
    */
-  int BIT_LITERAL = 29;
+  int BIT_LITERAL = 32;
 
   /**
    * The feature id for the '<em><b>Value</b></em>' attribute.
@@ -1093,7 +1168,7 @@ public interface ModuleDslPackage extends EPackage
    * @see org.xtext.moduleDsl.impl.ModuleDslPackageImpl#gethexLITERAL()
    * @generated
    */
-  int HEX_LITERAL = 30;
+  int HEX_LITERAL = 33;
 
   /**
    * The feature id for the '<em><b>Value</b></em>' attribute.
@@ -1121,7 +1196,7 @@ public interface ModuleDslPackage extends EPackage
    * @see org.xtext.moduleDsl.impl.ModuleDslPackageImpl#getidentLITERAL()
    * @generated
    */
-  int IDENT_LITERAL = 31;
+  int IDENT_LITERAL = 34;
 
   /**
    * The feature id for the '<em><b>Value</b></em>' attribute.
@@ -1149,7 +1224,7 @@ public interface ModuleDslPackage extends EPackage
    * @see org.xtext.moduleDsl.impl.ModuleDslPackageImpl#getunknowLITERAL()
    * @generated
    */
-  int UNKNOW_LITERAL = 32;
+  int UNKNOW_LITERAL = 35;
 
   /**
    * The feature id for the '<em><b>Value</b></em>' attribute.
@@ -1177,7 +1252,7 @@ public interface ModuleDslPackage extends EPackage
    * @see org.xtext.moduleDsl.impl.ModuleDslPackageImpl#getOR()
    * @generated
    */
-  int OR = 33;
+  int OR = 36;
 
   /**
    * The feature id for the '<em><b>Left</b></em>' containment reference.
@@ -1214,7 +1289,7 @@ public interface ModuleDslPackage extends EPackage
    * @see org.xtext.moduleDsl.impl.ModuleDslPackageImpl#getAND()
    * @generated
    */
-  int AND = 34;
+  int AND = 37;
 
   /**
    * The feature id for the '<em><b>Left</b></em>' containment reference.
@@ -1251,7 +1326,7 @@ public interface ModuleDslPackage extends EPackage
    * @see org.xtext.moduleDsl.impl.ModuleDslPackageImpl#getEQUAL_DIFF()
    * @generated
    */
-  int EQUAL_DIFF = 35;
+  int EQUAL_DIFF = 38;
 
   /**
    * The feature id for the '<em><b>Left</b></em>' containment reference.
@@ -1297,7 +1372,7 @@ public interface ModuleDslPackage extends EPackage
    * @see org.xtext.moduleDsl.impl.ModuleDslPackageImpl#getCOMPARISON()
    * @generated
    */
-  int COMPARISON = 36;
+  int COMPARISON = 39;
 
   /**
    * The feature id for the '<em><b>Left</b></em>' containment reference.
@@ -1343,7 +1418,7 @@ public interface ModuleDslPackage extends EPackage
    * @see org.xtext.moduleDsl.impl.ModuleDslPackageImpl#getADD()
    * @generated
    */
-  int ADD = 37;
+  int ADD = 40;
 
   /**
    * The feature id for the '<em><b>Left</b></em>' containment reference.
@@ -1380,7 +1455,7 @@ public interface ModuleDslPackage extends EPackage
    * @see org.xtext.moduleDsl.impl.ModuleDslPackageImpl#getSUB()
    * @generated
    */
-  int SUB = 38;
+  int SUB = 41;
 
   /**
    * The feature id for the '<em><b>Left</b></em>' containment reference.
@@ -1417,7 +1492,7 @@ public interface ModuleDslPackage extends EPackage
    * @see org.xtext.moduleDsl.impl.ModuleDslPackageImpl#getMULT()
    * @generated
    */
-  int MULT = 39;
+  int MULT = 42;
 
   /**
    * The feature id for the '<em><b>Left</b></em>' containment reference.
@@ -1454,7 +1529,7 @@ public interface ModuleDslPackage extends EPackage
    * @see org.xtext.moduleDsl.impl.ModuleDslPackageImpl#getDIV()
    * @generated
    */
-  int DIV = 40;
+  int DIV = 43;
 
   /**
    * The feature id for the '<em><b>Left</b></em>' containment reference.
@@ -1491,7 +1566,7 @@ public interface ModuleDslPackage extends EPackage
    * @see org.xtext.moduleDsl.impl.ModuleDslPackageImpl#getNOT()
    * @generated
    */
-  int NOT = 41;
+  int NOT = 44;
 
   /**
    * The feature id for the '<em><b>Exp</b></em>' containment reference.
@@ -1519,7 +1594,7 @@ public interface ModuleDslPackage extends EPackage
    * @see org.xtext.moduleDsl.impl.ModuleDslPackageImpl#getintConstant()
    * @generated
    */
-  int INT_CONSTANT = 42;
+  int INT_CONSTANT = 45;
 
   /**
    * The feature id for the '<em><b>Value</b></em>' attribute.
@@ -1547,7 +1622,7 @@ public interface ModuleDslPackage extends EPackage
    * @see org.xtext.moduleDsl.impl.ModuleDslPackageImpl#getrealConstant()
    * @generated
    */
-  int REAL_CONSTANT = 43;
+  int REAL_CONSTANT = 46;
 
   /**
    * The feature id for the '<em><b>Value</b></em>' attribute.
@@ -1575,7 +1650,7 @@ public interface ModuleDslPackage extends EPackage
    * @see org.xtext.moduleDsl.impl.ModuleDslPackageImpl#getstrConstant()
    * @generated
    */
-  int STR_CONSTANT = 44;
+  int STR_CONSTANT = 47;
 
   /**
    * The feature id for the '<em><b>Value</b></em>' attribute.
@@ -1603,7 +1678,7 @@ public interface ModuleDslPackage extends EPackage
    * @see org.xtext.moduleDsl.impl.ModuleDslPackageImpl#getenumConstant()
    * @generated
    */
-  int ENUM_CONSTANT = 45;
+  int ENUM_CONSTANT = 48;
 
   /**
    * The feature id for the '<em><b>Value</b></em>' attribute.
@@ -1631,7 +1706,7 @@ public interface ModuleDslPackage extends EPackage
    * @see org.xtext.moduleDsl.impl.ModuleDslPackageImpl#getboolConstant()
    * @generated
    */
-  int BOOL_CONSTANT = 46;
+  int BOOL_CONSTANT = 49;
 
   /**
    * The feature id for the '<em><b>Value</b></em>' attribute.
@@ -1659,7 +1734,7 @@ public interface ModuleDslPackage extends EPackage
    * @see org.xtext.moduleDsl.impl.ModuleDslPackageImpl#getbitConstant()
    * @generated
    */
-  int BIT_CONSTANT = 47;
+  int BIT_CONSTANT = 50;
 
   /**
    * The feature id for the '<em><b>Value</b></em>' attribute.
@@ -1687,7 +1762,7 @@ public interface ModuleDslPackage extends EPackage
    * @see org.xtext.moduleDsl.impl.ModuleDslPackageImpl#gethexConstant()
    * @generated
    */
-  int HEX_CONSTANT = 48;
+  int HEX_CONSTANT = 51;
 
   /**
    * The feature id for the '<em><b>Value</b></em>' attribute.
@@ -1715,7 +1790,7 @@ public interface ModuleDslPackage extends EPackage
    * @see org.xtext.moduleDsl.impl.ModuleDslPackageImpl#getVarExpRef()
    * @generated
    */
-  int VAR_EXP_REF = 49;
+  int VAR_EXP_REF = 52;
 
   /**
    * The feature id for the '<em><b>Vref</b></em>' reference.
@@ -1779,59 +1854,111 @@ public interface ModuleDslPackage extends EPackage
   EAttribute getMODULE_DECL_Name();
 
   /**
-   * Returns the meta object for the containment reference '{@link org.xtext.moduleDsl.MODULE_DECL#getCritdecl <em>Critdecl</em>}'.
+   * Returns the meta object for the containment reference '{@link org.xtext.moduleDsl.MODULE_DECL#getStrategy <em>Strategy</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Strategy</em>'.
+   * @see org.xtext.moduleDsl.MODULE_DECL#getStrategy()
+   * @see #getMODULE_DECL()
+   * @generated
+   */
+  EReference getMODULE_DECL_Strategy();
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.xtext.moduleDsl.MODULE_DECL#getInterface <em>Interface</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Interface</em>'.
+   * @see org.xtext.moduleDsl.MODULE_DECL#getInterface()
+   * @see #getMODULE_DECL()
+   * @generated
+   */
+  EReference getMODULE_DECL_Interface();
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.xtext.moduleDsl.MODULE_DECL#getBody <em>Body</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Body</em>'.
+   * @see org.xtext.moduleDsl.MODULE_DECL#getBody()
+   * @see #getMODULE_DECL()
+   * @generated
+   */
+  EReference getMODULE_DECL_Body();
+
+  /**
+   * Returns the meta object for class '{@link org.xtext.moduleDsl.STRATEGY <em>STRATEGY</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>STRATEGY</em>'.
+   * @see org.xtext.moduleDsl.STRATEGY
+   * @generated
+   */
+  EClass getSTRATEGY();
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.xtext.moduleDsl.STRATEGY#getCritdecl <em>Critdecl</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the meta object for the containment reference '<em>Critdecl</em>'.
-   * @see org.xtext.moduleDsl.MODULE_DECL#getCritdecl()
-   * @see #getMODULE_DECL()
+   * @see org.xtext.moduleDsl.STRATEGY#getCritdecl()
+   * @see #getSTRATEGY()
    * @generated
    */
-  EReference getMODULE_DECL_Critdecl();
+  EReference getSTRATEGY_Critdecl();
 
   /**
-   * Returns the meta object for the containment reference '{@link org.xtext.moduleDsl.MODULE_DECL#getDataseldecl <em>Dataseldecl</em>}'.
+   * Returns the meta object for the containment reference '{@link org.xtext.moduleDsl.STRATEGY#getDataseldecl <em>Dataseldecl</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the meta object for the containment reference '<em>Dataseldecl</em>'.
-   * @see org.xtext.moduleDsl.MODULE_DECL#getDataseldecl()
-   * @see #getMODULE_DECL()
+   * @see org.xtext.moduleDsl.STRATEGY#getDataseldecl()
+   * @see #getSTRATEGY()
    * @generated
    */
-  EReference getMODULE_DECL_Dataseldecl();
+  EReference getSTRATEGY_Dataseldecl();
 
   /**
-   * Returns the meta object for the containment reference list '{@link org.xtext.moduleDsl.MODULE_DECL#getDeclaration <em>Declaration</em>}'.
+   * Returns the meta object for class '{@link org.xtext.moduleDsl.INTERFACE <em>INTERFACE</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>INTERFACE</em>'.
+   * @see org.xtext.moduleDsl.INTERFACE
+   * @generated
+   */
+  EClass getINTERFACE();
+
+  /**
+   * Returns the meta object for the containment reference list '{@link org.xtext.moduleDsl.INTERFACE#getDeclaration <em>Declaration</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the meta object for the containment reference list '<em>Declaration</em>'.
-   * @see org.xtext.moduleDsl.MODULE_DECL#getDeclaration()
-   * @see #getMODULE_DECL()
+   * @see org.xtext.moduleDsl.INTERFACE#getDeclaration()
+   * @see #getINTERFACE()
    * @generated
    */
-  EReference getMODULE_DECL_Declaration();
+  EReference getINTERFACE_Declaration();
 
   /**
-   * Returns the meta object for the containment reference '{@link org.xtext.moduleDsl.MODULE_DECL#getExp <em>Exp</em>}'.
+   * Returns the meta object for class '{@link org.xtext.moduleDsl.BODY <em>BODY</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the containment reference '<em>Exp</em>'.
-   * @see org.xtext.moduleDsl.MODULE_DECL#getExp()
-   * @see #getMODULE_DECL()
+   * @return the meta object for class '<em>BODY</em>'.
+   * @see org.xtext.moduleDsl.BODY
    * @generated
    */
-  EReference getMODULE_DECL_Exp();
+  EClass getBODY();
 
   /**
-   * Returns the meta object for the containment reference list '{@link org.xtext.moduleDsl.MODULE_DECL#getInstr <em>Instr</em>}'.
+   * Returns the meta object for the containment reference list '{@link org.xtext.moduleDsl.BODY#getInstr <em>Instr</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the meta object for the containment reference list '<em>Instr</em>'.
-   * @see org.xtext.moduleDsl.MODULE_DECL#getInstr()
-   * @see #getMODULE_DECL()
+   * @see org.xtext.moduleDsl.BODY#getInstr()
+   * @see #getBODY()
    * @generated
    */
-  EReference getMODULE_DECL_Instr();
+  EReference getBODY_Instr();
 
   /**
    * Returns the meta object for class '{@link org.xtext.moduleDsl.CRITERION_DECL <em>CRITERION DECL</em>}'.
@@ -2374,26 +2501,26 @@ public interface ModuleDslPackage extends EPackage
   EClass getSINGLE_ASSIGN();
 
   /**
-   * Returns the meta object for the reference '{@link org.xtext.moduleDsl.SINGLE_ASSIGN#getVar <em>Var</em>}'.
+   * Returns the meta object for the containment reference '{@link org.xtext.moduleDsl.SINGLE_ASSIGN#getLeft <em>Left</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the reference '<em>Var</em>'.
-   * @see org.xtext.moduleDsl.SINGLE_ASSIGN#getVar()
+   * @return the meta object for the containment reference '<em>Left</em>'.
+   * @see org.xtext.moduleDsl.SINGLE_ASSIGN#getLeft()
    * @see #getSINGLE_ASSIGN()
    * @generated
    */
-  EReference getSINGLE_ASSIGN_Var();
+  EReference getSINGLE_ASSIGN_Left();
 
   /**
-   * Returns the meta object for the containment reference '{@link org.xtext.moduleDsl.SINGLE_ASSIGN#getExp <em>Exp</em>}'.
+   * Returns the meta object for the containment reference '{@link org.xtext.moduleDsl.SINGLE_ASSIGN#getRight <em>Right</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the containment reference '<em>Exp</em>'.
-   * @see org.xtext.moduleDsl.SINGLE_ASSIGN#getExp()
+   * @return the meta object for the containment reference '<em>Right</em>'.
+   * @see org.xtext.moduleDsl.SINGLE_ASSIGN#getRight()
    * @see #getSINGLE_ASSIGN()
    * @generated
    */
-  EReference getSINGLE_ASSIGN_Exp();
+  EReference getSINGLE_ASSIGN_Right();
 
   /**
    * Returns the meta object for class '{@link org.xtext.moduleDsl.EXPRESSION <em>EXPRESSION</em>}'.
@@ -3121,12 +3248,46 @@ public interface ModuleDslPackage extends EPackage
     EAttribute MODULE_DECL__NAME = eINSTANCE.getMODULE_DECL_Name();
 
     /**
+     * The meta object literal for the '<em><b>Strategy</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference MODULE_DECL__STRATEGY = eINSTANCE.getMODULE_DECL_Strategy();
+
+    /**
+     * The meta object literal for the '<em><b>Interface</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference MODULE_DECL__INTERFACE = eINSTANCE.getMODULE_DECL_Interface();
+
+    /**
+     * The meta object literal for the '<em><b>Body</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference MODULE_DECL__BODY = eINSTANCE.getMODULE_DECL_Body();
+
+    /**
+     * The meta object literal for the '{@link org.xtext.moduleDsl.impl.STRATEGYImpl <em>STRATEGY</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.xtext.moduleDsl.impl.STRATEGYImpl
+     * @see org.xtext.moduleDsl.impl.ModuleDslPackageImpl#getSTRATEGY()
+     * @generated
+     */
+    EClass STRATEGY = eINSTANCE.getSTRATEGY();
+
+    /**
      * The meta object literal for the '<em><b>Critdecl</b></em>' containment reference feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference MODULE_DECL__CRITDECL = eINSTANCE.getMODULE_DECL_Critdecl();
+    EReference STRATEGY__CRITDECL = eINSTANCE.getSTRATEGY_Critdecl();
 
     /**
      * The meta object literal for the '<em><b>Dataseldecl</b></em>' containment reference feature.
@@ -3134,7 +3295,17 @@ public interface ModuleDslPackage extends EPackage
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference MODULE_DECL__DATASELDECL = eINSTANCE.getMODULE_DECL_Dataseldecl();
+    EReference STRATEGY__DATASELDECL = eINSTANCE.getSTRATEGY_Dataseldecl();
+
+    /**
+     * The meta object literal for the '{@link org.xtext.moduleDsl.impl.INTERFACEImpl <em>INTERFACE</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.xtext.moduleDsl.impl.INTERFACEImpl
+     * @see org.xtext.moduleDsl.impl.ModuleDslPackageImpl#getINTERFACE()
+     * @generated
+     */
+    EClass INTERFACE = eINSTANCE.getINTERFACE();
 
     /**
      * The meta object literal for the '<em><b>Declaration</b></em>' containment reference list feature.
@@ -3142,15 +3313,17 @@ public interface ModuleDslPackage extends EPackage
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference MODULE_DECL__DECLARATION = eINSTANCE.getMODULE_DECL_Declaration();
+    EReference INTERFACE__DECLARATION = eINSTANCE.getINTERFACE_Declaration();
 
     /**
-     * The meta object literal for the '<em><b>Exp</b></em>' containment reference feature.
+     * The meta object literal for the '{@link org.xtext.moduleDsl.impl.BODYImpl <em>BODY</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
+     * @see org.xtext.moduleDsl.impl.BODYImpl
+     * @see org.xtext.moduleDsl.impl.ModuleDslPackageImpl#getBODY()
      * @generated
      */
-    EReference MODULE_DECL__EXP = eINSTANCE.getMODULE_DECL_Exp();
+    EClass BODY = eINSTANCE.getBODY();
 
     /**
      * The meta object literal for the '<em><b>Instr</b></em>' containment reference list feature.
@@ -3158,7 +3331,7 @@ public interface ModuleDslPackage extends EPackage
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference MODULE_DECL__INSTR = eINSTANCE.getMODULE_DECL_Instr();
+    EReference BODY__INSTR = eINSTANCE.getBODY_Instr();
 
     /**
      * The meta object literal for the '{@link org.xtext.moduleDsl.impl.CRITERION_DECLImpl <em>CRITERION DECL</em>}' class.
@@ -3611,20 +3784,20 @@ public interface ModuleDslPackage extends EPackage
     EClass SINGLE_ASSIGN = eINSTANCE.getSINGLE_ASSIGN();
 
     /**
-     * The meta object literal for the '<em><b>Var</b></em>' reference feature.
+     * The meta object literal for the '<em><b>Left</b></em>' containment reference feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference SINGLE_ASSIGN__VAR = eINSTANCE.getSINGLE_ASSIGN_Var();
+    EReference SINGLE_ASSIGN__LEFT = eINSTANCE.getSINGLE_ASSIGN_Left();
 
     /**
-     * The meta object literal for the '<em><b>Exp</b></em>' containment reference feature.
+     * The meta object literal for the '<em><b>Right</b></em>' containment reference feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference SINGLE_ASSIGN__EXP = eINSTANCE.getSINGLE_ASSIGN_Exp();
+    EReference SINGLE_ASSIGN__RIGHT = eINSTANCE.getSINGLE_ASSIGN_Right();
 
     /**
      * The meta object literal for the '{@link org.xtext.moduleDsl.impl.EXPRESSIONImpl <em>EXPRESSION</em>}' class.

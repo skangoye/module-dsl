@@ -66,6 +66,9 @@ public class ModuleDslFactoryImpl extends EFactoryImpl implements ModuleDslFacto
     {
       case ModuleDslPackage.LANGUAGE: return createLANGUAGE();
       case ModuleDslPackage.MODULE_DECL: return createMODULE_DECL();
+      case ModuleDslPackage.STRATEGY: return createSTRATEGY();
+      case ModuleDslPackage.INTERFACE: return createINTERFACE();
+      case ModuleDslPackage.BODY: return createBODY();
       case ModuleDslPackage.CRITERION_DECL: return createCRITERION_DECL();
       case ModuleDslPackage.DATASEL_DECL: return createDATASEL_DECL();
       case ModuleDslPackage.END: return createEND();
@@ -139,6 +142,39 @@ public class ModuleDslFactoryImpl extends EFactoryImpl implements ModuleDslFacto
   {
     MODULE_DECLImpl modulE_DECL = new MODULE_DECLImpl();
     return modulE_DECL;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public STRATEGY createSTRATEGY()
+  {
+    STRATEGYImpl strategy = new STRATEGYImpl();
+    return strategy;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public INTERFACE createINTERFACE()
+  {
+    INTERFACEImpl interface_ = new INTERFACEImpl();
+    return interface_;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public BODY createBODY()
+  {
+    BODYImpl body = new BODYImpl();
+    return body;
   }
 
   /**

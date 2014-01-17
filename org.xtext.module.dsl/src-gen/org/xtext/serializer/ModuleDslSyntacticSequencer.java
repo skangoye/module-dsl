@@ -17,14 +17,14 @@ import org.xtext.services.ModuleDslGrammarAccess;
 public class ModuleDslSyntacticSequencer extends AbstractSyntacticSequencer {
 
 	protected ModuleDslGrammarAccess grammarAccess;
-	protected AbstractElementAlias match_IF_INSTR_EqualsSignGreaterThanSignKeyword_7_1_q;
+	protected AbstractElementAlias match_IF_INSTR_EqualsSignGreaterThanSignKeyword_8_1_q;
 	protected AbstractElementAlias match_PrimaryExpression_LeftParenthesisKeyword_0_0_a;
 	protected AbstractElementAlias match_PrimaryExpression_LeftParenthesisKeyword_0_0_p;
 	
 	@Inject
 	protected void init(IGrammarAccess access) {
 		grammarAccess = (ModuleDslGrammarAccess) access;
-		match_IF_INSTR_EqualsSignGreaterThanSignKeyword_7_1_q = new TokenAlias(false, true, grammarAccess.getIF_INSTRAccess().getEqualsSignGreaterThanSignKeyword_7_1());
+		match_IF_INSTR_EqualsSignGreaterThanSignKeyword_8_1_q = new TokenAlias(false, true, grammarAccess.getIF_INSTRAccess().getEqualsSignGreaterThanSignKeyword_8_1());
 		match_PrimaryExpression_LeftParenthesisKeyword_0_0_a = new TokenAlias(true, true, grammarAccess.getPrimaryExpressionAccess().getLeftParenthesisKeyword_0_0());
 		match_PrimaryExpression_LeftParenthesisKeyword_0_0_p = new TokenAlias(true, false, grammarAccess.getPrimaryExpressionAccess().getLeftParenthesisKeyword_0_0());
 	}
@@ -41,8 +41,8 @@ public class ModuleDslSyntacticSequencer extends AbstractSyntacticSequencer {
 		List<INode> transitionNodes = collectNodes(fromNode, toNode);
 		for (AbstractElementAlias syntax : transition.getAmbiguousSyntaxes()) {
 			List<INode> syntaxNodes = getNodesFor(transitionNodes, syntax);
-			if(match_IF_INSTR_EqualsSignGreaterThanSignKeyword_7_1_q.equals(syntax))
-				emit_IF_INSTR_EqualsSignGreaterThanSignKeyword_7_1_q(semanticObject, getLastNavigableState(), syntaxNodes);
+			if(match_IF_INSTR_EqualsSignGreaterThanSignKeyword_8_1_q.equals(syntax))
+				emit_IF_INSTR_EqualsSignGreaterThanSignKeyword_8_1_q(semanticObject, getLastNavigableState(), syntaxNodes);
 			else if(match_PrimaryExpression_LeftParenthesisKeyword_0_0_a.equals(syntax))
 				emit_PrimaryExpression_LeftParenthesisKeyword_0_0_a(semanticObject, getLastNavigableState(), syntaxNodes);
 			else if(match_PrimaryExpression_LeftParenthesisKeyword_0_0_p.equals(syntax))
@@ -55,7 +55,7 @@ public class ModuleDslSyntacticSequencer extends AbstractSyntacticSequencer {
 	 * Syntax:
 	 *     '=>'?
 	 */
-	protected void emit_IF_INSTR_EqualsSignGreaterThanSignKeyword_7_1_q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
+	protected void emit_IF_INSTR_EqualsSignGreaterThanSignKeyword_8_1_q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);
 	}
 	

@@ -41,6 +41,33 @@ public interface ModuleDslFactory extends EFactory
   MODULE_DECL createMODULE_DECL();
 
   /**
+   * Returns a new object of class '<em>STRATEGY</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>STRATEGY</em>'.
+   * @generated
+   */
+  STRATEGY createSTRATEGY();
+
+  /**
+   * Returns a new object of class '<em>INTERFACE</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>INTERFACE</em>'.
+   * @generated
+   */
+  INTERFACE createINTERFACE();
+
+  /**
+   * Returns a new object of class '<em>BODY</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>BODY</em>'.
+   * @generated
+   */
+  BODY createBODY();
+
+  /**
    * Returns a new object of class '<em>CRITERION DECL</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->

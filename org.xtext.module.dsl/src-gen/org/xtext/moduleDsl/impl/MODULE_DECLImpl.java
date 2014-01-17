@@ -2,12 +2,8 @@
  */
 package org.xtext.moduleDsl.impl;
 
-import java.util.Collection;
-
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
-
-import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
@@ -15,16 +11,11 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
-import org.eclipse.emf.ecore.util.EObjectContainmentEList;
-import org.eclipse.emf.ecore.util.InternalEList;
-
-import org.xtext.moduleDsl.CRITERION_DECL;
-import org.xtext.moduleDsl.DATASEL_DECL;
-import org.xtext.moduleDsl.EXPRESSION;
-import org.xtext.moduleDsl.INSTRUCTION;
+import org.xtext.moduleDsl.BODY;
+import org.xtext.moduleDsl.INTERFACE;
 import org.xtext.moduleDsl.MODULE_DECL;
 import org.xtext.moduleDsl.ModuleDslPackage;
-import org.xtext.moduleDsl.VAR_CST;
+import org.xtext.moduleDsl.STRATEGY;
 
 /**
  * <!-- begin-user-doc -->
@@ -34,11 +25,9 @@ import org.xtext.moduleDsl.VAR_CST;
  * The following features are implemented:
  * <ul>
  *   <li>{@link org.xtext.moduleDsl.impl.MODULE_DECLImpl#getName <em>Name</em>}</li>
- *   <li>{@link org.xtext.moduleDsl.impl.MODULE_DECLImpl#getCritdecl <em>Critdecl</em>}</li>
- *   <li>{@link org.xtext.moduleDsl.impl.MODULE_DECLImpl#getDataseldecl <em>Dataseldecl</em>}</li>
- *   <li>{@link org.xtext.moduleDsl.impl.MODULE_DECLImpl#getDeclaration <em>Declaration</em>}</li>
- *   <li>{@link org.xtext.moduleDsl.impl.MODULE_DECLImpl#getExp <em>Exp</em>}</li>
- *   <li>{@link org.xtext.moduleDsl.impl.MODULE_DECLImpl#getInstr <em>Instr</em>}</li>
+ *   <li>{@link org.xtext.moduleDsl.impl.MODULE_DECLImpl#getStrategy <em>Strategy</em>}</li>
+ *   <li>{@link org.xtext.moduleDsl.impl.MODULE_DECLImpl#getInterface <em>Interface</em>}</li>
+ *   <li>{@link org.xtext.moduleDsl.impl.MODULE_DECLImpl#getBody <em>Body</em>}</li>
  * </ul>
  * </p>
  *
@@ -67,54 +56,34 @@ public class MODULE_DECLImpl extends MinimalEObjectImpl.Container implements MOD
   protected String name = NAME_EDEFAULT;
 
   /**
-   * The cached value of the '{@link #getCritdecl() <em>Critdecl</em>}' containment reference.
+   * The cached value of the '{@link #getStrategy() <em>Strategy</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getCritdecl()
+   * @see #getStrategy()
    * @generated
    * @ordered
    */
-  protected CRITERION_DECL critdecl;
+  protected STRATEGY strategy;
 
   /**
-   * The cached value of the '{@link #getDataseldecl() <em>Dataseldecl</em>}' containment reference.
+   * The cached value of the '{@link #getInterface() <em>Interface</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getDataseldecl()
+   * @see #getInterface()
    * @generated
    * @ordered
    */
-  protected DATASEL_DECL dataseldecl;
+  protected INTERFACE interface_;
 
   /**
-   * The cached value of the '{@link #getDeclaration() <em>Declaration</em>}' containment reference list.
+   * The cached value of the '{@link #getBody() <em>Body</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getDeclaration()
+   * @see #getBody()
    * @generated
    * @ordered
    */
-  protected EList<VAR_CST> declaration;
-
-  /**
-   * The cached value of the '{@link #getExp() <em>Exp</em>}' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getExp()
-   * @generated
-   * @ordered
-   */
-  protected EXPRESSION exp;
-
-  /**
-   * The cached value of the '{@link #getInstr() <em>Instr</em>}' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getInstr()
-   * @generated
-   * @ordered
-   */
-  protected EList<INSTRUCTION> instr;
+  protected BODY body;
 
   /**
    * <!-- begin-user-doc -->
@@ -165,9 +134,9 @@ public class MODULE_DECLImpl extends MinimalEObjectImpl.Container implements MOD
    * <!-- end-user-doc -->
    * @generated
    */
-  public CRITERION_DECL getCritdecl()
+  public STRATEGY getStrategy()
   {
-    return critdecl;
+    return strategy;
   }
 
   /**
@@ -175,13 +144,13 @@ public class MODULE_DECLImpl extends MinimalEObjectImpl.Container implements MOD
    * <!-- end-user-doc -->
    * @generated
    */
-  public NotificationChain basicSetCritdecl(CRITERION_DECL newCritdecl, NotificationChain msgs)
+  public NotificationChain basicSetStrategy(STRATEGY newStrategy, NotificationChain msgs)
   {
-    CRITERION_DECL oldCritdecl = critdecl;
-    critdecl = newCritdecl;
+    STRATEGY oldStrategy = strategy;
+    strategy = newStrategy;
     if (eNotificationRequired())
     {
-      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ModuleDslPackage.MODULE_DECL__CRITDECL, oldCritdecl, newCritdecl);
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ModuleDslPackage.MODULE_DECL__STRATEGY, oldStrategy, newStrategy);
       if (msgs == null) msgs = notification; else msgs.add(notification);
     }
     return msgs;
@@ -192,20 +161,20 @@ public class MODULE_DECLImpl extends MinimalEObjectImpl.Container implements MOD
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setCritdecl(CRITERION_DECL newCritdecl)
+  public void setStrategy(STRATEGY newStrategy)
   {
-    if (newCritdecl != critdecl)
+    if (newStrategy != strategy)
     {
       NotificationChain msgs = null;
-      if (critdecl != null)
-        msgs = ((InternalEObject)critdecl).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ModuleDslPackage.MODULE_DECL__CRITDECL, null, msgs);
-      if (newCritdecl != null)
-        msgs = ((InternalEObject)newCritdecl).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ModuleDslPackage.MODULE_DECL__CRITDECL, null, msgs);
-      msgs = basicSetCritdecl(newCritdecl, msgs);
+      if (strategy != null)
+        msgs = ((InternalEObject)strategy).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ModuleDslPackage.MODULE_DECL__STRATEGY, null, msgs);
+      if (newStrategy != null)
+        msgs = ((InternalEObject)newStrategy).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ModuleDslPackage.MODULE_DECL__STRATEGY, null, msgs);
+      msgs = basicSetStrategy(newStrategy, msgs);
       if (msgs != null) msgs.dispatch();
     }
     else if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, ModuleDslPackage.MODULE_DECL__CRITDECL, newCritdecl, newCritdecl));
+      eNotify(new ENotificationImpl(this, Notification.SET, ModuleDslPackage.MODULE_DECL__STRATEGY, newStrategy, newStrategy));
   }
 
   /**
@@ -213,9 +182,9 @@ public class MODULE_DECLImpl extends MinimalEObjectImpl.Container implements MOD
    * <!-- end-user-doc -->
    * @generated
    */
-  public DATASEL_DECL getDataseldecl()
+  public INTERFACE getInterface()
   {
-    return dataseldecl;
+    return interface_;
   }
 
   /**
@@ -223,13 +192,13 @@ public class MODULE_DECLImpl extends MinimalEObjectImpl.Container implements MOD
    * <!-- end-user-doc -->
    * @generated
    */
-  public NotificationChain basicSetDataseldecl(DATASEL_DECL newDataseldecl, NotificationChain msgs)
+  public NotificationChain basicSetInterface(INTERFACE newInterface, NotificationChain msgs)
   {
-    DATASEL_DECL oldDataseldecl = dataseldecl;
-    dataseldecl = newDataseldecl;
+    INTERFACE oldInterface = interface_;
+    interface_ = newInterface;
     if (eNotificationRequired())
     {
-      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ModuleDslPackage.MODULE_DECL__DATASELDECL, oldDataseldecl, newDataseldecl);
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ModuleDslPackage.MODULE_DECL__INTERFACE, oldInterface, newInterface);
       if (msgs == null) msgs = notification; else msgs.add(notification);
     }
     return msgs;
@@ -240,20 +209,20 @@ public class MODULE_DECLImpl extends MinimalEObjectImpl.Container implements MOD
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setDataseldecl(DATASEL_DECL newDataseldecl)
+  public void setInterface(INTERFACE newInterface)
   {
-    if (newDataseldecl != dataseldecl)
+    if (newInterface != interface_)
     {
       NotificationChain msgs = null;
-      if (dataseldecl != null)
-        msgs = ((InternalEObject)dataseldecl).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ModuleDslPackage.MODULE_DECL__DATASELDECL, null, msgs);
-      if (newDataseldecl != null)
-        msgs = ((InternalEObject)newDataseldecl).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ModuleDslPackage.MODULE_DECL__DATASELDECL, null, msgs);
-      msgs = basicSetDataseldecl(newDataseldecl, msgs);
+      if (interface_ != null)
+        msgs = ((InternalEObject)interface_).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ModuleDslPackage.MODULE_DECL__INTERFACE, null, msgs);
+      if (newInterface != null)
+        msgs = ((InternalEObject)newInterface).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ModuleDslPackage.MODULE_DECL__INTERFACE, null, msgs);
+      msgs = basicSetInterface(newInterface, msgs);
       if (msgs != null) msgs.dispatch();
     }
     else if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, ModuleDslPackage.MODULE_DECL__DATASELDECL, newDataseldecl, newDataseldecl));
+      eNotify(new ENotificationImpl(this, Notification.SET, ModuleDslPackage.MODULE_DECL__INTERFACE, newInterface, newInterface));
   }
 
   /**
@@ -261,13 +230,9 @@ public class MODULE_DECLImpl extends MinimalEObjectImpl.Container implements MOD
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<VAR_CST> getDeclaration()
+  public BODY getBody()
   {
-    if (declaration == null)
-    {
-      declaration = new EObjectContainmentEList<VAR_CST>(VAR_CST.class, this, ModuleDslPackage.MODULE_DECL__DECLARATION);
-    }
-    return declaration;
+    return body;
   }
 
   /**
@@ -275,23 +240,13 @@ public class MODULE_DECLImpl extends MinimalEObjectImpl.Container implements MOD
    * <!-- end-user-doc -->
    * @generated
    */
-  public EXPRESSION getExp()
+  public NotificationChain basicSetBody(BODY newBody, NotificationChain msgs)
   {
-    return exp;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public NotificationChain basicSetExp(EXPRESSION newExp, NotificationChain msgs)
-  {
-    EXPRESSION oldExp = exp;
-    exp = newExp;
+    BODY oldBody = body;
+    body = newBody;
     if (eNotificationRequired())
     {
-      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ModuleDslPackage.MODULE_DECL__EXP, oldExp, newExp);
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ModuleDslPackage.MODULE_DECL__BODY, oldBody, newBody);
       if (msgs == null) msgs = notification; else msgs.add(notification);
     }
     return msgs;
@@ -302,34 +257,20 @@ public class MODULE_DECLImpl extends MinimalEObjectImpl.Container implements MOD
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setExp(EXPRESSION newExp)
+  public void setBody(BODY newBody)
   {
-    if (newExp != exp)
+    if (newBody != body)
     {
       NotificationChain msgs = null;
-      if (exp != null)
-        msgs = ((InternalEObject)exp).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ModuleDslPackage.MODULE_DECL__EXP, null, msgs);
-      if (newExp != null)
-        msgs = ((InternalEObject)newExp).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ModuleDslPackage.MODULE_DECL__EXP, null, msgs);
-      msgs = basicSetExp(newExp, msgs);
+      if (body != null)
+        msgs = ((InternalEObject)body).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ModuleDslPackage.MODULE_DECL__BODY, null, msgs);
+      if (newBody != null)
+        msgs = ((InternalEObject)newBody).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ModuleDslPackage.MODULE_DECL__BODY, null, msgs);
+      msgs = basicSetBody(newBody, msgs);
       if (msgs != null) msgs.dispatch();
     }
     else if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, ModuleDslPackage.MODULE_DECL__EXP, newExp, newExp));
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EList<INSTRUCTION> getInstr()
-  {
-    if (instr == null)
-    {
-      instr = new EObjectContainmentEList<INSTRUCTION>(INSTRUCTION.class, this, ModuleDslPackage.MODULE_DECL__INSTR);
-    }
-    return instr;
+      eNotify(new ENotificationImpl(this, Notification.SET, ModuleDslPackage.MODULE_DECL__BODY, newBody, newBody));
   }
 
   /**
@@ -342,16 +283,12 @@ public class MODULE_DECLImpl extends MinimalEObjectImpl.Container implements MOD
   {
     switch (featureID)
     {
-      case ModuleDslPackage.MODULE_DECL__CRITDECL:
-        return basicSetCritdecl(null, msgs);
-      case ModuleDslPackage.MODULE_DECL__DATASELDECL:
-        return basicSetDataseldecl(null, msgs);
-      case ModuleDslPackage.MODULE_DECL__DECLARATION:
-        return ((InternalEList<?>)getDeclaration()).basicRemove(otherEnd, msgs);
-      case ModuleDslPackage.MODULE_DECL__EXP:
-        return basicSetExp(null, msgs);
-      case ModuleDslPackage.MODULE_DECL__INSTR:
-        return ((InternalEList<?>)getInstr()).basicRemove(otherEnd, msgs);
+      case ModuleDslPackage.MODULE_DECL__STRATEGY:
+        return basicSetStrategy(null, msgs);
+      case ModuleDslPackage.MODULE_DECL__INTERFACE:
+        return basicSetInterface(null, msgs);
+      case ModuleDslPackage.MODULE_DECL__BODY:
+        return basicSetBody(null, msgs);
     }
     return super.eInverseRemove(otherEnd, featureID, msgs);
   }
@@ -368,16 +305,12 @@ public class MODULE_DECLImpl extends MinimalEObjectImpl.Container implements MOD
     {
       case ModuleDslPackage.MODULE_DECL__NAME:
         return getName();
-      case ModuleDslPackage.MODULE_DECL__CRITDECL:
-        return getCritdecl();
-      case ModuleDslPackage.MODULE_DECL__DATASELDECL:
-        return getDataseldecl();
-      case ModuleDslPackage.MODULE_DECL__DECLARATION:
-        return getDeclaration();
-      case ModuleDslPackage.MODULE_DECL__EXP:
-        return getExp();
-      case ModuleDslPackage.MODULE_DECL__INSTR:
-        return getInstr();
+      case ModuleDslPackage.MODULE_DECL__STRATEGY:
+        return getStrategy();
+      case ModuleDslPackage.MODULE_DECL__INTERFACE:
+        return getInterface();
+      case ModuleDslPackage.MODULE_DECL__BODY:
+        return getBody();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -387,7 +320,6 @@ public class MODULE_DECLImpl extends MinimalEObjectImpl.Container implements MOD
    * <!-- end-user-doc -->
    * @generated
    */
-  @SuppressWarnings("unchecked")
   @Override
   public void eSet(int featureID, Object newValue)
   {
@@ -396,22 +328,14 @@ public class MODULE_DECLImpl extends MinimalEObjectImpl.Container implements MOD
       case ModuleDslPackage.MODULE_DECL__NAME:
         setName((String)newValue);
         return;
-      case ModuleDslPackage.MODULE_DECL__CRITDECL:
-        setCritdecl((CRITERION_DECL)newValue);
+      case ModuleDslPackage.MODULE_DECL__STRATEGY:
+        setStrategy((STRATEGY)newValue);
         return;
-      case ModuleDslPackage.MODULE_DECL__DATASELDECL:
-        setDataseldecl((DATASEL_DECL)newValue);
+      case ModuleDslPackage.MODULE_DECL__INTERFACE:
+        setInterface((INTERFACE)newValue);
         return;
-      case ModuleDslPackage.MODULE_DECL__DECLARATION:
-        getDeclaration().clear();
-        getDeclaration().addAll((Collection<? extends VAR_CST>)newValue);
-        return;
-      case ModuleDslPackage.MODULE_DECL__EXP:
-        setExp((EXPRESSION)newValue);
-        return;
-      case ModuleDslPackage.MODULE_DECL__INSTR:
-        getInstr().clear();
-        getInstr().addAll((Collection<? extends INSTRUCTION>)newValue);
+      case ModuleDslPackage.MODULE_DECL__BODY:
+        setBody((BODY)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -430,20 +354,14 @@ public class MODULE_DECLImpl extends MinimalEObjectImpl.Container implements MOD
       case ModuleDslPackage.MODULE_DECL__NAME:
         setName(NAME_EDEFAULT);
         return;
-      case ModuleDslPackage.MODULE_DECL__CRITDECL:
-        setCritdecl((CRITERION_DECL)null);
+      case ModuleDslPackage.MODULE_DECL__STRATEGY:
+        setStrategy((STRATEGY)null);
         return;
-      case ModuleDslPackage.MODULE_DECL__DATASELDECL:
-        setDataseldecl((DATASEL_DECL)null);
+      case ModuleDslPackage.MODULE_DECL__INTERFACE:
+        setInterface((INTERFACE)null);
         return;
-      case ModuleDslPackage.MODULE_DECL__DECLARATION:
-        getDeclaration().clear();
-        return;
-      case ModuleDslPackage.MODULE_DECL__EXP:
-        setExp((EXPRESSION)null);
-        return;
-      case ModuleDslPackage.MODULE_DECL__INSTR:
-        getInstr().clear();
+      case ModuleDslPackage.MODULE_DECL__BODY:
+        setBody((BODY)null);
         return;
     }
     super.eUnset(featureID);
@@ -461,16 +379,12 @@ public class MODULE_DECLImpl extends MinimalEObjectImpl.Container implements MOD
     {
       case ModuleDslPackage.MODULE_DECL__NAME:
         return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
-      case ModuleDslPackage.MODULE_DECL__CRITDECL:
-        return critdecl != null;
-      case ModuleDslPackage.MODULE_DECL__DATASELDECL:
-        return dataseldecl != null;
-      case ModuleDslPackage.MODULE_DECL__DECLARATION:
-        return declaration != null && !declaration.isEmpty();
-      case ModuleDslPackage.MODULE_DECL__EXP:
-        return exp != null;
-      case ModuleDslPackage.MODULE_DECL__INSTR:
-        return instr != null && !instr.isEmpty();
+      case ModuleDslPackage.MODULE_DECL__STRATEGY:
+        return strategy != null;
+      case ModuleDslPackage.MODULE_DECL__INTERFACE:
+        return interface_ != null;
+      case ModuleDslPackage.MODULE_DECL__BODY:
+        return body != null;
     }
     return super.eIsSet(featureID);
   }

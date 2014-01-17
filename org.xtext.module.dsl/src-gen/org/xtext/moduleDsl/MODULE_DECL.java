@@ -2,8 +2,6 @@
  */
 package org.xtext.moduleDsl;
 
-import org.eclipse.emf.common.util.EList;
-
 import org.eclipse.emf.ecore.EObject;
 
 /**
@@ -15,11 +13,9 @@ import org.eclipse.emf.ecore.EObject;
  * The following features are supported:
  * <ul>
  *   <li>{@link org.xtext.moduleDsl.MODULE_DECL#getName <em>Name</em>}</li>
- *   <li>{@link org.xtext.moduleDsl.MODULE_DECL#getCritdecl <em>Critdecl</em>}</li>
- *   <li>{@link org.xtext.moduleDsl.MODULE_DECL#getDataseldecl <em>Dataseldecl</em>}</li>
- *   <li>{@link org.xtext.moduleDsl.MODULE_DECL#getDeclaration <em>Declaration</em>}</li>
- *   <li>{@link org.xtext.moduleDsl.MODULE_DECL#getExp <em>Exp</em>}</li>
- *   <li>{@link org.xtext.moduleDsl.MODULE_DECL#getInstr <em>Instr</em>}</li>
+ *   <li>{@link org.xtext.moduleDsl.MODULE_DECL#getStrategy <em>Strategy</em>}</li>
+ *   <li>{@link org.xtext.moduleDsl.MODULE_DECL#getInterface <em>Interface</em>}</li>
+ *   <li>{@link org.xtext.moduleDsl.MODULE_DECL#getBody <em>Body</em>}</li>
  * </ul>
  * </p>
  *
@@ -56,113 +52,81 @@ public interface MODULE_DECL extends EObject
   void setName(String value);
 
   /**
-   * Returns the value of the '<em><b>Critdecl</b></em>' containment reference.
+   * Returns the value of the '<em><b>Strategy</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Critdecl</em>' containment reference isn't clear,
+   * If the meaning of the '<em>Strategy</em>' containment reference isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Critdecl</em>' containment reference.
-   * @see #setCritdecl(CRITERION_DECL)
-   * @see org.xtext.moduleDsl.ModuleDslPackage#getMODULE_DECL_Critdecl()
+   * @return the value of the '<em>Strategy</em>' containment reference.
+   * @see #setStrategy(STRATEGY)
+   * @see org.xtext.moduleDsl.ModuleDslPackage#getMODULE_DECL_Strategy()
    * @model containment="true"
    * @generated
    */
-  CRITERION_DECL getCritdecl();
+  STRATEGY getStrategy();
 
   /**
-   * Sets the value of the '{@link org.xtext.moduleDsl.MODULE_DECL#getCritdecl <em>Critdecl</em>}' containment reference.
+   * Sets the value of the '{@link org.xtext.moduleDsl.MODULE_DECL#getStrategy <em>Strategy</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Critdecl</em>' containment reference.
-   * @see #getCritdecl()
+   * @param value the new value of the '<em>Strategy</em>' containment reference.
+   * @see #getStrategy()
    * @generated
    */
-  void setCritdecl(CRITERION_DECL value);
+  void setStrategy(STRATEGY value);
 
   /**
-   * Returns the value of the '<em><b>Dataseldecl</b></em>' containment reference.
+   * Returns the value of the '<em><b>Interface</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Dataseldecl</em>' containment reference isn't clear,
+   * If the meaning of the '<em>Interface</em>' containment reference isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Dataseldecl</em>' containment reference.
-   * @see #setDataseldecl(DATASEL_DECL)
-   * @see org.xtext.moduleDsl.ModuleDslPackage#getMODULE_DECL_Dataseldecl()
+   * @return the value of the '<em>Interface</em>' containment reference.
+   * @see #setInterface(INTERFACE)
+   * @see org.xtext.moduleDsl.ModuleDslPackage#getMODULE_DECL_Interface()
    * @model containment="true"
    * @generated
    */
-  DATASEL_DECL getDataseldecl();
+  INTERFACE getInterface();
 
   /**
-   * Sets the value of the '{@link org.xtext.moduleDsl.MODULE_DECL#getDataseldecl <em>Dataseldecl</em>}' containment reference.
+   * Sets the value of the '{@link org.xtext.moduleDsl.MODULE_DECL#getInterface <em>Interface</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Dataseldecl</em>' containment reference.
-   * @see #getDataseldecl()
+   * @param value the new value of the '<em>Interface</em>' containment reference.
+   * @see #getInterface()
    * @generated
    */
-  void setDataseldecl(DATASEL_DECL value);
+  void setInterface(INTERFACE value);
 
   /**
-   * Returns the value of the '<em><b>Declaration</b></em>' containment reference list.
-   * The list contents are of type {@link org.xtext.moduleDsl.VAR_CST}.
+   * Returns the value of the '<em><b>Body</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Declaration</em>' containment reference list isn't clear,
+   * If the meaning of the '<em>Body</em>' containment reference isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Declaration</em>' containment reference list.
-   * @see org.xtext.moduleDsl.ModuleDslPackage#getMODULE_DECL_Declaration()
+   * @return the value of the '<em>Body</em>' containment reference.
+   * @see #setBody(BODY)
+   * @see org.xtext.moduleDsl.ModuleDslPackage#getMODULE_DECL_Body()
    * @model containment="true"
    * @generated
    */
-  EList<VAR_CST> getDeclaration();
+  BODY getBody();
 
   /**
-   * Returns the value of the '<em><b>Exp</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Exp</em>' containment reference isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Exp</em>' containment reference.
-   * @see #setExp(EXPRESSION)
-   * @see org.xtext.moduleDsl.ModuleDslPackage#getMODULE_DECL_Exp()
-   * @model containment="true"
-   * @generated
-   */
-  EXPRESSION getExp();
-
-  /**
-   * Sets the value of the '{@link org.xtext.moduleDsl.MODULE_DECL#getExp <em>Exp</em>}' containment reference.
+   * Sets the value of the '{@link org.xtext.moduleDsl.MODULE_DECL#getBody <em>Body</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Exp</em>' containment reference.
-   * @see #getExp()
+   * @param value the new value of the '<em>Body</em>' containment reference.
+   * @see #getBody()
    * @generated
    */
-  void setExp(EXPRESSION value);
-
-  /**
-   * Returns the value of the '<em><b>Instr</b></em>' containment reference list.
-   * The list contents are of type {@link org.xtext.moduleDsl.INSTRUCTION}.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Instr</em>' containment reference list isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Instr</em>' containment reference list.
-   * @see org.xtext.moduleDsl.ModuleDslPackage#getMODULE_DECL_Instr()
-   * @model containment="true"
-   * @generated
-   */
-  EList<INSTRUCTION> getInstr();
+  void setBody(BODY value);
 
 } // MODULE_DECL

@@ -14,29 +14,44 @@ LANGUAGE:
  */
 MODULE_DECL: 
 	'module' {MODULE_DECL} name = IDENT '{'
-			
+		strategy  = STRATEGY
+		interface = INTERFACE
+		body = BODY
+	'}'
+;
+
+STRATEGY:
+	'@' 'strategy' {STRATEGY} '{'
 		(critdecl=CRITERION_DECL)	
-		(dataseldecl=DATASEL_DECL)	
-		(declaration += VAR_CST)* 
-		'expression' name =IDENT '=' exp= EXPRESSION //to be removed after, only for EXPRESSION test purpose
-		(instr+=INSTRUCTION)*
-		
+		(dataseldecl=DATASEL_DECL)
+	'}'
+;
+
+INTERFACE:
+	'@' 'interface'	{INTERFACE} '{' 
+		(declaration += VAR_CST)+
+	'}'
+;
+
+BODY:
+	'@' 'body' {BODY} '{'
+		(instr+=INSTRUCTION)+
 	'}'
 ;
 
 CRITERION_DECL:
-	'@' 'criterion' ':' {CRITERION_DECL} (crit=CRITERION) end=END
+	'crit' ':' {CRITERION_DECL} (crit=CRITERION) end=END
 ;
 
 DATASEL_DECL:
-	'@' 'datasel' ':' {DATASEL_DECL} (data1=DATASEL) (','data2=DATASEL)? end=END
+	'datasel' ':' {DATASEL_DECL} (data1=DATASEL) (','data2=DATASEL)? end=END
 ;
 
 END:
 	end=';'
 ;
 
-/*
+/* 
  * Strategies to be used
  */
 
@@ -122,7 +137,7 @@ INSTRUCTION:
 ;
 
 IF_INSTR:
-	'(' ifcond=EXPRESSION ')' '=>' '{' ifst=INSTRUCTION '}'
+	'if''(' ifcond=EXPRESSION ')' '=>' '{' ifst=INSTRUCTION '}'
 	 (=> 'else' '=>'? '{' elst= INSTRUCTION '}')
 ;
 
@@ -131,11 +146,11 @@ LOOP_INSTR:
 ;
 
 ERROR_INSTR:
-	'error'{ERROR_INSTR} end=END
+	'error'end=END
 ;
 
 NULL_INSTR:
-	'null'{NULL_INSTR} end=END
+	'null' end=END
 ;
 
 ASSIGN_INSTR:
@@ -145,13 +160,11 @@ ASSIGN_INSTR:
 /*
  * Constraint: An enum var should not be used in "var_cst" 
  * Constraint: the left side variable of a SINGLE_ASSIGN should be either an "out" or "temp" or "inout" variables
- * Constraint: the right side variables or values of a SINGLE_ASSIGN should be either an "in" or "temp" variables
- * Remarks:  Alternative 1 and 3 may be in conflict, In that case the alt. 1 is chosen
- * Alternative 2 and 3 may be in conflict, In that case the alt. 2 is chosen
+ * Constraint: the right side variables or values of a SINGLE_ASSIGN any expresion excep fot var with 'out' flow
  */ 
  
 SINGLE_ASSIGN:
-	  var=[VAR_CST|IDENT] '=' exp=EXPRESSION
+	left= EXPRESSION '=' right=EXPRESSION
 ;
 
 /*

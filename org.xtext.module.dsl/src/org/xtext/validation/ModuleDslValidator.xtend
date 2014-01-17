@@ -12,6 +12,8 @@ import static extension org.eclipse.emf.ecore.util.EcoreUtil.*
 import static extension org.eclipse.xtext.EcoreUtil2.*
 import com.google.inject.Inject
 import org.eclipse.emf.ecore.EReference
+import java.util.List
+import java.util.ArrayList
 
 /**
  * Custom validation rules. 
@@ -72,9 +74,9 @@ public static val INVALID_INPUT = 'invalidInput'
 	//Check that data selection criteria are distinct
 	@Check
 	def checkDataSelectElementsAreDif(DATASEL data) {
-		val module = data.getContainerOfType(MODULE_DECL)
-		val data1 = module.dataseldecl.data1
-		val data2 = module.dataseldecl.data2
+		val strat = data.getContainerOfType(STRATEGY)
+		val data1 = strat.dataseldecl.data1
+		val data2 = strat.dataseldecl.data2
 			 if  (data1.sel == data2?.sel)  {
 				error("Test data selection criteria must be distinct!", 
 					ModuleDslPackage.Literals.DATASEL__SEL, INVALID_INPUT )
@@ -422,7 +424,7 @@ public static val INVALID_INPUT = 'invalidInput'
 	 
 	@Check
 	def checkVarOrConstNameIsUnique(VAR_CST v) {
-		val varcst = v.getContainerOfType(MODULE_DECL).declaration
+		val varcst = v.getContainerOfType(MODULE_DECL).interface.declaration
 		val dup = varcst.findFirst[ (it != v && it.name == v.name) ]
 		if (dup != null){
 			error("Variable or constant name should be unique", 
@@ -464,6 +466,12 @@ public static val INVALID_INPUT = 'invalidInput'
 			}
 		}
 	 }
+	 
+	 
+	/**
+	 * Type checker methods
+	 * Check that an expression (boolean, arithmetic, string, enumeration) is well typed
+	 */
 	 
 	 @Inject extension ExpressionsTypeProvider
 	 
@@ -584,7 +592,7 @@ public static val INVALID_INPUT = 'invalidInput'
 	 	val rightType = getNonNullType(eqdif.right, ModuleDslPackage.Literals.EQUAL_DIFF__RIGHT)
 	 	
 	 	checkExpectedSame(leftType, rightType)
-	 }
+	 } 
 	 
 	 @Check
 	 def checkType(ADD add){
@@ -607,5 +615,169 @@ public static val INVALID_INPUT = 'invalidInput'
 	 	
 	 }
 	 
+	 /**
+	  * Check instructions declaration
+	  */
+	 @Check
+	 def checkNoErrorInstrOutOfIFandLoop (ERROR_INSTR err){
+	 	val outif = err.getContainerOfType(IF_INSTR)
+	 	val outloop = err.getContainerOfType(LOOP_INSTR)
+	 	if(outif==null && outloop==null){
+	 		error("error statement is only allowed within If/Loop declaration", null)
+	 	} 	
+	 }
 	 
+	 @Check
+	 def checkNoNullInstrOutOfIFandLoop (NULL_INSTR nul){
+	 	val outif = nul.getContainerOfType(IF_INSTR)
+	 	val outloop = nul.getContainerOfType(LOOP_INSTR)
+	 	if(outif==null && outloop==null){
+	 		error("null statement is only allowed within If/Loop declaration", null)
+	 	} 	
+	 }
+	 
+	 @Check
+	 def checkIfConditionIsBoolean(IF_INSTR ifinstr){
+	 	val type = ifinstr.ifcond?.typeFor
+	 	if(type != ExpressionsTypeProvider::boolType){
+			error("expected boolean type, but was "+ type,  ModuleDslPackage.Literals.IF_INSTR__IFCOND)
+	 	} 	
+	 }
+	 
+	 def private checkExpIsVarAndNotInput(SINGLE_ASSIGN sa, EReference ref){
+	 	val exp = sa.left 
+	 	if (exp instanceof VarExpRef) {
+	 		val varexp = (exp as VarExpRef).vref
+	 		if(varexp instanceof VAR){
+	 			val myflow = (varexp as VAR).flow.flow
+	 			if(myflow == 'in'){
+	 				error("An input variable cannot be used as assignment's left-hand side",ref)
+	 			}
+	 			else{
+	 				if (myflow == 'out' || myflow == 'inout' || myflow == 'tmp' ){
+	 					sa.checkSameType
+	 					checkNoDupLeftExp( (exp as VarExpRef), ref )
+	 				}
+	 			}
+	 		}
+	 		else{
+	 			System.out.println("toto1")
+	 			error ("The left-hand side of an assignment must be a variable", ref)
+	 		}
+	 	}
+	 	else{
+	 		System.out.println("toto2")
+	 		error ("The left-hand side of an assignment must be a variable", ref)
+	 	}
+	 }
+	 
+	 def private checkSameType(SINGLE_ASSIGN sa){
+	 	val leftType = sa.left?.typeFor
+	 	val rightType = sa.right?.typeFor
+	 	if(leftType != null  && leftType != rightType){
+	 		if (rightType != null){
+	 			error("connot assign "+ rightType + " to " + leftType + ", expected " + leftType, ModuleDslPackage.Literals.SINGLE_ASSIGN__RIGHT)
+	 		}
+	 		else{
+	 			error("connot assign "+ rightType + " to " + leftType + ", expected " + leftType, ModuleDslPackage.Literals.SINGLE_ASSIGN__LEFT)
+	 		}	
+	 	}
+	 }
+	 
+	 def private checkNoDupLeftExp(VarExpRef vref, EReference ref) {
+	 	val multi_assign = vref.getContainerOfType(ASSIGN_INSTR).sa
+	 	val assign = vref.getContainerOfType(SINGLE_ASSIGN)
+	 	val dup = multi_assign.findFirst[ it != assign && (it.left as VarExpRef).vref  == vref.vref]
+	 	if(dup != null){
+	 		error("multiple assignment of the same variable is not allowed in a statement",ref)
+	 	}
+	 }
+	 
+	 @Check
+	 def checkAssignLeftHand(SINGLE_ASSIGN sa){
+	 	checkExpIsVarAndNotInput(sa, ModuleDslPackage.Literals.SINGLE_ASSIGN__LEFT)
+	 }
+	 
+	 @Check
+	 def checkAssignRightHand(SINGLE_ASSIGN sa){
+	 	val rightType = sa.right?.typeFor
+	 	if (rightType != null){
+	 		val list = new ArrayList<VAR_CST>
+	 		varInExpression(sa.right, list)
+	 		System.out.println(list)
+	 		list.forEach[ it.checkVarIsOut ]
+	 	}
+	 }
+	 
+	 def private checkVarIsOut(VAR_CST vref){
+	 	if(vref instanceof VAR){
+	 		val flow = (vref as VAR).flow.flow
+	 		if(flow == 'out'){
+	 			error("An output variable cannot be used ", null)
+	 		}
+	 	}
+	 	else{
+	 		return
+	 	}
+	 }
+	  
+	 def private void varInExpression(EXPRESSION exp, List<VAR_CST> list){
+	 	
+	 	if (exp instanceof OR){
+	 		val or = (exp as OR)
+	 		varInExpression(or.left , list) varInExpression(or.right , list)
+	 	}
+	 	else{
+	 		if (exp instanceof AND){
+	 			val and = (exp as AND)
+	 			varInExpression(and.left, list) varInExpression(and.right, list)
+	 		}
+	 		else{
+	 			if (exp instanceof EQUAL_DIFF){
+	 				val eq = (exp as EQUAL_DIFF)
+	 				varInExpression(eq.left , list) varInExpression(eq.right , list)
+	 		 	}
+	 		 	else{
+	 		 		if (exp instanceof COMPARISON){
+	 					val cmp = (exp as COMPARISON)
+	 					varInExpression(cmp.left , list) varInExpression(cmp.right , list)
+	 		 		}
+	 		 		else{
+	 		 			if (exp instanceof ADD){
+	 						val add = (exp as ADD)
+	 						varInExpression(add.left , list) varInExpression(add.right , list)
+	 		 			}
+	 		 			else{
+	 		 				if (exp instanceof SUB){
+	 							val sub = (exp as SUB)
+	 							varInExpression(sub.left , list) varInExpression(sub.right , list)
+	 		 			 	}
+	 		 			 	else{
+	 		 			 		if (exp instanceof MULT){
+	 								val mul = (exp as MULT)
+	 								varInExpression(mul.left , list) varInExpression(mul.right , list)
+	 		 			 		}
+	 		 			 		else{
+	 		 			 			if (exp instanceof DIV){
+	 									val div = (exp as DIV)
+	 									varInExpression(div.left , list) varInExpression(div.right , list)
+	 		 			 			}
+	 		 			 			else{
+	 		 			 				if (exp instanceof VarExpRef){
+	 										val ref = (exp as VarExpRef).vref
+	 										list.add(ref)
+	 		 			 				}
+	 		 			 				else{
+	 		 			 				
+	 		 			 				}
+	 		 			 			}
+	 		 			 		}
+	 		 			 	}
+	 		 			}
+	 		 		}
+	 		 	}
+	 		}
+	 	}
+	 }//method
+	 	 
 }

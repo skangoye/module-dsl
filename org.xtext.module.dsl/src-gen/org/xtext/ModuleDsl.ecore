@@ -7,14 +7,23 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="MODULE_DECL">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="strategy" eType="#//STRATEGY"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="interface" eType="#//INTERFACE"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="body" eType="#//BODY" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="STRATEGY">
     <eStructuralFeatures xsi:type="ecore:EReference" name="critdecl" eType="#//CRITERION_DECL"
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="dataseldecl" eType="#//DATASEL_DECL"
         containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="INTERFACE">
     <eStructuralFeatures xsi:type="ecore:EReference" name="declaration" upperBound="-1"
         eType="#//VAR_CST" containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="exp" eType="#//EXPRESSION"
-        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="BODY">
     <eStructuralFeatures xsi:type="ecore:EReference" name="instr" upperBound="-1"
         eType="#//INSTRUCTION" containment="true"/>
   </eClassifiers>
@@ -98,8 +107,9 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="end" eType="#//END" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="SINGLE_ASSIGN">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="var" eType="#//VAR_CST"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="exp" eType="#//EXPRESSION"
+    <eStructuralFeatures xsi:type="ecore:EReference" name="left" eType="#//EXPRESSION"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="right" eType="#//EXPRESSION"
         containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="EXPRESSION"/>

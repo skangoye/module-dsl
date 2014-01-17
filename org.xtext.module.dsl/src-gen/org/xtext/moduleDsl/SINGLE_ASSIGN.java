@@ -12,8 +12,8 @@ import org.eclipse.emf.ecore.EObject;
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.xtext.moduleDsl.SINGLE_ASSIGN#getVar <em>Var</em>}</li>
- *   <li>{@link org.xtext.moduleDsl.SINGLE_ASSIGN#getExp <em>Exp</em>}</li>
+ *   <li>{@link org.xtext.moduleDsl.SINGLE_ASSIGN#getLeft <em>Left</em>}</li>
+ *   <li>{@link org.xtext.moduleDsl.SINGLE_ASSIGN#getRight <em>Right</em>}</li>
  * </ul>
  * </p>
  *
@@ -24,55 +24,55 @@ import org.eclipse.emf.ecore.EObject;
 public interface SINGLE_ASSIGN extends EObject
 {
   /**
-   * Returns the value of the '<em><b>Var</b></em>' reference.
+   * Returns the value of the '<em><b>Left</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Var</em>' reference isn't clear,
+   * If the meaning of the '<em>Left</em>' containment reference isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Var</em>' reference.
-   * @see #setVar(VAR_CST)
-   * @see org.xtext.moduleDsl.ModuleDslPackage#getSINGLE_ASSIGN_Var()
-   * @model
-   * @generated
-   */
-  VAR_CST getVar();
-
-  /**
-   * Sets the value of the '{@link org.xtext.moduleDsl.SINGLE_ASSIGN#getVar <em>Var</em>}' reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Var</em>' reference.
-   * @see #getVar()
-   * @generated
-   */
-  void setVar(VAR_CST value);
-
-  /**
-   * Returns the value of the '<em><b>Exp</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Exp</em>' containment reference isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Exp</em>' containment reference.
-   * @see #setExp(EXPRESSION)
-   * @see org.xtext.moduleDsl.ModuleDslPackage#getSINGLE_ASSIGN_Exp()
+   * @return the value of the '<em>Left</em>' containment reference.
+   * @see #setLeft(EXPRESSION)
+   * @see org.xtext.moduleDsl.ModuleDslPackage#getSINGLE_ASSIGN_Left()
    * @model containment="true"
    * @generated
    */
-  EXPRESSION getExp();
+  EXPRESSION getLeft();
 
   /**
-   * Sets the value of the '{@link org.xtext.moduleDsl.SINGLE_ASSIGN#getExp <em>Exp</em>}' containment reference.
+   * Sets the value of the '{@link org.xtext.moduleDsl.SINGLE_ASSIGN#getLeft <em>Left</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Exp</em>' containment reference.
-   * @see #getExp()
+   * @param value the new value of the '<em>Left</em>' containment reference.
+   * @see #getLeft()
    * @generated
    */
-  void setExp(EXPRESSION value);
+  void setLeft(EXPRESSION value);
+
+  /**
+   * Returns the value of the '<em><b>Right</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Right</em>' containment reference isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Right</em>' containment reference.
+   * @see #setRight(EXPRESSION)
+   * @see org.xtext.moduleDsl.ModuleDslPackage#getSINGLE_ASSIGN_Right()
+   * @model containment="true"
+   * @generated
+   */
+  EXPRESSION getRight();
+
+  /**
+   * Sets the value of the '{@link org.xtext.moduleDsl.SINGLE_ASSIGN#getRight <em>Right</em>}' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Right</em>' containment reference.
+   * @see #getRight()
+   * @generated
+   */
+  void setRight(EXPRESSION value);
 
 } // SINGLE_ASSIGN

@@ -14,7 +14,6 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 import org.xtext.moduleDsl.EXPRESSION;
 import org.xtext.moduleDsl.ModuleDslPackage;
 import org.xtext.moduleDsl.SINGLE_ASSIGN;
-import org.xtext.moduleDsl.VAR_CST;
 
 /**
  * <!-- begin-user-doc -->
@@ -23,8 +22,8 @@ import org.xtext.moduleDsl.VAR_CST;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.xtext.moduleDsl.impl.SINGLE_ASSIGNImpl#getVar <em>Var</em>}</li>
- *   <li>{@link org.xtext.moduleDsl.impl.SINGLE_ASSIGNImpl#getExp <em>Exp</em>}</li>
+ *   <li>{@link org.xtext.moduleDsl.impl.SINGLE_ASSIGNImpl#getLeft <em>Left</em>}</li>
+ *   <li>{@link org.xtext.moduleDsl.impl.SINGLE_ASSIGNImpl#getRight <em>Right</em>}</li>
  * </ul>
  * </p>
  *
@@ -33,24 +32,24 @@ import org.xtext.moduleDsl.VAR_CST;
 public class SINGLE_ASSIGNImpl extends MinimalEObjectImpl.Container implements SINGLE_ASSIGN
 {
   /**
-   * The cached value of the '{@link #getVar() <em>Var</em>}' reference.
+   * The cached value of the '{@link #getLeft() <em>Left</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getVar()
+   * @see #getLeft()
    * @generated
    * @ordered
    */
-  protected VAR_CST var;
+  protected EXPRESSION left;
 
   /**
-   * The cached value of the '{@link #getExp() <em>Exp</em>}' containment reference.
+   * The cached value of the '{@link #getRight() <em>Right</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getExp()
+   * @see #getRight()
    * @generated
    * @ordered
    */
-  protected EXPRESSION exp;
+  protected EXPRESSION right;
 
   /**
    * <!-- begin-user-doc -->
@@ -78,19 +77,9 @@ public class SINGLE_ASSIGNImpl extends MinimalEObjectImpl.Container implements S
    * <!-- end-user-doc -->
    * @generated
    */
-  public VAR_CST getVar()
+  public EXPRESSION getLeft()
   {
-    if (var != null && var.eIsProxy())
-    {
-      InternalEObject oldVar = (InternalEObject)var;
-      var = (VAR_CST)eResolveProxy(oldVar);
-      if (var != oldVar)
-      {
-        if (eNotificationRequired())
-          eNotify(new ENotificationImpl(this, Notification.RESOLVE, ModuleDslPackage.SINGLE_ASSIGN__VAR, oldVar, var));
-      }
-    }
-    return var;
+    return left;
   }
 
   /**
@@ -98,46 +87,13 @@ public class SINGLE_ASSIGNImpl extends MinimalEObjectImpl.Container implements S
    * <!-- end-user-doc -->
    * @generated
    */
-  public VAR_CST basicGetVar()
+  public NotificationChain basicSetLeft(EXPRESSION newLeft, NotificationChain msgs)
   {
-    return var;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setVar(VAR_CST newVar)
-  {
-    VAR_CST oldVar = var;
-    var = newVar;
-    if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, ModuleDslPackage.SINGLE_ASSIGN__VAR, oldVar, var));
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EXPRESSION getExp()
-  {
-    return exp;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public NotificationChain basicSetExp(EXPRESSION newExp, NotificationChain msgs)
-  {
-    EXPRESSION oldExp = exp;
-    exp = newExp;
+    EXPRESSION oldLeft = left;
+    left = newLeft;
     if (eNotificationRequired())
     {
-      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ModuleDslPackage.SINGLE_ASSIGN__EXP, oldExp, newExp);
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ModuleDslPackage.SINGLE_ASSIGN__LEFT, oldLeft, newLeft);
       if (msgs == null) msgs = notification; else msgs.add(notification);
     }
     return msgs;
@@ -148,20 +104,68 @@ public class SINGLE_ASSIGNImpl extends MinimalEObjectImpl.Container implements S
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setExp(EXPRESSION newExp)
+  public void setLeft(EXPRESSION newLeft)
   {
-    if (newExp != exp)
+    if (newLeft != left)
     {
       NotificationChain msgs = null;
-      if (exp != null)
-        msgs = ((InternalEObject)exp).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ModuleDslPackage.SINGLE_ASSIGN__EXP, null, msgs);
-      if (newExp != null)
-        msgs = ((InternalEObject)newExp).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ModuleDslPackage.SINGLE_ASSIGN__EXP, null, msgs);
-      msgs = basicSetExp(newExp, msgs);
+      if (left != null)
+        msgs = ((InternalEObject)left).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ModuleDslPackage.SINGLE_ASSIGN__LEFT, null, msgs);
+      if (newLeft != null)
+        msgs = ((InternalEObject)newLeft).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ModuleDslPackage.SINGLE_ASSIGN__LEFT, null, msgs);
+      msgs = basicSetLeft(newLeft, msgs);
       if (msgs != null) msgs.dispatch();
     }
     else if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, ModuleDslPackage.SINGLE_ASSIGN__EXP, newExp, newExp));
+      eNotify(new ENotificationImpl(this, Notification.SET, ModuleDslPackage.SINGLE_ASSIGN__LEFT, newLeft, newLeft));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EXPRESSION getRight()
+  {
+    return right;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public NotificationChain basicSetRight(EXPRESSION newRight, NotificationChain msgs)
+  {
+    EXPRESSION oldRight = right;
+    right = newRight;
+    if (eNotificationRequired())
+    {
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ModuleDslPackage.SINGLE_ASSIGN__RIGHT, oldRight, newRight);
+      if (msgs == null) msgs = notification; else msgs.add(notification);
+    }
+    return msgs;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setRight(EXPRESSION newRight)
+  {
+    if (newRight != right)
+    {
+      NotificationChain msgs = null;
+      if (right != null)
+        msgs = ((InternalEObject)right).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ModuleDslPackage.SINGLE_ASSIGN__RIGHT, null, msgs);
+      if (newRight != null)
+        msgs = ((InternalEObject)newRight).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ModuleDslPackage.SINGLE_ASSIGN__RIGHT, null, msgs);
+      msgs = basicSetRight(newRight, msgs);
+      if (msgs != null) msgs.dispatch();
+    }
+    else if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, ModuleDslPackage.SINGLE_ASSIGN__RIGHT, newRight, newRight));
   }
 
   /**
@@ -174,8 +178,10 @@ public class SINGLE_ASSIGNImpl extends MinimalEObjectImpl.Container implements S
   {
     switch (featureID)
     {
-      case ModuleDslPackage.SINGLE_ASSIGN__EXP:
-        return basicSetExp(null, msgs);
+      case ModuleDslPackage.SINGLE_ASSIGN__LEFT:
+        return basicSetLeft(null, msgs);
+      case ModuleDslPackage.SINGLE_ASSIGN__RIGHT:
+        return basicSetRight(null, msgs);
     }
     return super.eInverseRemove(otherEnd, featureID, msgs);
   }
@@ -190,11 +196,10 @@ public class SINGLE_ASSIGNImpl extends MinimalEObjectImpl.Container implements S
   {
     switch (featureID)
     {
-      case ModuleDslPackage.SINGLE_ASSIGN__VAR:
-        if (resolve) return getVar();
-        return basicGetVar();
-      case ModuleDslPackage.SINGLE_ASSIGN__EXP:
-        return getExp();
+      case ModuleDslPackage.SINGLE_ASSIGN__LEFT:
+        return getLeft();
+      case ModuleDslPackage.SINGLE_ASSIGN__RIGHT:
+        return getRight();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -209,11 +214,11 @@ public class SINGLE_ASSIGNImpl extends MinimalEObjectImpl.Container implements S
   {
     switch (featureID)
     {
-      case ModuleDslPackage.SINGLE_ASSIGN__VAR:
-        setVar((VAR_CST)newValue);
+      case ModuleDslPackage.SINGLE_ASSIGN__LEFT:
+        setLeft((EXPRESSION)newValue);
         return;
-      case ModuleDslPackage.SINGLE_ASSIGN__EXP:
-        setExp((EXPRESSION)newValue);
+      case ModuleDslPackage.SINGLE_ASSIGN__RIGHT:
+        setRight((EXPRESSION)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -229,11 +234,11 @@ public class SINGLE_ASSIGNImpl extends MinimalEObjectImpl.Container implements S
   {
     switch (featureID)
     {
-      case ModuleDslPackage.SINGLE_ASSIGN__VAR:
-        setVar((VAR_CST)null);
+      case ModuleDslPackage.SINGLE_ASSIGN__LEFT:
+        setLeft((EXPRESSION)null);
         return;
-      case ModuleDslPackage.SINGLE_ASSIGN__EXP:
-        setExp((EXPRESSION)null);
+      case ModuleDslPackage.SINGLE_ASSIGN__RIGHT:
+        setRight((EXPRESSION)null);
         return;
     }
     super.eUnset(featureID);
@@ -249,10 +254,10 @@ public class SINGLE_ASSIGNImpl extends MinimalEObjectImpl.Container implements S
   {
     switch (featureID)
     {
-      case ModuleDslPackage.SINGLE_ASSIGN__VAR:
-        return var != null;
-      case ModuleDslPackage.SINGLE_ASSIGN__EXP:
-        return exp != null;
+      case ModuleDslPackage.SINGLE_ASSIGN__LEFT:
+        return left != null;
+      case ModuleDslPackage.SINGLE_ASSIGN__RIGHT:
+        return right != null;
     }
     return super.eIsSet(featureID);
   }

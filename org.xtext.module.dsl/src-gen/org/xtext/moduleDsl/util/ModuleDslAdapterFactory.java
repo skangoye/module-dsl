@@ -85,6 +85,21 @@ public class ModuleDslAdapterFactory extends AdapterFactoryImpl
         return createMODULE_DECLAdapter();
       }
       @Override
+      public Adapter caseSTRATEGY(STRATEGY object)
+      {
+        return createSTRATEGYAdapter();
+      }
+      @Override
+      public Adapter caseINTERFACE(INTERFACE object)
+      {
+        return createINTERFACEAdapter();
+      }
+      @Override
+      public Adapter caseBODY(BODY object)
+      {
+        return createBODYAdapter();
+      }
+      @Override
       public Adapter caseCRITERION_DECL(CRITERION_DECL object)
       {
         return createCRITERION_DECLAdapter();
@@ -372,6 +387,51 @@ public class ModuleDslAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createMODULE_DECLAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.xtext.moduleDsl.STRATEGY <em>STRATEGY</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.xtext.moduleDsl.STRATEGY
+   * @generated
+   */
+  public Adapter createSTRATEGYAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.xtext.moduleDsl.INTERFACE <em>INTERFACE</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.xtext.moduleDsl.INTERFACE
+   * @generated
+   */
+  public Adapter createINTERFACEAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.xtext.moduleDsl.BODY <em>BODY</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.xtext.moduleDsl.BODY
+   * @generated
+   */
+  public Adapter createBODYAdapter()
   {
     return null;
   }

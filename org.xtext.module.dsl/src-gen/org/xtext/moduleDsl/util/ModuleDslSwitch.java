@@ -86,6 +86,27 @@ public class ModuleDslSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
+      case ModuleDslPackage.STRATEGY:
+      {
+        STRATEGY strategy = (STRATEGY)theEObject;
+        T result = caseSTRATEGY(strategy);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case ModuleDslPackage.INTERFACE:
+      {
+        INTERFACE interface_ = (INTERFACE)theEObject;
+        T result = caseINTERFACE(interface_);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case ModuleDslPackage.BODY:
+      {
+        BODY body = (BODY)theEObject;
+        T result = caseBODY(body);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
       case ModuleDslPackage.CRITERION_DECL:
       {
         CRITERION_DECL criterioN_DECL = (CRITERION_DECL)theEObject;
@@ -489,6 +510,54 @@ public class ModuleDslSwitch<T> extends Switch<T>
    * @generated
    */
   public T caseMODULE_DECL(MODULE_DECL object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>STRATEGY</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>STRATEGY</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseSTRATEGY(STRATEGY object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>INTERFACE</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>INTERFACE</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseINTERFACE(INTERFACE object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>BODY</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>BODY</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseBODY(BODY object)
   {
     return null;
   }
