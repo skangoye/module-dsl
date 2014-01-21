@@ -85,21 +85,12 @@ public static val INVALID_INPUT = 'invalidInput'
 	
 	@Check
 	def checkVarDecl(VAR v){
-		val flow = v.flow.flow
-		val name = v.name
-		//val type = v.type
-		
-		/*System.out.println(v.flow)
-		System.out.println(flow)
-		System.out.println(name)
-		System.out.println(v.type)
-		System.out.println(v.end)
-		System.out.println(v.end.end)*/
-		
+		val flow = v.flow?.flow
+
 		if (flow != null){
+			val name = v.name
 			if (name == null){
-				error("Incomplete variable declaration, variable name is expected", 
-					null)
+				error("Variable name is expected", null)
 			}
 			else{ 
 				if (v.type == null){ ///////////////
@@ -179,6 +170,9 @@ public static val INVALID_INPUT = 'invalidInput'
 					if (typeVal == 'enum') {
 						error("Interval is not allowed for Enumeration types", null)
 					}
+					else{
+						
+					}
 				} 
 			}
 			
@@ -205,7 +199,7 @@ public static val INVALID_INPUT = 'invalidInput'
 		val vartype = literal.getContainerOfType(VAR)?.type.type
 		val literaltype = literal.typeProvider
 		
-		if (vartype != null || vartype != 'bool'){
+		if (vartype != null && vartype != 'bool'){
 			checkLiteralInRange (literal, literaltype, vartype)
 		}		
 	}
@@ -666,8 +660,13 @@ public static val INVALID_INPUT = 'invalidInput'
 	 		}
 	 	}
 	 	else{
-	 		System.out.println("toto2")
-	 		error ("The left-hand side of an assignment must be a variable", ref)
+	 		if (exp == null){
+	 			error ("The left-hand side of an assignment must be a variable", null)
+	 		}
+	 		else{
+	 			System.out.println(sa.left)
+	 			error ("The left-hand side of an assignment must be a variable", ref)
+	 		}
 	 	}
 	 }
 	 
@@ -685,9 +684,9 @@ public static val INVALID_INPUT = 'invalidInput'
 	 }
 	 
 	 def private checkNoDupLeftExp(VarExpRef vref, EReference ref) {
-	 	val multi_assign = vref.getContainerOfType(ASSIGN_INSTR).sa
+	 	val filt_list_assign = vref.getContainerOfType(ASSIGN_INSTR).sa.filter[ it.left instanceof VarExpRef ]
 	 	val assign = vref.getContainerOfType(SINGLE_ASSIGN)
-	 	val dup = multi_assign.findFirst[ it != assign && (it.left as VarExpRef).vref  == vref.vref]
+	 	val dup = filt_list_assign.findFirst[ it != assign && (it.left as VarExpRef).vref  == vref.vref]
 	 	if(dup != null){
 	 		error("multiple assignment of the same variable is not allowed in a statement",ref)
 	 	}
@@ -699,29 +698,35 @@ public static val INVALID_INPUT = 'invalidInput'
 	 }
 	 
 	 @Check
-	 def checkAssignRightHand(SINGLE_ASSIGN sa){
-	 	val rightType = sa.right?.typeFor
-	 	if (rightType != null){
-	 		val list = new ArrayList<VAR_CST>
-	 		varInExpression(sa.right, list)
-	 		System.out.println(list)
-	 		list.forEach[ it.checkVarIsOut ]
-	 	}
-	 }
-	 
-	 def private checkVarIsOut(VAR_CST vref){
-	 	if(vref instanceof VAR){
-	 		val flow = (vref as VAR).flow.flow
-	 		if(flow == 'out'){
-	 			error("An output variable cannot be used ", null)
-	 		}
-	 	}
-	 	else{
-	 		return
+	 def checkNoOutVarInAssignRightHand(VarExpRef vref){
+	 	val ref = vref.vref
+	 	if (ref instanceof VAR){
+	 		val flow = (ref as VAR).flow.flow
+		 	val sa = vref.getContainerOfType(SINGLE_ASSIGN)
+		 	if (sa != null && flow=='out'){
+		 		if( !(sa.left instanceof VarExpRef) ){
+		 			return
+		 		}
+		 		else{
+		 			if(sa.left as VarExpRef == vref){ 
+		 				return
+		 			}
+		 			else{
+		 				if (sa.right != null){
+				 			val list = new ArrayList<VAR>
+				 			varInExpression(sa.right, list)
+				 			System.out.println(list)
+				 			if (list.contains(ref as VAR)){
+				 				error("An output variable cannot take part into right-hand side of an assignment", null)
+				 			}
+						}
+		 			}
+		 		}		 		
+		 	}
 	 	}
 	 }
 	  
-	 def private void varInExpression(EXPRESSION exp, List<VAR_CST> list){
+	 def private void varInExpression(EXPRESSION exp, List<VAR> list){
 	 	
 	 	if (exp instanceof OR){
 	 		val or = (exp as OR)
@@ -765,7 +770,12 @@ public static val INVALID_INPUT = 'invalidInput'
 	 		 			 			else{
 	 		 			 				if (exp instanceof VarExpRef){
 	 										val ref = (exp as VarExpRef).vref
-	 										list.add(ref)
+	 										if(ref instanceof VAR){
+										 		val flow = (ref as VAR).flow.flow
+										 		if(flow == 'out'){
+										 			list.add(ref as VAR)
+										 		}
+										 	}
 	 		 			 				}
 	 		 			 				else{
 	 		 			 				
@@ -779,5 +789,29 @@ public static val INVALID_INPUT = 'invalidInput'
 	 		}
 	 	}
 	 }//method
+	 
+	 @Check
+	 def checkEnumValue(SINGLE_ASSIGN sa){
+	 	val leftType = sa.left?.typeFor
+	 	val rightType = sa.right?.typeFor
+	 	if(leftType != null && rightType != null && leftType==rightType ){
+	 		if(leftType==ExpressionsTypeProvider::enumType){
+	 			if(sa.left instanceof VarExpRef && sa.right instanceof enumConstant){
+	 				val leftvar = (sa.left as VarExpRef).vref
+	 				val rightvar = (sa.right as enumConstant).value
+	 				if (leftvar instanceof VAR){
+	 					val range = (leftvar as VAR).range
+	 					if(range instanceof LSET){
+	 						val listVal = (range as LSET).value
+	 						val existVar = (listVal.filter[it instanceof enumLITERAL]).exists[(it as enumLITERAL).value == rightvar]
+	 						if(!existVar){
+	 							error("This value is not part of variable "+ (leftvar as VAR).name + " enumeration values" , ModuleDslPackage.Literals.SINGLE_ASSIGN__RIGHT)
+	 						}
+	 					}
+	 				}
+	 			}
+	 		}
+	 	}
+	 }
 	 	 
 }
