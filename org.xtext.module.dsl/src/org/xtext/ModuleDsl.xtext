@@ -84,7 +84,7 @@ VAR_CST:
  */
 
 VAR:
-	{VAR} flow=Flow name=IDENT ':' type=TYPE (range=RANGE)? end=END
+	flow=Flow name=IDENT ':' type=TYPE (range=RANGE)? end=END
 ;
 
 Flow:
@@ -96,7 +96,7 @@ Flow:
  */
 
 CST:
-	{CST} flow='cst' name=IDENT '==' type=TYPE '(' value=Literal ')' end=END
+	flow='cst' name=IDENT '==' type=TYPE '(' value=Literal ')' end=END
 ;
 
 TYPE:
@@ -108,11 +108,11 @@ RANGE:
 ;
 
 INTERVAL:
-	lsqbr=(']' | '[')  min=Literal '..' max=Literal  rsqbr=(']' | '[')
+	lsqbr=(']' | '[') min=Literal '..' max=Literal  rsqbr=(']' | '[')
 ;
 
 LSET:
-	'{' (value+=Literal) (',' value+=Literal)* '}'
+	 '{' {LSET} (value+=Literal) (',' value+=Literal)* '}'
 ;
 
 Literal:
@@ -122,8 +122,7 @@ Literal:
 	{strLITERAL}  value=STRING 	   	 |
 	{enumLITERAL} value=ENUM_ELEMENT |
 	{bitLITERAL}  value=BIT          |
-	{hexLITERAL}  value=HEX          |
-	{identLITERAL} value =IDENT		 |
+	{hexLITERAL}  value=HEX          |		 
 	{unknowLITERAL}  value='?'
 ;
 
@@ -146,11 +145,11 @@ LOOP_INSTR:
 ;
 
 ERROR_INSTR:
-	'error'end=END
+	'error' {ERROR_INSTR} end=END
 ;
 
 NULL_INSTR:
-	'null' end=END
+	'null' {NULL_INSTR} end=END
 ;
 
 ASSIGN_INSTR:

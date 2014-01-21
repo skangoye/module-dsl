@@ -54,7 +54,6 @@ import org.xtext.moduleDsl.enumConstant;
 import org.xtext.moduleDsl.enumLITERAL;
 import org.xtext.moduleDsl.hexConstant;
 import org.xtext.moduleDsl.hexLITERAL;
-import org.xtext.moduleDsl.identLITERAL;
 import org.xtext.moduleDsl.intConstant;
 import org.xtext.moduleDsl.intLITERAL;
 import org.xtext.moduleDsl.realConstant;
@@ -536,12 +535,6 @@ public class ModuleDslSemanticSequencer extends AbstractDelegatingSemanticSequen
 					return; 
 				}
 				else break;
-			case ModuleDslPackage.IDENT_LITERAL:
-				if(context == grammarAccess.getLiteralRule()) {
-					sequence_Literal(context, (identLITERAL) semanticObject); 
-					return; 
-				}
-				else break;
 			case ModuleDslPackage.INT_CONSTANT:
 				if(context == grammarAccess.getADD_SUBRule() ||
 				   context == grammarAccess.getADD_SUBAccess().getADDLeftAction_1_0_0_0() ||
@@ -895,11 +888,11 @@ public class ModuleDslSemanticSequencer extends AbstractDelegatingSemanticSequen
 		}
 		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
 		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
-		feeder.accept(grammarAccess.getCSTAccess().getFlowCstKeyword_1_0(), semanticObject.getFlow());
-		feeder.accept(grammarAccess.getCSTAccess().getNameIDENTTerminalRuleCall_2_0(), semanticObject.getName());
-		feeder.accept(grammarAccess.getCSTAccess().getTypeTYPEParserRuleCall_4_0(), semanticObject.getType());
-		feeder.accept(grammarAccess.getCSTAccess().getValueLiteralParserRuleCall_6_0(), semanticObject.getValue());
-		feeder.accept(grammarAccess.getCSTAccess().getEndENDParserRuleCall_8_0(), semanticObject.getEnd());
+		feeder.accept(grammarAccess.getCSTAccess().getFlowCstKeyword_0_0(), semanticObject.getFlow());
+		feeder.accept(grammarAccess.getCSTAccess().getNameIDENTTerminalRuleCall_1_0(), semanticObject.getName());
+		feeder.accept(grammarAccess.getCSTAccess().getTypeTYPEParserRuleCall_3_0(), semanticObject.getType());
+		feeder.accept(grammarAccess.getCSTAccess().getValueLiteralParserRuleCall_5_0(), semanticObject.getValue());
+		feeder.accept(grammarAccess.getCSTAccess().getEndENDParserRuleCall_7_0(), semanticObject.getEnd());
 		feeder.finish();
 	}
 	
@@ -958,7 +951,7 @@ public class ModuleDslSemanticSequencer extends AbstractDelegatingSemanticSequen
 		}
 		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
 		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
-		feeder.accept(grammarAccess.getERROR_INSTRAccess().getEndENDParserRuleCall_1_0(), semanticObject.getEnd());
+		feeder.accept(grammarAccess.getERROR_INSTRAccess().getEndENDParserRuleCall_2_0(), semanticObject.getEnd());
 		feeder.finish();
 	}
 	
@@ -1112,22 +1105,6 @@ public class ModuleDslSemanticSequencer extends AbstractDelegatingSemanticSequen
 	
 	/**
 	 * Constraint:
-	 *     value=IDENT
-	 */
-	protected void sequence_Literal(EObject context, identLITERAL semanticObject) {
-		if(errorAcceptor != null) {
-			if(transientValues.isValueTransient(semanticObject, ModuleDslPackage.Literals.IDENT_LITERAL__VALUE) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ModuleDslPackage.Literals.IDENT_LITERAL__VALUE));
-		}
-		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
-		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
-		feeder.accept(grammarAccess.getLiteralAccess().getValueIDENTTerminalRuleCall_7_1_0(), semanticObject.getValue());
-		feeder.finish();
-	}
-	
-	
-	/**
-	 * Constraint:
 	 *     value=INTEGER
 	 */
 	protected void sequence_Literal(EObject context, intLITERAL semanticObject) {
@@ -1185,7 +1162,7 @@ public class ModuleDslSemanticSequencer extends AbstractDelegatingSemanticSequen
 		}
 		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
 		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
-		feeder.accept(grammarAccess.getLiteralAccess().getValueQuestionMarkKeyword_8_1_0(), semanticObject.getValue());
+		feeder.accept(grammarAccess.getLiteralAccess().getValueQuestionMarkKeyword_7_1_0(), semanticObject.getValue());
 		feeder.finish();
 	}
 	
@@ -1264,7 +1241,7 @@ public class ModuleDslSemanticSequencer extends AbstractDelegatingSemanticSequen
 		}
 		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
 		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
-		feeder.accept(grammarAccess.getNULL_INSTRAccess().getEndENDParserRuleCall_1_0(), semanticObject.getEnd());
+		feeder.accept(grammarAccess.getNULL_INSTRAccess().getEndENDParserRuleCall_2_0(), semanticObject.getEnd());
 		feeder.finish();
 	}
 	

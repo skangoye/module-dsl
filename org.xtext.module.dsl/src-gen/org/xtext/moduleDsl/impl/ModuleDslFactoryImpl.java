@@ -98,7 +98,6 @@ public class ModuleDslFactoryImpl extends EFactoryImpl implements ModuleDslFacto
       case ModuleDslPackage.ENUM_LITERAL: return createenumLITERAL();
       case ModuleDslPackage.BIT_LITERAL: return createbitLITERAL();
       case ModuleDslPackage.HEX_LITERAL: return createhexLITERAL();
-      case ModuleDslPackage.IDENT_LITERAL: return createidentLITERAL();
       case ModuleDslPackage.UNKNOW_LITERAL: return createunknowLITERAL();
       case ModuleDslPackage.OR: return createOR();
       case ModuleDslPackage.AND: return createAND();
@@ -494,17 +493,6 @@ public class ModuleDslFactoryImpl extends EFactoryImpl implements ModuleDslFacto
   {
     hexLITERALImpl hexLITERAL = new hexLITERALImpl();
     return hexLITERAL;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public identLITERAL createidentLITERAL()
-  {
-    identLITERALImpl identLITERAL = new identLITERALImpl();
-    return identLITERAL;
   }
 
   /**

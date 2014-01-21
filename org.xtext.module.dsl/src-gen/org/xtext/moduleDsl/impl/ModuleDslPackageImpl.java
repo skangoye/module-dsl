@@ -22,7 +22,6 @@ import org.xtext.moduleDsl.enumConstant;
 import org.xtext.moduleDsl.enumLITERAL;
 import org.xtext.moduleDsl.hexConstant;
 import org.xtext.moduleDsl.hexLITERAL;
-import org.xtext.moduleDsl.identLITERAL;
 import org.xtext.moduleDsl.intConstant;
 import org.xtext.moduleDsl.intLITERAL;
 import org.xtext.moduleDsl.realConstant;
@@ -276,13 +275,6 @@ public class ModuleDslPackageImpl extends EPackageImpl implements ModuleDslPacka
    * @generated
    */
   private EClass hexLITERALEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  private EClass identLITERALEClass = null;
 
   /**
    * <!-- begin-user-doc -->
@@ -1298,26 +1290,6 @@ public class ModuleDslPackageImpl extends EPackageImpl implements ModuleDslPacka
    * <!-- end-user-doc -->
    * @generated
    */
-  public EClass getidentLITERAL()
-  {
-    return identLITERALEClass;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EAttribute getidentLITERAL_Value()
-  {
-    return (EAttribute)identLITERALEClass.getEStructuralFeatures().get(0);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   public EClass getunknowLITERAL()
   {
     return unknowLITERALEClass;
@@ -1919,9 +1891,6 @@ public class ModuleDslPackageImpl extends EPackageImpl implements ModuleDslPacka
     hexLITERALEClass = createEClass(HEX_LITERAL);
     createEAttribute(hexLITERALEClass, HEX_LITERAL__VALUE);
 
-    identLITERALEClass = createEClass(IDENT_LITERAL);
-    createEAttribute(identLITERALEClass, IDENT_LITERAL__VALUE);
-
     unknowLITERALEClass = createEClass(UNKNOW_LITERAL);
     createEAttribute(unknowLITERALEClass, UNKNOW_LITERAL__VALUE);
 
@@ -2032,7 +2001,6 @@ public class ModuleDslPackageImpl extends EPackageImpl implements ModuleDslPacka
     enumLITERALEClass.getESuperTypes().add(this.getLiteral());
     bitLITERALEClass.getESuperTypes().add(this.getLiteral());
     hexLITERALEClass.getESuperTypes().add(this.getLiteral());
-    identLITERALEClass.getESuperTypes().add(this.getLiteral());
     unknowLITERALEClass.getESuperTypes().add(this.getLiteral());
     orEClass.getESuperTypes().add(this.getEXPRESSION());
     andEClass.getESuperTypes().add(this.getEXPRESSION());
@@ -2168,9 +2136,6 @@ public class ModuleDslPackageImpl extends EPackageImpl implements ModuleDslPacka
 
     initEClass(hexLITERALEClass, hexLITERAL.class, "hexLITERAL", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(gethexLITERAL_Value(), ecorePackage.getEString(), "value", null, 0, 1, hexLITERAL.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-    initEClass(identLITERALEClass, identLITERAL.class, "identLITERAL", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEAttribute(getidentLITERAL_Value(), ecorePackage.getEString(), "value", null, 0, 1, identLITERAL.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(unknowLITERALEClass, unknowLITERAL.class, "unknowLITERAL", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getunknowLITERAL_Value(), ecorePackage.getEString(), "value", null, 0, 1, unknowLITERAL.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

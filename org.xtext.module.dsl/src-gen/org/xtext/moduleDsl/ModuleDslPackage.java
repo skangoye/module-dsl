@@ -1189,34 +1189,6 @@ public interface ModuleDslPackage extends EPackage
   int HEX_LITERAL_FEATURE_COUNT = LITERAL_FEATURE_COUNT + 1;
 
   /**
-   * The meta object id for the '{@link org.xtext.moduleDsl.impl.identLITERALImpl <em>ident LITERAL</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see org.xtext.moduleDsl.impl.identLITERALImpl
-   * @see org.xtext.moduleDsl.impl.ModuleDslPackageImpl#getidentLITERAL()
-   * @generated
-   */
-  int IDENT_LITERAL = 34;
-
-  /**
-   * The feature id for the '<em><b>Value</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int IDENT_LITERAL__VALUE = LITERAL_FEATURE_COUNT + 0;
-
-  /**
-   * The number of structural features of the '<em>ident LITERAL</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int IDENT_LITERAL_FEATURE_COUNT = LITERAL_FEATURE_COUNT + 1;
-
-  /**
    * The meta object id for the '{@link org.xtext.moduleDsl.impl.unknowLITERALImpl <em>unknow LITERAL</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -1224,7 +1196,7 @@ public interface ModuleDslPackage extends EPackage
    * @see org.xtext.moduleDsl.impl.ModuleDslPackageImpl#getunknowLITERAL()
    * @generated
    */
-  int UNKNOW_LITERAL = 35;
+  int UNKNOW_LITERAL = 34;
 
   /**
    * The feature id for the '<em><b>Value</b></em>' attribute.
@@ -1252,7 +1224,7 @@ public interface ModuleDslPackage extends EPackage
    * @see org.xtext.moduleDsl.impl.ModuleDslPackageImpl#getOR()
    * @generated
    */
-  int OR = 36;
+  int OR = 35;
 
   /**
    * The feature id for the '<em><b>Left</b></em>' containment reference.
@@ -1289,7 +1261,7 @@ public interface ModuleDslPackage extends EPackage
    * @see org.xtext.moduleDsl.impl.ModuleDslPackageImpl#getAND()
    * @generated
    */
-  int AND = 37;
+  int AND = 36;
 
   /**
    * The feature id for the '<em><b>Left</b></em>' containment reference.
@@ -1326,7 +1298,7 @@ public interface ModuleDslPackage extends EPackage
    * @see org.xtext.moduleDsl.impl.ModuleDslPackageImpl#getEQUAL_DIFF()
    * @generated
    */
-  int EQUAL_DIFF = 38;
+  int EQUAL_DIFF = 37;
 
   /**
    * The feature id for the '<em><b>Left</b></em>' containment reference.
@@ -1372,7 +1344,7 @@ public interface ModuleDslPackage extends EPackage
    * @see org.xtext.moduleDsl.impl.ModuleDslPackageImpl#getCOMPARISON()
    * @generated
    */
-  int COMPARISON = 39;
+  int COMPARISON = 38;
 
   /**
    * The feature id for the '<em><b>Left</b></em>' containment reference.
@@ -1418,7 +1390,7 @@ public interface ModuleDslPackage extends EPackage
    * @see org.xtext.moduleDsl.impl.ModuleDslPackageImpl#getADD()
    * @generated
    */
-  int ADD = 40;
+  int ADD = 39;
 
   /**
    * The feature id for the '<em><b>Left</b></em>' containment reference.
@@ -1455,7 +1427,7 @@ public interface ModuleDslPackage extends EPackage
    * @see org.xtext.moduleDsl.impl.ModuleDslPackageImpl#getSUB()
    * @generated
    */
-  int SUB = 41;
+  int SUB = 40;
 
   /**
    * The feature id for the '<em><b>Left</b></em>' containment reference.
@@ -1492,7 +1464,7 @@ public interface ModuleDslPackage extends EPackage
    * @see org.xtext.moduleDsl.impl.ModuleDslPackageImpl#getMULT()
    * @generated
    */
-  int MULT = 42;
+  int MULT = 41;
 
   /**
    * The feature id for the '<em><b>Left</b></em>' containment reference.
@@ -1529,7 +1501,7 @@ public interface ModuleDslPackage extends EPackage
    * @see org.xtext.moduleDsl.impl.ModuleDslPackageImpl#getDIV()
    * @generated
    */
-  int DIV = 43;
+  int DIV = 42;
 
   /**
    * The feature id for the '<em><b>Left</b></em>' containment reference.
@@ -1566,7 +1538,7 @@ public interface ModuleDslPackage extends EPackage
    * @see org.xtext.moduleDsl.impl.ModuleDslPackageImpl#getNOT()
    * @generated
    */
-  int NOT = 44;
+  int NOT = 43;
 
   /**
    * The feature id for the '<em><b>Exp</b></em>' containment reference.
@@ -1594,7 +1566,7 @@ public interface ModuleDslPackage extends EPackage
    * @see org.xtext.moduleDsl.impl.ModuleDslPackageImpl#getintConstant()
    * @generated
    */
-  int INT_CONSTANT = 45;
+  int INT_CONSTANT = 44;
 
   /**
    * The feature id for the '<em><b>Value</b></em>' attribute.
@@ -1622,7 +1594,7 @@ public interface ModuleDslPackage extends EPackage
    * @see org.xtext.moduleDsl.impl.ModuleDslPackageImpl#getrealConstant()
    * @generated
    */
-  int REAL_CONSTANT = 46;
+  int REAL_CONSTANT = 45;
 
   /**
    * The feature id for the '<em><b>Value</b></em>' attribute.
@@ -1650,7 +1622,7 @@ public interface ModuleDslPackage extends EPackage
    * @see org.xtext.moduleDsl.impl.ModuleDslPackageImpl#getstrConstant()
    * @generated
    */
-  int STR_CONSTANT = 47;
+  int STR_CONSTANT = 46;
 
   /**
    * The feature id for the '<em><b>Value</b></em>' attribute.
@@ -1678,7 +1650,7 @@ public interface ModuleDslPackage extends EPackage
    * @see org.xtext.moduleDsl.impl.ModuleDslPackageImpl#getenumConstant()
    * @generated
    */
-  int ENUM_CONSTANT = 48;
+  int ENUM_CONSTANT = 47;
 
   /**
    * The feature id for the '<em><b>Value</b></em>' attribute.
@@ -1706,7 +1678,7 @@ public interface ModuleDslPackage extends EPackage
    * @see org.xtext.moduleDsl.impl.ModuleDslPackageImpl#getboolConstant()
    * @generated
    */
-  int BOOL_CONSTANT = 49;
+  int BOOL_CONSTANT = 48;
 
   /**
    * The feature id for the '<em><b>Value</b></em>' attribute.
@@ -1734,7 +1706,7 @@ public interface ModuleDslPackage extends EPackage
    * @see org.xtext.moduleDsl.impl.ModuleDslPackageImpl#getbitConstant()
    * @generated
    */
-  int BIT_CONSTANT = 50;
+  int BIT_CONSTANT = 49;
 
   /**
    * The feature id for the '<em><b>Value</b></em>' attribute.
@@ -1762,7 +1734,7 @@ public interface ModuleDslPackage extends EPackage
    * @see org.xtext.moduleDsl.impl.ModuleDslPackageImpl#gethexConstant()
    * @generated
    */
-  int HEX_CONSTANT = 51;
+  int HEX_CONSTANT = 50;
 
   /**
    * The feature id for the '<em><b>Value</b></em>' attribute.
@@ -1790,7 +1762,7 @@ public interface ModuleDslPackage extends EPackage
    * @see org.xtext.moduleDsl.impl.ModuleDslPackageImpl#getVarExpRef()
    * @generated
    */
-  int VAR_EXP_REF = 52;
+  int VAR_EXP_REF = 51;
 
   /**
    * The feature id for the '<em><b>Vref</b></em>' reference.
@@ -2678,27 +2650,6 @@ public interface ModuleDslPackage extends EPackage
    * @generated
    */
   EAttribute gethexLITERAL_Value();
-
-  /**
-   * Returns the meta object for class '{@link org.xtext.moduleDsl.identLITERAL <em>ident LITERAL</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for class '<em>ident LITERAL</em>'.
-   * @see org.xtext.moduleDsl.identLITERAL
-   * @generated
-   */
-  EClass getidentLITERAL();
-
-  /**
-   * Returns the meta object for the attribute '{@link org.xtext.moduleDsl.identLITERAL#getValue <em>Value</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Value</em>'.
-   * @see org.xtext.moduleDsl.identLITERAL#getValue()
-   * @see #getidentLITERAL()
-   * @generated
-   */
-  EAttribute getidentLITERAL_Value();
 
   /**
    * Returns the meta object for class '{@link org.xtext.moduleDsl.unknowLITERAL <em>unknow LITERAL</em>}'.
@@ -3934,24 +3885,6 @@ public interface ModuleDslPackage extends EPackage
      * @generated
      */
     EAttribute HEX_LITERAL__VALUE = eINSTANCE.gethexLITERAL_Value();
-
-    /**
-     * The meta object literal for the '{@link org.xtext.moduleDsl.impl.identLITERALImpl <em>ident LITERAL</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see org.xtext.moduleDsl.impl.identLITERALImpl
-     * @see org.xtext.moduleDsl.impl.ModuleDslPackageImpl#getidentLITERAL()
-     * @generated
-     */
-    EClass IDENT_LITERAL = eINSTANCE.getidentLITERAL();
-
-    /**
-     * The meta object literal for the '<em><b>Value</b></em>' attribute feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EAttribute IDENT_LITERAL__VALUE = eINSTANCE.getidentLITERAL_Value();
 
     /**
      * The meta object literal for the '{@link org.xtext.moduleDsl.impl.unknowLITERALImpl <em>unknow LITERAL</em>}' class.

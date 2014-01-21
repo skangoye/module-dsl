@@ -119,9 +119,6 @@
     <genClasses ecoreClass="ModuleDsl.ecore#//hexLITERAL">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ModuleDsl.ecore#//hexLITERAL/value"/>
     </genClasses>
-    <genClasses ecoreClass="ModuleDsl.ecore#//identLITERAL">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ModuleDsl.ecore#//identLITERAL/value"/>
-    </genClasses>
     <genClasses ecoreClass="ModuleDsl.ecore#//unknowLITERAL">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ModuleDsl.ecore#//unknowLITERAL/value"/>
     </genClasses>

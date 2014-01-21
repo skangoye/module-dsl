@@ -329,15 +329,6 @@ public interface ModuleDslFactory extends EFactory
   hexLITERAL createhexLITERAL();
 
   /**
-   * Returns a new object of class '<em>ident LITERAL</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>ident LITERAL</em>'.
-   * @generated
-   */
-  identLITERAL createidentLITERAL();
-
-  /**
    * Returns a new object of class '<em>unknow LITERAL</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->

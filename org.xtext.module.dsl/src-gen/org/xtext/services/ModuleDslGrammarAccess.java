@@ -442,18 +442,17 @@ public class ModuleDslGrammarAccess extends AbstractGrammarElementFinder {
 	public class VARElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "VAR");
 		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final Action cVARAction_0 = (Action)cGroup.eContents().get(0);
-		private final Assignment cFlowAssignment_1 = (Assignment)cGroup.eContents().get(1);
-		private final RuleCall cFlowFlowParserRuleCall_1_0 = (RuleCall)cFlowAssignment_1.eContents().get(0);
-		private final Assignment cNameAssignment_2 = (Assignment)cGroup.eContents().get(2);
-		private final RuleCall cNameIDENTTerminalRuleCall_2_0 = (RuleCall)cNameAssignment_2.eContents().get(0);
-		private final Keyword cColonKeyword_3 = (Keyword)cGroup.eContents().get(3);
-		private final Assignment cTypeAssignment_4 = (Assignment)cGroup.eContents().get(4);
-		private final RuleCall cTypeTYPEParserRuleCall_4_0 = (RuleCall)cTypeAssignment_4.eContents().get(0);
-		private final Assignment cRangeAssignment_5 = (Assignment)cGroup.eContents().get(5);
-		private final RuleCall cRangeRANGEParserRuleCall_5_0 = (RuleCall)cRangeAssignment_5.eContents().get(0);
-		private final Assignment cEndAssignment_6 = (Assignment)cGroup.eContents().get(6);
-		private final RuleCall cEndENDParserRuleCall_6_0 = (RuleCall)cEndAssignment_6.eContents().get(0);
+		private final Assignment cFlowAssignment_0 = (Assignment)cGroup.eContents().get(0);
+		private final RuleCall cFlowFlowParserRuleCall_0_0 = (RuleCall)cFlowAssignment_0.eContents().get(0);
+		private final Assignment cNameAssignment_1 = (Assignment)cGroup.eContents().get(1);
+		private final RuleCall cNameIDENTTerminalRuleCall_1_0 = (RuleCall)cNameAssignment_1.eContents().get(0);
+		private final Keyword cColonKeyword_2 = (Keyword)cGroup.eContents().get(2);
+		private final Assignment cTypeAssignment_3 = (Assignment)cGroup.eContents().get(3);
+		private final RuleCall cTypeTYPEParserRuleCall_3_0 = (RuleCall)cTypeAssignment_3.eContents().get(0);
+		private final Assignment cRangeAssignment_4 = (Assignment)cGroup.eContents().get(4);
+		private final RuleCall cRangeRANGEParserRuleCall_4_0 = (RuleCall)cRangeAssignment_4.eContents().get(0);
+		private final Assignment cEndAssignment_5 = (Assignment)cGroup.eContents().get(5);
+		private final RuleCall cEndENDParserRuleCall_5_0 = (RuleCall)cEndAssignment_5.eContents().get(0);
 		
 		/// **
 		//
@@ -467,47 +466,44 @@ public class ModuleDslGrammarAccess extends AbstractGrammarElementFinder {
 		//
 		// * / VAR:
 		//
-		//	{VAR} flow=Flow name=IDENT ":" type=TYPE range=RANGE? end=END;
+		//	flow=Flow name=IDENT ":" type=TYPE range=RANGE? end=END;
 		public ParserRule getRule() { return rule; }
 
-		//{VAR} flow=Flow name=IDENT ":" type=TYPE range=RANGE? end=END
+		//flow=Flow name=IDENT ":" type=TYPE range=RANGE? end=END
 		public Group getGroup() { return cGroup; }
 
-		//{VAR}
-		public Action getVARAction_0() { return cVARAction_0; }
-
 		//flow=Flow
-		public Assignment getFlowAssignment_1() { return cFlowAssignment_1; }
+		public Assignment getFlowAssignment_0() { return cFlowAssignment_0; }
 
 		//Flow
-		public RuleCall getFlowFlowParserRuleCall_1_0() { return cFlowFlowParserRuleCall_1_0; }
+		public RuleCall getFlowFlowParserRuleCall_0_0() { return cFlowFlowParserRuleCall_0_0; }
 
 		//name=IDENT
-		public Assignment getNameAssignment_2() { return cNameAssignment_2; }
+		public Assignment getNameAssignment_1() { return cNameAssignment_1; }
 
 		//IDENT
-		public RuleCall getNameIDENTTerminalRuleCall_2_0() { return cNameIDENTTerminalRuleCall_2_0; }
+		public RuleCall getNameIDENTTerminalRuleCall_1_0() { return cNameIDENTTerminalRuleCall_1_0; }
 
 		//":"
-		public Keyword getColonKeyword_3() { return cColonKeyword_3; }
+		public Keyword getColonKeyword_2() { return cColonKeyword_2; }
 
 		//type=TYPE
-		public Assignment getTypeAssignment_4() { return cTypeAssignment_4; }
+		public Assignment getTypeAssignment_3() { return cTypeAssignment_3; }
 
 		//TYPE
-		public RuleCall getTypeTYPEParserRuleCall_4_0() { return cTypeTYPEParserRuleCall_4_0; }
+		public RuleCall getTypeTYPEParserRuleCall_3_0() { return cTypeTYPEParserRuleCall_3_0; }
 
 		//range=RANGE?
-		public Assignment getRangeAssignment_5() { return cRangeAssignment_5; }
+		public Assignment getRangeAssignment_4() { return cRangeAssignment_4; }
 
 		//RANGE
-		public RuleCall getRangeRANGEParserRuleCall_5_0() { return cRangeRANGEParserRuleCall_5_0; }
+		public RuleCall getRangeRANGEParserRuleCall_4_0() { return cRangeRANGEParserRuleCall_4_0; }
 
 		//end=END
-		public Assignment getEndAssignment_6() { return cEndAssignment_6; }
+		public Assignment getEndAssignment_5() { return cEndAssignment_5; }
 
 		//END
-		public RuleCall getEndENDParserRuleCall_6_0() { return cEndENDParserRuleCall_6_0; }
+		public RuleCall getEndENDParserRuleCall_5_0() { return cEndENDParserRuleCall_5_0; }
 	}
 
 	public class FlowElements extends AbstractParserRuleElementFinder {
@@ -546,20 +542,19 @@ public class ModuleDslGrammarAccess extends AbstractGrammarElementFinder {
 	public class CSTElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "CST");
 		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final Action cCSTAction_0 = (Action)cGroup.eContents().get(0);
-		private final Assignment cFlowAssignment_1 = (Assignment)cGroup.eContents().get(1);
-		private final Keyword cFlowCstKeyword_1_0 = (Keyword)cFlowAssignment_1.eContents().get(0);
-		private final Assignment cNameAssignment_2 = (Assignment)cGroup.eContents().get(2);
-		private final RuleCall cNameIDENTTerminalRuleCall_2_0 = (RuleCall)cNameAssignment_2.eContents().get(0);
-		private final Keyword cEqualsSignEqualsSignKeyword_3 = (Keyword)cGroup.eContents().get(3);
-		private final Assignment cTypeAssignment_4 = (Assignment)cGroup.eContents().get(4);
-		private final RuleCall cTypeTYPEParserRuleCall_4_0 = (RuleCall)cTypeAssignment_4.eContents().get(0);
-		private final Keyword cLeftParenthesisKeyword_5 = (Keyword)cGroup.eContents().get(5);
-		private final Assignment cValueAssignment_6 = (Assignment)cGroup.eContents().get(6);
-		private final RuleCall cValueLiteralParserRuleCall_6_0 = (RuleCall)cValueAssignment_6.eContents().get(0);
-		private final Keyword cRightParenthesisKeyword_7 = (Keyword)cGroup.eContents().get(7);
-		private final Assignment cEndAssignment_8 = (Assignment)cGroup.eContents().get(8);
-		private final RuleCall cEndENDParserRuleCall_8_0 = (RuleCall)cEndAssignment_8.eContents().get(0);
+		private final Assignment cFlowAssignment_0 = (Assignment)cGroup.eContents().get(0);
+		private final Keyword cFlowCstKeyword_0_0 = (Keyword)cFlowAssignment_0.eContents().get(0);
+		private final Assignment cNameAssignment_1 = (Assignment)cGroup.eContents().get(1);
+		private final RuleCall cNameIDENTTerminalRuleCall_1_0 = (RuleCall)cNameAssignment_1.eContents().get(0);
+		private final Keyword cEqualsSignEqualsSignKeyword_2 = (Keyword)cGroup.eContents().get(2);
+		private final Assignment cTypeAssignment_3 = (Assignment)cGroup.eContents().get(3);
+		private final RuleCall cTypeTYPEParserRuleCall_3_0 = (RuleCall)cTypeAssignment_3.eContents().get(0);
+		private final Keyword cLeftParenthesisKeyword_4 = (Keyword)cGroup.eContents().get(4);
+		private final Assignment cValueAssignment_5 = (Assignment)cGroup.eContents().get(5);
+		private final RuleCall cValueLiteralParserRuleCall_5_0 = (RuleCall)cValueAssignment_5.eContents().get(0);
+		private final Keyword cRightParenthesisKeyword_6 = (Keyword)cGroup.eContents().get(6);
+		private final Assignment cEndAssignment_7 = (Assignment)cGroup.eContents().get(7);
+		private final RuleCall cEndENDParserRuleCall_7_0 = (RuleCall)cEndAssignment_7.eContents().get(0);
 		
 		/// *
 		//
@@ -567,53 +562,50 @@ public class ModuleDslGrammarAccess extends AbstractGrammarElementFinder {
 		//
 		// * / CST:
 		//
-		//	{CST} flow="cst" name=IDENT "==" type=TYPE "(" value=Literal ")" end=END;
+		//	flow="cst" name=IDENT "==" type=TYPE "(" value=Literal ")" end=END;
 		public ParserRule getRule() { return rule; }
 
-		//{CST} flow="cst" name=IDENT "==" type=TYPE "(" value=Literal ")" end=END
+		//flow="cst" name=IDENT "==" type=TYPE "(" value=Literal ")" end=END
 		public Group getGroup() { return cGroup; }
 
-		//{CST}
-		public Action getCSTAction_0() { return cCSTAction_0; }
-
 		//flow="cst"
-		public Assignment getFlowAssignment_1() { return cFlowAssignment_1; }
+		public Assignment getFlowAssignment_0() { return cFlowAssignment_0; }
 
 		//"cst"
-		public Keyword getFlowCstKeyword_1_0() { return cFlowCstKeyword_1_0; }
+		public Keyword getFlowCstKeyword_0_0() { return cFlowCstKeyword_0_0; }
 
 		//name=IDENT
-		public Assignment getNameAssignment_2() { return cNameAssignment_2; }
+		public Assignment getNameAssignment_1() { return cNameAssignment_1; }
 
 		//IDENT
-		public RuleCall getNameIDENTTerminalRuleCall_2_0() { return cNameIDENTTerminalRuleCall_2_0; }
+		public RuleCall getNameIDENTTerminalRuleCall_1_0() { return cNameIDENTTerminalRuleCall_1_0; }
 
 		//"=="
-		public Keyword getEqualsSignEqualsSignKeyword_3() { return cEqualsSignEqualsSignKeyword_3; }
+		public Keyword getEqualsSignEqualsSignKeyword_2() { return cEqualsSignEqualsSignKeyword_2; }
 
 		//type=TYPE
-		public Assignment getTypeAssignment_4() { return cTypeAssignment_4; }
+		public Assignment getTypeAssignment_3() { return cTypeAssignment_3; }
 
 		//TYPE
-		public RuleCall getTypeTYPEParserRuleCall_4_0() { return cTypeTYPEParserRuleCall_4_0; }
+		public RuleCall getTypeTYPEParserRuleCall_3_0() { return cTypeTYPEParserRuleCall_3_0; }
 
 		//"("
-		public Keyword getLeftParenthesisKeyword_5() { return cLeftParenthesisKeyword_5; }
+		public Keyword getLeftParenthesisKeyword_4() { return cLeftParenthesisKeyword_4; }
 
 		//value=Literal
-		public Assignment getValueAssignment_6() { return cValueAssignment_6; }
+		public Assignment getValueAssignment_5() { return cValueAssignment_5; }
 
 		//Literal
-		public RuleCall getValueLiteralParserRuleCall_6_0() { return cValueLiteralParserRuleCall_6_0; }
+		public RuleCall getValueLiteralParserRuleCall_5_0() { return cValueLiteralParserRuleCall_5_0; }
 
 		//")"
-		public Keyword getRightParenthesisKeyword_7() { return cRightParenthesisKeyword_7; }
+		public Keyword getRightParenthesisKeyword_6() { return cRightParenthesisKeyword_6; }
 
 		//end=END
-		public Assignment getEndAssignment_8() { return cEndAssignment_8; }
+		public Assignment getEndAssignment_7() { return cEndAssignment_7; }
 
 		//END
-		public RuleCall getEndENDParserRuleCall_8_0() { return cEndENDParserRuleCall_8_0; }
+		public RuleCall getEndENDParserRuleCall_7_0() { return cEndENDParserRuleCall_7_0; }
 	}
 
 	public class TYPEElements extends AbstractParserRuleElementFinder {
@@ -751,45 +743,49 @@ public class ModuleDslGrammarAccess extends AbstractGrammarElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "LSET");
 		private final Group cGroup = (Group)rule.eContents().get(1);
 		private final Keyword cLeftCurlyBracketKeyword_0 = (Keyword)cGroup.eContents().get(0);
-		private final Assignment cValueAssignment_1 = (Assignment)cGroup.eContents().get(1);
-		private final RuleCall cValueLiteralParserRuleCall_1_0 = (RuleCall)cValueAssignment_1.eContents().get(0);
-		private final Group cGroup_2 = (Group)cGroup.eContents().get(2);
-		private final Keyword cCommaKeyword_2_0 = (Keyword)cGroup_2.eContents().get(0);
-		private final Assignment cValueAssignment_2_1 = (Assignment)cGroup_2.eContents().get(1);
-		private final RuleCall cValueLiteralParserRuleCall_2_1_0 = (RuleCall)cValueAssignment_2_1.eContents().get(0);
-		private final Keyword cRightCurlyBracketKeyword_3 = (Keyword)cGroup.eContents().get(3);
+		private final Action cLSETAction_1 = (Action)cGroup.eContents().get(1);
+		private final Assignment cValueAssignment_2 = (Assignment)cGroup.eContents().get(2);
+		private final RuleCall cValueLiteralParserRuleCall_2_0 = (RuleCall)cValueAssignment_2.eContents().get(0);
+		private final Group cGroup_3 = (Group)cGroup.eContents().get(3);
+		private final Keyword cCommaKeyword_3_0 = (Keyword)cGroup_3.eContents().get(0);
+		private final Assignment cValueAssignment_3_1 = (Assignment)cGroup_3.eContents().get(1);
+		private final RuleCall cValueLiteralParserRuleCall_3_1_0 = (RuleCall)cValueAssignment_3_1.eContents().get(0);
+		private final Keyword cRightCurlyBracketKeyword_4 = (Keyword)cGroup.eContents().get(4);
 		
 		//LSET:
 		//
-		//	"{" value+=Literal ("," value+=Literal)* "}";
+		//	"{" {LSET} value+=Literal ("," value+=Literal)* "}";
 		public ParserRule getRule() { return rule; }
 
-		//"{" value+=Literal ("," value+=Literal)* "}"
+		//"{" {LSET} value+=Literal ("," value+=Literal)* "}"
 		public Group getGroup() { return cGroup; }
 
 		//"{"
 		public Keyword getLeftCurlyBracketKeyword_0() { return cLeftCurlyBracketKeyword_0; }
 
+		//{LSET}
+		public Action getLSETAction_1() { return cLSETAction_1; }
+
 		//value+=Literal
-		public Assignment getValueAssignment_1() { return cValueAssignment_1; }
+		public Assignment getValueAssignment_2() { return cValueAssignment_2; }
 
 		//Literal
-		public RuleCall getValueLiteralParserRuleCall_1_0() { return cValueLiteralParserRuleCall_1_0; }
+		public RuleCall getValueLiteralParserRuleCall_2_0() { return cValueLiteralParserRuleCall_2_0; }
 
 		//("," value+=Literal)*
-		public Group getGroup_2() { return cGroup_2; }
+		public Group getGroup_3() { return cGroup_3; }
 
 		//","
-		public Keyword getCommaKeyword_2_0() { return cCommaKeyword_2_0; }
+		public Keyword getCommaKeyword_3_0() { return cCommaKeyword_3_0; }
 
 		//value+=Literal
-		public Assignment getValueAssignment_2_1() { return cValueAssignment_2_1; }
+		public Assignment getValueAssignment_3_1() { return cValueAssignment_3_1; }
 
 		//Literal
-		public RuleCall getValueLiteralParserRuleCall_2_1_0() { return cValueLiteralParserRuleCall_2_1_0; }
+		public RuleCall getValueLiteralParserRuleCall_3_1_0() { return cValueLiteralParserRuleCall_3_1_0; }
 
 		//"}"
-		public Keyword getRightCurlyBracketKeyword_3() { return cRightCurlyBracketKeyword_3; }
+		public Keyword getRightCurlyBracketKeyword_4() { return cRightCurlyBracketKeyword_4; }
 	}
 
 	public class LiteralElements extends AbstractParserRuleElementFinder {
@@ -824,28 +820,20 @@ public class ModuleDslGrammarAccess extends AbstractGrammarElementFinder {
 		private final Assignment cValueAssignment_6_1 = (Assignment)cGroup_6.eContents().get(1);
 		private final RuleCall cValueHEXTerminalRuleCall_6_1_0 = (RuleCall)cValueAssignment_6_1.eContents().get(0);
 		private final Group cGroup_7 = (Group)cAlternatives.eContents().get(7);
-		private final Action cIdentLITERALAction_7_0 = (Action)cGroup_7.eContents().get(0);
+		private final Action cUnknowLITERALAction_7_0 = (Action)cGroup_7.eContents().get(0);
 		private final Assignment cValueAssignment_7_1 = (Assignment)cGroup_7.eContents().get(1);
-		private final RuleCall cValueIDENTTerminalRuleCall_7_1_0 = (RuleCall)cValueAssignment_7_1.eContents().get(0);
-		private final Group cGroup_8 = (Group)cAlternatives.eContents().get(8);
-		private final Action cUnknowLITERALAction_8_0 = (Action)cGroup_8.eContents().get(0);
-		private final Assignment cValueAssignment_8_1 = (Assignment)cGroup_8.eContents().get(1);
-		private final Keyword cValueQuestionMarkKeyword_8_1_0 = (Keyword)cValueAssignment_8_1.eContents().get(0);
+		private final Keyword cValueQuestionMarkKeyword_7_1_0 = (Keyword)cValueAssignment_7_1.eContents().get(0);
 		
 		//Literal:
 		//
 		//	{intLITERAL} value=INTEGER | {realLITERAL} value=DECIMAL | {boolLITERAL} value=BOOLEAN | {strLITERAL} value=STRING |
 		//
-		//	{enumLITERAL} value=ENUM_ELEMENT | {bitLITERAL} value=BIT | {hexLITERAL} value=HEX | {identLITERAL} value=IDENT |
-		//
-		//	{unknowLITERAL} value="?";
+		//	{enumLITERAL} value=ENUM_ELEMENT | {bitLITERAL} value=BIT | {hexLITERAL} value=HEX | {unknowLITERAL} value="?";
 		public ParserRule getRule() { return rule; }
 
 		//{intLITERAL} value=INTEGER | {realLITERAL} value=DECIMAL | {boolLITERAL} value=BOOLEAN | {strLITERAL} value=STRING |
 		//
-		//{enumLITERAL} value=ENUM_ELEMENT | {bitLITERAL} value=BIT | {hexLITERAL} value=HEX | {identLITERAL} value=IDENT |
-		//
-		//{unknowLITERAL} value="?"
+		//{enumLITERAL} value=ENUM_ELEMENT | {bitLITERAL} value=BIT | {hexLITERAL} value=HEX | {unknowLITERAL} value="?"
 		public Alternatives getAlternatives() { return cAlternatives; }
 
 		//{intLITERAL} value=INTEGER
@@ -932,29 +920,17 @@ public class ModuleDslGrammarAccess extends AbstractGrammarElementFinder {
 		//HEX
 		public RuleCall getValueHEXTerminalRuleCall_6_1_0() { return cValueHEXTerminalRuleCall_6_1_0; }
 
-		//{identLITERAL} value=IDENT
+		//{unknowLITERAL} value="?"
 		public Group getGroup_7() { return cGroup_7; }
 
-		//{identLITERAL}
-		public Action getIdentLITERALAction_7_0() { return cIdentLITERALAction_7_0; }
-
-		//value=IDENT
-		public Assignment getValueAssignment_7_1() { return cValueAssignment_7_1; }
-
-		//IDENT
-		public RuleCall getValueIDENTTerminalRuleCall_7_1_0() { return cValueIDENTTerminalRuleCall_7_1_0; }
-
-		//{unknowLITERAL} value="?"
-		public Group getGroup_8() { return cGroup_8; }
-
 		//{unknowLITERAL}
-		public Action getUnknowLITERALAction_8_0() { return cUnknowLITERALAction_8_0; }
+		public Action getUnknowLITERALAction_7_0() { return cUnknowLITERALAction_7_0; }
 
 		//value="?"
-		public Assignment getValueAssignment_8_1() { return cValueAssignment_8_1; }
+		public Assignment getValueAssignment_7_1() { return cValueAssignment_7_1; }
 
 		//"?"
-		public Keyword getValueQuestionMarkKeyword_8_1_0() { return cValueQuestionMarkKeyword_8_1_0; }
+		public Keyword getValueQuestionMarkKeyword_7_1_0() { return cValueQuestionMarkKeyword_7_1_0; }
 	}
 
 	public class INSTRUCTIONElements extends AbstractParserRuleElementFinder {
@@ -1112,50 +1088,58 @@ public class ModuleDslGrammarAccess extends AbstractGrammarElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "ERROR_INSTR");
 		private final Group cGroup = (Group)rule.eContents().get(1);
 		private final Keyword cErrorKeyword_0 = (Keyword)cGroup.eContents().get(0);
-		private final Assignment cEndAssignment_1 = (Assignment)cGroup.eContents().get(1);
-		private final RuleCall cEndENDParserRuleCall_1_0 = (RuleCall)cEndAssignment_1.eContents().get(0);
+		private final Action cERROR_INSTRAction_1 = (Action)cGroup.eContents().get(1);
+		private final Assignment cEndAssignment_2 = (Assignment)cGroup.eContents().get(2);
+		private final RuleCall cEndENDParserRuleCall_2_0 = (RuleCall)cEndAssignment_2.eContents().get(0);
 		
 		//ERROR_INSTR:
 		//
-		//	"error" end=END;
+		//	"error" {ERROR_INSTR} end=END;
 		public ParserRule getRule() { return rule; }
 
-		//"error" end=END
+		//"error" {ERROR_INSTR} end=END
 		public Group getGroup() { return cGroup; }
 
 		//"error"
 		public Keyword getErrorKeyword_0() { return cErrorKeyword_0; }
 
+		//{ERROR_INSTR}
+		public Action getERROR_INSTRAction_1() { return cERROR_INSTRAction_1; }
+
 		//end=END
-		public Assignment getEndAssignment_1() { return cEndAssignment_1; }
+		public Assignment getEndAssignment_2() { return cEndAssignment_2; }
 
 		//END
-		public RuleCall getEndENDParserRuleCall_1_0() { return cEndENDParserRuleCall_1_0; }
+		public RuleCall getEndENDParserRuleCall_2_0() { return cEndENDParserRuleCall_2_0; }
 	}
 
 	public class NULL_INSTRElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "NULL_INSTR");
 		private final Group cGroup = (Group)rule.eContents().get(1);
 		private final Keyword cNullKeyword_0 = (Keyword)cGroup.eContents().get(0);
-		private final Assignment cEndAssignment_1 = (Assignment)cGroup.eContents().get(1);
-		private final RuleCall cEndENDParserRuleCall_1_0 = (RuleCall)cEndAssignment_1.eContents().get(0);
+		private final Action cNULL_INSTRAction_1 = (Action)cGroup.eContents().get(1);
+		private final Assignment cEndAssignment_2 = (Assignment)cGroup.eContents().get(2);
+		private final RuleCall cEndENDParserRuleCall_2_0 = (RuleCall)cEndAssignment_2.eContents().get(0);
 		
 		//NULL_INSTR:
 		//
-		//	"null" end=END;
+		//	"null" {NULL_INSTR} end=END;
 		public ParserRule getRule() { return rule; }
 
-		//"null" end=END
+		//"null" {NULL_INSTR} end=END
 		public Group getGroup() { return cGroup; }
 
 		//"null"
 		public Keyword getNullKeyword_0() { return cNullKeyword_0; }
 
+		//{NULL_INSTR}
+		public Action getNULL_INSTRAction_1() { return cNULL_INSTRAction_1; }
+
 		//end=END
-		public Assignment getEndAssignment_1() { return cEndAssignment_1; }
+		public Assignment getEndAssignment_2() { return cEndAssignment_2; }
 
 		//END
-		public RuleCall getEndENDParserRuleCall_1_0() { return cEndENDParserRuleCall_1_0; }
+		public RuleCall getEndENDParserRuleCall_2_0() { return cEndENDParserRuleCall_2_0; }
 	}
 
 	public class ASSIGN_INSTRElements extends AbstractParserRuleElementFinder {
@@ -2048,7 +2032,7 @@ public class ModuleDslGrammarAccess extends AbstractGrammarElementFinder {
 	//
 	// * / VAR:
 	//
-	//	{VAR} flow=Flow name=IDENT ":" type=TYPE range=RANGE? end=END;
+	//	flow=Flow name=IDENT ":" type=TYPE range=RANGE? end=END;
 	public VARElements getVARAccess() {
 		return (pVAR != null) ? pVAR : (pVAR = new VARElements());
 	}
@@ -2074,7 +2058,7 @@ public class ModuleDslGrammarAccess extends AbstractGrammarElementFinder {
 	//
 	// * / CST:
 	//
-	//	{CST} flow="cst" name=IDENT "==" type=TYPE "(" value=Literal ")" end=END;
+	//	flow="cst" name=IDENT "==" type=TYPE "(" value=Literal ")" end=END;
 	public CSTElements getCSTAccess() {
 		return (pCST != null) ? pCST : (pCST = new CSTElements());
 	}
@@ -2118,7 +2102,7 @@ public class ModuleDslGrammarAccess extends AbstractGrammarElementFinder {
 
 	//LSET:
 	//
-	//	"{" value+=Literal ("," value+=Literal)* "}";
+	//	"{" {LSET} value+=Literal ("," value+=Literal)* "}";
 	public LSETElements getLSETAccess() {
 		return (pLSET != null) ? pLSET : (pLSET = new LSETElements());
 	}
@@ -2131,9 +2115,7 @@ public class ModuleDslGrammarAccess extends AbstractGrammarElementFinder {
 	//
 	//	{intLITERAL} value=INTEGER | {realLITERAL} value=DECIMAL | {boolLITERAL} value=BOOLEAN | {strLITERAL} value=STRING |
 	//
-	//	{enumLITERAL} value=ENUM_ELEMENT | {bitLITERAL} value=BIT | {hexLITERAL} value=HEX | {identLITERAL} value=IDENT |
-	//
-	//	{unknowLITERAL} value="?";
+	//	{enumLITERAL} value=ENUM_ELEMENT | {bitLITERAL} value=BIT | {hexLITERAL} value=HEX | {unknowLITERAL} value="?";
 	public LiteralElements getLiteralAccess() {
 		return (pLiteral != null) ? pLiteral : (pLiteral = new LiteralElements());
 	}
@@ -2181,7 +2163,7 @@ public class ModuleDslGrammarAccess extends AbstractGrammarElementFinder {
 
 	//ERROR_INSTR:
 	//
-	//	"error" end=END;
+	//	"error" {ERROR_INSTR} end=END;
 	public ERROR_INSTRElements getERROR_INSTRAccess() {
 		return (pERROR_INSTR != null) ? pERROR_INSTR : (pERROR_INSTR = new ERROR_INSTRElements());
 	}
@@ -2192,7 +2174,7 @@ public class ModuleDslGrammarAccess extends AbstractGrammarElementFinder {
 
 	//NULL_INSTR:
 	//
-	//	"null" end=END;
+	//	"null" {NULL_INSTR} end=END;
 	public NULL_INSTRElements getNULL_INSTRAccess() {
 		return (pNULL_INSTR != null) ? pNULL_INSTR : (pNULL_INSTR = new NULL_INSTRElements());
 	}

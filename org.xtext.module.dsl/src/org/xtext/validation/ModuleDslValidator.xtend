@@ -112,40 +112,6 @@ public static val INVALID_INPUT = 'invalidInput'
 	}
 	
 	@Check
-	def checkIntervalminMaxValues(INTERVAL interval){
-		
-		val mintype = interval?.min?.typeProvider
-		val maxtype = interval?.max?.typeProvider
-		
-		if ( mintype == maxtype){
-			
-			val commonType = mintype
-			
-			if (commonType == 'int'){
-				val minval = interval?.min as intLITERAL
-				val maxval = interval?.max as intLITERAL
-				if (minval.value >= maxval.value) {
-					error("Incorrect Interval declaration, low bound value can't be >= to upper bound value",
-						 ModuleDslPackage.Literals.INTERVAL__MIN)
-				}
-			}
-			
-			if (commonType == 'real'){
-				val minval = interval?.min as realLITERAL
-				val maxval = interval?.max as realLITERAL
-				if (minval.value >= maxval.value) {
-					error("Incorrect Interval declaration, lower bound value can't be >= to upper bound value",
-						 ModuleDslPackage.Literals.INTERVAL__MIN)
-				}
-			}
-			
-			////TODO Add other variables that allow Intervals: bit, hex
-			
-			
-		}
-	}
-	
-	@Check
  	def checkVarRange(RANGE range){
  		range.checkRange
  	}
@@ -170,12 +136,62 @@ public static val INVALID_INPUT = 'invalidInput'
 					if (typeVal == 'enum') {
 						error("Interval is not allowed for Enumeration types", null)
 					}
-					else{
+					else{ // vartype supports interval
+						 // TODO: check interval conformance
+						 
+						val min = interval.min?.typeProvider
+						val max = interval.max?.typeProvider
 						
-					}
+						if(min == null || max==null){
+							error("Incorrect interval type declaration",null)
+						}
+						else{
+							if (min != typeVal && min != 'neutral'){
+								error("The value must be of type " + typeVal, ModuleDslPackage.Literals.INTERVAL__MIN)
+							}
+							if (max != typeVal && max != 'neutral'){
+								error("The value must be of type " + typeVal, ModuleDslPackage.Literals.INTERVAL__MAX)
+							}
+						}
+								
+					}//else vartype supports interval
 				} 
 			}
 			
+		}
+		/////////////check min and max values of the interval if interval values are conform to the vartype 
+		checkIntervalminMaxValues(interval)
+	}
+	
+	def checkIntervalminMaxValues(INTERVAL interval){
+		
+		val mintype = interval?.min?.typeProvider
+		val maxtype = interval?.max?.typeProvider
+		
+		if ( mintype == maxtype && mintype !=null){
+			
+			val commonType = mintype
+			
+			if (commonType == 'int'){
+				val minval = interval?.min as intLITERAL
+				val maxval = interval?.max as intLITERAL
+				if (minval.value >= maxval.value) {
+					error("Incorrect interval type declaration: lower bound value must be less than upper bound value",
+						 ModuleDslPackage.Literals.INTERVAL__MIN)
+				}
+			}
+			else{
+				if (commonType == 'real'){
+					val minval = interval?.min as realLITERAL
+					val maxval = interval?.max as realLITERAL
+					if (minval.value >= maxval.value) {
+						error("Incorrect interval type declaration: lower bound value must be less than upper bound value",
+						 ModuleDslPackage.Literals.INTERVAL__MIN)
+					}
+				}
+			}
+			
+			////TODO Add other variables that allow Intervals: bit, hex	
 		}
 	}
 	
@@ -183,237 +199,86 @@ public static val INVALID_INPUT = 'invalidInput'
 		
 		val vartype = set.getContainerOfType(VAR).type
 		if(vartype == null){
-			return
+			return //no check
 		}
 		else{
 			if (vartype.type == 'bool'){
 				error("Set is not allowed for Boolean types", null)
 			}
+			else{//set supported by variable type
+				if(set.value.size == 0){
+					error("Incorrect set type declaration" + "",null)
+				}
+			}
 		}
 	}
 
-
 	@Check
-	def checkRangeLiteralType(Literal literal) {
-		
-		val vartype = literal.getContainerOfType(VAR)?.type.type
-		val literaltype = literal.typeProvider
-		
-		if (vartype != null && vartype != 'bool'){
-			checkLiteralInRange (literal, literaltype, vartype)
-		}		
-	}
-	
-	def dispatch checkLiteralInRange(intLITERAL literal, String literaltype, String vartype){
-		
-		if (literaltype != vartype) {
-			error("The value must be of type " + vartype + "!", 
-					ModuleDslPackage.Literals.INT_LITERAL__VALUE) //We can add some infos (for instance ""actual value is type xxx)
-		}
-	}
-	
-	def dispatch checkLiteralInRange(realLITERAL literal, String literaltype, String vartype){
-		
-		if (literaltype != vartype) {
-			error("The value must be of type " + vartype + "!", 
-					ModuleDslPackage.Literals.REAL_LITERAL__VALUE)
-		}
-	}
-	
-	def dispatch checkLiteralInRange(enumLITERAL literal, String literaltype, String vartype){
-		
-		if (literaltype != vartype) {
-			error("The value must be of type " + vartype + "!", 
-					ModuleDslPackage.Literals.ENUM_LITERAL__VALUE)
-		}
-	}
-	
-	def dispatch checkLiteralInRange(boolLITERAL literal, String literaltype, String vartype){
-		
-		if (literaltype != vartype) {
-			error("The value must be of type " + vartype + "!", 
-					ModuleDslPackage.Literals.BOOL_LITERAL__VALUE)
-		}
-	}
-	
-	def dispatch checkLiteralInRange(strLITERAL literal, String literaltype, String vartype){
-		
-		if (literaltype != vartype) {
-			error("The value must be of type " + vartype + "!", 
-					ModuleDslPackage.Literals.STR_LITERAL__VALUE)
-		}
-	}
-	
-	def dispatch checkLiteralInRange(bitLITERAL literal, String literaltype, String vartype){
-		
-		if (literaltype != vartype) {
-			error("The value must be of type " + vartype + "!", 
-					ModuleDslPackage.Literals.BIT_LITERAL__VALUE)
-		}
-	}
-	
-	def dispatch checkLiteralInRange(hexLITERAL literal, String literaltype, String vartype){
-		
-		if (literaltype != vartype) {
-			error("The value must be of type " + vartype + "!", 
-					ModuleDslPackage.Literals.HEX_LITERAL__VALUE)
-		}
-	}
-	
-	def dispatch checkLiteralInRange(identLITERAL literal, String literaltype, String vartype){
-		
-		if (literaltype != vartype) {
-			error("The value must be of type " + vartype + "!", 
-					ModuleDslPackage.Literals.IDENT_LITERAL__VALUE)
-		}
-	}
-	 
-	def dispatch checkLiteralInRange(unknowLITERAL literal, String literaltype, String vartype){
-		
-		val range = literal.getContainerOfType(RANGE)
-		if (range instanceof LSET) {
-			error("Unknow literal '?' connot be used as a Set Value", 
-					ModuleDslPackage.Literals.UNKNOW_LITERAL__VALUE)
-		}
-	}
-	
-	def String typeProvider(Literal literal) {
-		switch (literal){
-			intLITERAL: 'int'
-			realLITERAL: 'real'
-			boolLITERAL: 'bool'
-			strLITERAL: 'str'
-			enumLITERAL: 'enum'
-			bitLITERAL: 'bit'
-			hexLITERAL: 'hex'
-			identLITERAL: 'ident'
-			unknowLITERAL: 'neutral'
-		}
-	}
-	
-	/**
-	 * Verify that there is no duplicated literal in a Set  of literals,
-	 * Indeed, our concept of literal Set does not allow duplicated literals
-	 */
-	
-	@Check
-	def checkNoDuplicatedLiterals(Literal literal){
-		val vartype = literal.getContainerOfType(VAR)?.type.type
-		NoDupLiteralInSet(literal, vartype)
-	}
-	
-	def dispatch NoDupLiteralInSet(intLITERAL literal, String vartype){
-	//Check that there is no duplicated literals
-		val set = literal.getContainerOfType(LSET)
-		if (set != null){
-			val valList = set.value 
-			val diftype = valList.exists[ it.typeProvider != vartype ]
-			if (!diftype){
-				val dup = valList.findFirst[(it as intLITERAL  != literal) && ((it as intLITERAL).value == literal.value)]
-			    if (dup != null) {	
-					error("Elements of a Set must be distinct", 
-						ModuleDslPackage.Literals.INT_LITERAL__VALUE)
-				}	
+	def checkLiteralTypeInSET(Literal literal){
+		val variable = literal.getContainerOfType(VAR)
+		val literalSet = literal.getContainerOfType(LSET)
+		if(variable != null && literalSet != null){
+			//literal is contained in a variable and a set
+			val vartype = variable.type?.type
+			val literaltype = literal.typeProvider
+			if(vartype != null && vartype != 'bool' && vartype != literaltype){
+				//case literaltype == 'unknow is also handled here
+				error("The value must be of type " + vartype, null)
+			}
+			else{
+				//No error i.e literal type is conform to the variable type
+				//literal is contained in a set
+				if( (vartype != null) && (vartype==literaltype) && (vartype != 'bool') ){
+					//call this method only if litreal type is conform i.e w.r.t to variable type
+					checkNoDupliteralInSet(literal, literalSet)
+				}
 			}
 			
 		}
 	}
 	
-	def dispatch NoDupLiteralInSet(realLITERAL literal, String vartype){
-		//Check that there is no duplicated literals
-		val set = literal.getContainerOfType(LSET)
-		if (set != null){
-			val valList = set.value 
-			val diftype = valList.exists[ it.typeProvider != vartype ]
-			if (!diftype){
-				val dup = valList.findFirst[(it as realLITERAL  != literal) && ((it as realLITERAL).value == literal.value)]
-			    if (dup != null) {	
-					error("Elements of a Set must be distinct", 
-						ModuleDslPackage.Literals.REAL_LITERAL__VALUE)
-				}	
-			}	
+	def private checkNoDupliteralInSet(Literal literal, LSET set){
+		val listLiteral = set.value
+		val dup = listLiteral.findFirst[ (it != literal) && (it.valueProvider == literal.valueProvider) 
+														 && (it.typeProvider == literal.typeProvider) ]
+		//the add of condition (it.typeProvider == literal.typeProvider) ensures that 
+		//two literals are equal if they "toString" methods on theirs values match as well as they types
+		if (dup != null) {	
+			error("set's elements must be distinct", null)
 		}
 	}
 	
-	def dispatch NoDupLiteralInSet(bitLITERAL literal, String vartype){
-		//Check that there is no duplicated literals
-		val set = literal.getContainerOfType(LSET)
-		if (set != null){
-			val valList = set.value
-			val diftype = valList.exists[ it.typeProvider != vartype ]
-			if (!diftype){
-				val dup = valList.findFirst[(it as bitLITERAL  != literal) && ((it as bitLITERAL).value == literal.value)]
-			    if (dup != null) {	
-					error("Elements of a Set must be distinct", 
-						ModuleDslPackage.Literals.BIT_LITERAL__VALUE)
-				}	
-			}	
+	def private String valueProvider(Literal literal) {
+		switch (literal){
+			intLITERAL    : literal.value.toString
+			realLITERAL   : literal.value.toString
+			boolLITERAL   : literal.value.toString
+			strLITERAL    : literal.value.toString
+			enumLITERAL   : literal.value.toString
+			bitLITERAL    : literal.value.toString
+			hexLITERAL    : literal.value.toString
+			unknowLITERAL : literal.value.toString
 		}
 	}
 	
-	def dispatch NoDupLiteralInSet(hexLITERAL literal, String vartype){
-		//Check that there is no duplicated literals
-		val set = literal.getContainerOfType(LSET)
-		if (set != null){
-			val valList = set.value 
-			val diftype = valList.exists[ it.typeProvider != vartype ]
-			if (!diftype){
-				val dup = valList.findFirst[(it as hexLITERAL  != literal) && ((it as hexLITERAL).value == literal.value)]
-			    if (dup != null) {	
-					error("Elements of a Set must be distinct", 
-						ModuleDslPackage.Literals.HEX_LITERAL__VALUE)
-				}	
-			}	
+
+	def String typeProvider(Literal literal) {
+		switch (literal){
+			intLITERAL    : 'int'
+			realLITERAL   : 'real'
+			boolLITERAL   : 'bool'
+			strLITERAL    : 'str'
+			enumLITERAL   : 'enum'
+			bitLITERAL    : 'bit'
+			hexLITERAL    : 'hex'
+			unknowLITERAL : 'neutral'
 		}
 	}
 	
-	def dispatch NoDupLiteralInSet(enumLITERAL literal, String vartype){
-		//Check that there is no duplicated literals
-		val set = literal.getContainerOfType(LSET)
-		if (set != null){
-			val valList = set.value 
-			val diftype = valList.exists[ it.typeProvider != vartype ]
-			if (!diftype){
-				val dup = valList.findFirst[(it as enumLITERAL  != literal) && ((it as enumLITERAL).value == literal.value)]
-			    if (dup != null) {	
-					error("Elements of a Set must be distinct", 
-						ModuleDslPackage.Literals.ENUM_LITERAL__VALUE)
-				}	
-			}	
-		}
-	}
-	
-	def dispatch NoDupLiteralInSet(strLITERAL literal, String vartype){
-		//Check that there is no duplicated literals
-		val set = literal.getContainerOfType(LSET)
-		if (set != null){
-			val valList = set.value
-			val diftype = valList.exists[ it.typeProvider != vartype ]
-			if (!diftype){
-				val dup = valList.findFirst[(it as strLITERAL  != literal) && ((it as strLITERAL).value == literal.value)]
-			    if (dup != null) {	
-					error("Elements of a Set must be distinct", 
-						ModuleDslPackage.Literals.STR_LITERAL__VALUE)
-				}	
-			}	
-		}
-	}
-	
-	def dispatch NoDupLiteralInSet(boolLITERAL literal, String vartype){
-		return
-	}
-	
-	def dispatch NoDupLiteralInSet(identLITERAL literal, String vartype){
-		return
-	}
-	
-	def dispatch NoDupLiteralInSet(unknowLITERAL literal, String vartype){
-		return
-	}
 	
 	/**
 	 * verify that variable or constant declaration name is unique among
-	 * the all declared variables and constants
+	 * all those declared variables and constants
 	 */
 	 
 	@Check
@@ -426,9 +291,6 @@ public static val INVALID_INPUT = 'invalidInput'
 		}
 	}
 	
-	/**
-	 * 
-	 */
 	 
 	 @Check
 	 def checkConstDecl(CST const){
@@ -453,7 +315,7 @@ public static val INVALID_INPUT = 'invalidInput'
 						}
 						else { if(const.end.end==null) {
 									error("Syntax error,insert ';' to complete field declaration", ModuleDslPackage.Literals.VAR_CST__TYPE)
-								}
+							   }
 						}
 					}
 				}
