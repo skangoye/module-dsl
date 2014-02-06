@@ -14,6 +14,7 @@ import com.google.inject.Inject
 import org.eclipse.emf.ecore.EReference
 import java.util.List
 import java.util.ArrayList
+import org.xtext.mcdc.generator.MCDC
 
 /**
  * Custom validation rules. 
@@ -674,6 +675,13 @@ public static val INVALID_INPUT = 'invalidInput'
 	 			}
 	 		}
 	 	}
+	 }
+	 
+	 @Check
+	 def checkMcdc(IF_INSTR inst){
+	 	val mcdc = new MCDC()
+	 	System.out.println("resultat: ")
+	 	System.out.println(mcdc.mcdcList(inst.ifcond).toString)
 	 }
 	 	 
 }
