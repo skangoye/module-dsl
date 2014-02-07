@@ -686,9 +686,9 @@ public static val INVALID_INPUT = 'invalidInput'
 	 	System.out.println("[")
 	 	for (list: result) {
 	 		System.out.print("[")
-	 		for (couple: list){
+	 		for (triple: list){
 	 			i = i + 1
-	 			System.out.print("("+ couple.value.toString +", "+ couple.index+")")
+	 			System.out.print("("+ triple.value.toString +", "+ triple.index+ ", " + triple.position + ")")
 	 			if (list.size != i){
 	 				System.out.print(", ")
 	 			}

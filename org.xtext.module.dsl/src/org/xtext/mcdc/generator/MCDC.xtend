@@ -1,30 +1,29 @@
 package org.xtext.mcdc.generator
 import org.eclipse.emf.ecore.resource.Resource
-import org.xtext.helper.*;
 import org.xtext.moduleDsl.*
 import java.util.List
 import java.util.ArrayList
-import org.xtext.helper.Couple
+import org.xtext.helper.Triple
 
 class MCDC {
 	
-	def List<List<Couple>>mcdcList(EXPRESSION exp){
+	def List<List<Triple>>mcdcList(EXPRESSION exp){
 		
-		var resultList = new ArrayList<List<Couple>>
+		var resultList = new ArrayList<List<Triple>>
 		
 		if(exp instanceof AND){
-			var leftList = new ArrayList<Couple>
-		    var rightList = new ArrayList<Couple>
+			var leftList = new ArrayList<Triple>
+		    var rightList = new ArrayList<Triple>
 		
 			//Add T1, T2 and F3 to lesftList
-			leftList.add(new Couple('T',"1"))
-			leftList.add(new Couple('T',"2"))
-			leftList.add(new Couple('F',"3"))
+			leftList.add(new Triple('T', "1", "1"))
+			leftList.add(new Triple('T', "2", "1"))
+			leftList.add(new Triple('F', "3", "1"))
 			
 			//Add T1, F2 and T3 to righttList
-			rightList.add(new Couple('T',"1"))
-			rightList.add(new Couple('F',"2"))
-			rightList.add(new Couple('T',"3"))
+			rightList.add(new Triple('T', "1", "0"))
+			rightList.add(new Triple('F', "2", "0"))
+			rightList.add(new Triple('T', "3", "0"))
 			
 			val andExp = (exp as AND)
 			
@@ -35,18 +34,18 @@ class MCDC {
 		}
 		else{
 			if(exp instanceof OR){
-				var leftList = new ArrayList<Couple>
-				var rightList = new ArrayList<Couple>
+				var leftList = new ArrayList<Triple>
+				var rightList = new ArrayList<Triple>
 				
 				//Add T1, T2 and F3 to lesftList
-				leftList.add(new Couple('T',"1"))
-				leftList.add(new Couple('F',"2"))
-				leftList.add(new Couple('F',"3"))
+				leftList.add(new Triple('T', "1", "1"))
+				leftList.add(new Triple('F', "2", "1"))
+				leftList.add(new Triple('F', "3", "1"))
 				
 				//Add T1, F2 and T3 to righttList
-				rightList.add(new Couple('F',"1"))
-				rightList.add(new Couple('T',"2"))
-				rightList.add(new Couple('F',"3"))
+				rightList.add(new Triple('F', "1", "0"))
+				rightList.add(new Triple('T', "2", "0"))
+				rightList.add(new Triple('F', "3", "0"))
 				
 				val orExp = (exp as OR)
 				
@@ -63,9 +62,9 @@ class MCDC {
 				else{ 
 					if (exp instanceof EQUAL_DIFF || exp instanceof COMPARISON || exp instanceof VarExpRef){
 						
-						var list = new ArrayList<Couple>
-						list.add(new Couple('T',"1"))
-						list.add(new Couple('F',"2"))
+						var list = new ArrayList<Triple>
+						list.add(new Triple('T', "1", "-1"))
+						list.add(new Triple('F', "2", "-1"))
 						
 						resultList.add(list)
 					}
@@ -79,10 +78,10 @@ class MCDC {
 		return resultList
 	}
 	
-	def void enumMcdc(EXPRESSION exp, List<Couple> list, List<List<Couple>> result){
+	def void enumMcdc(EXPRESSION exp, List<Triple> list, List<List<Triple>> result){
 		if (exp instanceof AND){
-			var leftList = new ArrayList<Couple>
-			var rightList = new ArrayList<Couple>
+			var leftList = new ArrayList<Triple>
+			var rightList = new ArrayList<Triple>
 			
 			doAndEval(list, leftList, rightList)
 			
@@ -92,8 +91,8 @@ class MCDC {
 		}
 		else{
 			if (exp instanceof OR){
-				var leftList = new ArrayList<Couple>
-				var rightList = new ArrayList<Couple>
+				var leftList = new ArrayList<Triple>
+				var rightList = new ArrayList<Triple>
 				
 				doOrEval(list, leftList, rightList)
 				
@@ -103,7 +102,7 @@ class MCDC {
 			}
 			else{
 				if (exp instanceof NOT){
-					var notList = new ArrayList<Couple>
+					var notList = new ArrayList<Triple>
 					doNotEval(list, notList)
 					enumMcdc((exp as NOT).exp , notList, result)
 				}
@@ -120,20 +119,20 @@ class MCDC {
 	}
 	
 	
-	def void doAndEval(List<Couple> couples, List<Couple> left, List<Couple> right) {
+	def void doAndEval(List<Triple> triples, List<Triple> left, List<Triple> right) {
 		
 		//for each couple of the list do the following tests
-		for (c:couples){
-			if (c.value.toString == "T"){
-				left.add(new Couple('T', c.index + "1"))
-				right.add(new Couple('T', c.index + "1"))
+		for (t:triples){
+			if (t.value.toString == "T"){
+				left.add(new Triple('T', t.index + "1", t.position + "1" ))
+				right.add(new Triple('T', t.index + "1", t.position + "0"))
 			}
 			else {
-				if(c.value.toString == "F"){
-					left.add(new Couple('T', c.index + "1"))
-					right.add(new Couple('F', c.index + "1"))
-					left.add(new Couple('F', c.index + "2"))
-					right.add(new Couple('T', c.index + "2"))
+				if(t.value.toString == "F"){
+					left.add(new Triple('T', t.index + "1", t.position + "1" ))
+					right.add(new Triple('F', t.index + "1", t.position + "0"))
+					left.add(new Triple('F', t.index + "2", t.position + "1"))
+					right.add(new Triple('T', t.index + "2", t.position + "0"))
 				}
 				else{
 					throw new Exception("Illegal argument")
@@ -142,20 +141,20 @@ class MCDC {
 		}
 	}
 	
-	def void doOrEval(List<Couple> couples, List<Couple> left, List<Couple> right) {
+	def void doOrEval(List<Triple> triples, List<Triple> left, List<Triple> right) {
 		
 		//for each couple of the list do the following tests
-		for (c:couples){
-			if (c.value.toString == "F"){
-				left.add(new Couple('F', c.index + "1"))
-				right.add(new Couple('F', c.index + "1"))
+		for (t:triples){
+			if (t.value.toString == "F"){
+				left.add(new Triple('F', t.index + "1", t.position + "1"))
+				right.add(new Triple('F', t.index + "1", t.position + "0" ))
 			}
 			else {
-				if(c.value.toString == "T"){
-					left.add(new Couple('T', c.index + "1"))
-					right.add(new Couple('F', c.index + "1"))
-					left.add(new Couple('F', c.index + "2"))
-					right.add(new Couple('T', c.index + "2"))
+				if(t.value.toString == "T"){
+					left.add(new Triple('T', t.index + "1", t.position + "1"))
+					right.add(new Triple('F', t.index + "1", t.position + "0" ))
+					left.add(new Triple('F', t.index + "2", t.position + "1"))
+					right.add(new Triple('T', t.index + "2", t.position + "0" ))
 				}
 				else{
 					throw new Exception("Illegal argument")
@@ -164,14 +163,14 @@ class MCDC {
 		}
 	}
 	
-	def void doNotEval(List<Couple> couples, List<Couple> notlist) {
-		for (c:couples){
-			if (c.value.toString == "F"){
-				notlist.add(new Couple('T', c.index))
+	def void doNotEval(List<Triple> triples, List<Triple> notlist) {
+		for (t:triples){
+			if (t.value.toString == "F"){
+				notlist.add(new Triple('T', t.index, t.position))
 			}
 			else {
-				if(c.value.toString == "T"){
-					notlist.add(new Couple('F', c.index))
+				if(t.value.toString == "T"){
+					notlist.add(new Triple('F', t.index, t.position))
 				}
 				else{
 					throw new Exception("Illegal argument")
@@ -180,8 +179,8 @@ class MCDC {
 		}
 	}
 	
-	def void doEqCompVarEval(List<Couple> couples, List<List<Couple>>result) {
-		result.add(couples)
+	def void doEqCompVarEval(List<Triple> triples, List<List<Triple>>result) {
+		result.add(triples)
 	}
 	
 	
