@@ -679,9 +679,25 @@ public static val INVALID_INPUT = 'invalidInput'
 	 
 	 @Check
 	 def checkMcdc(IF_INSTR inst){
+	 	var i = 0
 	 	val mcdc = new MCDC()
 	 	System.out.println("resultat: ")
-	 	System.out.println(mcdc.mcdcList(inst.ifcond).toString)
+	 	val result = mcdc.mcdcList(inst.ifcond)
+	 	System.out.println("[")
+	 	for (list: result) {
+	 		System.out.print("[")
+	 		for (couple: list){
+	 			i = i + 1
+	 			System.out.print("("+ couple.value.toString +", "+ couple.index+")")
+	 			if (list.size != i){
+	 				System.out.print(", ")
+	 			}
+	 		}
+	 		i = 0
+	 		System.out.print("]")
+	 		System.out.println
+	 	}
+	 	System.out.println("]")
 	 }
 	 	 
 }

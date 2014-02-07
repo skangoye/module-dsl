@@ -13,7 +13,6 @@ class MCDC {
 		var resultList = new ArrayList<List<Couple>>
 		
 		if(exp instanceof AND){
-			System.out.println("AND")
 			var leftList = new ArrayList<Couple>
 		    var rightList = new ArrayList<Couple>
 		
@@ -23,9 +22,9 @@ class MCDC {
 			leftList.add(new Couple('F',"3"))
 			
 			//Add T1, F2 and T3 to righttList
-			leftList.add(new Couple('T',"1"))
-			leftList.add(new Couple('F',"2"))
-			leftList.add(new Couple('T',"3"))
+			rightList.add(new Couple('T',"1"))
+			rightList.add(new Couple('F',"2"))
+			rightList.add(new Couple('T',"3"))
 			
 			val andExp = (exp as AND)
 			
@@ -33,11 +32,9 @@ class MCDC {
 			enumMcdc(andExp.left, leftList, resultList)
 			enumMcdc(andExp.right, rightList, resultList)
 			
-		
 		}
 		else{
 			if(exp instanceof OR){
-				System.out.println("OR")
 				var leftList = new ArrayList<Couple>
 				var rightList = new ArrayList<Couple>
 				
@@ -47,9 +44,9 @@ class MCDC {
 				leftList.add(new Couple('F',"3"))
 				
 				//Add T1, F2 and T3 to righttList
-				leftList.add(new Couple('F',"1"))
-				leftList.add(new Couple('T',"2"))
-				leftList.add(new Couple('F',"3"))
+				rightList.add(new Couple('F',"1"))
+				rightList.add(new Couple('T',"2"))
+				rightList.add(new Couple('F',"3"))
 				
 				val orExp = (exp as OR)
 				
@@ -60,14 +57,13 @@ class MCDC {
 			else{
 				if( exp instanceof NOT){
 					val notExp = (exp as NOT)
-					//No need to define values for the first "not" exprression
+					//No need to define values for the first "not" expression
 					mcdcList(notExp.exp)
 				}
 				else{ 
 					if (exp instanceof EQUAL_DIFF || exp instanceof COMPARISON || exp instanceof VarExpRef){
 						
 						var list = new ArrayList<Couple>
-						System.out.println("VAR: ")
 						list.add(new Couple('T',"1"))
 						list.add(new Couple('F',"2"))
 						
@@ -85,11 +81,9 @@ class MCDC {
 	
 	def void enumMcdc(EXPRESSION exp, List<Couple> list, List<List<Couple>> result){
 		if (exp instanceof AND){
-			System.out.println("AND ")
 			var leftList = new ArrayList<Couple>
 			var rightList = new ArrayList<Couple>
 			
-			System.out.println(list.toString)
 			doAndEval(list, leftList, rightList)
 			
 			enumMcdc( (exp as AND).left , leftList, result )
@@ -98,11 +92,9 @@ class MCDC {
 		}
 		else{
 			if (exp instanceof OR){
-				System.out.println("OR")
 				var leftList = new ArrayList<Couple>
 				var rightList = new ArrayList<Couple>
 				
-				System.out.println(list.toString)
 				doOrEval(list, leftList, rightList)
 				
 				enumMcdc( (exp as OR).left , leftList, result )
@@ -117,7 +109,6 @@ class MCDC {
 				}
 				else {
 					if (exp instanceof EQUAL_DIFF || exp instanceof COMPARISON || exp instanceof VarExpRef){
-						System.out.println(list.toString)
 						doEqCompVarEval(list , result)
 					}
 					else{
@@ -133,58 +124,57 @@ class MCDC {
 		
 		//for each couple of the list do the following tests
 		for (c:couples){
-			if (c.value == 'T'){
+			if (c.value.toString == "T"){
 				left.add(new Couple('T', c.index + "1"))
 				right.add(new Couple('T', c.index + "1"))
 			}
 			else {
-				if(c.value == 'F'){
+				if(c.value.toString == "F"){
 					left.add(new Couple('T', c.index + "1"))
 					right.add(new Couple('F', c.index + "1"))
 					left.add(new Couple('F', c.index + "2"))
 					right.add(new Couple('T', c.index + "2"))
 				}
 				else{
-					//throw new Exception("Illegal argument")
+					throw new Exception("Illegal argument")
 				}
 			}
 		}
-		
 	}
 	
 	def void doOrEval(List<Couple> couples, List<Couple> left, List<Couple> right) {
 		
 		//for each couple of the list do the following tests
 		for (c:couples){
-			if (c.value == 'F'){
+			if (c.value.toString == "F"){
 				left.add(new Couple('F', c.index + "1"))
 				right.add(new Couple('F', c.index + "1"))
 			}
 			else {
-				if(c.value == 'T'){
+				if(c.value.toString == "T"){
 					left.add(new Couple('T', c.index + "1"))
 					right.add(new Couple('F', c.index + "1"))
 					left.add(new Couple('F', c.index + "2"))
 					right.add(new Couple('T', c.index + "2"))
 				}
 				else{
-					//throw new Exception("Illegal argument")
+					throw new Exception("Illegal argument")
 				}
-			}
+			} 
 		}
 	}
 	
 	def void doNotEval(List<Couple> couples, List<Couple> notlist) {
 		for (c:couples){
-			if (c.value == 'F'){
+			if (c.value.toString == "F"){
 				notlist.add(new Couple('T', c.index))
 			}
 			else {
-				if(c.value == 'T'){
+				if(c.value.toString == "T"){
 					notlist.add(new Couple('F', c.index))
 				}
 				else{
-					//throw new Exception("Illegal argument")
+					throw new Exception("Illegal argument")
 				}
 			}
 		}
@@ -192,7 +182,6 @@ class MCDC {
 	
 	def void doEqCompVarEval(List<Couple> couples, List<List<Couple>>result) {
 		result.add(couples)
-		System.out.println("VAR")
 	}
 	
 	
