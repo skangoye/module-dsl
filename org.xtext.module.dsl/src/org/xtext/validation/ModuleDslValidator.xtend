@@ -683,6 +683,8 @@ public static val INVALID_INPUT = 'invalidInput'
 	 	val mcdc = new MCDC()
 	 	System.out.println("resultat: ")
 	 	val result = mcdc.mcdcList(inst.ifcond)
+	 	var dup = result
+	 	
 	 	System.out.println("[")
 	 	for (list: result) {
 	 		System.out.print("[")
@@ -698,6 +700,18 @@ public static val INVALID_INPUT = 'invalidInput'
 	 		System.out.println
 	 	}
 	 	System.out.println("]")
+	 	
+	 	System.out.println("Merge results")
+	 	val res = mcdc.linkValues(dup)
+	 	System.out.print("[ ")
+		 for (t: res){
+			System.out.println( "(" + t.value + ", " + t.index + ", " 
+					            + t.position + ") ");
+		 }
+		 System.out.println("] ");
+		 System.out.print(res.size);
 	 }
+	 
+	 
 	 	 
 }

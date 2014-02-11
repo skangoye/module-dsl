@@ -183,5 +183,66 @@ class MCDC {
 		result.add(triples)
 	}
 	
+	def String deleteLast(String str){
+		val strSize = str.length
+		var myStr = ""
+		if(strSize > 0){
+			myStr = str.substring(0, strSize-1)
+		}
+		return myStr
+	}
+	
+	def String lastChar(String str){
+		val strSize = str.length
+		var myStr = ""
+		if (strSize > 0){
+		 	 myStr = str.charAt(strSize-1).toString
+		}
+		return myStr
+	}
+	
+	def List<Triple> merge(List<Triple> left, List<Triple> right){
+		val list = new ArrayList<Triple>
+		
+		for(t1: left){
+			var index = t1.index
+			var position = t1.position
+			for(t2:right){
+				if(index == t2.index){
+					list.add(new Triple(t1.value + t2.value, index.deleteLast, position.deleteLast) )
+				}
+			}
+		}
+		
+		return list
+	}
+	
+	
+	
+	def List<Triple> linkValues(List<List<Triple>> resultList){
+		var myList = resultList
+		if (myList.size == 0){
+			throw new Exception("List is empty") 
+		}
+		
+		var i = 0
+		do{
+			if(myList.size == 1){
+				return myList.get(0)
+			}
+			val tmpList = myList.get(i)
+			val delPosition = tmpList.get(0).position.deleteLast
+			val n1 = Integer.parseInt(tmpList.get(0).position.lastChar)
+			val cmp = myList.findFirst
+			[ it != tmpList && ((it.get(0).position.deleteLast)==(delPosition)) && (n1-Integer.parseInt(it.get(0).position.lastChar)) ==1 ]
+			if(cmp != null){
+				myList.set(i, merge(tmpList, cmp))
+				myList.remove(cmp)
+			}
+			System.out.println(myList.size)
+		} while ( (i=i+1) < myList.size )
+		
+		linkValues(myList)	
+	}
 	
 }//class
