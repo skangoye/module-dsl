@@ -7,14 +7,24 @@ import org.xtext.helper.Triple
 
 class MCDC {
 	
-	def List<List<Triple>>mcdcList(EXPRESSION exp){
-		
-		var resultList = new ArrayList<List<Triple>>
+	var notCount = 0
+	var firstOperator = ""
+	
+	def int notCount(){
+		return notCount
+	}
+	
+	def String firstOperator(){
+		return firstOperator
+	}
+	
+	def void mcdcList(EXPRESSION exp, List<List<Triple>> resultList){
 		
 		if(exp instanceof AND){
 			var leftList = new ArrayList<Triple>
 		    var rightList = new ArrayList<Triple>
-		
+			firstOperator = "and"
+			
 			//Add T1, T2 and F3 to lesftList
 			leftList.add(new Triple('T', "1", "1"))
 			leftList.add(new Triple('T', "2", "1"))
@@ -36,6 +46,7 @@ class MCDC {
 			if(exp instanceof OR){
 				var leftList = new ArrayList<Triple>
 				var rightList = new ArrayList<Triple>
+				firstOperator = "or"
 				
 				//Add T1, T2 and F3 to lesftList
 				leftList.add(new Triple('T', "1", "1"))
@@ -56,8 +67,9 @@ class MCDC {
 			else{
 				if( exp instanceof NOT){
 					val notExp = (exp as NOT)
+					notCount = notCount + 1
 					//No need to define values for the first "not" expression
-					mcdcList(notExp.exp)
+					mcdcList(notExp.exp, resultList)
 				}
 				else{ 
 					if (exp instanceof EQUAL_DIFF || exp instanceof COMPARISON || exp instanceof VarExpRef){
@@ -75,7 +87,7 @@ class MCDC {
 			}
 		}
 			
-		return resultList
+		//return resultList
 	}
 	
 	def void enumMcdc(EXPRESSION exp, List<Triple> list, List<List<Triple>> result){
@@ -192,6 +204,17 @@ class MCDC {
 		return myStr
 	}
 	
+	def String deleteIfSup1(String str){
+		val strSize = str.length
+		if(strSize == 1 || strSize == 0){
+			return str
+		}
+		else{
+			val myStr = str.substring(0, strSize-1)
+			return myStr
+		}
+	}
+	
 	def String lastChar(String str){
 		val strSize = str.length
 		var myStr = ""
@@ -209,7 +232,7 @@ class MCDC {
 			var position = t1.position
 			for(t2:right){
 				if(index == t2.index){
-					list.add(new Triple(t1.value + t2.value, index.deleteLast, position.deleteLast) )
+					list.add(new Triple(t1.value + t2.value, index.deleteIfSup1, position.deleteLast) )
 				}
 			}
 		}
@@ -239,10 +262,27 @@ class MCDC {
 				myList.set(i, merge(tmpList, cmp))
 				myList.remove(cmp)
 			}
-			System.out.println(myList.size)
+			System.out.println(myList.size)////
 		} while ( (i=i+1) < myList.size )
 		
 		linkValues(myList)	
+	}
+	
+	def printList( List<Triple> list){
+		System.out.print("[ ")
+		 for (t: list){
+			System.out.println( "(" + t.value + ", " + t.index + ", " 
+					            + t.position + ") ");
+		 }
+		 System.out.println("] ")
+	}
+	
+	def printListofList( List<List<Triple>> listOfList){
+		System.out.print("[ ")
+		 for (t: listOfList){
+			t.printList
+		 }
+		 System.out.println("] ")
 	}
 	
 }//class

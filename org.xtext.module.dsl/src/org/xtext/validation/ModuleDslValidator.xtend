@@ -15,6 +15,7 @@ import org.eclipse.emf.ecore.EReference
 import java.util.List
 import java.util.ArrayList
 import org.xtext.mcdc.generator.MCDC
+import org.xtext.helper.Triple
 
 /**
  * Custom validation rules. 
@@ -682,8 +683,8 @@ public static val INVALID_INPUT = 'invalidInput'
 	 	var i = 0
 	 	val mcdc = new MCDC()
 	 	System.out.println("resultat: ")
-	 	val result = mcdc.mcdcList(inst.ifcond)
-	 	var dup = result
+	 	var result = new ArrayList<List<Triple>>
+	 	mcdc.mcdcList(inst.ifcond, result)
 	 	
 	 	System.out.println("[")
 	 	for (list: result) {
@@ -700,14 +701,76 @@ public static val INVALID_INPUT = 'invalidInput'
 	 		System.out.println
 	 	}
 	 	System.out.println("]")
-	 	
+	 	var notCount = mcdc.notCount
+	 	var firstOperator = mcdc.firstOperator
+	 	var eval = ""
+	 	System.out.println("notCount value => " + mcdc.notCount.toString )
+	 	System.out.println("first Operator value => " + mcdc.firstOperator )
 	 	System.out.println("Merge results")
-	 	val res = mcdc.linkValues(dup)
+	 	val res = mcdc.linkValues(result)
+	 
 	 	System.out.print("[ ")
 		 for (t: res){
-			System.out.println( "(" + t.value + ", " + t.index + ", " 
-					            + t.position + ") ");
-		 }
+		 	if(notCount % 2 == 0 ){
+		 		if(firstOperator == "and"){
+		 			if( t.index == "1"){
+		 				eval = "T"
+		 			}
+		 			else {
+		 				if (t.index == "2" || t.index == "3"){
+		 					eval = "F"
+		 				}
+		 			}
+		 		}
+		 		else{
+		 			if(firstOperator == "or"){
+		 				if( t.index == "3"){
+		 					eval = "F"
+		 				}
+		 				else {
+		 					if (t.index == "1" || t.index == "2"){
+		 						eval = "T"
+		 					}
+		 				}
+		 			}
+		 			else{
+		 				////////
+		 			}
+		 		}
+		 	}//if notCount == 0
+		 	else{
+		 		//if(notCount %2 == 1){
+	 			if(firstOperator == "and"){
+		 			if( t.index == "1"){
+		 				eval = "F"
+		 			}
+		 			else {
+		 				if (t.index == "2" || t.index == "3"){
+		 					eval = "T"
+		 				}
+		 			}
+	 			}
+		 		else{
+		 			if(firstOperator == "or"){
+		 				if( t.index == "3"){
+		 					eval = "T"
+		 				}
+		 				else {
+		 					if (t.index == "1" || t.index == "2"){
+		 						eval = "F"
+		 					}
+		 				}
+		 			}// if first Operator
+		 			else{
+		 				////////
+		 			}
+		 		}
+		 		//}//notCount == 1	
+		 	}
+		 	
+			System.out.println( "(" + t.value + " => " + eval + ", " 
+					            + t.index + ") ");
+		 }//end for
 		 System.out.println("] ");
 		 System.out.print(res.size);
 	 }
