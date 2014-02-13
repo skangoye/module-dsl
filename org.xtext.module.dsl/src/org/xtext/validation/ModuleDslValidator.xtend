@@ -16,6 +16,7 @@ import java.util.List
 import java.util.ArrayList
 import org.xtext.mcdc.generator.MCDC
 import org.xtext.helper.Triple
+import org.xtext.helper.Couple
 
 /**
  * Custom validation rules. 
@@ -701,79 +702,64 @@ public static val INVALID_INPUT = 'invalidInput'
 	 		System.out.println
 	 	}
 	 	System.out.println("]")
-	 	var notCount = mcdc.notCount
-	 	var firstOperator = mcdc.firstOperator
-	 	var eval = ""
+	 	
 	 	System.out.println("notCount value => " + mcdc.notCount.toString )
 	 	System.out.println("first Operator value => " + mcdc.firstOperator )
 	 	System.out.println("Merge results")
 	 	val res = mcdc.linkValues(result)
+	 	val falseEval = new ArrayList<String>
+	 	val trueEval = new ArrayList<String>
 	 
-	 	System.out.print("[ ")
+	
 		 for (t: res){
-		 	if(notCount % 2 == 0 ){
-		 		if(firstOperator == "and"){
-		 			if( t.index == "1"){
-		 				eval = "T"
-		 			}
-		 			else {
-		 				if (t.index == "2" || t.index == "3"){
-		 					eval = "F"
-		 				}
-		 			}
-		 		}
-		 		else{
-		 			if(firstOperator == "or"){
-		 				if( t.index == "3"){
-		 					eval = "F"
-		 				}
-		 				else {
-		 					if (t.index == "1" || t.index == "2"){
-		 						eval = "T"
-		 					}
-		 				}
-		 			}
-		 			else{
-		 				////////
-		 			}
-		 		}
-		 	}//if notCount == 0
-		 	else{
-		 		//if(notCount %2 == 1){
-	 			if(firstOperator == "and"){
-		 			if( t.index == "1"){
-		 				eval = "F"
-		 			}
-		 			else {
-		 				if (t.index == "2" || t.index == "3"){
-		 					eval = "T"
-		 				}
-		 			}
-	 			}
-		 		else{
-		 			if(firstOperator == "or"){
-		 				if( t.index == "3"){
-		 					eval = "T"
-		 				}
-		 				else {
-		 					if (t.index == "1" || t.index == "2"){
-		 						eval = "F"
-		 					}
-		 				}
-		 			}// if first Operator
-		 			else{
-		 				////////
-		 			}
-		 		}
-		 		//}//notCount == 1	
-		 	}
+		 	val eval = mcdc.evalOperation(t)
 		 	
+		 	if(eval == "T"){
+		 		trueEval.add(t.value)
+		 	}
+		 	else{
+		 		if(eval == "F"){
+		 			falseEval.add(t.value)
+		 		}
+		 		else{
+		 			throw new Exception
+		 		}
+		 	}
 			System.out.println( "(" + t.value + " => " + eval + ", " 
 					            + t.index + ") ");
 		 }//end for
-		 System.out.println("] ");
-		 System.out.print(res.size);
-	 }
+		 
+		 System.out.println(trueEval.toString)
+		 System.out.println(falseEval.toString)
+		 System.out.println(res.size);
+		 
+		 val List<List<Couple>> list11 = new ArrayList<List<Couple>>();
+		 var cpt =0;
+		 val varSize =  trueEval.get(0).length
+		 do{
+			 list11.add(new ArrayList<Couple>())
+		 }while( (cpt=cpt+1) < varSize)
+		 
+		 
+		 for(f:falseEval){
+		 	
+		 	for(t:trueEval){
+		 		mcdc.addIndepVector(f,t, list11)
+		 	}
+	
+		 }
+		 
+		 for (elem:list11){
+		 	for(e:elem){
+		 		System.out.println("(" + e.first + ", " + e.second + ")")
+		 	}
+		 	System.out.println("*************")
+		 	
+		 }
+		
+		 
+		 
+	 }//method
 	 
 	 
 	 	 

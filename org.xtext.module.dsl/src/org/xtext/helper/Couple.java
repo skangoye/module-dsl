@@ -1,51 +1,27 @@
 package org.xtext.helper;
 
 public class Couple {
-	 private char value; //Value is either 'F'(False) or 'T'(True)
-	 private String index; // index of the value
+	 private String val1; 
+	 private String val2; 
 	 
-	 public Couple(char myValue, String myIndex) throws Exception{
-		 if (myValue == 'F' || myValue == 'T'){
-			 this.value = myValue;
-		 }
-		 else{
-			 throw new Exception("Invalid Value argument");
-		 }
-		 
-		// if(myIndex == ){
-			 this.index = myIndex;	
-		 //}
-		 
+	 public Couple(String myValue1, String myValue2){
+			 this.val1 = myValue1;
+			 this.val2 = myValue2;	
 	 }
 	 
-	 public char getValue(){
-		 return this.value;
+	 public String getFirst(){
+		 return this.val1;
 	 }
 	 
-	 public void setValue(char val){
-		 this.value = val;
+	 public void setFirst(String val){
+		 this.val1 = val;
 	 }
 	 	 
-	 public String getIndex(){
-		 return this.index;
+	 public String getSecond(){
+		 return this.val2;
 	 }
 	 
-	 public void setIndex(String index){
-		 this.index = index;
-	 }
-	 
-	 public void invertValue(){
-		 if (this.value == 'F'){
-			 this.value = 'T';
-		 }
-		 else{
-			 if (this.value == 'T'){
-				 this.value = 'F';
-			 }
-		 }
-	 }
-	 
-	 public void incrIndex(int i){
-		 this.index = index + new Integer(i).toString();
+	 public void setSecond(String val){
+		 this.val2 = val;
 	 }
 }

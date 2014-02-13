@@ -4,6 +4,8 @@ import org.xtext.moduleDsl.*
 import java.util.List
 import java.util.ArrayList
 import org.xtext.helper.Triple
+import java.util.Arrays
+import org.xtext.helper.Couple
 
 class MCDC {
 	
@@ -195,6 +197,51 @@ class MCDC {
 		result.add(triples)
 	}
 	
+	def addIndepVector(String str1, String str2, List<List<Couple>> list){
+		val a1 = str1.toCharArray
+		val a2 = str2.toCharArray
+		val size = str1.length
+		var a =  ""
+		var compatible = false
+		var index = -1
+		if(str1.length != str2.length || str1 == str2){
+			throw new Exception("Illegal arguments")
+		}
+		else{
+			
+			var i =0
+			do{	
+				if( a1.get(i) == a2.get(i) ){
+					a = a + "0"
+				}
+				else{
+					a = a + "1"
+				}
+				
+			}while( (i=i+1) < size)
+			
+			var j =0
+			var cnt = 0
+			var asize = a.length
+			//System.out.println(a)
+		
+			do{
+				if(a.charAt(j).toString() == "1"){
+					cnt = cnt + 1
+					index = j
+				}
+			} while((j=j+1) < asize)
+			
+			if(cnt == 1){
+				compatible = true;
+				//System.out.println(index)
+				list.get(index).add(new Couple(str1,str2))////
+			}
+	
+		}//else
+	}
+	
+	
 	def String deleteLast(String str){
 		val strSize = str.length
 		var myStr = ""
@@ -234,7 +281,7 @@ class MCDC {
 				if(index == t2.index){
 					list.add(new Triple(t1.value + t2.value, index.deleteIfSup1, position.deleteLast) )
 				}
-			}
+			}//for
 		}
 		
 		return list
@@ -284,5 +331,66 @@ class MCDC {
 		 }
 		 System.out.println("] ")
 	}
+	
+	def String evalOperation(Triple t){
+		
+		var eval = ""
+		if(notCount % 2 == 0 ){
+		 	if(firstOperator == "and"){
+	 			if( t.index == "1"){
+	 				eval = "T"
+	 			}
+	 			else {
+	 				if (t.index == "2" || t.index == "3"){
+	 					eval = "F"
+	 				}
+	 			}
+		 	}
+	 		else{
+	 			if(firstOperator == "or"){
+	 				if( t.index == "3"){
+	 					eval = "F"
+	 				}
+	 				else {
+	 					if (t.index == "1" || t.index == "2"){
+	 						eval = "T"
+	 					}
+	 				}
+	 			}
+	 			else{
+	 				////////
+	 			}
+	 		}
+		 }//if notCount == 0
+		 
+	 	else{
+	 		//if(notCount %2 == 1)
+ 			if(firstOperator == "and"){
+	 			if( t.index == "1"){
+	 				eval = "F"
+	 			}
+	 			else {
+	 				if (t.index == "2" || t.index == "3"){
+	 					eval = "T"
+	 				}
+	 			}
+ 			}
+	 		else{
+	 			if(firstOperator == "or"){
+	 				if( t.index == "3"){
+	 					eval = "T"
+	 				}
+	 				else {
+	 					if (t.index == "1" || t.index == "2"){
+	 						eval = "F"
+	 					}
+	 				}
+	 			}// if first Operator
+	 			else{
+	 				////////
+	 			}
+	 	   }
+	 	}//else
+	}//evalOperation
 	
 }//class
