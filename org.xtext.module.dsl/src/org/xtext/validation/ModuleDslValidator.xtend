@@ -17,6 +17,7 @@ import java.util.ArrayList
 import org.xtext.mcdc.generator.MCDC
 import org.xtext.helper.Triple
 import org.xtext.helper.Couple
+import org.xtext.mcdc.generator.MCDC_GEN
 
 /**
  * Custom validation rules. 
@@ -682,12 +683,32 @@ public static val INVALID_INPUT = 'invalidInput'
 	 @Check
 	 def checkMcdc(IF_INSTR inst){
 	 	var i = 0
-	 	val mcdc = new MCDC()
-	 	System.out.println("resultat: ")
-	 	var result = new ArrayList<List<Triple>>
-	 	mcdc.mcdcList(inst.ifcond, result)
+	 	//val mcdc = new MCDC()
+	 	val mcdc2 = new MCDC_GEN()
 	 	
-	 	System.out.println("[")
+	 	System.out.println("resultat: ")
+	 	//var result = new ArrayList<List<Triple>>
+	 	var result2 = new ArrayList<List<Couple<Couple<String, String>, Couple<String, String> >>>
+	 	
+	 	mcdc2.mcdcGen(inst.ifcond, result2 )
+	 	
+	 	for (list: result2) {
+	 		System.out.print("[")
+	 		for (couple: list){
+	 			i = i + 1
+	 			System.out.print("("+ couple.first.first +", "+ couple.first.second + ", " + couple.second.first + "," + couple.second.second + ")")
+	 			if (list.size != i){
+	 				System.out.print(", ")
+	 			}
+	 		}
+	 		i = 0
+	 		System.out.print("]")
+	 		System.out.println
+	 	}
+	 	
+	 //	mcdc.mcdcList(inst.ifcond, result)
+	 	
+/* 	 	/*System.out.println("[")
 	 	for (list: result) {
 	 		System.out.print("[")
 	 		for (triple: list){
@@ -701,43 +722,41 @@ public static val INVALID_INPUT = 'invalidInput'
 	 		System.out.print("]")
 	 		System.out.println
 	 	}
-	 	System.out.println("]")
+	 	System.out.println("]")*/
 	 	
-	 	System.out.println("notCount value => " + mcdc.notCount.toString )
+/*	 	System.out.println("notCount value => " + mcdc.notCount.toString )
 	 	System.out.println("first Operator value => " + mcdc.firstOperator )
 	 	System.out.println("Merge results")
 	 	val res = mcdc.linkValues(result)
-	 	val falseEval = new ArrayList<String>
-	 	val trueEval = new ArrayList<String>
-	 
-	
-		 for (t: res){
+	 	val falseEval = new ArrayList<Couple<String,Integer>>
+	 	val trueEval = new ArrayList<Couple<String,Integer>>
+		 
+		
+		 System.out.println(res.size);
+		 
+		  for (t: res){
 		 	val eval = mcdc.evalOperation(t)
 		 	
 		 	if(eval == "T"){
-		 		trueEval.add(t.value)
+		 		trueEval.add(new Couple<String, Integer>(t.value, 0) )
 		 	}
 		 	else{
 		 		if(eval == "F"){
-		 			falseEval.add(t.value)
+		 			falseEval.add(new Couple<String, Integer>(t.value, 0))
 		 		}
 		 		else{
 		 			throw new Exception
 		 		}
 		 	}
-			System.out.println( "(" + t.value + " => " + eval + ", " 
-					            + t.index + ") ");
+			//System.out.println( "(" + t.value + " => " + eval + ", " 
+					          //  + t.index + ") ");
 		 }//end for
 		 
-		 System.out.println(trueEval.toString)
-		 System.out.println(falseEval.toString)
-		 System.out.println(res.size);
-		 
-		 val List<List<Couple>> list11 = new ArrayList<List<Couple>>();
+		 val List<List<Couple<String,String>>> list11 = new ArrayList<List<Couple<String,String>>>();
 		 var cpt =0;
-		 val varSize =  trueEval.get(0).length
+		 val varSize =  trueEval.get(0).first.length
 		 do{
-			 list11.add(new ArrayList<Couple>())
+			 list11.add(new ArrayList<Couple<String,String>>())
 		 }while( (cpt=cpt+1) < varSize)
 		 
 		 
@@ -748,17 +767,33 @@ public static val INVALID_INPUT = 'invalidInput'
 		 	}
 	
 		 }
+		  
+		 System.out.println("xxxxxxxxxxxxxxxx")
 		 
-		 for (elem:list11){
+		 for(tr:trueEval){
+		 	System.out.println( "(" + tr.first  + ", " 
+					            + tr.second + ") ")
+		 }
+		  System.out.println("xxxxxxxxxxxxxxxx")
+		 for(tr:falseEval){
+		 	System.out.println( "(" + tr.first  + ", " 
+					            + tr.second + ") ")
+		 }
+		 
+		 System.out.println("xxxxxxxxxxxxxxxx")
+		 
+	
+		  for (elem:list11){
 		 	for(e:elem){
 		 		System.out.println("(" + e.first + ", " + e.second + ")")
 		 	}
+		 	
+		 	System.out.println(elem.size)
 		 	System.out.println("*************")
 		 	
 		 }
-		
-		 
-		 
+		 System.out.println("Coucou")
+		 System.out.println(trueEval.size + falseEval.size)	 */
 	 }//method
 	 
 	 

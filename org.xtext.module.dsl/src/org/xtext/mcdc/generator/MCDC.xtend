@@ -197,14 +197,17 @@ class MCDC {
 		result.add(triples)
 	}
 	
-	def addIndepVector(String str1, String str2, List<List<Couple>> list){
-		val a1 = str1.toCharArray
-		val a2 = str2.toCharArray
-		val size = str1.length
+	def addIndepVector(Couple<String,Integer> cp1, Couple<String,Integer> cp2, List<List<Couple<String,String>>> list){
+		
+		val a1 = cp1.first.toCharArray
+		val a2 = cp2.first.toCharArray
+		val size = cp1.first.length
+		val val1 = cp1.second.intValue
+		val val2 = cp2.second.intValue
 		var a =  ""
 		var compatible = false
 		var index = -1
-		if(str1.length != str2.length || str1 == str2){
+		if( cp1.first.length !=  cp2.first.length ||  cp1.first ==  cp2.first){
 			throw new Exception("Illegal arguments")
 		}
 		else{
@@ -233,9 +236,14 @@ class MCDC {
 			} while((j=j+1) < asize)
 			
 			if(cnt == 1){
+				//str1 at cp1 first param compatible with str2 at cp2 first param
 				compatible = true;
+				
+				cp1.setSecond(val1 + 1)
+				cp2.setSecond(val2 + 1)
+			
 				//System.out.println(index)
-				list.get(index).add(new Couple(str1,str2))////
+				list.get(index).add(new Couple<String, String>(cp1.first, cp2.first))////
 			}
 	
 		}//else
@@ -309,7 +317,7 @@ class MCDC {
 				myList.set(i, merge(tmpList, cmp))
 				myList.remove(cmp)
 			}
-			System.out.println(myList.size)////
+			//System.out.println(myList.size)////
 		} while ( (i=i+1) < myList.size )
 		
 		linkValues(myList)	
@@ -358,7 +366,7 @@ class MCDC {
 	 				}
 	 			}
 	 			else{
-	 				////////
+	 				eval = t.value///
 	 			}
 	 		}
 		 }//if notCount == 0
@@ -387,7 +395,12 @@ class MCDC {
 	 				}
 	 			}// if first Operator
 	 			else{
-	 				////////
+	 				if(t.value == "F"){
+	 					 eval = "T"
+	 				}
+	 				else{
+	 					eval = "F"
+	 				}  
 	 			}
 	 	   }
 	 	}//else
