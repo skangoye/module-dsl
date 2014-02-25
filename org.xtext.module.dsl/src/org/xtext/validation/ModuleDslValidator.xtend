@@ -696,7 +696,7 @@ public static val INVALID_INPUT = 'invalidInput'
 	 		System.out.print("[")
 	 		for (couple: list){
 	 			i = i + 1
-	 			System.out.print("("+ couple.first.first +", "+ couple.first.second + ", " + couple.second.first + "," + couple.second.second + ")")
+	 			System.out.print("("+ couple.first.first +", "+ couple.first.second + ", " + couple.second.first + ", " + couple.second.second + ")")
 	 			if (list.size != i){
 	 				System.out.print(", ")
 	 			}
@@ -706,6 +706,20 @@ public static val INVALID_INPUT = 'invalidInput'
 	 		System.out.println
 	 	}
 	 	
+	 	
+	 	System.out.println("xxxxxxxxxxxxx")
+	 	val link = mcdc2.linkValues(result2)
+	 	
+	 	for (c: link) {
+	 		System.out.print("[")
+	 		
+	 			System.out.print("("+ c.first.first +", "+ c.first.second + ", " + c.second.first + ", " + c.second.second + ")")
+	 		
+	 		System.out.print("]")
+	 		System.out.println
+	 	}
+	 	
+
 	 //	mcdc.mcdcList(inst.ifcond, result)
 	 	
 /* 	 	/*System.out.println("[")
@@ -719,7 +733,7 @@ public static val INVALID_INPUT = 'invalidInput'
 	 			}
 	 		}
 	 		i = 0
-	 		System.out.print("]")
+	 		System.out.print("]") 
 	 		System.out.println
 	 	}
 	 	System.out.println("]")*/

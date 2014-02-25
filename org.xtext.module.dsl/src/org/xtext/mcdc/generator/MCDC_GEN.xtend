@@ -19,7 +19,10 @@ class MCDC_GEN {
 	def String firstOperator(){
 		return firstOperator
 	}
-
+	
+	/**
+	 * 
+	 */
 	def void mcdcGen(EXPRESSION exp, List<List<Couple< Couple<String, String>, Couple<String, String> >>> resultList){
 		
 		if(exp instanceof AND){
@@ -81,6 +84,9 @@ class MCDC_GEN {
 		}
 	}
 	
+	/**
+	 * 
+	 */
 	def void enumMcdc(EXPRESSION exp, Couple<Couple<String,String>,Couple<String,String>> couple, List<List<Couple< Couple<String, String>, Couple<String, String> >>> result) {
 			
 		if (exp instanceof AND){
@@ -139,6 +145,199 @@ class MCDC_GEN {
 			}
 			
 		}
+	}//enumMcdc
+	
+	/**
+	 * 
+	 */
+	def List<Couple< Couple<String, String>, Couple<String, String> >> linkValues (List<List<Couple< Couple<String, String>, Couple<String, String> >>> resultList){
+		var myList = resultList
+		if (myList.size == 0){
+			throw new Exception("List is empty") 
+		}
+		
+		var i = 0
+		do{
+			if(myList.size == 1){
+				return myList.get(0)
+			}
+			
+			val tmpList = myList.get(i)
+			val position = tmpList.get(0).second.first
+			val parentPosition = position.deleteLastChar
+			val toInt = Integer.parseInt(position.getLastChar)
+			
+			val cmp = myList.findFirst
+			[ it != tmpList && ((it.get(0).second.first.deleteLastChar)==(parentPosition)) 
+			 && (toInt - Integer.parseInt(it.get(0).second.first.getLastChar)) ==1]
+			
+			if(cmp != null){
+				//they are siblings
+				myList.set(i, mergeResults(tmpList, cmp))
+				myList.remove(cmp)
+				System.out.println(myList.size)
+			}	
+			
+		} while ((i=i+1) < myList.size)
+		
+		linkValues(myList)
 	}
-
+	
+	/**
+	 * 
+	 */
+	def List<Couple<Couple<String,String>,Couple<String,String>>> mergeResults(List<Couple<Couple<String,String>,Couple<String,String>>> left, List<Couple<Couple<String,String>,Couple<String,String>>> right) {
+		
+		var list1 = left
+		var list2 = right
+		val list = new ArrayList< Couple< Couple<String, String>, Couple<String, String> > >
+		
+		var list1NextParent = list1.get(0).second.second.charAt(0)
+		
+		while(list1NextParent.toString == "n"){
+			list1 = invertValues(list1)
+			list1NextParent = list1.get(0).second.second.charAt(0)
+			System.out.println("I am stuck here, left")
+		}
+		
+		var list2NextParent = list2.get(0).second.second.charAt(0)
+		while(list2NextParent.toString == "n"){
+			list2 = invertValues(list2)
+			list2NextParent = list2.get(0).second.second.charAt(0)
+			System.out.println("I am stuck here, right")
+		}
+		
+		for(c1: list1){
+			
+			var nextParent1 = c1.second.second.charAt(0).toString
+			
+			for(c2:list2){
+				
+				var nextParent2 = c2.second.second.charAt(0).toString
+				
+				System.out.println("par1 " + nextParent1)
+				System.out.println("par2 " + nextParent2)
+				
+				if(nextParent1 == nextParent2){
+					if(nextParent1 == "a"){
+						andPolicy(c1,c2,list)
+					}
+					else{
+						if(nextParent1 == "o"){
+							orPolycy(c1,c2,list)
+						}
+						else{
+							throw new Exception("Unknown Parent")
+						}
+					}
+				}
+				else {
+					throw new Exception("Parent mismatch") 	
+				}
+			
+			}//for
+		
+		}//for
+		
+		return list
+	}
+	
+	/**
+	 * This method
+	 */
+	def void andPolicy(Couple<Couple<String,String>,Couple<String,String>> c1, Couple<Couple<String,String>,Couple<String,String>> c2, ArrayList<Couple<Couple<String,String>,Couple<String,String>>> list) {
+		val res1 = c1.first.second
+		val res2 = c2.first.second
+		if( (res1 == "T" && res2 == "F") || (res1 == "F" && res2 == "T") ){
+			list.add( new Couple( new Couple(c1.first.first + c2.first.first,"F"), 
+								  new Couple(c1.second.first.deleteFisrtChar,c1.second.second.deleteFisrtChar)) )
+		}
+		else{
+			if(res1 == "T" && res2 == "T"){
+				list.add(new Couple( new Couple(c1.first.first + c2.first.first,"T"), 
+						new Couple(c1.second.first.deleteFisrtChar,c1.second.second.deleteFisrtChar)))
+			}
+		}
+	}
+	
+	/**
+	 * 
+	 */
+	def void orPolycy(Couple<Couple<String,String>,Couple<String,String>> c1, Couple<Couple<String,String>,Couple<String,String>> c2, ArrayList<Couple<Couple<String,String>,Couple<String,String>>> list) {
+		val res1 = c1.first.second
+		val res2 = c2.first.second
+		if( (res1 == "T" && res2 == "F") || (res1 == "F" && res2 == "T") ){
+			list.add( new Couple( new Couple(c1.first.first + c2.first.first,"T"), 
+								  new Couple(c1.second.first.deleteFisrtChar,c1.second.second.deleteFisrtChar)) )
+		}
+		else{
+			if(res1 == "F" && res2 == "F"){
+				list.add(new Couple( new Couple(c1.first.first + c2.first.first,"F"), 
+						new Couple(c1.second.first.deleteFisrtChar,c1.second.second.deleteFisrtChar)))
+			}
+		}
+	}
+	
+	/**
+	 * 
+	 */
+	def List<Couple<Couple<String,String>,Couple<String,String>>> invertValues(List<Couple<Couple<String,String>,Couple<String,String>>> list) {
+		var tmp = list
+		for(c: tmp){
+			var parent = c.second.second
+			if( c.first.second == "F"){
+				c.first.setSecond("T")
+				c.second.setSecond(parent.deleteFisrtChar)
+			}
+			else{
+				if( c.first.second == "T"){
+					c.first.setSecond("F")
+					c.second.setSecond(parent.deleteFisrtChar)
+				}
+				else{
+					throw new Exception ("Illegal Boolean value")
+				}
+			}
+		}//for
+		
+		return tmp
+	}
+	
+	/**
+	 * delete the last string's character and returns a new string 
+	 */
+	def String deleteLastChar(String str){
+		val strSize = str.length
+		var myStr = ""
+		if(strSize > 0){
+			myStr = str.substring(0, strSize-1)
+		}
+		return myStr
+	}
+	
+	/**
+	 * delete the first string's character and returns a new string 
+	 */
+	def String deleteFisrtChar(String str){
+		val strSize = str.length
+		var myStr = ""
+		if(strSize > 0){
+			myStr = str.substring(1)
+		}
+		return myStr
+	}
+	
+	/**
+	 * returns the last character of the string
+	 */
+	def String getLastChar(String str){
+		val strSize = str.length
+		var myStr = ""
+		if (strSize > 0){
+		 	 myStr = str.charAt(strSize-1).toString
+		}
+		return myStr
+	}
+	
+	
 }//class
