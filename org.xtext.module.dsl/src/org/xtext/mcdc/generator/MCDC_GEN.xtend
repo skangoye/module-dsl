@@ -250,12 +250,12 @@ class MCDC_GEN {
 		val res2 = c2.first.second
 		if( (res1 == "T" && res2 == "F") || (res1 == "F" && res2 == "T") ){
 			list.add( new Couple( new Couple(c1.first.first + c2.first.first,"F"), 
-								  new Couple(c1.second.first.deleteFisrtChar,c1.second.second.deleteFisrtChar)) )
+								  new Couple(c1.second.first.deleteLastChar,c1.second.second.deleteFisrtChar)) )
 		}
 		else{
 			if(res1 == "T" && res2 == "T"){
 				list.add(new Couple( new Couple(c1.first.first + c2.first.first,"T"), 
-						new Couple(c1.second.first.deleteFisrtChar,c1.second.second.deleteFisrtChar)))
+						new Couple(c1.second.first.deleteLastChar,c1.second.second.deleteFisrtChar)))
 			}
 		}
 	}
@@ -268,12 +268,12 @@ class MCDC_GEN {
 		val res2 = c2.first.second
 		if( (res1 == "T" && res2 == "F") || (res1 == "F" && res2 == "T") ){
 			list.add( new Couple( new Couple(c1.first.first + c2.first.first,"T"), 
-								  new Couple(c1.second.first.deleteFisrtChar,c1.second.second.deleteFisrtChar)) )
+								  new Couple(c1.second.first.deleteLastChar,c1.second.second.deleteFisrtChar)) )
 		}
 		else{
 			if(res1 == "F" && res2 == "F"){
 				list.add(new Couple( new Couple(c1.first.first + c2.first.first,"F"), 
-						new Couple(c1.second.first.deleteFisrtChar,c1.second.second.deleteFisrtChar)))
+						new Couple(c1.second.first.deleteLastChar,c1.second.second.deleteFisrtChar)))
 			}
 		}
 	}
