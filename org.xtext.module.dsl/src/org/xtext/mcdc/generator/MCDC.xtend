@@ -213,7 +213,7 @@ class MCDC {
 		else{
 			
 			var i =0
-			do{	
+			do{	 
 				if( a1.get(i) == a2.get(i) ){
 					a = a + "0"
 				}

@@ -65,14 +65,8 @@ class MCDC_GEN {
 						
 						var list = new ArrayList< Couple< Couple<String, String>, Couple<String, String> > >
 						
-						if (notCount % 2 == 0){
 							list.add(new Couple(new Couple("F","F"), new Couple("","")))
-							list.add(new Couple(new Couple("T","F"), new Couple("","")))
-						}
-						else{//notCount % 2 == 1
-							list.add(new Couple(new Couple("F","T"), new Couple("","")))
 							list.add(new Couple(new Couple("T","T"), new Couple("","")))
-						}
 						
 						resultList.add(list)
 					}
@@ -159,7 +153,14 @@ class MCDC_GEN {
 		var i = 0
 		do{
 			if(myList.size == 1){
-				return myList.get(0)
+
+				if (notCount % 2 == 0){
+					return myList.get(0)		
+				}
+				else{
+					return myList.get(0).invertValues()
+				}
+				
 			}
 			
 			val tmpList = myList.get(i)
@@ -207,6 +208,9 @@ class MCDC_GEN {
 			System.out.println("I am stuck here, right")
 		}
 		
+		///A implementer
+		optimMerge(list1, list2, list1NextParent.toString , list2NextParent.toString)
+		
 		for(c1: list1){
 			
 			var nextParent1 = c1.second.second.charAt(0).toString
@@ -241,6 +245,91 @@ class MCDC_GEN {
 		
 		return list
 	}
+	
+	def optimMerge(List<Couple<Couple<String,String>,Couple<String,String>>> l1, List<Couple<Couple<String,String>,Couple<String,String>>> l2, String p1, String p2) {
+		
+		var leftTrue = l1.filter[it.first.second == "T"]
+		var leftFalse = l1.filter[it.first.second == "F"]
+		var leftCouple = new ArrayList<Couple<String, String>>
+		
+		for(i: leftFalse){
+			for(j: leftTrue){
+				if(independantPairs(i.first.first, j.first.first)){
+					leftCouple.add(new Couple (i.first.first, j.first.first))
+				}
+			}
+		}
+		
+		var rightTrue = l2.filter[it.first.second == "T"]
+		var rightFalse = l2.filter[it.first.second == "F"]
+		var rightCouple = new ArrayList<Couple<String, String>>
+		
+		for(ii: rightFalse){
+			for(jj: rightTrue){
+				if(independantPairs(ii.first.first, jj.first.first)){
+					rightCouple.add(new Couple (ii.first.first, jj.first.first))
+				}
+			}
+		}
+		
+		if(p1 != p2){
+			throw new Exception("Parent mismatch")
+		}
+		else{
+			
+		}
+	}
+	
+	/**
+	 * Checks whether or not, two string sequences form an independent pair
+	 */
+	def boolean independantPairs(String str1, String str2) {
+		
+		val a1 = str1.toCharArray
+		val a2 = str2.toCharArray
+		val size = str1.length
+		
+		var a =  ""
+		var compatible = false
+		var index = -1
+		
+		if(str1 == str2){
+			throw new Exception("Illegal arguments")
+		}
+		else{
+			
+			var i =0
+			do{	 
+				if( a1.get(i) == a2.get(i) ){
+					a = a + "0"
+				}
+				else{
+					a = a + "1"
+				}
+				
+			}while( (i=i+1) < size)
+			
+			var j =0
+			var cnt = 0
+			var asize = a.length
+			//System.out.println(a)
+		
+			do{
+				if(a.charAt(j).toString() == "1"){
+					cnt = cnt + 1
+					index = j
+				}
+			} while((j=j+1) < asize)
+			
+			if(cnt == 1){
+				//str1 at cp1 first param compatible with str2 at cp2 first param
+				compatible = true;
+			}
+	
+		}//else
+		return compatible
+	}
+	
 	
 	/**
 	 * This method
