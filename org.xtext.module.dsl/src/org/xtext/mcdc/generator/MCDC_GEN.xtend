@@ -6,6 +6,8 @@ import org.xtext.helper.Triple
 import java.util.List
 import org.xtext.helper.Couple
 import org.xtext.moduleDsl.EXPRESSION
+import java.util.Set
+import java.util.TreeSet
 
 class MCDC_GEN {
 	
@@ -191,7 +193,6 @@ class MCDC_GEN {
 		
 		var list1 = left
 		var list2 = right
-		val list = new ArrayList< Couple< Couple<String, String>, Couple<String, String> > >
 		
 		var list1NextParent = list1.get(0).second.second.charAt(0)
 		
@@ -208,9 +209,13 @@ class MCDC_GEN {
 			System.out.println("I am stuck here, right")
 		}
 		
+		val position = list1.get(0).second.first.deleteLastChar
+		val parent = list1.get(0).second.second.deleteFisrtChar
 		///A implementer
-		optimMerge(list1, list2, list1NextParent.toString , list2NextParent.toString)
+		 val res = optimMerge(list1, list2, list1NextParent.toString , list2NextParent.toString, position, parent)
+		 return res
 		
+		/* 
 		for(c1: list1){
 			
 			var nextParent1 = c1.second.second.charAt(0).toString
@@ -241,16 +246,17 @@ class MCDC_GEN {
 			
 			}//for
 		
-		}//for
+		}//for*/
 		
-		return list
+		//return list
 	}
 	
-	def optimMerge(List<Couple<Couple<String,String>,Couple<String,String>>> l1, List<Couple<Couple<String,String>,Couple<String,String>>> l2, String p1, String p2) {
+	def optimMerge(List<Couple<Couple<String,String>,Couple<String,String>>> l1, List<Couple<Couple<String,String>,Couple<String,String>>> l2, String p1, String p2, String position, String parent) {
 		
 		var leftTrue = l1.filter[it.first.second == "T"]
 		var leftFalse = l1.filter[it.first.second == "F"]
 		var leftCouple = new ArrayList<Couple<String, String>>
+		val resultList = new ArrayList< Couple< Couple<String, String>, Couple<String, String> > >
 		
 		for(i: leftFalse){
 			for(j: leftTrue){
@@ -272,12 +278,62 @@ class MCDC_GEN {
 			}
 		}
 		
+		val setWithTrue = new TreeSet<String>
+		val setWithFalse = new TreeSet<String>
+		
 		if(p1 != p2){
 			throw new Exception("Parent mismatch")
 		}
 		else{
+			compute(leftCouple, rightCouple, setWithFalse, setWithTrue, p1)
 			
+			for(st: setWithTrue){
+				resultList.add(new Couple (new Couple(st ,"T"), new Couple(position, parent)))
+			}
+			
+			for(sf: setWithFalse){
+				resultList.add(new Couple (new Couple(sf ,"F"), new Couple(position, parent)))
+			}
+			
+		}//else
+		
+		return resultList
+	}
+	
+	def void compute(ArrayList<Couple<String,String>> list1, ArrayList<Couple<String,String>> list2, Set<String> setF, Set<String> setT, String nextParent) {
+		if(nextParent == "a"){
+			val  trueVal = list2.get(0).second 
+			for(i:list1){
+				setF.add(i.first + trueVal)
+				setT.add(i.second + trueVal)
+			}
+			
+			val tValue = list1.get(0).second
+			for(j: list2){
+				setF.add(tValue + j.first)
+				setT.add(tValue + j.second)
+			}
 		}
+		
+		else{
+			if(nextParent == "o"){
+				val  falseVal = list2.get(0).first 
+				for(i:list1){
+					setF.add(i.first + falseVal)
+					setT.add(i.second + falseVal)
+				}
+				
+				val fVal = list1.get(0).first
+				for(j: list2){
+					setF.add(fVal + j.first)
+					setT.add(fVal + j.second)
+				}
+			}
+			else{
+				throw new Exception("Invalid parent")
+			}
+		}
+		
 	}
 	
 	/**
@@ -324,6 +380,8 @@ class MCDC_GEN {
 			if(cnt == 1){
 				//str1 at cp1 first param compatible with str2 at cp2 first param
 				compatible = true;
+				//list.add(new Couple (str1,str2))
+				
 			}
 	
 		}//else
