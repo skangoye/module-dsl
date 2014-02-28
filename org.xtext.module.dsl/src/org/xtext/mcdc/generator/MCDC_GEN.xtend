@@ -14,36 +14,46 @@ class MCDC_GEN {
 	var notCount = 0
 	var firstOperator = ""
 	
+	/**
+	 * This method counts the the number of "not" operator crossed before getting a first operator of type "and/or" in the parse tree
+	 * Ex: this expression <not (a and b)> returns notCount = 1 while < not a and not b> returns 0 as notCount value.
+	 */
 	def int notCount(){
 		return notCount
 	}
 	
+	/**
+	 * This methods returns the first crossed operator of type "and/or" in the parse tree
+	 */
 	def String firstOperator(){
 		return firstOperator
 	}
 	
 	/**
-	 * 
+	 * This method stores in the list "resultList" the parse tree's leaf values, as well as theirs corresponding sequences of crossed operator 
+	 * and theirs different positions in the parse tree 
+	 * It is a top down approach based on a depth-first-search
 	 */
 	def void mcdcGen(EXPRESSION exp, List<List<Couple< Couple<String, String>, Couple<String, String> >>> resultList){
 		
 		if(exp instanceof AND){
-			
+			//AND operator is crossed => Set position of its siblings (1 for left and 0 for right) and store "a" as their parent
 			var leftCouple =  new Couple(new Couple("",""), new Couple("1","a")) 
 		    var rightCouple = new Couple(new Couple("",""), new Couple("0","a")) 
 			
 			firstOperator = "and"
 			
+			//cast expression as AND
 			val andExp = (exp as AND)
 			
-			//call recursively on enumMcdc method
+			//recursive call of enumMcdc method with its siblings
 			enumMcdc(andExp.left, leftCouple, resultList)
 			enumMcdc(andExp.right, rightCouple, resultList)
 			
 		}
 		else{
 			if(exp instanceof OR){
-				
+				//OR operator is crossed => Set position of its siblings (1 for left and 0 for right) and store "o" as their parent
 				var leftCouple =  new Couple(new Couple("",""), new Couple("1","o")) 
 		    	var rightCouple = new Couple(new Couple("",""), new Couple("0","o")) 
 				
@@ -51,29 +61,33 @@ class MCDC_GEN {
 				
 				val orExp = (exp as OR)
 				
-				//call recursively on enumMcdc method
+				//recursive call of enumMcdc method with its siblings
 				enumMcdc(orExp.left, leftCouple, resultList)
 				enumMcdc(orExp.right, rightCouple, resultList)
 			}
 			else{
+				//NOT operator is crossed before an "and/or" operator => increment "notCount"
 				if( exp instanceof NOT){
 					val notExp = (exp as NOT)
 					notCount = notCount + 1
 					//No need to define values for the first "not" expression
+					//call recursively on mcdcGen
 					mcdcGen(notExp.exp, resultList)
 				}
 				else{ 
+					//The expression is a relational condition or a boolean atomic variable and are considered as leaves
 					if (exp instanceof EQUAL_DIFF || exp instanceof COMPARISON || exp instanceof VarExpRef){
 						
 						var list = new ArrayList< Couple< Couple<String, String>, Couple<String, String> > >
-						
+							
+							//Add False and True values to the result list
 							list.add(new Couple(new Couple("F","F"), new Couple("","")))
 							list.add(new Couple(new Couple("T","T"), new Couple("","")))
 						
 						resultList.add(list)
 					}
 					else{
-						//throw new Exception("Illegal boolean expression")
+						throw new Exception("Illegal boolean expression")
 					}
 				}
 			}
@@ -90,9 +104,12 @@ class MCDC_GEN {
 			val position = couple.second.first
 			val parent = couple.second.second
 			
+			//the new positions of the operator siblings are its current position + (1 or 0)
+			//parent sequences are "a" + the operator current parent sequence
 			var leftCouple =  new Couple( new Couple ("",""),  new Couple(position + "1", "a" + parent) )
 		    var rightCouple = new Couple( new Couple ("",""),  new Couple(position + "0", "a" + parent) )
 		    
+		    //recursive call of enumMcdc method with its siblings
 			enumMcdc( (exp as AND).left , leftCouple, result )
 			enumMcdc( (exp as AND).right , rightCouple, result )
 			
@@ -115,13 +132,18 @@ class MCDC_GEN {
 					
 					val position = couple.second.first
 					val parent = couple.second.second
-				
+					
+					//In case of not operator the position of its sibling is unchanged whereas
+					//parent sequence is "n"+ the operator current parent
 					var notCouple =  new Couple( new Couple ("",""),  new Couple(position , "n" + parent) )
-			
+					
+					//recursive call of enumMcdc method with "not" sibling
 					enumMcdc((exp as NOT).exp , notCouple, result)
 					
 				}
 				else {
+					
+					//These expressions are considered as the parse tree leaves
 					if (exp instanceof EQUAL_DIFF || exp instanceof COMPARISON || exp instanceof VarExpRef){
 						
 						val position = couple.second.first
@@ -129,13 +151,15 @@ class MCDC_GEN {
 						
 						var list = new ArrayList< Couple< Couple<String, String>, Couple<String, String> > >
 						
+						//Add False and True values to the result list and stores theirs corresponding positions and parents sequence
+						//in the resultList
 						list.add( new Couple( new Couple ("F","F"),  new Couple(position , parent)) ) 
 						list.add( new Couple( new Couple ("T","T"),  new Couple(position , parent)) )
 						
 						result.add(list)
 					}
 					else{
-						throw new Exception()
+						throw new Exception("Illegal boolean expression")
 					}
 				}
 			}
@@ -144,10 +168,14 @@ class MCDC_GEN {
 	}//enumMcdc
 	
 	/**
-	 * 
+	 * This method is a bottom up approach. It merges the parse tree siblings values until reaching its root.
+	 * The merging policy is 
 	 */
 	def List<Couple< Couple<String, String>, Couple<String, String> >> linkValues (List<List<Couple< Couple<String, String>, Couple<String, String> >>> resultList){
+		
 		var myList = resultList
+		
+		//raise an exception if there is no values (leaves' values) in the list
 		if (myList.size == 0){
 			throw new Exception("List is empty") 
 		}
@@ -155,16 +183,22 @@ class MCDC_GEN {
 		var i = 0
 		do{
 			if(myList.size == 1){
-
+				//if the list size is 1 => return this as result
+				//We use notCount here to determine the expressions' outcomes
 				if (notCount % 2 == 0){
+					//We have even number of "not" crossed before the first (and/or) operator in the parse tree
 					return myList.get(0)		
 				}
 				else{
+					//invert values (outcome) in case of odd number of "not" crossed before the first (and/or) operator in the parse tree
 					return myList.get(0).invertValues()
 				}
 				
 			}
 			
+			//Two sequences can be considered as siblings if they are the same parent position
+			// e.g. S1 position is "1110" and S2 position is "1111", they are siblings because theirs parents has the same position
+			//which is "111"
 			val tmpList = myList.get(i)
 			val position = tmpList.get(0).second.first
 			val parentPosition = position.deleteLastChar
@@ -175,89 +209,72 @@ class MCDC_GEN {
 			 && (toInt - Integer.parseInt(it.get(0).second.first.getLastChar)) ==1]
 			
 			if(cmp != null){
-				//they are siblings
+				//they are siblings => merge theirs results
 				myList.set(i, mergeResults(tmpList, cmp))
+				//delete siblings after their merging
 				myList.remove(cmp)
-				System.out.println(myList.size)
+				//System.out.println(myList.size)
 			}	
 			
 		} while ((i=i+1) < myList.size)
 		
+		//recursive call of the link method with the new list
 		linkValues(myList)
+	}
+	
+	/**
+	 * This method merge the results of two sequences (Typically two siblings'results) 
+	 */
+	def List<Couple<Couple<String,String>,Couple<String,String>>> mergeResults(List<Couple<Couple<String,String>,Couple<String,String>>> left, List<Couple<Couple<String,String>,Couple<String,String>>> right) {
+		
+		var listLeft = left
+		var listRight = right
+		
+		//Next parent of the left sibling in the parent sequence
+		var list1NextParent = listLeft.get(0).second.second.charAt(0)
+		
+		//if the next parent is "not" invert sequences outcome values and delete it in the sequence
+		//Repeat the operation until the next parent is of type "and/or"
+		while(list1NextParent.toString == "n"){
+			listLeft = invertValues(listLeft)
+			list1NextParent = listLeft.get(0).second.second.charAt(0)
+		}
+		
+		//Next parent of the right sibling in the parent sequence
+		var list2NextParent = listRight.get(0).second.second.charAt(0)
+		
+		//if the next parent is "not" invert sequences outcome values and delete it in the sequence
+		//Repeat the operation until the next parent is of type "and/or"
+		while(list2NextParent.toString == "n"){
+			listRight = invertValues(listRight)
+			list2NextParent = listRight.get(0).second.second.charAt(0)
+		}
+		
+		//position of the common parent
+		//parent sequence of the common parent
+		val position = listLeft.get(0).second.first.deleteLastChar
+		val parent = listLeft.get(0).second.second.deleteFisrtChar
+		
+		//
+		return optimMerge(listLeft, listRight, list1NextParent.toString , list2NextParent.toString, position, parent)
+
 	}
 	
 	/**
 	 * 
 	 */
-	def List<Couple<Couple<String,String>,Couple<String,String>>> mergeResults(List<Couple<Couple<String,String>,Couple<String,String>>> left, List<Couple<Couple<String,String>,Couple<String,String>>> right) {
-		
-		var list1 = left
-		var list2 = right
-		
-		var list1NextParent = list1.get(0).second.second.charAt(0)
-		
-		while(list1NextParent.toString == "n"){
-			list1 = invertValues(list1)
-			list1NextParent = list1.get(0).second.second.charAt(0)
-			System.out.println("I am stuck here, left")
-		}
-		
-		var list2NextParent = list2.get(0).second.second.charAt(0)
-		while(list2NextParent.toString == "n"){
-			list2 = invertValues(list2)
-			list2NextParent = list2.get(0).second.second.charAt(0)
-			System.out.println("I am stuck here, right")
-		}
-		
-		val position = list1.get(0).second.first.deleteLastChar
-		val parent = list1.get(0).second.second.deleteFisrtChar
-		///A implementer
-		 val res = optimMerge(list1, list2, list1NextParent.toString , list2NextParent.toString, position, parent)
-		 return res
-		
-		/* 
-		for(c1: list1){
-			
-			var nextParent1 = c1.second.second.charAt(0).toString
-			
-			for(c2:list2){
-				
-				var nextParent2 = c2.second.second.charAt(0).toString
-				
-				System.out.println("par1 " + nextParent1)
-				System.out.println("par2 " + nextParent2)
-				
-				if(nextParent1 == nextParent2){
-					if(nextParent1 == "a"){
-						andPolicy(c1,c2,list)
-					}
-					else{
-						if(nextParent1 == "o"){
-							orPolycy(c1,c2,list)
-						}
-						else{
-							throw new Exception("Unknown Parent")
-						}
-					}
-				}
-				else {
-					throw new Exception("Parent mismatch") 	
-				}
-			
-			}//for
-		
-		}//for*/
-		
-		//return list
-	}
-	
 	def optimMerge(List<Couple<Couple<String,String>,Couple<String,String>>> l1, List<Couple<Couple<String,String>,Couple<String,String>>> l2, String p1, String p2, String position, String parent) {
 		
+		//Filter sequences in the left list whose outcome are True
 		var leftTrue = l1.filter[it.first.second == "T"]
+		
+		//Filter sequences in the left list whose outcome are False
 		var leftFalse = l1.filter[it.first.second == "F"]
+		
 		var leftCouple = new ArrayList<Couple<String, String>>
 		val resultList = new ArrayList< Couple< Couple<String, String>, Couple<String, String> > >
 		
+		//compose mcdc independent pairs on left list
 		for(i: leftFalse){
 			for(j: leftTrue){
 				if(independantPairs(i.first.first, j.first.first)){
@@ -266,10 +283,15 @@ class MCDC_GEN {
 			}
 		}
 		
+		//Filter sequences in the right list whose outcome are True
 		var rightTrue = l2.filter[it.first.second == "T"]
+		
+		//Filter sequences in the right list whose outcome are False
 		var rightFalse = l2.filter[it.first.second == "F"]
+		
 		var rightCouple = new ArrayList<Couple<String, String>>
 		
+		//compose mcdc independent pairs on right list
 		for(ii: rightFalse){
 			for(jj: rightTrue){
 				if(independantPairs(ii.first.first, jj.first.first)){
@@ -278,15 +300,21 @@ class MCDC_GEN {
 			}
 		}
 		
+		//will be used to store merge results with True outcome
 		val setWithTrue = new TreeSet<String>
+		
+		//will be used to store merge results with false outcome
 		val setWithFalse = new TreeSet<String>
 		
 		if(p1 != p2){
+			//raise an exception if the two siblings has not the same parent sequence
 			throw new Exception("Parent mismatch")
 		}
 		else{
+			//p1 = p2
 			compute(leftCouple, rightCouple, setWithFalse, setWithTrue, p1)
 			
+			//return a new list that merged two siblings results with respect to mcdc independent pairs
 			for(st: setWithTrue){
 				resultList.add(new Couple (new Couple(st ,"T"), new Couple(position, parent)))
 			}
@@ -300,15 +328,27 @@ class MCDC_GEN {
 		return resultList
 	}
 	
+	/**
+	 * Compute the merging approach according to the next parent (and/or) and mcdc independent pairs
+	 */
 	def void compute(ArrayList<Couple<String,String>> list1, ArrayList<Couple<String,String>> list2, Set<String> setF, Set<String> setT, String nextParent) {
+		
 		if(nextParent == "a"){
+			//common parent is an "and" operator
+			
+			//Pick one sequence whose outcome is True in the right sibling
 			val  trueVal = list2.get(0).second 
+			
+			//merge left sibling values with sequence whose outcome is True in the right sibling results 
 			for(i:list1){
 				setF.add(i.first + trueVal)
 				setT.add(i.second + trueVal)
 			}
-			
+			 
+			//Pick one sequence whose outcome is True in the left sibling
 			val tValue = list1.get(0).second
+			
+			//merge left sibling value whose outcome is True with right sibling results
 			for(j: list2){
 				setF.add(tValue + j.first)
 				setT.add(tValue + j.second)
@@ -316,14 +356,22 @@ class MCDC_GEN {
 		}
 		
 		else{
+			//common parent is an "or" operator
 			if(nextParent == "o"){
+				
+				//Pick one sequence whose outcome is False in the right sibling
 				val  falseVal = list2.get(0).first 
+				
+				//merge left sibling values with sequence whose outcome is False in the right sibling results 
 				for(i:list1){
 					setF.add(i.first + falseVal)
 					setT.add(i.second + falseVal)
 				}
 				
+				//Pick one sequence whose outcome is False in the left sibling
 				val fVal = list1.get(0).first
+				
+				//merge left sibling value whose outcome is False with right sibling results 
 				for(j: list2){
 					setF.add(fVal + j.first)
 					setT.add(fVal + j.second)
@@ -338,6 +386,7 @@ class MCDC_GEN {
 	
 	/**
 	 * Checks whether or not, two string sequences form an independent pair
+	 * returns True if two sequences form an independent pair
 	 */
 	def boolean independantPairs(String str1, String str2) {
 		
@@ -389,44 +438,9 @@ class MCDC_GEN {
 	}
 	
 	
-	/**
-	 * This method
-	 */
-	def void andPolicy(Couple<Couple<String,String>,Couple<String,String>> c1, Couple<Couple<String,String>,Couple<String,String>> c2, ArrayList<Couple<Couple<String,String>,Couple<String,String>>> list) {
-		val res1 = c1.first.second
-		val res2 = c2.first.second
-		if( (res1 == "T" && res2 == "F") || (res1 == "F" && res2 == "T") ){
-			list.add( new Couple( new Couple(c1.first.first + c2.first.first,"F"), 
-								  new Couple(c1.second.first.deleteLastChar,c1.second.second.deleteFisrtChar)) )
-		}
-		else{
-			if(res1 == "T" && res2 == "T"){
-				list.add(new Couple( new Couple(c1.first.first + c2.first.first,"T"), 
-						new Couple(c1.second.first.deleteLastChar,c1.second.second.deleteFisrtChar)))
-			}
-		}
-	}
 	
 	/**
-	 * 
-	 */
-	def void orPolycy(Couple<Couple<String,String>,Couple<String,String>> c1, Couple<Couple<String,String>,Couple<String,String>> c2, ArrayList<Couple<Couple<String,String>,Couple<String,String>>> list) {
-		val res1 = c1.first.second
-		val res2 = c2.first.second
-		if( (res1 == "T" && res2 == "F") || (res1 == "F" && res2 == "T") ){
-			list.add( new Couple( new Couple(c1.first.first + c2.first.first,"T"), 
-								  new Couple(c1.second.first.deleteLastChar,c1.second.second.deleteFisrtChar)) )
-		}
-		else{
-			if(res1 == "F" && res2 == "F"){
-				list.add(new Couple( new Couple(c1.first.first + c2.first.first,"F"), 
-						new Couple(c1.second.first.deleteLastChar,c1.second.second.deleteFisrtChar)))
-			}
-		}
-	}
-	
-	/**
-	 * 
+	 * This method inverts the outcome value of a sequence and deletes the first character (typically "not") of its parent sequence 
 	 */
 	def List<Couple<Couple<String,String>,Couple<String,String>>> invertValues(List<Couple<Couple<String,String>,Couple<String,String>>> list) {
 		var tmp = list

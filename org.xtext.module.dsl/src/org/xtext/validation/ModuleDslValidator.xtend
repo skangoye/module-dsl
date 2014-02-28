@@ -679,7 +679,8 @@ public static val INVALID_INPUT = 'invalidInput'
 	 		}
 	 	}
 	 }
-	 
+	
+	 ////////////////////////////////////////////////////////////////
 	 @Check
 	 def checkMcdc(IF_INSTR inst){
 	 	var i = 0
@@ -690,7 +691,7 @@ public static val INVALID_INPUT = 'invalidInput'
 	 	//var result = new ArrayList<List<Triple>>
 	 	var result2 = new ArrayList<List<Couple<Couple<String, String>, Couple<String, String> >>>
 	 	
-	 	mcdc2.mcdcGen(inst.ifcond, result2 )
+	 	mcdc2.mcdcGen(inst.ifcond, result2)
 	 	
 	 	for (list: result2) {
 	 		System.out.print("[")
@@ -718,6 +719,29 @@ public static val INVALID_INPUT = 'invalidInput'
 	 		System.out.print("]")
 	 		System.out.println
 	 	}
+	 	
+	 	
+	 	val falseEval = link.filter[it.first.second == "F"]
+	 	val trueEval = link.filter[it.first.second == "T"]
+	 	val indepCouple = new ArrayList<Couple<String,String>>
+	 	
+	 	 for(f:falseEval){
+		 	val fSeq = f.first.first
+		 	
+		 	for(t:trueEval){
+		 		val tSeq = t.first.first 
+		 		 if (mcdc2.independantPairs(fSeq, tSeq)){
+		 		 	indepCouple.add(new Couple(fSeq,tSeq))
+		 		 }
+		 	}
+	
+		 }
+		 
+		 System.out.println("Independent pairs")
+		
+		 for (elem:indepCouple){
+		 		System.out.println("(" + elem.first + ", " + elem.second + ")")
+		 }
 	 	
 
 	 //	mcdc.mcdcList(inst.ifcond, result)
