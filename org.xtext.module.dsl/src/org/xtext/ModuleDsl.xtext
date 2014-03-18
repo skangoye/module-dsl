@@ -136,7 +136,7 @@ INSTRUCTION:
 ;
 
 IF_INSTR:
-	'if''(' ifcond=EXPRESSION ')' '=>' '{' ifst=INSTRUCTION '}'
+	'if''(' ifcond=EXPRESSION ')' '=>'? '{' ifst=INSTRUCTION '}'
 	 (=> 'else' '=>'? '{' elst= INSTRUCTION '}')
 ;
 

@@ -8,6 +8,8 @@ import org.xtext.helper.Couple
 import org.xtext.moduleDsl.EXPRESSION
 import java.util.Set
 import java.util.TreeSet
+import org.xtext.types.*;
+import org.xtext.moduleDsl.INSTRUCTION
 
 class MCDC_GEN {
 	
@@ -465,7 +467,160 @@ class MCDC_GEN {
 	}
 	
 	/**
-	 * delete the last string's character and returns a new string 
+	 * Compute the mcdc of a boolean expression
+	 * @param boolExp: The boolean expression for the mcdc criterion generation
+	 * @return list<Couple<String, String>> that contains test sequences w.r.t mcdc criterion 
+	 */
+	 def List<Couple<String, String> > mcdcOfBooleanExp(EXPRESSION boolExp){
+	 	val genValues = new ArrayList<List<Couple<Couple<String, String>, Couple<String, String> >>>
+	 	val result = new ArrayList<Couple<String, String>>
+	 	mcdcGen(boolExp, genValues)
+	 	val linkResult = linkValues(genValues)
+	 	for(i:linkResult){
+	 		result.add(i.first)
+	 	}
+	 	return result
+	 }
+	
+	/**
+	 * 
+	 */
+	 def void mcdcOfInstruction(INSTRUCTION instr, List< Couple< List< Couple<String,String>>, List<String> > > list, List< List< Couple< List<Couple<String,String>>, List<String> > > > result){
+	 	
+	 	if (instr instanceof IF_INSTR){
+	 		val cond = (instr as IF_INSTR).ifcond
+	 		val res = mcdcOfBooleanExp(cond)
+	 		
+	 		val falseEval = res.filter[it.second == "F"].toList
+	 		val trueEval = res.filter[it.second == "T"].toList
+	 		
+	 		var List<String> varInExpList = new ArrayList<String> 
+	 		stringReprOfVar(cond, varInExpList)
+	 		
+	 		var listT = new ArrayList< Couple < List<Couple<String,String>>, List<String> > > //merge(list, trueEval)
+	 		var listF = new ArrayList< Couple < List<Couple<String,String>>, List<String> > >
+	 		
+	 		//Copy elements of the list "list" in listT and ListF 
+	 		for(i: list){
+	 			listT.add(i)
+	 			listF.add(i)
+	 		}
+	 		
+	 		listT.add( new Couple(trueEval, varInExpList) )
+	 		listF.add( new Couple(falseEval,varInExpList) )
+	 		
+	 		mcdcOfInstruction((instr as IF_INSTR).ifst, listT, result)
+	 		mcdcOfInstruction((instr as IF_INSTR).elst, listF, result)
+	 	}
+	 	else{
+	 		if(instr instanceof ASSIGN_INSTR){
+	 			//TO DO: implement mcdc of decisions within assign instruction
+	 			//val rightAssign = (instr as ASSIGN_INSTR).s
+	 			//val tt = merge (list, mcdcOfBooleanExp() )
+	 				list.reverse
+	 				result.add(list)
+	 		}
+	 		else{
+	 			if(instr instanceof ERROR_INSTR || instr instanceof NULL_INSTR){
+	 					list.reverse
+	 					result.add(list)
+	 			}
+	 			else{
+	 				if (instr instanceof LOOP_INSTR){
+	 					//nothing for the moment
+	 				}
+	 				else{
+	 					throw new Exception("Illegal Instruction type")
+	 				}
+	 			}
+	 		}
+	 	}
+	 }
+	
+	
+	def List<Couple<Couple<String,String>,Couple<String,String>>> merge(List<Couple<Couple<String,String>,Couple<String,String>>> l1, List<Couple<Couple<String,String>,Couple<String,String>>> l2) {
+		if (l1.size == 0){
+			return l2
+		}
+		
+		if (l2.size == 0){
+			throw new Exception("List cannot be empty")
+		}
+		
+		val size1 = l1.size
+		val size2 = l2.size
+		
+		if(size1 < size2){
+			
+		}
+		else{
+			
+		}
+	}
+	 
+	/**
+	 * This method stores all variables that are involved in the expression
+	 * Note: A relational condition (e.g (a<4)) is considered as a single variable
+	 * @param exp The expression in which we want to extract all variables
+	 * @param list All variables will be stored in this list
+	 */
+	 def void stringReprOfVar(EXPRESSION exp, List<String> list){
+	 	switch(exp){
+	 		AND: {stringReprOfVar(exp.left, list) stringReprOfVar(exp.right, list)}
+	 		OR: {stringReprOfVar(exp.left, list) stringReprOfVar(exp.right, list)}
+	 		EQUAL_DIFF: list.add(relBoolRepr(exp.left) + exp.op + relBoolRepr(exp.right)) 
+	 		NOT: stringReprOfVar(exp.exp, list)
+	 		COMPARISON: list.add(relBoolRepr(exp.left) + exp.op + relBoolRepr(exp.right)) 
+	 		VarExpRef: list.add(exp.vref.name)
+	 	}
+	 }
+	 
+	 /**
+	  * This method is a sub-method of the method "stringReprOfVar". It deals specially with relational
+	  * conditions.
+	  * @param exp Expression to be represented in string form
+	  * @return String that represents the relational condition
+	  */
+	  def String relBoolRepr(EXPRESSION exp){
+	  	switch(exp){
+	  		ADD: "(" + relBoolRepr(exp.left)+ "+" +  relBoolRepr(exp.right) +")"
+	  		SUB: "(" + relBoolRepr(exp.left)+ "-" +  relBoolRepr(exp.right) +")"
+	  		MULT:"(" + relBoolRepr(exp.left)+ "*" +  relBoolRepr(exp.right) +")"
+	  		DIV: "(" + relBoolRepr(exp.left)+ "/" +  relBoolRepr(exp.right) +")"
+	  		intConstant: exp.value.toString
+	  		realConstant:exp.value.toString
+	  		strConstant: exp.value.toString
+	  		enumConstant: exp.value.toString
+	  		boolConstant: exp.value.toString
+	  		bitConstant: exp.value.toString
+	  		hexConstant: exp.value.toString
+	  		VarExpRef: exp.vref.name.toString
+	  		default:""
+	  	}
+	  }
+	 
+	 /**
+	  * This method returns strings that the two lists have in common
+	  * @param list1: list of String
+	  * @param list2: list of string
+	  * @return list: new list that contains all strings that appear both in list1 and list2
+	  */
+	  def List<String> varInCommon(List<String> list1, List<String> list2){
+	  	val commonList = new ArrayList<String>
+	  	for (i:list1){
+	  		for (j:list2){
+	  			if ( i == j){
+	  				commonList.add(j)
+	  			}
+	  		}
+	  	}
+	  	return commonList
+	  }
+	  
+	/**
+	 * This method deletes the last character of a string and returns the new string
+	 * @param str The subject string i.e the string we want to delete its last character
+	 * @return substring of @param str without its last character
 	 */
 	def String deleteLastChar(String str){
 		val strSize = str.length

@@ -521,7 +521,6 @@ public static val INVALID_INPUT = 'invalidInput'
 	 			}
 	 		}
 	 		else{
-	 			System.out.println("toto1")
 	 			error ("The left-hand side of an assignment must be a variable", ref)
 	 		}
 	 	}
@@ -682,18 +681,26 @@ public static val INVALID_INPUT = 'invalidInput'
 	
 	 ////////////////////////////////////////////////////////////////
 	 @Check
-	 def checkMcdc(IF_INSTR inst){
+	 def checkMcdc(IF_INSTR inst){ 
 	 	var i = 0
 	 	//val mcdc = new MCDC()
 	 	val mcdc2 = new MCDC_GEN()
 	 	
-	 	System.out.println("resultat: ")
+//	 	System.out.println("resultat: ")
 	 	//var result = new ArrayList<List<Triple>>
 	 	var result2 = new ArrayList<List<Couple<Couple<String, String>, Couple<String, String> >>>
 	 	
-	 	mcdc2.mcdcGen(inst.ifcond, result2)
 	 	
-	 	for (list: result2) {
+	 	System.out.println("String representation ")
+	 	val strList = new ArrayList<String>
+	  mcdc2.stringReprOfVar(inst.ifcond, strList)
+	    System.out.println(strList.size)
+	 	System.out.println(strList.toString)
+	 	//System.out.println("ddddddddddddd")
+	 	System.out.println()
+	 	//mcdc2.mcdcGen(inst.ifcond, result2)
+	 	
+	 	/*for (list: result2) {
 	 		System.out.print("[")
 	 		for (couple: list){
 	 			i = i + 1
@@ -705,31 +712,38 @@ public static val INVALID_INPUT = 'invalidInput'
 	 		i = 0
 	 		System.out.print("]")
 	 		System.out.println
-	 	}
+	 	}*/
 	 	
 	 	
-	 	System.out.println("xxxxxxxxxxxxx")
-	 	val link = mcdc2.linkValues(result2)
+	 	//System.out.println("xxxxxxxxxxxxx")
+	 	val link = mcdc2.mcdcOfBooleanExp(inst.ifcond)
+	 	
+	 	//val listOfString = new ArrayList<String>
+	 	//val listOfMcdcCond = new ArrayList < Couple<String, String> >
+	 	val listToto =  new ArrayList< Couple < List<Couple<String,String>>, List<String> > >
+	 	val resultat = new ArrayList< List < Couple < List<Couple<String,String>>, List<String> > > >
+	 	
+	 	mcdc2.mcdcOfInstruction(inst, listToto, resultat)
 	 	
 	 	for (c: link) {
 	 		System.out.print("[")
 	 		
-	 			System.out.print("("+ c.first.first +", "+ c.first.second + ", " + c.second.first + ", " + c.second.second + ")")
+	 			System.out.print("("+ c.first +", "+ c.second + ")")
 	 		
 	 		System.out.print("]")
 	 		System.out.println
 	 	}
 	 	
 	 	
-	 	val falseEval = link.filter[it.first.second == "F"]
-	 	val trueEval = link.filter[it.first.second == "T"]
+	 	val falseEval = link.filter[it.second == "F"]
+	 	val trueEval = link.filter[it.second == "T"]
 	 	val indepCouple = new ArrayList<Couple<String,String>>
 	 	
 	 	 for(f:falseEval){
-		 	val fSeq = f.first.first
+		 	val fSeq = f.first
 		 	
 		 	for(t:trueEval){
-		 		val tSeq = t.first.first 
+		 		val tSeq = t.first
 		 		 if (mcdc2.independantPairs(fSeq, tSeq)){
 		 		 	indepCouple.add(new Couple(fSeq,tSeq))
 		 		 }
@@ -737,13 +751,37 @@ public static val INVALID_INPUT = 'invalidInput'
 	
 		 }
 		 
+		 System.out.println
+	
 		 System.out.println("Independent pairs")
 		
 		 for (elem:indepCouple){
 		 		System.out.println("(" + elem.first + ", " + elem.second + ")")
 		 }
+		 
+		 System.out.println
 	 	
-
+	 for (r:resultat){
+	 	
+	 	System.out.println("{")
+	 	
+	 	for(rr: r){
+	 		val listOfValues = rr.first
+	 		val varInExp = rr.second
+	 		
+	 		System.out.print("[")
+	 		for (c:listOfValues){
+	 			System.out.print("("+ c.first +", "+ c.second + ")" + ", ")
+	 		}
+	 		System.out.print("==> ")
+	 		System.out.print(varInExp.toString)
+	 	
+	 		System.out.println("]")
+	 	}
+	 	
+	 	System.out.println("}")
+	 	
+	 }
 	 //	mcdc.mcdcList(inst.ifcond, result)
 	 	
 /* 	 	/*System.out.println("[")
