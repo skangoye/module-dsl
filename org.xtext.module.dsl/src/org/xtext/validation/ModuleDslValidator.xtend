@@ -725,6 +725,9 @@ public static val INVALID_INPUT = 'invalidInput'
 	 	
 	 	mcdc2.mcdcOfInstruction(inst, listToto, resultat)
 	 	
+	 	val resfinal = new ArrayList<  Couple < List<Couple<String,String>>, List<String> > >
+	 	mcdc2.composeMcdcWithinIstruction(resultat, resfinal)
+	 	
 	 	for (c: link) {
 	 		System.out.print("[")
 	 		
@@ -781,6 +784,22 @@ public static val INVALID_INPUT = 'invalidInput'
 	 	
 	 	System.out.println("}")
 	 	
+	 }
+	 
+	 
+	 
+	System.out.println("resultat Finallllll")
+	 for(tt: resfinal){
+	 	val v1 = tt.first
+	 	val v2 = tt. second
+	 	System.out.print("[")
+	 		for (c:v1){
+	 			System.out.print("("+ c.first +", "+ c.second + ")" + ", ")
+	 		}
+	 		System.out.print("==> ")
+	 		System.out.print(v2.toString)
+	 		System.out.println("]")
+	 		System.out.println
 	 }
 	 //	mcdc.mcdcList(inst.ifcond, result)
 	 	

@@ -537,25 +537,183 @@ class MCDC_GEN {
 	 	}
 	 }
 	
+	/**
+	 * 
+	 */
+	def composeMcdcWithinIstruction(List< List< Couple< List<Couple<String,String>>, List<String> > > > srcList,  List< Couple< List<Couple<String,String>>, List<String> > >  resultList){
+		for (r: srcList){
+			if(r.size == 0){
+				throw new Exception("List cannot be empty")
+			}
+			
+			if(r.size == 1){
+				resultList.add(r.get(0))
+			}
+			else{//r.size > 1
+				if (r.size == 2){
+					val v1 = r.get(1)
+					val v2 = r.get(0)
+					
+					val list1 = v1.first
+					val list2 = v2.first
+					
+					val ListOfVarInV1 = v1.second
+					val ListOfVarInV2 = v2.second
+					
+					val List<String> varUnion = new ArrayList<String>
+					val add1 = varUnion.addAll(ListOfVarInV1)
+					val add2 = varUnion.addAll(ListOfVarInV2)
+					
+					if (!add1 || !add2){
+						throw new Exception("Problem while adding elements to a list")
+					}
+					
+					val inCommon = varInCommon(ListOfVarInV1, ListOfVarInV2)
+					if(inCommon.size == 0){
+						val simpleCompo = simpleComposition(list1, list2)
+						resultList.add(new Couple (simpleCompo, varUnion) )
+					}
+					else{
+						val index = indexOfCommonVar(ListOfVarInV1, ListOfVarInV2, inCommon)
+						val ConstraintCompo = ExhaustiveCompositionWithConstraints(list1, list2, index)
+						resultList.add(new Couple (ConstraintCompo, varUnion) )
+					} 
+				}
+				else{//r.size > 2
+					
+				}
+			}
+		}
+	}
 	
-	def List<Couple<Couple<String,String>,Couple<String,String>>> merge(List<Couple<Couple<String,String>,Couple<String,String>>> l1, List<Couple<Couple<String,String>,Couple<String,String>>> l2) {
-		if (l1.size == 0){
-			return l2
+	
+	/**
+	 * 
+	 */
+	def List<Couple<String, String>> ExhaustiveCompositionWithConstraints(List<Couple<String,String>> list1, List<Couple<String,String>> list2, List<Couple<Integer,Integer>> indexOfCommonVar) {
+		
+		val List<Couple<String, String>> result = new ArrayList< Couple<String, String> >
+		
+		for(e1: list1){
+			val v11 = e1.first
+			val v12 = e1.second
+			
+			for(e2: list2){
+				val v21 = e2.first
+				val v22 = e2.second
+				
+				if( meetConstraint(v11, v21, indexOfCommonVar) ){
+					result.add(new Couple( v11 + v21, v12 + v22 ) )
+				}
+			}
 		}
 		
-		if (l2.size == 0){
+		return result
+	}
+	
+	
+	/**
+	 * 
+	 */
+	def List<Couple<Integer, Integer>> indexOfCommonVar(List<String> list1, List<String> list2, List<String> inCommon) {
+	
+		val listOfCommonVar = new ArrayList<Couple<Integer, Integer>>
+		for(c: inCommon){
+			val i = list1.indexOf(c)
+			val j = list2.indexOf(c)
+			listOfCommonVar.add( new Couple(i,j) )
+		}
+		
+		System.out.print("CommonVar")
+		System.out.print("[")
+	 		for (c:listOfCommonVar){
+	 			System.out.print("("+ c.first +", "+ c.second + ")" + ", ")
+	 		}
+	 		System.out.println("]")
+		return listOfCommonVar
+	}
+	
+	/**
+	 * 
+	 */
+	def boolean meetConstraint(String str1, String str2, List<Couple<Integer, Integer>> indexOfCommonVar){
+		
+		val str1ToArray = str1.toCharArray
+		val str2ToArray = str2.toCharArray
+		
+		for(ic: indexOfCommonVar){
+			if ( str1ToArray.get(ic.first.intValue).toString != str2ToArray.get(ic.second.intValue).toString){
+				return false
+			}
+		}
+		return true
+	}
+	
+	
+	
+	/**
+	 * 
+	 */
+	def List< Couple<String, String>> simpleComposition(List< Couple<String, String>> l1, List< Couple<String, String>> l2 ){
+		val result = new ArrayList<Couple<String,String>>
+		
+		if (l1.size == 0 || l2.size == 0){
 			throw new Exception("List cannot be empty")
 		}
 		
 		val size1 = l1.size
 		val size2 = l2.size
 		
-		if(size1 < size2){
+		val minSize = Math.min(size1, size2)
+		val maxSize = Math.max(size1, size2)
+		
+		var ii =0
+		do{
+			val v11 = l1.get(ii).first
+			val v12 = l1.get(ii).second
 			
-		}
-		else{
+			val v21 = l2.get(ii).first
+			val v22 = l2.get(ii).second
 			
+			result.add(new Couple(v11 + v21, v12 + v22))
+			
+		} while ((ii=ii+1) < minSize)
+		
+		if (size1 < size2){//l2 is the biggest
+			var jj = minSize
+			do{
+				val index= (Math.random()*minSize).intValue
+				
+				val v11 = l1.get(index).first
+				val v12 = l1.get(index).second
+				
+				val v21 = l2.get(jj).first
+				val v22 = l2.get(jj).second
+				
+				result.add(new Couple(v11 + v21, v12 + v22))
+				
+			} while ((jj=jj+1) < maxSize)
 		}
+		else{ 
+			var kk = minSize -1
+			do{
+				val index= (Math.random()*minSize).intValue
+				
+				System.out.println("Yahooo")
+				System.out.println(l1.size)
+				System.out.println(l2.size)
+				
+				val v11 = l1.get(kk).first
+				val v12 = l1.get(kk).second
+				
+				val v21 = l2.get(index).first
+				val v22 = l2.get(index).second
+				
+				result.add(new Couple(v11 + v21, v12 + v22))
+				
+			} while ((kk=kk+1) < maxSize)
+		}
+		return result
 	}
 	 
 	/**
