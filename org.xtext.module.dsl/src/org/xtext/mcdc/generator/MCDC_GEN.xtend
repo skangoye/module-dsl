@@ -236,7 +236,7 @@ class MCDC_GEN {
 		var list1NextParent = listLeft.get(0).second.second.charAt(0)
 		
 		//if the next parent is "not" invert sequences outcome values and delete it in the sequence
-		//Repeat the operation until the next parent is of type "and/or"
+		//Repeat the operation until the next parent will be of type "and/or"
 		while(list1NextParent.toString == "n"){
 			listLeft = invertValues(listLeft)
 			list1NextParent = listLeft.get(0).second.second.charAt(0)
@@ -485,11 +485,16 @@ class MCDC_GEN {
 	/**
 	 * 
 	 */
-	 def void mcdcOfInstruction(INSTRUCTION instr, List< Couple< List< Couple<String,String>>, List<String> > > list, List< List< Couple< List<Couple<String,String>>, List<String> > > > result){
+	 def void mcdcOfInstruction(INSTRUCTION instr, List< Couple< List< Couple<String,String>>, List<String> > > list, List< Couple< List<String>, List<String> >> shouldBeCoveredList
+	 	,List< List< Couple< List<Couple<String,String>>, List<String> > > > result) {
 	 	
 	 	if (instr instanceof IF_INSTR){
 	 		val cond = (instr as IF_INSTR).ifcond
 	 		val res = mcdcOfBooleanExp(cond)
+	 		
+	 		val List<String> listOfValues = new ArrayList<String>
+	 		
+	 		res.forEach[t| listOfValues.add(t.first)]
 	 		
 	 		val falseEval = res.filter[it.second == "F"].toList
 	 		val trueEval = res.filter[it.second == "T"].toList
@@ -497,6 +502,8 @@ class MCDC_GEN {
 	 		var List<String> varInExpList = new ArrayList<String> 
 	 		stringReprOfVar(cond, varInExpList)
 	 		
+	 		shouldBeCoveredList.add( new Couple(varInExpList, listOfValues) )
+
 	 		var listT = new ArrayList< Couple < List<Couple<String,String>>, List<String> > > //merge(list, trueEval)
 	 		var listF = new ArrayList< Couple < List<Couple<String,String>>, List<String> > >
 	 		
@@ -509,8 +516,8 @@ class MCDC_GEN {
 	 		listT.add( new Couple(trueEval, varInExpList) )
 	 		listF.add( new Couple(falseEval,varInExpList) )
 	 		
-	 		mcdcOfInstruction((instr as IF_INSTR).ifst, listT, result)
-	 		mcdcOfInstruction((instr as IF_INSTR).elst, listF, result)
+	 		mcdcOfInstruction((instr as IF_INSTR).ifst, listT, shouldBeCoveredList, result)
+	 		mcdcOfInstruction((instr as IF_INSTR).elst, listF, shouldBeCoveredList, result)
 	 	}
 	 	else{
 	 		if(instr instanceof ASSIGN_INSTR){
@@ -550,65 +557,113 @@ class MCDC_GEN {
 				resultList.add(r.get(0))
 			}
 			else{//r.size > 1
+					var v1 = r.get(1)
+					var v2 = r.get(0)
+					
+					var list1 = v1.first
+					var list2 = v2.first
+					
+					var ListOfVarInV1 = v1.second
+					var ListOfVarInV2 = v2.second
+					
+					var inCommon = varInCommon(ListOfVarInV1, ListOfVarInV2)
+					
+					var index = indexOfCommonVar(ListOfVarInV1, ListOfVarInV2, inCommon)
+					
+					var List<String> varUnion = new ArrayList<String>
+					varUnion.addAll(ListOfVarInV1)
+					varUnion.add(">")
+					varUnion.addAll(ListOfVarInV2)
+					
 				if (r.size == 2){
-					val v1 = r.get(1)
-					val v2 = r.get(0)
-					
-					val list1 = v1.first
-					val list2 = v2.first
-					
-					val ListOfVarInV1 = v1.second
-					val ListOfVarInV2 = v2.second
-					
-					val List<String> varUnion = new ArrayList<String>
-					val add1 = varUnion.addAll(ListOfVarInV1)
-					val add2 = varUnion.addAll(ListOfVarInV2)
-					
-					if (!add1 || !add2){
-						throw new Exception("Problem while adding elements to a list")
-					}
-					
-					val inCommon = varInCommon(ListOfVarInV1, ListOfVarInV2)
 					if(inCommon.size == 0){
 						val simpleCompo = simpleComposition(list1, list2)
 						resultList.add(new Couple (simpleCompo, varUnion) )
 					}
 					else{
-						val index = indexOfCommonVar(ListOfVarInV1, ListOfVarInV2, inCommon)
-						val ConstraintCompo = ExhaustiveCompositionWithConstraints(list1, list2, index)
-						resultList.add(new Couple (ConstraintCompo, varUnion) )
+						val ConstraintCompo1 = ExhaustiveCompositionWithConstraints(list1, list2, index)
+						resultList.add(new Couple(ConstraintCompo1, varUnion) )
 					} 
 				}
 				else{//r.size > 2
 					
+					//Copy all elements of the list "r" in list "myList"
+					var myList = new ArrayList<Couple<List<Couple<String, String>>, List<String>>> 
+					for (e: r){
+						myList.add(e)
+					}
+					
+					if (myList.noCommonVar){
+						//There is no variable in common => simple composition algorithm
+						while(myList.size != 1){
+							var simple = simpleComposition(list1, list2)
+							myList.set(0, new Couple(simple, varUnion))
+							myList.remove(1)
+							if(myList.size != 1){
+								list1 = myList.get(1).first
+								list2 = myList.get(0).first
+		
+								varUnion = new ArrayList<String>
+								varUnion.addAll(myList.get(1).second)
+								varUnion.add(">")
+								varUnion.addAll(myList.get(0).second)
+							}
+						}//while
+						
+					}
+					else{
+						//there is at least one common variable
+						while(myList.size != 1){
+							
+							if(myList.size == 0){
+								throw new Exception("List cannot be empty")
+							}
+							
+							var ConstraintCompo = ExhaustiveCompositionWithConstraints(list1, list2, index)
+							myList.set(0, new Couple(ConstraintCompo, varUnion))
+							myList.remove(1)
+							
+							if(myList.size != 1){
+								list1 = myList.get(1).first
+								list2 = myList.get(0).first
+								
+								ListOfVarInV1 = myList.get(1).second
+							 	ListOfVarInV2 = myList.get(0).second
+								
+								inCommon = varInCommon(ListOfVarInV1, ListOfVarInV2)
+								
+								index = indexOfCommonVar(ListOfVarInV1, ListOfVarInV2, inCommon)
+								
+								varUnion = new ArrayList<String>
+								varUnion.addAll(ListOfVarInV1)
+								varUnion.add(">")
+								varUnion.addAll(ListOfVarInV2)
+							}
+							
+						} //while
+					}//else
+					
+					resultList.add(myList.get(0))
 				}
 			}
 		}
 	}
 	
-	
 	/**
-	 * 
+	 * This method checks whether or not in the given path (of if instruct) there are no repeated variables
 	 */
-	def List<Couple<String, String>> ExhaustiveCompositionWithConstraints(List<Couple<String,String>> list1, List<Couple<String,String>> list2, List<Couple<Integer,Integer>> indexOfCommonVar) {
-		
-		val List<Couple<String, String>> result = new ArrayList< Couple<String, String> >
-		
-		for(e1: list1){
-			val v11 = e1.first
-			val v12 = e1.second
-			
-			for(e2: list2){
-				val v21 = e2.first
-				val v22 = e2.second
-				
-				if( meetConstraint(v11, v21, indexOfCommonVar) ){
-					result.add(new Couple( v11 + v21, v12 + v22 ) )
-				}
+	def boolean noCommonVar(List<Couple<List<Couple<String, String>>, List<String>>> myList){
+		var union = new ArrayList<String>
+		var List<String> intersection = new ArrayList<String>
+		for(e: myList){
+			intersection = varInCommon(union, e.second)
+			if(intersection.size > 0){
+				return false
 			}
+			union.add(">")
+			union.addAll(e.second)
 		}
-		
-		return result
+		return true
 	}
 	
 	
@@ -633,23 +688,6 @@ class MCDC_GEN {
 		return listOfCommonVar
 	}
 	
-	/**
-	 * 
-	 */
-	def boolean meetConstraint(String str1, String str2, List<Couple<Integer, Integer>> indexOfCommonVar){
-		
-		val str1ToArray = str1.toCharArray
-		val str2ToArray = str2.toCharArray
-		
-		for(ic: indexOfCommonVar){
-			if ( str1ToArray.get(ic.first.intValue).toString != str2ToArray.get(ic.second.intValue).toString){
-				return false
-			}
-		}
-		return true
-	}
-	
-	
 	
 	/**
 	 * 
@@ -657,12 +695,12 @@ class MCDC_GEN {
 	def List< Couple<String, String>> simpleComposition(List< Couple<String, String>> l1, List< Couple<String, String>> l2 ){
 		val result = new ArrayList<Couple<String,String>>
 		
-		if (l1.size == 0 || l2.size == 0){
-			throw new Exception("List cannot be empty")
-		}
-		
 		val size1 = l1.size
 		val size2 = l2.size
+		
+		if (size1 == 0 || size2 == 0){
+			throw new Exception("List cannot be empty")
+		}
 		
 		val minSize = Math.min(size1, size2)
 		val maxSize = Math.max(size1, size2)
@@ -675,7 +713,7 @@ class MCDC_GEN {
 			val v21 = l2.get(ii).first
 			val v22 = l2.get(ii).second
 			
-			result.add(new Couple(v11 + v21, v12 + v22))
+			result.add(new Couple(v11 + ">" + v21, v12 + v22))
 			
 		} while ((ii=ii+1) < minSize)
 		
@@ -690,30 +728,144 @@ class MCDC_GEN {
 				val v21 = l2.get(jj).first
 				val v22 = l2.get(jj).second
 				
-				result.add(new Couple(v11 + v21, v12 + v22))
+				result.add(new Couple(v11 + ">" + v21, v12 + v22))
 				
 			} while ((jj=jj+1) < maxSize)
 		}
 		else{ 
-			var kk = minSize -1
-			do{
-				val index= (Math.random()*minSize).intValue
+			if (size1 > size2){
+				var kk = minSize
+				do{
+					val index= (Math.random()*minSize).intValue
+					
+					val v11 = l1.get(kk).first
+					val v12 = l1.get(kk).second
+					
+					val v21 = l2.get(index).first
+					val v22 = l2.get(index).second
+					
+					result.add(new Couple(v11 + ">" + v21, v12 + v22))
 				
-				System.out.println("Yahooo")
-				System.out.println(l1.size)
-				System.out.println(l2.size)
-				
-				val v11 = l1.get(kk).first
-				val v12 = l1.get(kk).second
-				
-				val v21 = l2.get(index).first
-				val v22 = l2.get(index).second
-				
-				result.add(new Couple(v11 + v21, v12 + v22))
-				
-			} while ((kk=kk+1) < maxSize)
-		}
+				} while ((kk=kk+1) < maxSize)
+			}//if
+		}//else
 		return result
+	}
+	
+	
+	/**
+	 * 
+	 */
+	def List<Couple<String, String>> ExhaustiveCompositionWithConstraints(List<Couple<String,String>> list1, List<Couple<String,String>> list2, List<Couple<Integer,Integer>> indexOfCommonVar) {
+		
+		val List<Couple<String, String>> result = new ArrayList< Couple<String, String> >
+		
+		for(e1: list1){
+			val v11 = e1.first
+			val v12 = e1.second
+			
+			for(e2: list2){
+				val v21 = e2.first
+				val v22 = e2.second
+				
+				if( meetConstraints(v11, v21, indexOfCommonVar) ){
+					result.add(new Couple( v11 + ">" + v21, v12 + v22 ) )
+				}
+			}
+		}
+		
+		return result
+	}
+	
+	/**
+	 * 
+	 */
+	def mcdcCoverageVerdict(List<Couple < List<Couple<String,String>>, List<String> > > actualCoverage, List< Couple< List<String>, List<String> >> ExpectedCoverage){
+		
+		//Transform actualCoverage List in the List< Couple< List<String>, List<String> >> format
+		val List< Couple< List<String>, List<String> >> listOfActualValAndVar = new ArrayList< Couple< List<String>, List<String> >>
+		actualCoverage.forEach[t| 
+			val List<String> list = new ArrayList<String> 
+			t.first.forEach[tt| list.add(tt.first)]
+			listOfActualValAndVar.add( new Couple(t.second, list))
+		]
+		
+		val List< Couple< List<String>, Set<String> >> listOfRes = new ArrayList< Couple< List<String>, Set<String> >>
+		
+		for(l: listOfActualValAndVar){
+			
+			var listOfIndex = new ArrayList<Couple<Integer, Integer>>
+			var i = 0
+			var index = 0
+			val v1 = l.first
+			val v2 = l.second.toSet
+			val size = v1.size
+			
+			for(e: v1){
+				if(e == ">"){
+					listOfIndex.add(new Couple(i, index -1))
+					i = index + 1
+				}
+		
+				if(index == size-1){
+					listOfIndex.add(new Couple(i, size -1))
+				}
+				
+				index = index + 1
+				
+			}// for(e: v1)
+			
+			for (j:listOfIndex){
+			 	
+			 	val first = j.first
+			 	val second = j.second
+			
+			 	val List<String> subList = v1.subList(first, second+1)
+			 	val Set<String> subStrList = new TreeSet<String>
+			 	
+			 	v2.forEach[t| subStrList.add(t.substring(first, second+1))]
+			 	
+			 	listOfRes.add(new Couple(subList, subStrList ) )
+			}
+		
+		}//for(l: listOfActualValAndVar)
+		
+		var cpt = 0
+		do{
+			val tmp = listOfRes.get(cpt)
+			
+			val dup = listOfRes.findFirst[ (it != tmp) && (it.first.equals(tmp.first)) ]
+			
+			if (dup != null){
+				tmp.second.addAll(dup.second)
+				listOfRes.remove(dup)
+				cpt = cpt - 1
+			}
+			
+		}while ( (cpt=cpt+1) < listOfRes.size)
+		
+	 
+		System.out.println("Tesssssssssssssssssssst")
+		for(ss:listOfRes){
+	 		System.out.println( ss.first.toString + " => "+ ss.second.toString )	
+	 	}
+	 	System.out.println
+	}
+	
+	/**
+	 * 
+	 */
+	def boolean meetConstraints(String str1, String str2, List<Couple<Integer, Integer>> indexOfCommonVar){
+		
+		val str1ToArray = str1.toCharArray
+		val str2ToArray = str2.toCharArray
+		
+		for(ic: indexOfCommonVar){
+			if ( str1ToArray.get(ic.first.intValue).toString != str2ToArray.get(ic.second.intValue).toString){
+				return false
+			}
+		}
+		return true
 	}
 	 
 	/**
@@ -765,9 +917,14 @@ class MCDC_GEN {
 	  */
 	  def List<String> varInCommon(List<String> list1, List<String> list2){
 	  	val commonList = new ArrayList<String>
+	  	
+	  	if (list1.size == 0 || list2.size == 0 ){
+	  		return commonList
+	  	}
+	  	
 	  	for (i:list1){
 	  		for (j:list2){
-	  			if ( i == j){
+	  			if ( i == j && j != ">"){
 	  				commonList.add(j)
 	  			}
 	  		}

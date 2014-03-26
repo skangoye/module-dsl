@@ -691,11 +691,10 @@ public static val INVALID_INPUT = 'invalidInput'
 	 	var result2 = new ArrayList<List<Couple<Couple<String, String>, Couple<String, String> >>>
 	 	
 	 	
-	 	System.out.println("String representation ")
+	 	
 	 	val strList = new ArrayList<String>
-	  mcdc2.stringReprOfVar(inst.ifcond, strList)
-	    System.out.println(strList.size)
-	 	System.out.println(strList.toString)
+	  	mcdc2.stringReprOfVar(inst.ifcond, strList)
+	   
 	 	//System.out.println("ddddddddddddd")
 	 	System.out.println()
 	 	//mcdc2.mcdcGen(inst.ifcond, result2)
@@ -721,21 +720,22 @@ public static val INVALID_INPUT = 'invalidInput'
 	 	//val listOfString = new ArrayList<String>
 	 	//val listOfMcdcCond = new ArrayList < Couple<String, String> >
 	 	val listToto =  new ArrayList< Couple < List<Couple<String,String>>, List<String> > >
+	 	val shouldBeCov =  new ArrayList< Couple< List<String>, List<String> >>
 	 	val resultat = new ArrayList< List < Couple < List<Couple<String,String>>, List<String> > > >
 	 	
-	 	mcdc2.mcdcOfInstruction(inst, listToto, resultat)
+	 	mcdc2.mcdcOfInstruction(inst, listToto, shouldBeCov, resultat)
 	 	
 	 	val resfinal = new ArrayList<  Couple < List<Couple<String,String>>, List<String> > >
 	 	mcdc2.composeMcdcWithinIstruction(resultat, resfinal)
 	 	
-	 	for (c: link) {
+	 	/*for (c: link) {
 	 		System.out.print("[")
 	 		
 	 			System.out.print("("+ c.first +", "+ c.second + ")")
 	 		
 	 		System.out.print("]")
 	 		System.out.println
-	 	}
+	 	}*/
 	 	
 	 	
 	 	val falseEval = link.filter[it.second == "F"]
@@ -754,7 +754,7 @@ public static val INVALID_INPUT = 'invalidInput'
 	
 		 }
 		 
-		 System.out.println
+		/*  System.out.println
 	
 		 System.out.println("Independent pairs")
 		
@@ -762,7 +762,7 @@ public static val INVALID_INPUT = 'invalidInput'
 		 		System.out.println("(" + elem.first + ", " + elem.second + ")")
 		 }
 		 
-		 System.out.println
+		 System.out.println*/
 	 	
 	 for (r:resultat){
 	 	
@@ -776,19 +776,26 @@ public static val INVALID_INPUT = 'invalidInput'
 	 		for (c:listOfValues){
 	 			System.out.print("("+ c.first +", "+ c.second + ")" + ", ")
 	 		}
-	 		System.out.print("==> ")
+	 		System.out.print("=> ")
 	 		System.out.print(varInExp.toString)
 	 	
 	 		System.out.println("]")
 	 	}
 	 	
 	 	System.out.println("}")
-	 	
+	 	System.out.println
 	 }
 	 
+	 System.out.println("should be covered list")
+	
+	 for(ss:shouldBeCov){
+	 	System.out.println( ss.first.toString + " => "+ ss.second.toString )	
+	 }
 	 
+	 System.out.println
+	  
+	 System.out.println("resultat Final")
 	 
-	System.out.println("resultat Finallllll")
 	 for(tt: resfinal){
 	 	val v1 = tt.first
 	 	val v2 = tt. second
@@ -796,11 +803,14 @@ public static val INVALID_INPUT = 'invalidInput'
 	 		for (c:v1){
 	 			System.out.print("("+ c.first +", "+ c.second + ")" + ", ")
 	 		}
-	 		System.out.print("==> ")
+	 		System.out.print("=> ")
 	 		System.out.print(v2.toString)
 	 		System.out.println("]")
 	 		System.out.println
 	 }
+	 
+	 
+	 mcdc2.mcdcCoverageVerdict(resfinal,shouldBeCov)
 	 //	mcdc.mcdcList(inst.ifcond, result)
 	 	
 /* 	 	/*System.out.println("[")
