@@ -15,9 +15,9 @@ import org.eclipse.emf.ecore.EReference
 import java.util.List
 import java.util.ArrayList
 import org.xtext.mcdc.generator.MCDC
-import org.xtext.helper.Triple
 import org.xtext.helper.Couple
 import org.xtext.mcdc.generator.MCDC_GEN
+import org.xtext.helper.Triplet
 
 /**
  * Custom validation rules. 
@@ -719,14 +719,38 @@ public static val INVALID_INPUT = 'invalidInput'
 	 	
 	 	//val listOfString = new ArrayList<String>
 	 	//val listOfMcdcCond = new ArrayList < Couple<String, String> >
-	 	val listToto =  new ArrayList< Couple < List<Couple<String,String>>, List<String> > >
-	 	val shouldBeCov =  new ArrayList< Couple< List<String>, List<String> >>
-	 	val resultat = new ArrayList< List < Couple < List<Couple<String,String>>, List<String> > > >
+	 	val listToto =  new ArrayList< Triplet < List<Couple<String,String>>, List<String>, String > >
+	 	val shouldBeCov =  new ArrayList< Triplet< List<String>, List<String>, String >>
+	 	val resultat = new ArrayList< List < Triplet < List<Couple<String,String>>, List<String>,  String  > > >
+	 	
+	 	val shouldBeCov2 =  new ArrayList< Couple< List<String>, List<String> >>
+	 	val result = new ArrayList< Triplet< List<Couple<String,String>>, List<String>, Couple<String,String>> >
 	 	
 	 	mcdc2.mcdcOfInstruction(inst, listToto, shouldBeCov, resultat)
+	 	mcdc2.mcdcOfInstruction2(inst, "", shouldBeCov2, result)
 	 	
-	 	val resfinal = new ArrayList<  Couple < List<Couple<String,String>>, List<String> > >
-	 	mcdc2.composeMcdcWithinIstruction(resultat, resfinal)
+	 	System.out.println("New Print Version!!")
+	 	System.out.println
+	 	
+	 	for(ii:result){
+	 		val listOfVal = ii.first
+	 		val varInExp = ii.second
+	 		val position = ii.third.first
+	 		val kind = ii.third.second
+	 		
+			for(jj : listOfVal){
+				System.out.print("[" + "("+ jj.first +", "+ jj.second + ")" + "]")
+			}
+			System.out.print("=> ")
+	 		System.out.print(varInExp.toString)
+	 		
+	 		System.out.print(" => ")
+	 		System.out.println(position + ", " + kind)
+			System.out.println
+	 	}
+	 	
+	 	val resfinal = new ArrayList<  Triplet < List<Couple<String,String>>, List<String>, String > >
+	    mcdc2.composeMcdcWithinIstruction(resultat, resfinal)
 	 	
 	 	/*for (c: link) {
 	 		System.out.print("[")
@@ -770,13 +794,14 @@ public static val INVALID_INPUT = 'invalidInput'
 	 	
 	 	for(rr: r){
 	 		val listOfValues = rr.first
-	 		val varInExp = rr.second
+	 		val varInExp = rr.third
+	 		val id = rr.second
 	 		
 	 		System.out.print("[")
 	 		for (c:listOfValues){
-	 			System.out.print("("+ c.first +", "+ c.second + ")" + ", ")
+	 			System.out.print("("+ c.first +", "+ c.second +  ")" + ", ")
 	 		}
-	 		System.out.print("=> ")
+	 		System.out.print("=> ") System.out.print(id) System.out.print(" => ")
 	 		System.out.print(varInExp.toString)
 	 	
 	 		System.out.println("]")
@@ -789,7 +814,7 @@ public static val INVALID_INPUT = 'invalidInput'
 	 System.out.println("should be covered list")
 	
 	 for(ss:shouldBeCov){
-	 	System.out.println( ss.first.toString + " => "+ ss.second.toString )	
+	 	System.out.println( ss.first.toString + " => "+ ss.second.toString + " => " + ss.third.toString )	
 	 }
 	 
 	 System.out.println
@@ -805,6 +830,8 @@ public static val INVALID_INPUT = 'invalidInput'
 	 		}
 	 		System.out.print("=> ")
 	 		System.out.print(v2.toString)
+	 		System.out.print(" => ")
+	 		System.out.print(tt.third)
 	 		System.out.println("]")
 	 		System.out.println
 	 }
@@ -813,92 +840,6 @@ public static val INVALID_INPUT = 'invalidInput'
 	 mcdc2.mcdcCoverageVerdict(resfinal,shouldBeCov)
 	 //	mcdc.mcdcList(inst.ifcond, result)
 	 	
-/* 	 	/*System.out.println("[")
-	 	for (list: result) {
-	 		System.out.print("[")
-	 		for (triple: list){
-	 			i = i + 1
-	 			System.out.print("("+ triple.value.toString +", "+ triple.index+ ", " + triple.position + ")")
-	 			if (list.size != i){
-	 				System.out.print(", ")
-	 			}
-	 		}
-	 		i = 0
-	 		System.out.print("]") 
-	 		System.out.println
-	 	}
-	 	System.out.println("]")*/
-	 	
-/*	 	System.out.println("notCount value => " + mcdc.notCount.toString )
-	 	System.out.println("first Operator value => " + mcdc.firstOperator )
-	 	System.out.println("Merge results")
-	 	val res = mcdc.linkValues(result)
-	 	val falseEval = new ArrayList<Couple<String,Integer>>
-	 	val trueEval = new ArrayList<Couple<String,Integer>>
-		 
-		
-		 System.out.println(res.size);
-		 
-		  for (t: res){
-		 	val eval = mcdc.evalOperation(t)
-		 	
-		 	if(eval == "T"){
-		 		trueEval.add(new Couple<String, Integer>(t.value, 0) )
-		 	}
-		 	else{
-		 		if(eval == "F"){
-		 			falseEval.add(new Couple<String, Integer>(t.value, 0))
-		 		}
-		 		else{
-		 			throw new Exception
-		 		}
-		 	}
-			//System.out.println( "(" + t.value + " => " + eval + ", " 
-					          //  + t.index + ") ");
-		 }//end for
-		 
-		 val List<List<Couple<String,String>>> list11 = new ArrayList<List<Couple<String,String>>>();
-		 var cpt =0;
-		 val varSize =  trueEval.get(0).first.length
-		 do{
-			 list11.add(new ArrayList<Couple<String,String>>())
-		 }while( (cpt=cpt+1) < varSize)
-		 
-		 
-		 for(f:falseEval){
-		 	
-		 	for(t:trueEval){
-		 		mcdc.addIndepVector(f,t, list11)
-		 	}
-	
-		 }
-		  
-		 System.out.println("xxxxxxxxxxxxxxxx")
-		 
-		 for(tr:trueEval){
-		 	System.out.println( "(" + tr.first  + ", " 
-					            + tr.second + ") ")
-		 }
-		  System.out.println("xxxxxxxxxxxxxxxx")
-		 for(tr:falseEval){
-		 	System.out.println( "(" + tr.first  + ", " 
-					            + tr.second + ") ")
-		 }
-		 
-		 System.out.println("xxxxxxxxxxxxxxxx")
-		 
-	
-		  for (elem:list11){
-		 	for(e:elem){
-		 		System.out.println("(" + e.first + ", " + e.second + ")")
-		 	}
-		 	
-		 	System.out.println(elem.size)
-		 	System.out.println("*************")
-		 	
-		 }
-		 System.out.println("Coucou")
-		 System.out.println(trueEval.size + falseEval.size)	 */
 	 }//method
 	 
 	 

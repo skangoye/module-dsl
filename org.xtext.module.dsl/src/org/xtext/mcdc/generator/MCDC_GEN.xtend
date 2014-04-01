@@ -2,7 +2,6 @@ package org.xtext.mcdc.generator
 
 import org.xtext.moduleDsl.*;
 import java.util.ArrayList
-import org.xtext.helper.Triple
 import java.util.List
 import org.xtext.helper.Couple
 import org.xtext.moduleDsl.EXPRESSION
@@ -10,6 +9,7 @@ import java.util.Set
 import java.util.TreeSet
 import org.xtext.types.*;
 import org.xtext.moduleDsl.INSTRUCTION
+import org.xtext.helper.Triplet
 
 class MCDC_GEN {
 	
@@ -481,31 +481,40 @@ class MCDC_GEN {
 	 	}
 	 	return result
 	 }
+	 
+	 private def sharedValue(){
+	 	
+	 }
 	
 	/**
 	 * 
 	 */
-	 def void mcdcOfInstruction(INSTRUCTION instr, List< Couple< List< Couple<String,String>>, List<String> > > list, List< Couple< List<String>, List<String> >> shouldBeCoveredList
-	 	,List< List< Couple< List<Couple<String,String>>, List<String> > > > result) {
+	 var identifier = 0
+	 
+	 def void mcdcOfInstruction(INSTRUCTION instr, List< Triplet< List< Couple<String,String>>, List<String>, String > > list, List< Triplet< List<String>, List<String>, String >> shouldBeCoveredList
+	 	,List< List< Triplet< List<Couple<String,String>>, List<String>, String > > > result) {
 	 	
 	 	if (instr instanceof IF_INSTR){
-	 		val cond = (instr as IF_INSTR).ifcond
-	 		val res = mcdcOfBooleanExp(cond)
+	 		val myInstr = (instr as IF_INSTR)
+	 		val cond = myInstr.ifcond
+	 		val mcdcEvalOfCond = mcdcOfBooleanExp(cond)
+	 		
+	 		identifier = identifier + 1
 	 		
 	 		val List<String> listOfValues = new ArrayList<String>
 	 		
-	 		res.forEach[t| listOfValues.add(t.first)]
+	 		mcdcEvalOfCond.forEach[t| listOfValues.add(t.first)]
 	 		
-	 		val falseEval = res.filter[it.second == "F"].toList
-	 		val trueEval = res.filter[it.second == "T"].toList
+	 		val falseEvalOfMcdc = mcdcEvalOfCond.filter[it.second == "F"].toList
+	 		val trueEvalOfMcdc = mcdcEvalOfCond.filter[it.second == "T"].toList
 	 		
-	 		var List<String> varInExpList = new ArrayList<String> 
-	 		stringReprOfVar(cond, varInExpList)
+	 		var List<String> varInCond = new ArrayList<String> 
+	 		stringReprOfVar(cond, varInCond)
 	 		
-	 		shouldBeCoveredList.add( new Couple(varInExpList, listOfValues) )
+	 		shouldBeCoveredList.add( new Triplet(varInCond, listOfValues, identifier.toString) )
 
-	 		var listT = new ArrayList< Couple < List<Couple<String,String>>, List<String> > > //merge(list, trueEval)
-	 		var listF = new ArrayList< Couple < List<Couple<String,String>>, List<String> > >
+	 		var listT = new ArrayList< Triplet < List<Couple<String,String>>, List<String>, String > > //merge(list, trueEval)
+	 		var listF = new ArrayList< Triplet < List<Couple<String,String>>, List<String>, String > >
 	 		
 	 		//Copy elements of the list "list" in listT and ListF 
 	 		for(i: list){
@@ -513,11 +522,11 @@ class MCDC_GEN {
 	 			listF.add(i)
 	 		}
 	 		
-	 		listT.add( new Couple(trueEval, varInExpList) )
-	 		listF.add( new Couple(falseEval,varInExpList) )
+	 		listT.add( new Triplet(trueEvalOfMcdc, varInCond, identifier.toString) )
+	 		listF.add( new Triplet(falseEvalOfMcdc, varInCond, identifier.toString) )
 	 		
-	 		mcdcOfInstruction((instr as IF_INSTR).ifst, listT, shouldBeCoveredList, result)
-	 		mcdcOfInstruction((instr as IF_INSTR).elst, listF, shouldBeCoveredList, result)
+	 		mcdcOfInstruction(myInstr.ifst, listT, shouldBeCoveredList, result)
+	 		mcdcOfInstruction(myInstr.elst, listF, shouldBeCoveredList, result)
 	 	}
 	 	else{
 	 		if(instr instanceof ASSIGN_INSTR){
@@ -544,10 +553,195 @@ class MCDC_GEN {
 	 	}
 	 }
 	
+	
 	/**
 	 * 
 	 */
-	def composeMcdcWithinIstruction(List< List< Couple< List<Couple<String,String>>, List<String> > > > srcList,  List< Couple< List<Couple<String,String>>, List<String> > >  resultList){
+	 def void mcdcOfInstruction2(INSTRUCTION instr, String positionInTree, List< Couple< List<String>, List<String> >> shouldBeCoveredList
+	 	, List< Triplet< List<Couple<String,String>>, List<String>, Couple<String,String>> >  result) {
+	 	
+	 	if (instr instanceof IF_INSTR){
+	 		val myInstr = (instr as IF_INSTR)
+	 		val cond = myInstr.ifcond
+	 		val mcdcEvalOfCond = mcdcOfBooleanExp(cond)
+	 		
+	 		val falseEvalOfMcdc = mcdcEvalOfCond.filter[it.second == "F"].toList
+	 		val trueEvalOfMcdc = mcdcEvalOfCond.filter[it.second == "T"].toList
+	 		
+	 		var List<String> varInCond = new ArrayList<String> 
+	 		stringReprOfVar(cond, varInCond)
+	 		
+	 		val List<String> listOfValues = new ArrayList<String>
+	 		mcdcEvalOfCond.forEach[t| listOfValues.add(t.first)]
+	 		shouldBeCoveredList.add( new Couple(varInCond, listOfValues) )
+	 		
+	 		var nodekindRight = "B" //"B" for Branch
+	 		var nodekindLeft = "B"
+	 		
+	 		if (myInstr.ifst instanceof ERROR_INSTR || myInstr.ifst instanceof NULL_INSTR || myInstr.ifst instanceof ASSIGN_INSTR){
+	 			nodekindRight = "L" //"L" for Leaf
+	 		}
+	 		
+	 		if (myInstr.elst instanceof ERROR_INSTR || myInstr.elst instanceof NULL_INSTR || myInstr.elst instanceof ASSIGN_INSTR){
+	 			nodekindLeft = "L" //"L" for Leaf
+	 		}
+
+	 		var listOfTrue = new Triplet( trueEvalOfMcdc, varInCond, new Couple(positionInTree + "1", nodekindRight) )  
+	 		var listOfFalse = new Triplet( falseEvalOfMcdc, varInCond, new Couple(positionInTree + "0", nodekindLeft) ) 
+	 		
+	 		result.add(listOfTrue)
+	 		result.add(listOfFalse)
+	 		
+	 		mcdcOfInstruction2(myInstr.ifst, listOfTrue.third.first, shouldBeCoveredList, result)
+	 		mcdcOfInstruction2(myInstr.elst, listOfFalse.third.first, shouldBeCoveredList, result)
+	 	}
+	 	else{
+	 		if(instr instanceof ASSIGN_INSTR){
+	 			//TO DO: implement mcdc of decisions within assign instruction
+	 				//result.add( mcdcOfAssignment() )
+	 				return
+	 		}
+	 		else{
+	 			if(instr instanceof ERROR_INSTR || instr instanceof NULL_INSTR){
+	 					return
+	 			}
+	 			else{
+	 				if (instr instanceof LOOP_INSTR){
+	 					//nothing for the moment
+	 				}
+	 				else{
+	 					throw new Exception("Illegal Instruction type")
+	 				}
+	 			}
+	 		}
+	 	}
+	 }
+	 
+	 /**
+	 * 
+	 */
+	 
+	 /* 
+	def composeMcdcValues(List< Triplet< List<Couple<String,String>>, List<String>, Couple<String,String>> > srcList,  List< Couple< List<Couple<String,String>>, List<String>> >  resultList){
+		
+		if(srcList.size == 0){
+			throw new Exception("List cannot be empty")
+		}
+		
+		if(srcList.size == 1){
+			resultList.add(new Couple(srcList.get(0).first, srcList.get(0).second))
+			return
+		}
+		
+		if(srcList.size == 2){
+			val List<Couple<String,String>> mergedListVal = new ArrayList<Couple<String,String>>
+			mergedListVal.addAll(srcList.get(0).first)
+			mergedListVal.addAll(srcList.get(1).first)
+			val varInCond = srcList.get(0).second
+			resultList.add( new Couple(mergedListVal, varInCond) )
+			return
+		}
+		
+		for (elem: srcList){
+	
+			//srcList.size > 2
+			val kind = elem.third.second
+			val value = elem.first.get(0).second
+			val position = elem.third.first
+			val positionLast = position.getLastChar
+			
+			val varInCond = elem.second
+			
+			val compatible = srcList.findFirst[ (it != elem) && (kind == "L") && (it.third.second == "L")
+				&& (position.deleteLastChar == it.third.first.deleteLastChar) && (positionLast == "1")
+				&& (it.third.first.getLastChar == "0")
+			]
+			
+			if (compatible !=  null){
+				//they are siblings
+				if( compatible.second.equals(elem.second) && ){
+					
+				}
+			}
+			
+	
+			var inCommon = varInCommon(ListOfVarInV1, ListOfVarInV2)
+			
+			var index = indexOfCommonVar(ListOfVarInV1, ListOfVarInV2, inCommon)
+			
+			var List<String> varUnion = new ArrayList<String>
+			varUnion.addAll(ListOfVarInV1)
+			varUnion.add(">")
+			varUnion.addAll(ListOfVarInV2)
+				
+			
+			else{//r.size > 2
+				
+				//Copy all elements of the list "r" in list "myList"
+				var myList = new ArrayList<Couple<List<Couple<String, String>>, List<String>>> 
+				for (e: r){
+					myList.add(e)
+				}
+				
+				if (myList.noCommonVar){
+					//There is no variable in common => simple composition algorithm
+					while(myList.size != 1){
+						var simple = simpleComposition(list1, list2)
+						myList.set(0, new Couple(simple, varUnion))
+						myList.remove(1)
+						if(myList.size != 1){
+							list1 = myList.get(1).first
+							list2 = myList.get(0).first
+	
+							varUnion = new ArrayList<String>
+							varUnion.addAll(myList.get(1).second)
+							varUnion.add(">")
+							varUnion.addAll(myList.get(0).second)
+						}
+					}//while
+					
+				}
+				else{
+					//there is at least one common variable
+					while(myList.size != 1){
+						
+						if(myList.size == 0){
+							throw new Exception("List cannot be empty")
+						}
+						
+						var ConstraintCompo = ExhaustiveCompositionWithConstraints(list1, list2, index)
+						myList.set(0, new Couple(ConstraintCompo, varUnion))
+						myList.remove(1)
+						
+						if(myList.size != 1){
+							list1 = myList.get(1).first
+							list2 = myList.get(0).first
+							
+							ListOfVarInV1 = myList.get(1).second
+						 	ListOfVarInV2 = myList.get(0).second
+							
+							inCommon = varInCommon(ListOfVarInV1, ListOfVarInV2)
+							
+							index = indexOfCommonVar(ListOfVarInV1, ListOfVarInV2, inCommon)
+							
+							varUnion = new ArrayList<String>
+							varUnion.addAll(ListOfVarInV1)
+							varUnion.add(">")
+							varUnion.addAll(ListOfVarInV2)
+						}
+						
+					} //while
+				}//else
+				
+				resultList.add(myList.get(0))
+			}
+	
+	}*/
+	 
+	/**
+	 * 
+	 */
+	def composeMcdcWithinIstruction(List< List< Triplet< List<Couple<String,String>>, List<String>, String > > > srcList,  List< Triplet< List<Couple<String,String>>, List<String>, String > >  resultList){
 		for (r: srcList){
 			if(r.size == 0){
 				throw new Exception("List cannot be empty")
@@ -566,6 +760,9 @@ class MCDC_GEN {
 					var ListOfVarInV1 = v1.second
 					var ListOfVarInV2 = v2.second
 					
+					var identOfV1 = v1.third
+					var identOfV2 = v2.third
+					
 					var inCommon = varInCommon(ListOfVarInV1, ListOfVarInV2)
 					
 					var index = indexOfCommonVar(ListOfVarInV1, ListOfVarInV2, inCommon)
@@ -578,17 +775,17 @@ class MCDC_GEN {
 				if (r.size == 2){
 					if(inCommon.size == 0){
 						val simpleCompo = simpleComposition(list1, list2)
-						resultList.add(new Couple (simpleCompo, varUnion) )
+						resultList.add(new Triplet(simpleCompo, varUnion, identOfV1 + ">" + identOfV2) )
 					}
 					else{
 						val ConstraintCompo1 = ExhaustiveCompositionWithConstraints(list1, list2, index)
-						resultList.add(new Couple(ConstraintCompo1, varUnion) )
+						resultList.add(new Triplet(ConstraintCompo1, varUnion, identOfV1 + ">" + identOfV2) )
 					} 
 				}
 				else{//r.size > 2
 					
 					//Copy all elements of the list "r" in list "myList"
-					var myList = new ArrayList<Couple<List<Couple<String, String>>, List<String>>> 
+					var myList = new ArrayList<Triplet<List<Couple<String, String>>, List<String>, String>> 
 					for (e: r){
 						myList.add(e)
 					}
@@ -597,7 +794,7 @@ class MCDC_GEN {
 						//There is no variable in common => simple composition algorithm
 						while(myList.size != 1){
 							var simple = simpleComposition(list1, list2)
-							myList.set(0, new Couple(simple, varUnion))
+							myList.set(0, new Triplet(simple, varUnion, identOfV1 + ">" + identOfV2))
 							myList.remove(1)
 							if(myList.size != 1){
 								list1 = myList.get(1).first
@@ -607,6 +804,9 @@ class MCDC_GEN {
 								varUnion.addAll(myList.get(1).second)
 								varUnion.add(">")
 								varUnion.addAll(myList.get(0).second)
+								
+								identOfV1 =myList.get(1).third
+								identOfV2 =myList.get(0).third
 							}
 						}//while
 						
@@ -620,7 +820,7 @@ class MCDC_GEN {
 							}
 							
 							var ConstraintCompo = ExhaustiveCompositionWithConstraints(list1, list2, index)
-							myList.set(0, new Couple(ConstraintCompo, varUnion))
+							myList.set(0, new Triplet(ConstraintCompo, varUnion, identOfV1 + ">" + identOfV2))
 							myList.remove(1)
 							
 							if(myList.size != 1){
@@ -638,6 +838,9 @@ class MCDC_GEN {
 								varUnion.addAll(ListOfVarInV1)
 								varUnion.add(">")
 								varUnion.addAll(ListOfVarInV2)
+								
+								identOfV1 =myList.get(1).third
+								identOfV2 =myList.get(0).third
 							}
 							
 						} //while
@@ -652,7 +855,7 @@ class MCDC_GEN {
 	/**
 	 * This method checks whether or not in the given path (of if instruct) there are no repeated variables
 	 */
-	def boolean noCommonVar(List<Couple<List<Couple<String, String>>, List<String>>> myList){
+	def boolean noCommonVar(List<Triplet<List<Couple<String, String>>, List<String>, String>> myList){
 		var union = new ArrayList<String>
 		var List<String> intersection = new ArrayList<String>
 		for(e: myList){
@@ -780,53 +983,87 @@ class MCDC_GEN {
 	/**
 	 * 
 	 */
-	def mcdcCoverageVerdict(List<Couple < List<Couple<String,String>>, List<String> > > actualCoverage, List< Couple< List<String>, List<String> >> ExpectedCoverage){
+	def mcdcCoverageVerdict(List<Triplet < List<Couple<String,String>>, List<String>, String > > actualCoverage, List< Triplet< List<String>, List<String>, String >> ExpectedCoverage){
 		
 		//Transform actualCoverage List in the List< Couple< List<String>, List<String> >> format
-		val List< Couple< List<String>, List<String> >> listOfActualValAndVar = new ArrayList< Couple< List<String>, List<String> >>
+		val listOfActualValAndVar = new ArrayList< Triplet< List<String>, List<String>, String >>
 		actualCoverage.forEach[t| 
 			val List<String> list = new ArrayList<String> 
 			t.first.forEach[tt| list.add(tt.first)]
-			listOfActualValAndVar.add( new Couple(t.second, list))
+			listOfActualValAndVar.add( new Triplet(t.second, list, t.third))
 		]
 		
-		val List< Couple< List<String>, Set<String> >> listOfRes = new ArrayList< Couple< List<String>, Set<String> >>
+		val listOfRes = new ArrayList< Triplet< List<String>, Set<String>, String >>
 		
 		for(l: listOfActualValAndVar){
 			
-			var listOfIndex = new ArrayList<Couple<Integer, Integer>>
+			var listOfValIndex = new ArrayList<Couple<Integer, Integer>>
+			var listOfIdentIndex = new ArrayList<Couple<Integer, Integer>>
 			var i = 0
-			var index = 0
+			var index1 = 0
+			var index2 = 0
+			var k = 0
+			
 			val v1 = l.first
 			val v2 = l.second.toSet
+			val v3 = l.third.toCharArray.toList
+		
 			val size = v1.size
 			
 			for(e: v1){
 				if(e == ">"){
-					listOfIndex.add(new Couple(i, index -1))
-					i = index + 1
+					listOfValIndex.add(new Couple(i, index1 -1))
+					i = index1 + 1
 				}
 		
-				if(index == size-1){
-					listOfIndex.add(new Couple(i, size -1))
+				if(index1 == size-1){
+					listOfValIndex.add(new Couple(i, size -1))
 				}
 				
-				index = index + 1
+				index1 = index1 + 1
 				
 			}// for(e: v1)
 			
-			for (j:listOfIndex){
+			val sizeK = v3.size
+			
+			for(e:v3) {
+				if(e.toString == ">"){
+					listOfIdentIndex.add(new Couple(k, index2 -1))
+					k = index2 + 1
+				}
+				
+				if(index2 == sizeK-1){
+					listOfIdentIndex.add(new Couple(k, sizeK -1))
+				}
+				
+				index2 = index2 + 1
+				
+			}
+			
+			var iter =0
+			for (j:listOfValIndex){
 			 	
 			 	val first = j.first
 			 	val second = j.second
-			
+				
+				val id1 = listOfIdentIndex.get(iter).first
+				val id2 = listOfIdentIndex.get(iter).second
+				
 			 	val List<String> subList = v1.subList(first, second+1)
 			 	val Set<String> subStrList = new TreeSet<String>
 			 	
 			 	v2.forEach[t| subStrList.add(t.substring(first, second+1))]
 			 	
-			 	listOfRes.add(new Couple(subList, subStrList ) )
+			 	val ident = l.third.substring(id1, id2+1)
+			 	
+			 	listOfRes.add(new Triplet(subList, subStrList, ident ) )
+			
+				iter = iter + 1
 			}
+			
+			
+			
+
 		
 		}//for(l: listOfActualValAndVar)
 		
@@ -834,7 +1071,7 @@ class MCDC_GEN {
 		do{
 			val tmp = listOfRes.get(cpt)
 			
-			val dup = listOfRes.findFirst[ (it != tmp) && (it.first.equals(tmp.first)) ]
+			val dup = listOfRes.findFirst[ (it != tmp) && (it.first.equals(tmp.first)) && (it.third == tmp.third)]
 			
 			if (dup != null){
 				tmp.second.addAll(dup.second)
@@ -847,7 +1084,7 @@ class MCDC_GEN {
 	 
 		System.out.println("Tesssssssssssssssssssst")
 		for(ss:listOfRes){
-	 		System.out.println( ss.first.toString + " => "+ ss.second.toString )	
+	 		System.out.println( ss.first.toString + " => "+ ss.second.toString + " => " + ss.third)	
 	 	}
 	 	System.out.println
 	}
