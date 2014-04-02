@@ -727,9 +727,7 @@ public static val INVALID_INPUT = 'invalidInput'
 	 	val result = new ArrayList< Triplet< List<Couple<String,String>>, List<String>, Couple<String,String>> >
 	 	
 	 	mcdc2.mcdcOfInstruction(inst, listToto, shouldBeCov, resultat)
-	 	mcdc2.mcdcOfInstruction2(inst, "", shouldBeCov2, result)
 	 	
-	 	System.out.println("New Print Version!!")
 	 	System.out.println
 	 	
 	 	for(ii:result){
@@ -837,7 +835,7 @@ public static val INVALID_INPUT = 'invalidInput'
 	 }
 	 
 	 
-	 mcdc2.mcdcCoverageVerdict(resfinal,shouldBeCov)
+	 mcdc2.mcdcCoverageVerdict(resfinal,shouldBeCov,resultat)
 	 //	mcdc.mcdcList(inst.ifcond, result)
 	 	
 	 }//method
