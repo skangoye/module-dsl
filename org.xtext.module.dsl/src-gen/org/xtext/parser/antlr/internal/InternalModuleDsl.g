@@ -1768,11 +1768,11 @@ ruleIF_INSTR returns [EObject current=null]
     {
     	newLeafNode(otherlv_3, grammarAccess.getIF_INSTRAccess().getRightParenthesisKeyword_3());
     }
-	otherlv_4='=>' 
+(	otherlv_4='=>' 
     {
     	newLeafNode(otherlv_4, grammarAccess.getIF_INSTRAccess().getEqualsSignGreaterThanSignKeyword_4());
     }
-	otherlv_5='{' 
+)?	otherlv_5='{' 
     {
     	newLeafNode(otherlv_5, grammarAccess.getIF_INSTRAccess().getLeftCurlyBracketKeyword_5());
     }

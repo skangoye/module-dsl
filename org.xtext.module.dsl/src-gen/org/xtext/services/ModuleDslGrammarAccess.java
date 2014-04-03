@@ -993,10 +993,10 @@ public class ModuleDslGrammarAccess extends AbstractGrammarElementFinder {
 		
 		//IF_INSTR:
 		//
-		//	"if" "(" ifcond=EXPRESSION ")" "=>" "{" ifst=INSTRUCTION "}" ("else" "=>"? "{" elst=INSTRUCTION "}");
+		//	"if" "(" ifcond=EXPRESSION ")" "=>"? "{" ifst=INSTRUCTION "}" ("else" "=>"? "{" elst=INSTRUCTION "}");
 		public ParserRule getRule() { return rule; }
 
-		//"if" "(" ifcond=EXPRESSION ")" "=>" "{" ifst=INSTRUCTION "}" ("else" "=>"? "{" elst=INSTRUCTION "}")
+		//"if" "(" ifcond=EXPRESSION ")" "=>"? "{" ifst=INSTRUCTION "}" ("else" "=>"? "{" elst=INSTRUCTION "}")
 		public Group getGroup() { return cGroup; }
 
 		//"if"
@@ -1014,7 +1014,7 @@ public class ModuleDslGrammarAccess extends AbstractGrammarElementFinder {
 		//")"
 		public Keyword getRightParenthesisKeyword_3() { return cRightParenthesisKeyword_3; }
 
-		//"=>"
+		//"=>"?
 		public Keyword getEqualsSignGreaterThanSignKeyword_4() { return cEqualsSignGreaterThanSignKeyword_4; }
 
 		//"{"
@@ -2141,7 +2141,7 @@ public class ModuleDslGrammarAccess extends AbstractGrammarElementFinder {
 
 	//IF_INSTR:
 	//
-	//	"if" "(" ifcond=EXPRESSION ")" "=>" "{" ifst=INSTRUCTION "}" ("else" "=>"? "{" elst=INSTRUCTION "}");
+	//	"if" "(" ifcond=EXPRESSION ")" "=>"? "{" ifst=INSTRUCTION "}" ("else" "=>"? "{" elst=INSTRUCTION "}");
 	public IF_INSTRElements getIF_INSTRAccess() {
 		return (pIF_INSTR != null) ? pIF_INSTR : (pIF_INSTR = new IF_INSTRElements());
 	}

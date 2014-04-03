@@ -665,46 +665,6 @@ class MCDC_GEN {
 	}
 	
 	/**
-	 * This method checks whether or not in the given path (of if instruct) there are no repeated variables
-	 */
-	def boolean noCommonVar(List<Triplet<List<Couple<String, String>>, List<String>, String>> myList){
-		var union = new ArrayList<String>
-		var List<String> intersection = new ArrayList<String>
-		for(e: myList){
-			intersection = varInCommon(union, e.second)
-			if(intersection.size > 0){
-				return false
-			}
-			union.add(">")
-			union.addAll(e.second)
-		}
-		return true
-	}
-	
-	
-	/**
-	 * 
-	 */
-	def List<Couple<Integer, Integer>> indexOfCommonVar(List<String> list1, List<String> list2, List<String> inCommon) {
-	
-		val listOfCommonVar = new ArrayList<Couple<Integer, Integer>>
-		for(c: inCommon){
-			val i = list1.indexOf(c)
-			val j = list2.indexOf(c)
-			listOfCommonVar.add( new Couple(i,j) )
-		}
-		
-		System.out.print("CommonVar")
-		System.out.print("[")
-	 		for (c:listOfCommonVar){
-	 			System.out.print("("+ c.first +", "+ c.second + ")" + ", ")
-	 		}
-	 		System.out.println("]")
-		return listOfCommonVar
-	}
-	
-	
-	/**
 	 * 
 	 */
 	def List< Couple<String, String>> simpleComposition(List< Couple<String, String>> l1, List< Couple<String, String>> l2 ){
@@ -945,7 +905,7 @@ class MCDC_GEN {
 	 */
 	def addingMissingValues(List<Triplet<List<String>,List<String>,String>> notCoveredValues, List<List<Triplet<List<Couple<String,String>>,List<String>,String>>> listOfList) {
 		
-		val List<List<Triplet<List<Couple<String,String>>,List<String>,String>>> list = new ArrayList<List<Triplet<List<Couple<String,String>>,List<String>,String>>>
+		
 		
 		for (e: notCoveredValues){
 			
@@ -957,37 +917,66 @@ class MCDC_GEN {
 				listOfList.forEach[
 					t | val elem = t.findFirst[ (it.third == ident) && (it.second.equals(listOfVar)) && (it.first.containThisValue(v)) ]
 					if (elem != null){
-						list.add(t)
-					}
-				]
+						val List<Triplet <Couple<String,String>,List<String>,String>> list = new ArrayList<Triplet< Couple<String,String>,List<String>,String>>
+						var indexOfTarget = -1
+						for(i: t){
+							val outcome = i.first.get(0).second // outcome of values
+							val myVarList = i.second
+							val myIdent = i.third
+							if(ident != myIdent){
+								list.add(new Triplet( new Couple(myVarList.size.unknownStringVector, outcome), myVarList, myIdent))
+							}
+							else{
+								val target = new Triplet( new Couple(v, outcome), myVarList, myIdent)
+								list.add(target)
+								indexOfTarget = list.indexOf(target)
+							}
+						}
+						
+						if(indexOfTarget == -1){
+							throw new Exception("Bad value of Index ")
+						}
+						
+						var cpt = 0
+						var size = list.size
+						val targetTriplet = list.get(indexOfTarget)
+						val targetListOfVar = targetTriplet.second
+						val targetCouple = targetTriplet.first
+						do{
+							if(cpt != indexOfTarget){
+								val currTriplet = list.get(cpt)
+								val currListOfVar1 = currTriplet.second
+								val varInCommon = varInCommon(targetListOfVar, currListOfVar1)
+								if(varInCommon.size > 0){
+									//they share some variables
+									val indexOfCommonVar = indexOfCommonVar(targetListOfVar, currListOfVar1, varInCommon)
+									val currCouple = currTriplet.first
+									for(ii :indexOfCommonVar){
+										//Set the values of common variables in current triplets with the values of target variables  
+										val str = (currCouple.first).setCharAt(ii.second, targetCouple.first.charAt(ii.first))
+										currCouple.setFirst(str)
+									}
+								}
+							}
+							
+							
+						} while( (cpt=cpt+1) < size)
+						
+						System.out.println("To be tested")
+						System.out.println("Index Of target: "+ indexOfTarget.toString)
+						for (ll: list ){
+							System.out.print("("+ ll.first.first +", "+ ll.first.second +  ")" )
+							System.out.print( " => ")
+							System.out.print(ll.second.toString)
+							System.out.print( " => ")
+							System.out.print(ll.third)
+							System.out.println
+						}
+					}//if(elem != null)
+				]//forEach
 			}//for
 			
 		}//for
-		
-		 for (r:list){
-	 	
-	 	System.out.println
-	 	System.out.println (" To be tested")
-	 	System.out.println("{")
-	 	
-	 	for(rr: r){
-	 		val listOfValues = rr.first
-	 		val varInExp = rr.third
-	 		val id = rr.second
-	 		
-	 		System.out.print("[")
-	 		for (c:listOfValues){
-	 			System.out.print("("+ c.first +", "+ c.second +  ")" + ", ")
-	 		}
-	 		System.out.print("=> ") System.out.print(id) System.out.print(" => ")
-	 		System.out.print(varInExp.toString)
-	 	
-	 		System.out.println("]")
-	 	}
-	 	
-	 	System.out.println("}")
-	 	System.out.println
-	 }
 	}
 	
 	/**
@@ -1060,11 +1049,82 @@ class MCDC_GEN {
 	  	}
 	  }
 	  
+	 /**
+	 * This method checks whether or not in the given path (of if instruct) there are no repeated variables
+	 */
+	def boolean noCommonVar(List<Triplet<List<Couple<String, String>>, List<String>, String>> myList){
+		var union = new ArrayList<String>
+		var List<String> intersection = new ArrayList<String>
+		for(e: myList){
+			intersection = varInCommon(union, e.second)
+			if(intersection.size > 0){
+				return false
+			}
+			union.add(">")
+			union.addAll(e.second)
+		}
+		return true
+	}
+	
+	
+	/**
+	 * 
+	 */
+	def List<Couple<Integer, Integer>> indexOfCommonVar(List<String> list1, List<String> list2, List<String> inCommon) {
+	
+		val listOfCommonVar = new ArrayList<Couple<Integer, Integer>>
+		for(c: inCommon){
+			val i = list1.indexOf(c)
+			val j = list2.indexOf(c)
+			listOfCommonVar.add( new Couple(i,j) )
+		}
+		
+		System.out.print("CommonVar")
+		System.out.print("[")
+	 		for (c:listOfCommonVar){
+	 			System.out.print("("+ c.first +", "+ c.second + ")" + ", ")
+	 		}
+	 		System.out.println("]")
+		return listOfCommonVar
+	}
+	
 	  /**
 	   * 
 	   */
-	  def String StringReprOfExp(EXPRESSION exp){
+	  def String setCharAt(String str, int index, char r){
+	  		val size = str.length
+	  		
+	  		if(index >= size){
+	  			throw new Exception("Index Out of range")
+	  		}
+	  		
+	  		val toCharList = str.toCharArray
+	  		toCharList.set(index, r)
+	  		
+	  		var newStr = ""
+	  		
+	  		for (e: toCharList){
+	  			newStr = newStr + e.toString
+	  		}
+
+			return newStr	 		
+	  }
+	  
+	  /**
+	   * 
+	   */
+	  def unknownStringVector(int length){
+	  	if(length < 1){
+	  		throw new Exception("The length has to be greater than 0")
+	  	}
 	  	
+	  	var i =0
+	  	var tmpStr = ""
+	  	do {
+	  		tmpStr = tmpStr + "X"
+	  	}while ( (i=i+1) < length)
+	  	
+	  	return tmpStr
 	  }
 	 
 	 /**
