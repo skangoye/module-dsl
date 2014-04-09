@@ -5,8 +5,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
+import org.eclipse.xtend2.lib.StringConcatenation;
 import org.eclipse.xtext.xbase.lib.Conversions;
 import org.eclipse.xtext.xbase.lib.Exceptions;
+import org.eclipse.xtext.xbase.lib.Functions.Function0;
 import org.eclipse.xtext.xbase.lib.Functions.Function1;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
 import org.eclipse.xtext.xbase.lib.ListExtensions;
@@ -693,16 +695,22 @@ public class MCDC_GEN {
     return result;
   }
   
-  private int identifier = 0;
+  private int identifier = new Function0<Integer>() {
+    public Integer apply() {
+      int _minus = (-1);
+      return _minus;
+    }
+  }.apply();
   
-  public void mcdcOfInstruction(final INSTRUCTION instr, final List<Triplet<List<Couple<String,String>>,List<String>,String>> list, final List<Triplet<List<String>,List<String>,String>> shouldBeCoveredList, final List<List<Triplet<List<Couple<String,String>>,List<String>,String>>> result) {
+  public void mcdcOfInstruction(final INSTRUCTION instr, final List<EXPRESSION> condList, final List<Triplet<List<Couple<String,String>>,List<String>,String>> list, final List<Triplet<List<String>,List<String>,String>> shouldBeCoveredList, final List<List<Triplet<List<Couple<String,String>>,List<String>,String>>> resultList) {
     try {
       if ((instr instanceof IF_INSTR)) {
-        final IF_INSTR myInstr = ((IF_INSTR) instr);
-        final EXPRESSION cond = myInstr.getIfcond();
-        final List<Couple<String,String>> mcdcEvalOfCond = this.mcdcOfBooleanExp(cond);
         int _plus = (this.identifier + 1);
         this.identifier = _plus;
+        final IF_INSTR myInstr = ((IF_INSTR) instr);
+        final EXPRESSION cond = myInstr.getIfcond();
+        condList.add(this.identifier, cond);
+        final List<Couple<String,String>> mcdcEvalOfCond = this.mcdcOfBooleanExp(cond);
         ArrayList<String> _arrayList = new ArrayList<String>();
         final List<String> listOfValues = _arrayList;
         final Procedure1<Couple<String,String>> _function = new Procedure1<Couple<String,String>>() {
@@ -753,13 +761,13 @@ public class MCDC_GEN {
         Triplet<List<Couple<String,String>>,List<String>,String> _triplet_2 = new Triplet<List<Couple<String,String>>,List<String>,String>(falseEvalOfMcdc, varInCond, _string_2);
         listF.add(_triplet_2);
         INSTRUCTION _ifst = myInstr.getIfst();
-        this.mcdcOfInstruction(_ifst, listT, shouldBeCoveredList, result);
+        this.mcdcOfInstruction(_ifst, condList, listT, shouldBeCoveredList, resultList);
         INSTRUCTION _elst = myInstr.getElst();
-        this.mcdcOfInstruction(_elst, listF, shouldBeCoveredList, result);
+        this.mcdcOfInstruction(_elst, condList, listF, shouldBeCoveredList, resultList);
       } else {
         if ((instr instanceof ASSIGN_INSTR)) {
           ListExtensions.<Triplet<List<Couple<String,String>>,List<String>,String>>reverse(list);
-          result.add(list);
+          resultList.add(list);
         } else {
           boolean _or = false;
           if ((instr instanceof ERROR_INSTR)) {
@@ -769,7 +777,7 @@ public class MCDC_GEN {
           }
           if (_or) {
             ListExtensions.<Triplet<List<Couple<String,String>>,List<String>,String>>reverse(list);
-            result.add(list);
+            resultList.add(list);
           } else {
             if ((instr instanceof LOOP_INSTR)) {
             } else {
@@ -1331,13 +1339,13 @@ public class MCDC_GEN {
         System.out.println(_plus_8);
       }
       System.out.println();
-      this.addingMissingValues(notCoveredValues, listOfList);
+      this.addMissingValues(notCoveredValues, listOfList);
     } catch (Throwable _e) {
       throw Exceptions.sneakyThrow(_e);
     }
   }
   
-  public void addingMissingValues(final List<Triplet<List<String>,List<String>,String>> notCoveredValues, final List<List<Triplet<List<Couple<String,String>>,List<String>,String>>> listOfList) {
+  public void addMissingValues(final List<Triplet<List<String>,List<String>,String>> notCoveredValues, final List<List<Triplet<List<Couple<String,String>>,List<String>,String>>> listOfList) {
     for (final Triplet<List<String>,List<String>,String> e : notCoveredValues) {
       {
         final List<String> listOfVar = e.getFirst();
@@ -1403,7 +1411,7 @@ public class MCDC_GEN {
                     int _minus = (-1);
                     boolean _equals = (indexOfTarget == _minus);
                     if (_equals) {
-                      Exception _exception = new Exception("Bad value of Index ");
+                      Exception _exception = new Exception("Bad Index Value");
                       throw _exception;
                     }
                     int cpt = 0;
@@ -1478,6 +1486,62 @@ public class MCDC_GEN {
     }
   }
   
+  public CharSequence solveEquation(final List<EXPRESSION> condList, final List<Triplet<Couple<String,String>,List<String>,String>> listOfEquations) {
+    try {
+      CharSequence _xblockexpression = null;
+      {
+        ArrayList<Couple<String,String>> _arrayList = new ArrayList<Couple<String,String>>();
+        final List<Couple<String,String>> listOfVarAndVal = _arrayList;
+        ArrayList<Couple<EXPRESSION,String>> _arrayList_1 = new ArrayList<Couple<EXPRESSION,String>>();
+        final List<Couple<EXPRESSION,String>> listOfCondAndResults = _arrayList_1;
+        for (final Triplet<Couple<String,String>,List<String>,String> t : listOfEquations) {
+          {
+            final Couple<String,String> couple = t.getFirst();
+            final String values = couple.getFirst();
+            final List<String> variables = t.getSecond();
+            String _third = t.getThird();
+            final int indexInteger = Integer.parseInt(_third);
+            EXPRESSION _get = condList.get(indexInteger);
+            String _second = couple.getSecond();
+            Couple<EXPRESSION,String> _couple = new Couple<EXPRESSION,String>(_get, _second);
+            listOfCondAndResults.add(_couple);
+            int size = variables.size();
+            int _length = values.length();
+            boolean _notEquals = (_length != size);
+            if (_notEquals) {
+              Exception _exception = new Exception("size mismatch");
+              throw _exception;
+            }
+            int cpt = 0;
+            boolean _dowhile = false;
+            do {
+              {
+                final String variable = variables.get(cpt);
+                boolean _containThisValue = this.containThisValue(listOfVarAndVal, variable);
+                boolean _not = (!_containThisValue);
+                if (_not) {
+                  char _charAt = values.charAt(cpt);
+                  String _string = Character.valueOf(_charAt).toString();
+                  Couple<String,String> _couple_1 = new Couple<String,String>(variable, _string);
+                  listOfVarAndVal.add(_couple_1);
+                }
+              }
+              int _plus = (cpt + 1);
+              int _cpt = cpt = _plus;
+              boolean _lessThan = (_cpt < size);
+              _dowhile = _lessThan;
+            } while(_dowhile);
+          }
+        }
+        CharSequence _chocoRepr = this.chocoRepr(listOfVarAndVal, listOfCondAndResults);
+        _xblockexpression = (_chocoRepr);
+      }
+      return _xblockexpression;
+    } catch (Throwable _e) {
+      throw Exceptions.sneakyThrow(_e);
+    }
+  }
+  
   public boolean containThisValue(final List<Couple<String,String>> list, final String str) {
     for (final Couple<String,String> e : list) {
       String _first = e.getFirst();
@@ -1487,6 +1551,272 @@ public class MCDC_GEN {
       }
     }
     return false;
+  }
+  
+  public CharSequence chocoRepr(final List<Couple<String,String>> variables, final List<Couple<EXPRESSION,String>> condAndRes) {
+    StringConcatenation _builder = new StringConcatenation();
+    _builder.append("//Choco model");
+    _builder.newLine();
+    _builder.append("CPModel model = new CPModel();");
+    _builder.newLine();
+    _builder.newLine();
+    _builder.append("//Create variables and add them in the model\t");
+    _builder.newLine();
+    {
+      for(final Couple<String,String> v : variables) {
+        _builder.newLine();
+        {
+          String _second = v.getSecond();
+          boolean _equals = Objects.equal(_second, "*");
+          if (_equals) {
+            _builder.append("IntegerVariable ");
+            String _first = v.getFirst();
+            _builder.append(_first, "");
+            _builder.append(" = Choco.makeIntVar(\"");
+            String _first_1 = v.getFirst();
+            _builder.append(_first_1, "");
+            _builder.append("\", 0, 1);");
+            _builder.newLineIfNotEmpty();
+            _builder.append("model.addVariable(");
+            String _first_2 = v.getFirst();
+            _builder.append(_first_2, "");
+            _builder.append("); ");
+            _builder.newLineIfNotEmpty();
+          }
+        }
+        _builder.newLine();
+        {
+          String _second_1 = v.getSecond();
+          boolean _equals_1 = Objects.equal(_second_1, "F");
+          if (_equals_1) {
+            _builder.append("IntegerVariable ");
+            String _first_3 = v.getFirst();
+            _builder.append(_first_3, "");
+            _builder.append(" = Choco.makeIntVar(\"");
+            String _first_4 = v.getFirst();
+            _builder.append(_first_4, "");
+            _builder.append("\", 0, 0); ");
+            _builder.newLineIfNotEmpty();
+            _builder.append("model.addVariable(");
+            String _first_5 = v.getFirst();
+            _builder.append(_first_5, "");
+            _builder.append("); ");
+            _builder.newLineIfNotEmpty();
+          }
+        }
+        _builder.newLine();
+        {
+          String _second_2 = v.getSecond();
+          boolean _equals_2 = Objects.equal(_second_2, "T");
+          if (_equals_2) {
+            _builder.append("IntegerVariable ");
+            String _first_6 = v.getFirst();
+            _builder.append(_first_6, "");
+            _builder.append(" = Choco.makeIntVar(\"");
+            String _first_7 = v.getFirst();
+            _builder.append(_first_7, "");
+            _builder.append("\", 1, 1); ");
+            _builder.newLineIfNotEmpty();
+            _builder.append("model.addVariable(");
+            String _first_8 = v.getFirst();
+            _builder.append(_first_8, "");
+            _builder.append("); ");
+            _builder.newLineIfNotEmpty();
+          }
+        }
+        _builder.append("\t\t\t");
+        _builder.newLine();
+      }
+    }
+    _builder.newLine();
+    _builder.append("//Expressions and constraints");
+    _builder.newLine();
+    {
+      for(final Couple<EXPRESSION,String> c : condAndRes) {
+        _builder.newLine();
+        _builder.append("\t");
+        _builder.append("IntegerExpressionVariable ");
+        int _indexOf = condAndRes.indexOf(c);
+        String _plus = ("exp" + Integer.valueOf(_indexOf));
+        _builder.append(_plus, "	");
+        _builder.append(" = ");
+        EXPRESSION _first_9 = c.getFirst();
+        String _chocoStringReprOfCondition = this.chocoStringReprOfCondition(_first_9);
+        _builder.append(_chocoStringReprOfCondition, "	");
+        _builder.append(" ;");
+        _builder.newLineIfNotEmpty();
+        {
+          String _second_3 = c.getSecond();
+          boolean _equals_3 = Objects.equal(_second_3, "F");
+          if (_equals_3) {
+            _builder.append("\t");
+            _builder.append("Constraint ");
+            int _indexOf_1 = condAndRes.indexOf(c);
+            String _plus_1 = ("ctr" + Integer.valueOf(_indexOf_1));
+            _builder.append(_plus_1, "	");
+            _builder.append(" = Choco.eq(");
+            int _indexOf_2 = condAndRes.indexOf(c);
+            String _plus_2 = ("exp" + Integer.valueOf(_indexOf_2));
+            _builder.append(_plus_2, "	");
+            _builder.append(", 0); ");
+            _builder.newLineIfNotEmpty();
+          }
+        }
+        _builder.append("\t");
+        _builder.newLine();
+        {
+          String _second_4 = c.getSecond();
+          boolean _equals_4 = Objects.equal(_second_4, "T");
+          if (_equals_4) {
+            _builder.append("\t");
+            _builder.append("Constraint ");
+            int _indexOf_3 = condAndRes.indexOf(c);
+            String _plus_3 = ("ctr" + Integer.valueOf(_indexOf_3));
+            _builder.append(_plus_3, "	");
+            _builder.append(" = Choco.geq(");
+            int _indexOf_4 = condAndRes.indexOf(c);
+            String _plus_4 = ("exp" + Integer.valueOf(_indexOf_4));
+            _builder.append(_plus_4, "	");
+            _builder.append(", 1);");
+            _builder.newLineIfNotEmpty();
+            _builder.append("\t");
+            _builder.append("Constraint ");
+            int _indexOf_5 = condAndRes.indexOf(c);
+            String _plus_5 = ("ctr" + Integer.valueOf(_indexOf_5));
+            String _plus_6 = (_plus_5 + "_");
+            _builder.append(_plus_6, "	");
+            _builder.append(" = Choco.leq(");
+            int _indexOf_6 = condAndRes.indexOf(c);
+            String _plus_7 = ("exp" + Integer.valueOf(_indexOf_6));
+            _builder.append(_plus_7, "	");
+            _builder.append(", ");
+            EXPRESSION _first_10 = c.getFirst();
+            _builder.append(_first_10, "	");
+            _builder.append(");");
+            _builder.newLineIfNotEmpty();
+          }
+        }
+        _builder.append("\t");
+        _builder.newLine();
+      }
+    }
+    _builder.newLine();
+    _builder.append("//Constraints");
+    _builder.newLine();
+    return _builder;
+  }
+  
+  private String chocoStringReprOfCondition(final EXPRESSION exp) {
+    String _switchResult = null;
+    boolean _matched = false;
+    if (!_matched) {
+      if (exp instanceof OR) {
+        final OR _oR = (OR)exp;
+        _matched=true;
+        StringConcatenation _builder = new StringConcatenation();
+        _builder.append(" ");
+        _builder.append("Choco.plus( ");
+        EXPRESSION _left = _oR.getLeft();
+        String _chocoStringReprOfCondition = this.chocoStringReprOfCondition(_left);
+        _builder.append(_chocoStringReprOfCondition, " ");
+        _builder.append(",  ");
+        EXPRESSION _right = _oR.getRight();
+        String _chocoStringReprOfCondition_1 = this.chocoStringReprOfCondition(_right);
+        _builder.append(_chocoStringReprOfCondition_1, " ");
+        _builder.append(") ");
+        _switchResult = _builder.toString();
+      }
+    }
+    if (!_matched) {
+      if (exp instanceof AND) {
+        final AND _aND = (AND)exp;
+        _matched=true;
+        StringConcatenation _builder = new StringConcatenation();
+        _builder.append(" ");
+        _builder.append("Choco.mult( ");
+        EXPRESSION _left = _aND.getLeft();
+        String _chocoStringReprOfCondition = this.chocoStringReprOfCondition(_left);
+        _builder.append(_chocoStringReprOfCondition, " ");
+        _builder.append(",  ");
+        EXPRESSION _right = _aND.getRight();
+        String _chocoStringReprOfCondition_1 = this.chocoStringReprOfCondition(_right);
+        _builder.append(_chocoStringReprOfCondition_1, " ");
+        _builder.append(") ");
+        _switchResult = _builder.toString();
+      }
+    }
+    if (!_matched) {
+      if (exp instanceof NOT) {
+        final NOT _nOT = (NOT)exp;
+        _matched=true;
+        StringConcatenation _builder = new StringConcatenation();
+        _builder.append(" ");
+        _builder.append("Choco.minus( 1 ,  ");
+        String _chocoStringReprOfCondition = this.chocoStringReprOfCondition(_nOT);
+        _builder.append(_chocoStringReprOfCondition, " ");
+        _builder.append(") ");
+        _switchResult = _builder.toString();
+      }
+    }
+    if (!_matched) {
+      if (exp instanceof COMPARISON) {
+        final COMPARISON _cOMPARISON = (COMPARISON)exp;
+        _matched=true;
+        StringConcatenation _builder = new StringConcatenation();
+        _builder.append(" ");
+        EXPRESSION _left = _cOMPARISON.getLeft();
+        String _relBoolRepr = this.relBoolRepr(_left);
+        _builder.append(_relBoolRepr, " ");
+        _builder.append(" + ");
+        String _op = _cOMPARISON.getOp();
+        _builder.append(_op, " ");
+        _builder.append(" + ");
+        EXPRESSION _right = _cOMPARISON.getRight();
+        String _relBoolRepr_1 = this.relBoolRepr(_right);
+        _builder.append(_relBoolRepr_1, " ");
+        _builder.append(" ");
+        _switchResult = _builder.toString();
+      }
+    }
+    if (!_matched) {
+      if (exp instanceof EQUAL_DIFF) {
+        final EQUAL_DIFF _eQUAL_DIFF = (EQUAL_DIFF)exp;
+        _matched=true;
+        StringConcatenation _builder = new StringConcatenation();
+        _builder.append(" ");
+        EXPRESSION _left = _eQUAL_DIFF.getLeft();
+        String _relBoolRepr = this.relBoolRepr(_left);
+        _builder.append(_relBoolRepr, " ");
+        _builder.append(" + ");
+        String _op = _eQUAL_DIFF.getOp();
+        _builder.append(_op, " ");
+        _builder.append(" + ");
+        EXPRESSION _right = _eQUAL_DIFF.getRight();
+        String _relBoolRepr_1 = this.relBoolRepr(_right);
+        _builder.append(_relBoolRepr_1, " ");
+        _builder.append(" ");
+        _switchResult = _builder.toString();
+      }
+    }
+    if (!_matched) {
+      if (exp instanceof VarExpRef) {
+        final VarExpRef _varExpRef = (VarExpRef)exp;
+        _matched=true;
+        StringConcatenation _builder = new StringConcatenation();
+        _builder.append(" ");
+        VAR_CST _vref = _varExpRef.getVref();
+        String _name = _vref.getName();
+        _builder.append(_name, " ");
+        _builder.append(" ");
+        _switchResult = _builder.toString();
+      }
+    }
+    if (!_matched) {
+      StringConcatenation _builder = new StringConcatenation();
+      _builder.append(" ");
+      _switchResult = _builder.toString();
+    }
+    return _switchResult;
   }
   
   public boolean meetConstraints(final String str1, final String str2, final List<Couple<Integer,Integer>> indexOfCommonVar) {
@@ -1769,19 +2099,6 @@ public class MCDC_GEN {
         listOfCommonVar.add(_couple);
       }
     }
-    System.out.print("CommonVar");
-    System.out.print("[");
-    for (final Couple<Integer,Integer> c_1 : listOfCommonVar) {
-      Integer _first = c_1.getFirst();
-      String _plus = ("(" + _first);
-      String _plus_1 = (_plus + ", ");
-      Integer _second = c_1.getSecond();
-      String _plus_2 = (_plus_1 + _second);
-      String _plus_3 = (_plus_2 + ")");
-      String _plus_4 = (_plus_3 + ", ");
-      System.out.print(_plus_4);
-    }
-    System.out.println("]");
     return listOfCommonVar;
   }
   
@@ -1818,7 +2135,7 @@ public class MCDC_GEN {
       String tmpStr = "";
       boolean _dowhile = false;
       do {
-        String _plus = (tmpStr + "X");
+        String _plus = (tmpStr + "*");
         tmpStr = _plus;
         int _plus_1 = (i + 1);
         int _i = i = _plus_1;

@@ -724,9 +724,10 @@ public static val INVALID_INPUT = 'invalidInput'
 	 	val resultat = new ArrayList< List < Triplet < List<Couple<String,String>>, List<String>,  String  > > >
 	 	
 	 	val shouldBeCov2 =  new ArrayList< Couple< List<String>, List<String> >>
+	 	val condList = new ArrayList<EXPRESSION>
 	 	val result = new ArrayList< Triplet< List<Couple<String,String>>, List<String>, Couple<String,String>> >
 	 	
-	 	mcdc2.mcdcOfInstruction(inst, listToto, shouldBeCov, resultat)
+	 	mcdc2.mcdcOfInstruction(inst, condList, listToto, shouldBeCov, resultat)
 	 	
 	 	System.out.println
 	 	

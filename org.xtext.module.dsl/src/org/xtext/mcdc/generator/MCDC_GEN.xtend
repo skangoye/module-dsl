@@ -7,9 +7,11 @@ import org.xtext.helper.Couple
 import org.xtext.moduleDsl.EXPRESSION
 import java.util.Set
 import java.util.TreeSet
-import org.xtext.types.*;
+import org.xtext.types.*
 import org.xtext.moduleDsl.INSTRUCTION
 import org.xtext.helper.Triplet
+import com.ibm.icu.impl.Assert
+import com.google.inject.Inject
 
 class MCDC_GEN {
 	
@@ -485,17 +487,19 @@ class MCDC_GEN {
 	/**
 	 * 
 	 */
-	 var identifier = 0
+	 var identifier = -1
 	 
-	 def void mcdcOfInstruction(INSTRUCTION instr, List< Triplet< List< Couple<String,String>>, List<String>, String > > list, List< Triplet< List<String>, List<String>, String >> shouldBeCoveredList
-	 	,List< List< Triplet< List<Couple<String,String>>, List<String>, String > > > result) {
+	 def void mcdcOfInstruction(INSTRUCTION instr, List<EXPRESSION> condList, List< Triplet< List< Couple<String,String>>, List<String>, String > > list, List< Triplet< List<String>, List<String>, String >> shouldBeCoveredList
+	 	,List< List< Triplet< List<Couple<String,String>>, List<String>, String > > > resultList) {
 	 	
 	 	if (instr instanceof IF_INSTR){
-	 		val myInstr = (instr as IF_INSTR)
-	 		val cond = myInstr.ifcond
-	 		val mcdcEvalOfCond = mcdcOfBooleanExp(cond)
 	 		
 	 		identifier = identifier + 1
+	 		
+	 		val myInstr = (instr as IF_INSTR)
+	 		val cond = myInstr.ifcond
+	 		condList.add(identifier, cond )
+	 		val mcdcEvalOfCond = mcdcOfBooleanExp(cond)
 	 		
 	 		val List<String> listOfValues = new ArrayList<String>
 	 		
@@ -521,21 +525,22 @@ class MCDC_GEN {
 	 		listT.add( new Triplet(trueEvalOfMcdc, varInCond, identifier.toString) )
 	 		listF.add( new Triplet(falseEvalOfMcdc, varInCond, identifier.toString) )
 	 		
-	 		mcdcOfInstruction(myInstr.ifst, listT, shouldBeCoveredList, result)
-	 		mcdcOfInstruction(myInstr.elst, listF, shouldBeCoveredList, result)
+	 		mcdcOfInstruction(myInstr.ifst, condList, listT, shouldBeCoveredList, resultList)
+	 		mcdcOfInstruction(myInstr.elst, condList, listF, shouldBeCoveredList, resultList)
 	 	}
+	 	
 	 	else{
 	 		if(instr instanceof ASSIGN_INSTR){
 	 			//TO DO: implement mcdc of decisions within assign instruction
 	 			//val rightAssign = (instr as ASSIGN_INSTR).s
 	 			//val tt = merge (list, mcdcOfBooleanExp() )
 	 				list.reverse
-	 				result.add(list)
+	 				resultList.add(list)
 	 		}
 	 		else{
 	 			if(instr instanceof ERROR_INSTR || instr instanceof NULL_INSTR){
 	 					list.reverse
-	 					result.add(list)
+	 					resultList.add(list)
 	 			}
 	 			else{
 	 				if (instr instanceof LOOP_INSTR){
@@ -896,16 +901,14 @@ class MCDC_GEN {
 	 	System.out.println
 	 	
 	 	//adding missing values process
-		addingMissingValues(notCoveredValues, listOfList)
+		addMissingValues(notCoveredValues, listOfList)
 		
 	}
 	
 	/**
 	 * 
 	 */
-	def addingMissingValues(List<Triplet<List<String>,List<String>,String>> notCoveredValues, List<List<Triplet<List<Couple<String,String>>,List<String>,String>>> listOfList) {
-		
-		
+	def addMissingValues(List<Triplet<List<String>,List<String>,String>> notCoveredValues, List<List<Triplet<List<Couple<String,String>>,List<String>,String>>> listOfList) {
 		
 		for (e: notCoveredValues){
 			
@@ -934,8 +937,8 @@ class MCDC_GEN {
 						}
 						
 						if(indexOfTarget == -1){
-							throw new Exception("Bad value of Index ")
-						}
+							throw new Exception("Bad Index Value")
+						}  
 						
 						var cpt = 0
 						var size = list.size
@@ -962,6 +965,8 @@ class MCDC_GEN {
 							
 						} while( (cpt=cpt+1) < size)
 						
+						//call solve equation here
+						
 						System.out.println("To be tested")
 						System.out.println("Index Of target: "+ indexOfTarget.toString)
 						for (ll: list ){
@@ -977,7 +982,43 @@ class MCDC_GEN {
 			}//for
 			
 		}//for
-	}
+	} 
+
+	 /**
+	  * 
+	  */
+	 def solveEquation(List<EXPRESSION> condList, List<Triplet<Couple<String, String>, List<String>, String>> listOfEquations){
+	 	
+	 	val List< Couple<String,String> > listOfVarAndVal = new ArrayList<Couple<String,String> >
+	 	val List < Couple<EXPRESSION, String> > listOfCondAndResults = new ArrayList<Couple<EXPRESSION, String> >
+	 	
+	 	for(t:listOfEquations){
+	 		val couple = t.first
+	 		val values = couple.first
+	 		val variables= t.second
+	 		val indexInteger = Integer.parseInt(t.third)
+	 		
+	 		listOfCondAndResults.add( new Couple( condList.get(indexInteger), couple.second) )
+	 	
+	 		var size = variables.size
+	 		
+	 		if(values.length != size){
+	 			throw new Exception("size mismatch")
+	 		}
+	 		
+	 		var cpt = 0
+	 		do{
+	 			val variable = variables.get(cpt) 
+	 			if(!listOfVarAndVal.containThisValue(variable)){
+	 				listOfVarAndVal.add( new Couple(variable , values.charAt(cpt).toString))
+	 			}
+	 		}while( (cpt=cpt+1) < size)
+	 		
+	 		//call new choco method to create variables from listOfVarAndVal
+	 	}//for
+	 	
+	 	chocoRepr(listOfVarAndVal, listOfCondAndResults)
+	 }
 	
 	/**
 	 * 
@@ -992,6 +1033,70 @@ class MCDC_GEN {
 	 	return false
 	 }
 	 
+	/**
+	 * 
+	 */
+	def chocoRepr(List<Couple<String,String>> variables, List<Couple<EXPRESSION,String>> condAndRes) {
+		
+		'''
+			//Choco model
+			CPModel model = new CPModel();
+			
+			//Create variables and add them in the model	
+			«FOR v : variables» 
+				
+				«IF v.second == "*"»
+					IntegerVariable «v.first» = Choco.makeIntVar("«v.first»", 0, 1);
+					model.addVariable(«v.first»); 
+				«ENDIF»
+				
+				«IF v.second == "F"»
+					IntegerVariable «v.first» = Choco.makeIntVar("«v.first»", 0, 0); 
+					model.addVariable(«v.first»); 
+				«ENDIF»
+				
+				«IF v.second == "T"»
+					IntegerVariable «v.first» = Choco.makeIntVar("«v.first»", 1, 1); 
+					model.addVariable(«v.first»); 
+				«ENDIF»
+			
+			«ENDFOR»
+			
+			//Expressions and constraints
+			«FOR c : condAndRes»
+			
+				IntegerExpressionVariable «"exp" + condAndRes.indexOf(c)» = «c.first.chocoStringReprOfCondition» ;
+				«IF c.second == "F"»
+					Constraint «"ctr" + condAndRes.indexOf(c)» = Choco.eq(«"exp" + condAndRes.indexOf(c)», 0); 
+				«ENDIF»
+				
+				«IF c.second == "T"»
+					Constraint «"ctr" + condAndRes.indexOf(c)» = Choco.geq(«"exp" + condAndRes.indexOf(c)», 1);
+					Constraint «("ctr" + condAndRes.indexOf(c) + "_")» = Choco.leq(«"exp" + condAndRes.indexOf(c)», «c.first»);
+				«ENDIF»
+				
+			«ENDFOR»
+			
+			//Constraints
+		'''
+	}
+	 
+	 
+	 /**
+	 * 
+	 */
+	 def private String chocoStringReprOfCondition(EXPRESSION exp){
+ 		switch(exp){
+ 			OR:''' Choco.plus( « exp.left.chocoStringReprOfCondition »,  « exp.right.chocoStringReprOfCondition ») '''
+ 			AND: ''' Choco.mult( « exp.left.chocoStringReprOfCondition »,  « exp.right.chocoStringReprOfCondition ») '''
+ 			NOT:''' Choco.minus( 1 ,  « exp.chocoStringReprOfCondition ») '''
+ 			COMPARISON:''' « exp.left.relBoolRepr » + « exp.op » + « exp.right.relBoolRepr » '''
+ 			EQUAL_DIFF: ''' « exp.left.relBoolRepr » + « exp.op » + « exp.right.relBoolRepr » '''
+ 			VarExpRef:''' « exp.vref.name » '''
+ 			default:''' '''
+ 		}
+	 }
+	
 	/**
 	 * 
 	 */
@@ -1079,12 +1184,12 @@ class MCDC_GEN {
 			listOfCommonVar.add( new Couple(i,j) )
 		}
 		
-		System.out.print("CommonVar")
+		/*System.out.print("CommonVar")
 		System.out.print("[")
 	 		for (c:listOfCommonVar){
 	 			System.out.print("("+ c.first +", "+ c.second + ")" + ", ")
 	 		}
-	 		System.out.println("]")
+	 		System.out.println("]")*/
 		return listOfCommonVar
 	}
 	
@@ -1121,7 +1226,7 @@ class MCDC_GEN {
 	  	var i =0
 	  	var tmpStr = ""
 	  	do {
-	  		tmpStr = tmpStr + "X"
+	  		tmpStr = tmpStr + "*"
 	  	}while ( (i=i+1) < length)
 	  	
 	  	return tmpStr
