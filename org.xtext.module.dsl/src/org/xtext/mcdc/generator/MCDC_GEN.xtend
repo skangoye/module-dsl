@@ -13,6 +13,16 @@ import org.xtext.helper.Triplet
 import com.ibm.icu.impl.Assert
 import com.google.inject.Inject
 
+import org.xtext.solver.ProblemChoco
+import choco.*;
+import choco.cp.model.CPModel;
+import choco.cp.solver.CPSolver;
+import choco.kernel.model.constraints.Constraint;
+import choco.kernel.model.variables.integer.IntegerExpressionVariable;
+import choco.kernel.model.variables.integer.IntegerVariable;
+import choco.kernel.solver.Configuration;
+import choco.kernel.solver.search.ISolutionPool;
+
 class MCDC_GEN {
 	
 	var notCount = 0
@@ -760,7 +770,7 @@ class MCDC_GEN {
 	/**
 	 * 
 	 */
-	def mcdcCoverageVerdict(List<Triplet < List<Couple<String,String>>, List<String>, String > > actualCoverage, List< Triplet< List<String>, List<String>, String >> ExpectedCoverage, List< List< Triplet< List<Couple<String,String>>, List<String>, String > > > listOfList){
+	def mcdcCoverageVerdict(List<Triplet < List<Couple<String,String>>, List<String>, String > > actualCoverage, List< Triplet< List<String>, List<String>, String >> ExpectedCoverage, List<EXPRESSION> condList, List< List< Triplet< List<Couple<String,String>>, List<String>, String > > > listOfList){
 		
 		//Transform actualCoverage List in the List< Couple< List<String>, List<String> >> format
 		val listOfActualValAndVar = new ArrayList< Triplet< List<String>, List<String>, String >>
@@ -901,14 +911,14 @@ class MCDC_GEN {
 	 	System.out.println
 	 	
 	 	//adding missing values process
-		addMissingValues(notCoveredValues, listOfList)
+		addMissingValues(condList, notCoveredValues, listOfList)
 		
 	}
 	
 	/**
 	 * 
 	 */
-	def addMissingValues(List<Triplet<List<String>,List<String>,String>> notCoveredValues, List<List<Triplet<List<Couple<String,String>>,List<String>,String>>> listOfList) {
+	def addMissingValues(List<EXPRESSION> condList, List<Triplet<List<String>,List<String>,String>> notCoveredValues, List<List<Triplet<List<Couple<String,String>>,List<String>,String>>> listOfList) {
 		
 		for (e: notCoveredValues){
 			
@@ -966,6 +976,7 @@ class MCDC_GEN {
 						} while( (cpt=cpt+1) < size)
 						
 						//call solve equation here
+						solveEquation(condList, list)
 						
 						System.out.println("To be tested")
 						System.out.println("Index Of target: "+ indexOfTarget.toString)
@@ -990,15 +1001,16 @@ class MCDC_GEN {
 	 def solveEquation(List<EXPRESSION> condList, List<Triplet<Couple<String, String>, List<String>, String>> listOfEquations){
 	 	
 	 	val List< Couple<String,String> > listOfVarAndVal = new ArrayList<Couple<String,String> >
-	 	val List < Couple<EXPRESSION, String> > listOfCondAndResults = new ArrayList<Couple<EXPRESSION, String> >
+	 	val List < Triplet<EXPRESSION, String, Integer> > listOfCondAndResults = new ArrayList<Triplet<EXPRESSION, String, Integer> >
 	 	
 	 	for(t:listOfEquations){
 	 		val couple = t.first
+	 		val sizeOfVarInCond = t.second.size
 	 		val values = couple.first
 	 		val variables= t.second
 	 		val indexInteger = Integer.parseInt(t.third)
 	 		
-	 		listOfCondAndResults.add( new Couple( condList.get(indexInteger), couple.second) )
+	 		listOfCondAndResults.add( new Triplet( condList.get(indexInteger), couple.second, sizeOfVarInCond) )
 	 	
 	 		var size = variables.size
 	 		
@@ -1017,7 +1029,7 @@ class MCDC_GEN {
 	 		//call new choco method to create variables from listOfVarAndVal
 	 	}//for
 	 	
-	 	chocoRepr(listOfVarAndVal, listOfCondAndResults)
+	 	solveWithChoco(listOfVarAndVal, listOfCondAndResults)
 	 }
 	
 	/**
@@ -1033,69 +1045,104 @@ class MCDC_GEN {
 	 	return false
 	 }
 	 
+	
 	/**
 	 * 
 	 */
-	def chocoRepr(List<Couple<String,String>> variables, List<Couple<EXPRESSION,String>> condAndRes) {
+	def solveWithChoco(List<Couple<String,String>> variables, List<Triplet<EXPRESSION,String, Integer>> condAndRes) {
 		
-		'''
-			//Choco model
-			CPModel model = new CPModel();
-			
-			//Create variables and add them in the model	
-			«FOR v : variables» 
-				
-				«IF v.second == "*"»
-					IntegerVariable «v.first» = Choco.makeIntVar("«v.first»", 0, 1);
-					model.addVariable(«v.first»); 
-				«ENDIF»
-				
-				«IF v.second == "F"»
-					IntegerVariable «v.first» = Choco.makeIntVar("«v.first»", 0, 0); 
-					model.addVariable(«v.first»); 
-				«ENDIF»
-				
-				«IF v.second == "T"»
-					IntegerVariable «v.first» = Choco.makeIntVar("«v.first»", 1, 1); 
-					model.addVariable(«v.first»); 
-				«ENDIF»
-			
-			«ENDFOR»
-			
-			//Expressions and constraints
-			«FOR c : condAndRes»
-			
-				IntegerExpressionVariable «"exp" + condAndRes.indexOf(c)» = «c.first.chocoStringReprOfCondition» ;
-				«IF c.second == "F"»
-					Constraint «"ctr" + condAndRes.indexOf(c)» = Choco.eq(«"exp" + condAndRes.indexOf(c)», 0); 
-				«ENDIF»
-				
-				«IF c.second == "T"»
-					Constraint «"ctr" + condAndRes.indexOf(c)» = Choco.geq(«"exp" + condAndRes.indexOf(c)», 1);
-					Constraint «("ctr" + condAndRes.indexOf(c) + "_")» = Choco.leq(«"exp" + condAndRes.indexOf(c)», «c.first»);
-				«ENDIF»
-				
-			«ENDFOR»
-			
-			//Constraints
-		'''
+		val chocoModel = new ProblemChoco()
+		
+		val integerVarList = new ArrayList<IntegerVariable>
+		
+		//create variables
+		for(v: variables){
+			val value = v.second
+			if(value == "*"){
+				integerVarList.add(chocoModel.makeIntVar(v.first, 0, 1 ) as IntegerVariable)
+			}
+			else{
+				if(value == "T"){
+				 integerVarList.add(chocoModel.makeIntVar(v.first, 1, 1 ) as IntegerVariable)
+				}
+				else{
+					if(value == "F"){
+				 		integerVarList.add(chocoModel.makeIntVar(v.first, 0, 0 ) as IntegerVariable)
+					}
+				}
+			}
+		}//for variables
+		
+		val integerExpList = new ArrayList<Triplet<IntegerExpressionVariable, String, Integer>>
+		
+		for (c: condAndRes){
+			integerExpList.add( new Triplet((chocoIntegerExpression(c.first, chocoModel, integerVarList) as IntegerExpressionVariable) , c.second, c.third) )
+		}//for condAndRes
+		
+		
+		for(t: integerExpList){
+			if(t.second == "F"){
+				val ctr = chocoModel.eq(t.first, 0)
+				chocoModel.addConstraint(ctr)
+			}
+			else{
+				if(t.second == "T"){
+					//In case of a true value of an expression
+					//The constrains must be >=1 and <= 1*(Nb of variables involved in expression) 
+					val ctr1 = chocoModel.geq(t.first, 1)
+					val ctr2 = chocoModel.leq(t.first, t.third)
+					
+					chocoModel.addConstraint(ctr1)
+					chocoModel.addConstraint(ctr2)
+		
+				}
+				else{
+					throw new Exception("Wrong value")
+				}
+			}
+		}//for integerExpList
+		
+		val solve = chocoModel.solve
+		
+		if(solve){
+			for(iv: integerVarList){
+				System.out.println( iv.getName() + ": "+ chocoModel.getIntValue(iv));
+			}
+		}
+		else{
+			System.out.println("Infeasible")
+		}
+		
 	}
+	
 	 
-	 
-	 /**
+	/**
 	 * 
 	 */
-	 def private String chocoStringReprOfCondition(EXPRESSION exp){
+	 def private Object chocoIntegerExpression(EXPRESSION exp, ProblemChoco pb, List<IntegerVariable> list ){
  		switch(exp){
- 			OR:''' Choco.plus( « exp.left.chocoStringReprOfCondition »,  « exp.right.chocoStringReprOfCondition ») '''
- 			AND: ''' Choco.mult( « exp.left.chocoStringReprOfCondition »,  « exp.right.chocoStringReprOfCondition ») '''
- 			NOT:''' Choco.minus( 1 ,  « exp.chocoStringReprOfCondition ») '''
- 			COMPARISON:''' « exp.left.relBoolRepr » + « exp.op » + « exp.right.relBoolRepr » '''
- 			EQUAL_DIFF: ''' « exp.left.relBoolRepr » + « exp.op » + « exp.right.relBoolRepr » '''
- 			VarExpRef:''' « exp.vref.name » '''
- 			default:''' '''
+ 			OR: pb.plus(exp.left.chocoIntegerExpression(pb,list), exp.right.chocoIntegerExpression(pb,list))
+ 			AND: pb.mult(exp.left.chocoIntegerExpression(pb,list), exp.right.chocoIntegerExpression(pb,list))
+ 			NOT: pb.minus(1, exp.chocoIntegerExpression(pb,list))
+ 			COMPARISON:getIntegerVar(list, relBoolRepr(exp.left) + exp.op + relBoolRepr(exp.right))
+ 			EQUAL_DIFF: getIntegerVar(list, relBoolRepr(exp.left) + exp.op + relBoolRepr(exp.right))
+ 			VarExpRef: getIntegerVar(list, exp.vref.name)
+ 			//default:
  		}
 	 }
+	 
+	 /**
+	  * 
+	  */
+	 def IntegerVariable getIntegerVar(List<IntegerVariable> list, String str){
+	 	for(e: list){
+	 		if(e.name == str){
+	 			return e
+	 		}
+	 	}
+	 	throw new Exception("Error choco")
+	 }
+	
 	
 	/**
 	 * 

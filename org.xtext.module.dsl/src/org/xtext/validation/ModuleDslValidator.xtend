@@ -836,7 +836,7 @@ public static val INVALID_INPUT = 'invalidInput'
 	 }
 	 
 	 
-	 mcdc2.mcdcCoverageVerdict(resfinal,shouldBeCov,resultat)
+	 mcdc2.mcdcCoverageVerdict(resfinal,shouldBeCov,condList,resultat)
 	 //	mcdc.mcdcList(inst.ifcond, result)
 	 	
 	 }//method
